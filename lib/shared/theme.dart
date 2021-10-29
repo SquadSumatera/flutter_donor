@@ -13,12 +13,21 @@ Color cDarkGrey = const Color(0xFF424242);
 Color cBlack = const Color(0xFF000000);
 
 // Noted fonts
-String poppins = "OpenSans";
+String fontFamily = "OpenSans";
 
 // Noted Global TextStyle
-TextStyle tRed = TextStyle(color: cRed, fontFamily: poppins);
-TextStyle tGrey = TextStyle(color: cGrey, fontFamily: poppins);
-TextStyle tDarkGrey = TextStyle(color: cDarkGrey, fontFamily: poppins);
+TextStyle tRed = TextStyle(
+  color: cRed,
+  fontFamily: fontFamily,
+);
+TextStyle tGrey = TextStyle(
+  color: cGrey,
+  fontFamily: fontFamily,
+);
+TextStyle tDarkGrey = TextStyle(
+  color: cDarkGrey,
+  fontFamily: fontFamily,
+);
 
 // Noted GlobalFontWeight
 FontWeight light = FontWeight.w300;
