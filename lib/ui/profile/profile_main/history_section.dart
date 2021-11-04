@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../shared/theme.dart';
+import '../../../shared/theme.dart';
 
 class HistorySection extends StatefulWidget {
   const HistorySection({Key? key}) : super(key: key);
