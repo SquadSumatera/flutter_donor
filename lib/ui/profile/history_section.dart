@@ -11,51 +11,77 @@ class HistorySection extends StatefulWidget {
 class _HistorySectionState extends State<HistorySection> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(15),
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-          color: AppColor.cultured,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: AppShadow.medium),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'Sampai saat ini, telah mendapatkan 0 poin donor.',
-            style: AppText.textSmall.copyWith(
-              color: AppColor.imperialRed,
-              fontWeight: AppText.bold,
-            ),
-          ),
-          const SizedBox(height: 20),
-          Row(
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          margin: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+              color: AppColor.cultured,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: AppShadow.medium),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const <Widget>[
-                  HistoryAsButton(
-                    label: 'Sebagai pemohon',
-                    icon: Icons.find_replace,
-                    active: true,
+              Text(
+                'Sampai saat ini, telah mendapatkan 0 poin donor.',
+                style: AppText.textSmall.copyWith(
+                  color: AppColor.imperialRed,
+                  fontWeight: AppText.bold,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const <Widget>[
+                      HistoryAsButton(
+                        label: 'Sebagai pemohon',
+                        icon: Icons.find_replace,
+                        active: true,
+                      ),
+                      SizedBox(height: 25),
+                      HistoryAsButton(
+                        label: 'Sebagai Pendonor',
+                        icon: Icons.volunteer_activism_outlined,
+                        active: false,
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 25),
-                  HistoryAsButton(
-                    label: 'Sebagai Pendonor',
-                    icon: Icons.volunteer_activism_outlined,
-                    active: false,
+                  const SizedBox(width: 13),
+                  const Expanded(
+                    child: HistoryListContainer(),
                   ),
                 ],
               ),
-              const SizedBox(width: 13),
-              Expanded(
-                child: HistoryListContainer(),
-              ),
             ],
           ),
-        ],
-      ),
+        ),
+        Positioned(
+          top: -5,
+          right: 5,
+          child: Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              color: AppColor.imperialRed,
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: Center(
+              child: Text(
+                'B+',
+                style: AppText.textMedium.copyWith(
+                  color: AppColor.white,
+                  fontWeight: AppText.bold,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -94,7 +120,13 @@ class HistoryListContainer extends StatelessWidget {
             title: "Memohon Golongan Darah Tipe A+",
             statusText: "Menunggu Persetujuan",
             dateText: "29/10/2021",
-            color: AppColor.imperialRed,
+            color: AppColor.bloodRed,
+          ),
+          HistoryTileItem(
+            title: "Memohon Golongan Darah Tipe A+",
+            statusText: "Menunggu Persetujuan",
+            dateText: "29/10/2021",
+            color: AppColor.rubyRed,
           ),
         ],
       ),
@@ -126,7 +158,7 @@ class HistoryTileItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Text(
             title,
@@ -136,8 +168,8 @@ class HistoryTileItem extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
             children: <Widget>[
               Text(
                 dateText,
