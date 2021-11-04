@@ -11,7 +11,10 @@ class ProfileIdentitySection extends StatelessWidget {
         horizontal: 16.0,
         vertical: 20,
       ),
-      color: AppColor.cultured,
+      decoration: BoxDecoration(
+        color: AppColor.cultured,
+        boxShadow: AppShadow.medium,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
