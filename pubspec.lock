@@ -86,7 +86,7 @@ packages:
     source: hosted
     version: "6.1.2"
   file_picker:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: file_picker
       url: "https://pub.dartlang.org"
@@ -112,7 +112,7 @@ packages:
     source: hosted
     version: "2.0.4"
   flutter_svg:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_svg
       url: "https://pub.dartlang.org"
@@ -129,7 +129,7 @@ packages:
     source: sdk
     version: "0.0.0"
   get:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: get
       url: "https://pub.dartlang.org"
@@ -150,7 +150,7 @@ packages:
     source: hosted
     version: "1.0.1"
   lottie:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: lottie
       url: "https://pub.dartlang.org"
@@ -241,7 +241,7 @@ packages:
     source: hosted
     version: "4.2.4"
   shared_preferences:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"
@@ -283,7 +283,7 @@ packages:
     source: hosted
     version: "2.0.2"
   shimmer:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: shimmer
       url: "https://pub.dartlang.org"
