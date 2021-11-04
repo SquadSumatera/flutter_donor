@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/ui/profile/profile_page.dart';
 import 'package:get/get.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
-  static const initial = Routes.home;
+  static const initial = Routes.profile;
   static final routes = [
     GetPage(
       name: Routes.home,
@@ -16,7 +17,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.profile,
-      page: () => const Scaffold(),
+      page: () => const ProfilePage(),
     ),
   ];
 }
