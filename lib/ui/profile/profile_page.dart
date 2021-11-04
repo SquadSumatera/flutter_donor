@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/ui/profile/history_section.dart';
-import 'package:flutter_donor/ui/profile/profile_identity_section.dart';
+import 'package:flutter_donor/ui/profile/profile_settings_section.dart';
+import 'history_section.dart';
+import 'profile_identity_section.dart';
 import 'profile_header.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -15,6 +16,9 @@ class ProfilePage extends StatelessWidget {
           HistorySection(),
           SizedBox(height: 35),
           ProfileIdentitySection(),
+          SizedBox(height: 50),
+          ProfileSettingsSection(),
+          SizedBox(height: 50),
         ],
       ),
     );
