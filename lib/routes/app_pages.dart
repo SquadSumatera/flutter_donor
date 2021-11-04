@@ -43,6 +43,12 @@ class AppPages {
     GetPage(
       name: Routes.profile,
       page: () => const ProfilePage(),
+      children: [
+        GetPage(
+          name: Routes.profileEditIdentity,
+          page: () => const ProfileEditIdentityPage(),
+        ),
+      ],
     ),
     GetPage(
       name: Routes.location,
