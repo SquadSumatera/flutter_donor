@@ -15,36 +15,6 @@ class ProfileHeader extends StatelessWidget {
   }
 }
 
-class ProfileNameHeader extends StatelessWidget {
-  const ProfileNameHeader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 6.0,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Muhammad Diky Jaka',
-            style: AppText.textMedium.copyWith(
-              fontWeight: AppText.bold,
-            ),
-          ),
-          Text(
-            'Bergabung sejak 10 Juni 2021',
-            style: AppText.textMedium.copyWith(
-              fontWeight: AppText.normal,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class ProfilePhotoHeader extends StatelessWidget {
   const ProfilePhotoHeader({Key? key}) : super(key: key);
 
@@ -99,3 +69,35 @@ class ProfilePhotoHeader extends StatelessWidget {
     );
   }
 }
+
+class ProfileNameHeader extends StatelessWidget {
+  const ProfileNameHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        vertical: 6.0,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Muhammad Diky Jaka',
+            style: AppText.textMedium.copyWith(
+              fontWeight: AppText.bold,
+            ),
+          ),
+          Text(
+            'Bergabung sejak 10 Juni 2021',
+            style: AppText.textMedium.copyWith(
+              fontWeight: AppText.normal,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
