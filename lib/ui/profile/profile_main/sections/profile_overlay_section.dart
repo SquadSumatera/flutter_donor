@@ -11,6 +11,7 @@ OverlayEntry profileOverlaySection({
   entry = OverlayEntry(
     builder: (context) {
       return Stack(
+        alignment: Alignment.center,
         children: <Widget>[
           Positioned.fill(
             child: GestureDetector(
@@ -22,23 +23,19 @@ OverlayEntry profileOverlaySection({
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.center,
-            child: Container(
-              constraints: BoxConstraints(
-                maxWidth: Get.width * 0.9,
-                maxHeight: Get.height * 0.75,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              clipBehavior: Clip.hardEdge,
-              child: Scaffold(
-                resizeToAvoidBottomInset: false,
-                extendBody: true,
-                backgroundColor: Colors.transparent,
-                body: child,
-              ),
+          Container(
+            constraints: BoxConstraints(
+              maxWidth: Get.width * 0.9,
+              maxHeight: Get.height * 0.75,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            clipBehavior: Clip.hardEdge,
+            child: Material(
+              color: Colors.transparent,
+              child: child,
             ),
           ),
         ],
