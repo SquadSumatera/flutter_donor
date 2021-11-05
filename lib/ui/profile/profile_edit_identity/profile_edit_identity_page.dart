@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../profile_main/profile_header.dart';
 import '../../../shared/theme.dart';
 
@@ -31,7 +32,30 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
       body: ListView(
         children: <Widget>[
           const ProfileHeader(),
-          const SizedBox(height: 32),
+          const SizedBox(height: 27),
+          TextButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: Row(
+              children: <Widget>[
+                const Icon(
+                  Icons.arrow_back,
+                  size: 24,
+                  color: AppColor.imperialRed,
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  "Kembali",
+                  style: AppText.textMedium.copyWith(
+                    color: AppColor.imperialRed,
+                    fontWeight: AppText.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 27),
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -189,7 +213,6 @@ class _IdentityChoiceSectionState extends State<IdentityChoiceSection> {
         ),
         const SizedBox(height: 10),
         Wrap(
-          alignment: WrapAlignment.spaceAround,
           runSpacing: 10,
           children: _buildChoices(),
         ),
