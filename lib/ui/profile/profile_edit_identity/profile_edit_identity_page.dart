@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/profile_overlay_controller.dart';
+import 'package:flutter_donor/ui/profile/overlay/profile_overlay_section.dart';
+import 'package:flutter_donor/ui/profile/profile_edit_identity/sections/confirm_change_identiry.dart';
 import 'package:get/get.dart';
 import '../profile_main/widgets/profile_header.dart';
 import '../../../shared/theme.dart';
@@ -26,7 +29,7 @@ class ProfileEditIdentityPage extends StatefulWidget {
 
 class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
   DummyPeople people = DummyPeople();
-
+  ProfileOverlayController c = Get.put(ProfileOverlayController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,7 +141,13 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Overlay.of(context)!.insert(
+                    profileOverlaySection(
+                      child: ConfirmChangeIdentity(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(
                     MediaQuery.of(context).size.width * 0.8,
@@ -168,4 +177,3 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
     );
   }
 }
-
