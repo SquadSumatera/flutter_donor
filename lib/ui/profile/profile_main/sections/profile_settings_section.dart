@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/ui/profile/profile_main/sections/change_contact_section.dart';
+import 'package:flutter_donor/ui/profile/profile_main/sections/profile_overlay_section.dart';
 import '../../../../shared/theme.dart';
 import '../widgets/settings_item_tile.dart';
 
@@ -15,7 +17,13 @@ class ProfileSettingsSection extends StatelessWidget {
           SettingsItemTile(
             label: 'Ubah Informasi Kontak',
             icon: Icons.perm_contact_calendar,
-            callback: () {},
+            callback: () {
+              Overlay.of(context)!.insert(
+                profileOverlaySection(
+                  child: const ChangeContactSection(),
+                ),
+              );
+            },
           ),
           SettingsItemTile(
             label: 'Ubah Password',
@@ -39,5 +47,3 @@ class ProfileSettingsSection extends StatelessWidget {
     );
   }
 }
-
-
