@@ -18,5 +18,13 @@ class AppPages {
       name: Routes.profile,
       page: () => const Scaffold(),
     ),
+    GetPage(
+      name: Routes.event,
+      page: () => const Scaffold(),
+    ),
+    GetPage(
+      name: Routes.event + "/:id?",
+      page: () => const Scaffold(),
+    )
   ];
 }
