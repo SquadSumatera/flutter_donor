@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../../../../get_x/controller/profile_overlay_controller.dart';
+import '../../../get_x/controller/profile_overlay_controller.dart';
 import 'package:get/get.dart';
 
 OverlayEntry profileOverlaySection({

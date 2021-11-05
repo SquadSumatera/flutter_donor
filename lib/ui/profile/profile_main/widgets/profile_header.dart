@@ -24,7 +24,7 @@ class ProfilePhotoHeader extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       children: [
         Container(
-          height: MediaQuery.of(context).size.height * 0.3,
+          height: MediaQuery.of(context).size.height * 0.25,
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/bitmap/header_bg.png'),
@@ -99,5 +99,3 @@ class ProfileNameHeader extends StatelessWidget {
     );
   }
 }
-
-

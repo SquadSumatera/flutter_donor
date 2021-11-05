@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'change_contact_section.dart';
-import 'profile_overlay_section.dart';
+import '../../overlay/profile_overlay_section.dart';
 import 'change_password_section.dart';
 import '../../../../shared/theme.dart';
 import '../widgets/settings_item_tile.dart';
