@@ -12,6 +12,15 @@ class AppColor {
   static const Color lightGrey = Color(0xFFD3D3D3);
   static const Color cultured = Color(0xFFF5F3F4);
   static const Color white = Color(0xFFFFFFFF);
+
+  // noted Ojo dibusak
+  static const Color ckBlue = Color(0xFF2B2E4A);
+  static const Color cRed = Color(0xFFE84545);
+  static const Color cPurple = Color(0xFF903749);
+  static const Color cGrey = Color(0xFFCFCFCF);
+  static const Color cLightGrey = Color(0XFFF2F2F2);
+  static const Color cOrange = Color(0XFFF37024);
+  static const Color cBlack = Color(0xFF000000);
 }
 
 class AppText {
