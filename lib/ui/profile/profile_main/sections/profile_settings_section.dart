@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/ui/profile/profile_main/sections/change_contact_section.dart';
-import 'package:flutter_donor/ui/profile/profile_main/sections/profile_overlay_section.dart';
+import 'change_contact_section.dart';
+import 'profile_overlay_section.dart';
+import 'change_password_section.dart';
 import '../../../../shared/theme.dart';
 import '../widgets/settings_item_tile.dart';
 
@@ -28,7 +29,13 @@ class ProfileSettingsSection extends StatelessWidget {
           SettingsItemTile(
             label: 'Ubah Password',
             icon: Icons.vpn_key,
-            callback: () {},
+            callback: () {
+              Overlay.of(context)!.insert(
+                profileOverlaySection(
+                  child: const ChangePasswordSection(),
+                ),
+              );
+            },
           ),
           SettingsItemTile(
             label: 'Frequently Asked Questions (FAQ)',
