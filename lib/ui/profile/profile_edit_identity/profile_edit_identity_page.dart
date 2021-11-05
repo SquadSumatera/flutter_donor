@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../profile_main/profile_header.dart';
+import '../profile_main/widgets/profile_header.dart';
 import '../../../shared/theme.dart';
+import 'sections/identity_choice_section.dart';
 
 // for dev purposes
 enum DummyPeopleGender {
@@ -168,89 +169,3 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
   }
 }
 
-class IdentityChoiceSection extends StatefulWidget {
-  const IdentityChoiceSection({
-    Key? key,
-    required this.title,
-    required this.onChanged,
-    required this.groupValue,
-    required this.choices,
-  }) : super(key: key);
-
-  final String title;
-  final Function onChanged;
-  final dynamic groupValue;
-  final Map<String, dynamic> choices;
-
-  @override
-  State<IdentityChoiceSection> createState() => _IdentityChoiceSectionState();
-}
-
-class _IdentityChoiceSectionState extends State<IdentityChoiceSection> {
-  List<Widget> _buildChoices() {
-    return widget.choices.keys.map((String choice) {
-      return GestureDetector(
-        onTap: () => widget.onChanged(widget.choices[choice]),
-        child: IdentityChoiceItem(
-          label: choice,
-          active: (widget.groupValue == widget.choices[choice]),
-        ),
-      );
-    }).toList();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          widget.title,
-          style: AppText.textNormal.copyWith(
-            color: AppColor.white,
-            fontWeight: AppText.bold,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Wrap(
-          runSpacing: 10,
-          children: _buildChoices(),
-        ),
-      ],
-    );
-  }
-}
-
-class IdentityChoiceItem extends StatelessWidget {
-  const IdentityChoiceItem({
-    Key? key,
-    required this.label,
-    required this.active,
-  }) : super(key: key);
-
-  final String label;
-  final bool active;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 10),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 30,
-        vertical: 7,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: (active) ? AppColor.imperialRed : AppColor.white,
-        boxShadow: AppShadow.medium,
-      ),
-      child: Text(
-        label,
-        style: AppText.textNormal.copyWith(
-          color: (active) ? AppColor.white : AppColor.imperialRed,
-          fontWeight: AppText.bold,
-        ),
-      ),
-    );
-  }
-}
