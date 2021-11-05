@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/routes/app_pages.dart';
-import 'package:flutter_donor/shared/theme.dart';
 import 'package:get/get.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../../shared/theme.dart';
+import '../widgets/profile_identity_item.dart';
 
 class ProfileIdentitySection extends StatelessWidget {
   const ProfileIdentitySection({Key? key}) : super(key: key);
@@ -77,53 +78,6 @@ class ProfileIdentitySection extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class ProfileIdentityItem extends StatelessWidget {
-  const ProfileIdentityItem({
-    Key? key,
-    required this.title,
-    required this.value,
-  }) : super(key: key);
-
-  final String title;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          title,
-          style: AppText.textNormal.copyWith(
-            color: AppColor.imperialRed,
-            fontWeight: AppText.bold,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 33,
-            vertical: 7,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: AppColor.imperialRed,
-          ),
-          child: Center(
-            child: Text(
-              value,
-              style: AppText.textNormal.copyWith(
-                color: AppColor.white,
-                fontWeight: AppText.bold,
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
