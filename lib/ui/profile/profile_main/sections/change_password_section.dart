@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../widgets/base_text_field.dart';
 import '../../../../get_x/controller/profile_overlay_controller.dart';
+import '../widgets/base_text_field.dart';
 import '../../../../shared/theme.dart';
 
-class ChangeContactSection extends StatefulWidget {
-  const ChangeContactSection({Key? key}) : super(key: key);
+class ChangePasswordSection extends StatefulWidget {
+  const ChangePasswordSection({Key? key}) : super(key: key);
 
   @override
-  _ChangeContactSectionState createState() => _ChangeContactSectionState();
+  _ChangePasswordSectionState createState() => _ChangePasswordSectionState();
 }
 
-class _ChangeContactSectionState extends State<ChangeContactSection> {
+class _ChangePasswordSectionState extends State<ChangePasswordSection> {
   ProfileOverlayController c = Get.find();
 
   @override
@@ -25,6 +25,7 @@ class _ChangeContactSectionState extends State<ChangeContactSection> {
         color: AppColor.white,
       ),
       child: ListView(
+        shrinkWrap: true,
         children: <Widget>[
           Align(
             alignment: Alignment.topRight,
@@ -36,29 +37,30 @@ class _ChangeContactSectionState extends State<ChangeContactSection> {
           ),
           const SizedBox(height: 10),
           Text(
-            "Ubah Informasi Kontak",
+            "Ubah Password",
             style: AppText.textMedium.copyWith(
               fontWeight: AppText.bold,
             ),
           ),
           const SizedBox(height: 18),
           BaseTextField(
-            label: "Email",
-            placeholderText: "Masukkan email...",
+            label: "Password Saat Ini",
+            placeholderText: "Masukkan password saat ini...",
+            obscureText: true,
             callback: (val) {},
           ),
           const SizedBox(height: 12),
           BaseTextField(
-            label: "No Handphone",
-            placeholderText: "Masukkan No HP...",
-            numberOnly: true,
+            label: "Password Baru",
+            placeholderText: "Masukkan password baru...",
+            obscureText: true,
             callback: (val) {},
           ),
           const SizedBox(height: 12),
           BaseTextField(
-            label: "Alamat",
-            placeholderText: "Masukkan Alamat Lengkap Sesuai KTP...",
-            isTextarea: true,
+            label: "Konfirmasi Password Baru",
+            placeholderText: "Masukkan kembali password baru...",
+            obscureText: true,
             callback: (val) {},
           ),
           const SizedBox(height: 12),
@@ -85,6 +87,7 @@ class _ChangeContactSectionState extends State<ChangeContactSection> {
               ),
             ),
           ),
+          const SizedBox(height: 28),
         ],
       ),
     );

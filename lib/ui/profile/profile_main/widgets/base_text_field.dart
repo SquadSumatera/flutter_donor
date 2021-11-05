@@ -35,7 +35,7 @@ class BaseTextField extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         TextFormField(
-          maxLines: isTextarea ? 8 : null,
+          maxLines: isTextarea ? 8 : 1,
           initialValue: initialValue,
           inputFormatters: numberOnly
               ? [
