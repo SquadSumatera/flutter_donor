@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
+import 'package:get/get.dart';
 
 class ProfileIdentitySection extends StatelessWidget {
   const ProfileIdentitySection({Key? key}) : super(key: key);
@@ -46,7 +48,11 @@ class ProfileIdentitySection extends StatelessWidget {
           const SizedBox(height: 32),
           Center(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                await Get.toNamed(
+                  "${Routes.profile}/${Routes.profileEditIdentity}",
+                );
+              },
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(
                   MediaQuery.of(context).size.width * 0.8,

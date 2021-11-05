@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static const initial = "${Routes.profile}/${Routes.profileEditIdentity}";
+  static const initial = Routes.profile;
   static final routes = [
     GetPage(
       name: Routes.home,
