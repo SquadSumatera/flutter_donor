@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/ui/event/event_page.dart';
 import 'package:get/get.dart';
 
 part 'app_routes.dart';
@@ -8,7 +9,7 @@ class AppPages {
   static final routes = [
     GetPage(
       name: Routes.home,
-      page: () => const Scaffold(),
+      page: () => const EventPage(),
     ),
     GetPage(
       name: Routes.login,

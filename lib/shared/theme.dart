@@ -51,6 +51,10 @@ class AppText {
     fontFamily: fontFamily,
     fontSize: 15,
   );
+  static const TextStyle textSemiLarge = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 18,
+  );
   static const TextStyle textLarge = TextStyle(
     fontFamily: fontFamily,
     fontSize: 24,
