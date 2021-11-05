@@ -19,18 +19,16 @@ class _ChangeContactSectionState extends State<ChangeContactSection> {
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 18,
-        vertical: 2,
+        vertical: 28,
       ),
       decoration: const BoxDecoration(
         color: AppColor.white,
       ),
       child: ListView(
-        shrinkWrap: true,
         children: <Widget>[
           Align(
-            alignment: Alignment.topRight,
+            alignment: Alignment.centerRight,
             child: IconButton(
-              padding: EdgeInsets.zero,
               icon: const Icon(Icons.close),
               onPressed: () => c.removeOverlay(),
             ),
