@@ -54,7 +54,7 @@ class SettingsItemTile extends StatelessWidget {
             ),
           ],
         ),
-        onPressed: () {},
+        onPressed: callback,
       ),
     );
   }
