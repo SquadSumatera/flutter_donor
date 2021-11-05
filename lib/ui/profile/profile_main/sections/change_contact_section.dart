@@ -25,6 +25,7 @@ class _ChangeContactSectionState extends State<ChangeContactSection> {
         color: AppColor.white,
       ),
       child: ListView(
+        shrinkWrap: true,
         children: <Widget>[
           Align(
             alignment: Alignment.topRight,
