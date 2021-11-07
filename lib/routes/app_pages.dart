@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/ui/location/location_detail_page.dart';
 import 'package:flutter_donor/ui/location/location_page.dart';
 import 'package:get/get.dart';
 
@@ -22,6 +23,10 @@ class AppPages {
     GetPage(
       name: Routes.location,
       page: () => const LocationPage(),
+    ),
+    GetPage(
+      name: Routes.locationDetail,
+      page: () => const LocationDetailPage(),
     ),
   ];
 }
