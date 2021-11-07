@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/ui/splashscreen/splash_screen_page.dart';
 import 'package:get/get.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
-  static const initial = Routes.home;
+  static const initial = Routes.splash;
   static final routes = [
+    GetPage(
+      name: Routes.splash,
+      page: () => const SplashScreenPage(),
+    ),
     GetPage(
       name: Routes.home,
       page: () => const Scaffold(),
