@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/ui/event/event_page.dart';
+import 'package:flutter_donor/ui/login/login_page.dart';
 import 'package:get/get.dart';
 
 part 'app_routes.dart';
@@ -13,7 +14,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.login,
-      page: () => const Scaffold(),
+      page: () => const LoginPage(),
     ),
     GetPage(
       name: Routes.profile,
