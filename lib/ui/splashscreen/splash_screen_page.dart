@@ -1,7 +1,11 @@
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({Key? key}) : super(key: key);
@@ -11,8 +15,8 @@ class SplashScreenPage extends StatefulWidget {
 }
 
 class _SplashScreenPageState extends State<SplashScreenPage> {
-  // @override
-  // void initState() => startSplashScreen();
+  @override
+  void initState() => startSplashScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +55,10 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
     );
   }
 
-  // startSplashScreen() {
-  //   var duration = const Duration(seconds: 3);
-  //   return Timer(duration, () {
-  //     Navigator.pushReplacementNamed(context, AppPages);
-  //   });
-  // }
+  startSplashScreen() {
+    var duration = const Duration(seconds: 3);
+    return Timer(duration, () {
+      Get.offNamed(Routes.login);
+    });
+  }
 }
