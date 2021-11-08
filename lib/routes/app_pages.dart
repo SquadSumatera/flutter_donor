@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/ui/event/event_page.dart';
 import 'package:flutter_donor/ui/location/location_detail_page.dart';
 import 'package:flutter_donor/ui/location/location_page.dart';
 import 'package:flutter_donor/ui/location/location_search_page.dart';
 import 'package:flutter_donor/ui/location/show_maps_page.dart';
-import 'package:flutter_donor/ui/splashscreen/splash_screen_page.dart';
-import 'package:flutter_donor/ui/event/event_page.dart';
 import 'package:flutter_donor/ui/login/login_page.dart';
+import 'package:flutter_donor/ui/splashscreen/splash_screen_page.dart';
 import 'package:get/get.dart';
 
 part 'app_routes.dart';
@@ -45,8 +45,9 @@ class AppPages {
       name: Routes.locationDetail,
       page: () => const LocationDetailPage(),
     ),
+    GetPage(
       name: Routes.event,
-      page: () => const Scaffold(),
+      page: () => const EventPage(),
     ),
     GetPage(
       name: Routes.event + "/:id?",

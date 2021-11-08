@@ -20,18 +20,18 @@ class ListMapsWidget extends StatelessWidget {
           ),
           title: Text(
             'Kantor PMI Kota Kediri',
-            style: AppText.textMedium
-                .copyWith(fontWeight: AppText.normal, color: AppColor.ckBlue),
+            style: AppText.textMedium.copyWith(
+                fontWeight: AppText.normal, color: AppColor.cDarkBlue),
           ),
           subtitle: Text(
             'Jl. Doang Jadian Kagak',
-            style: AppText.textNormal
-                .copyWith(fontWeight: AppText.normal, color: AppColor.ckBlue),
+            style: AppText.textNormal.copyWith(
+                fontWeight: AppText.normal, color: AppColor.cDarkBlue),
           ),
           trailing: Text(
             '100 km',
-            style: AppText.textNormal
-                .copyWith(fontWeight: AppText.normal, color: AppColor.ckBlue),
+            style: AppText.textNormal.copyWith(
+                fontWeight: AppText.normal, color: AppColor.cDarkBlue),
           ),
           onTap: () {
             Get.toNamed(Routes.locationDetail);
@@ -40,7 +40,7 @@ class ListMapsWidget extends StatelessWidget {
         Container(
           width: double.maxFinite,
           height: 0.5,
-          color: AppColor.ckBlue,
+          color: AppColor.cDarkBlue,
         )
       ],
     );

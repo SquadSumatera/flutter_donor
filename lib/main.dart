@@ -7,7 +7,7 @@ import 'routes/app_pages.dart';
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: Colors.black, // navigation bar color
-      statusBarColor: Colors.white, // status bar
+      statusBarColor: Colors.transparent, // status bar
       statusBarIconBrightness: Brightness.dark // color
       ));
   runApp(const DorplasApp());

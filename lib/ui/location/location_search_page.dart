@@ -11,32 +11,31 @@ class LocationSearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: SvgPicture.asset(
-            'assets/vector/ic_back.svg',
-            width: 12,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: SvgPicture.asset(
+              'assets/vector/ic_back.svg',
+              width: 12,
+            ),
+            onPressed: () {
+              Get.back();
+            },
           ),
-          onPressed: () {
-            Get.back();
+          title: Text(
+            'Cari Lokasi',
+            style: AppText.textMedium.copyWith(fontWeight: AppText.semiBold),
+          ),
+          titleSpacing: 0,
+          backgroundColor: AppColor.cRed,
+          elevation: 0,
+        ),
+        body: ListView.builder(
+          itemCount: 25,
+          itemBuilder: (BuildContext context, int index) {
+            return ListMapsWidget(
+              index: index,
+            );
           },
-        ),
-        title: Text(
-          'Cari Lokasi',
-          style: AppText.textMedium.copyWith(fontWeight: AppText.semiBold),
-        ),
-        titleSpacing: 0,
-        backgroundColor: AppColor.cRed,
-        elevation: 0,
-      ),
-      body: ListView.builder(
-        itemCount: 25,
-        itemBuilder: (BuildContext context, int index) {
-          return ListMapsWidget(
-            index: index,
-          );
-        },
-      )
-    );
+        ));
   }
 }

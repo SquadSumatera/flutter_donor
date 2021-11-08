@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -58,7 +57,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   startSplashScreen() {
     var duration = const Duration(seconds: 3);
     return Timer(duration, () {
-      Get.offNamed(Routes.login);
+      Get.offNamed(Routes.splash);
     });
   }
 }
