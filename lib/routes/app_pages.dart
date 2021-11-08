@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/ui/location/location_detail_page.dart';
 import 'package:flutter_donor/ui/location/location_page.dart';
+import 'package:flutter_donor/ui/location/location_search_page.dart';
 import 'package:flutter_donor/ui/location/show_maps_page.dart';
 import 'package:get/get.dart';
 
@@ -28,6 +29,10 @@ class AppPages {
     GetPage(
       name: Routes.showMaps,
       page: () => const ShowMapsPage(),
+    ),
+    GetPage(
+      name: Routes.locationSearch,
+      page: () => const LocationSearchPage(),
     ),
     GetPage(
       name: Routes.locationDetail,
