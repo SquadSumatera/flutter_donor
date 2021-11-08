@@ -8,6 +8,3 @@ class EventDetail {
   final String desc;
   String image;
 }
-
-List data = List<EventDetail>.generate(
-    10, (i) => EventDetail(name: "Hallo", desc: "oakwoakwokawok"));
