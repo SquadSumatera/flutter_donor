@@ -13,8 +13,8 @@ class EventCardWidgetLarge extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: AppColor.cBlack.withOpacity(0.2),
-            blurRadius: 6.0,
+            color: AppColor.cBlack.withOpacity(0.18),
+            blurRadius: 8.0,
             offset: const Offset(0, 4),
           )
         ],
