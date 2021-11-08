@@ -4,9 +4,9 @@ import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class ListMapsWidget extends StatelessWidget {
+class LocationListWidget extends StatelessWidget {
   final int index;
-  const ListMapsWidget({Key? key, required this.index}) : super(key: key);
+  const LocationListWidget({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import 'list_maps_widget.dart';
+import 'location_list_widget.dart';
 
 class LocationSearchPage extends StatelessWidget {
   const LocationSearchPage({Key? key}) : super(key: key);
@@ -32,7 +32,7 @@ class LocationSearchPage extends StatelessWidget {
         body: ListView.builder(
           itemCount: 25,
           itemBuilder: (BuildContext context, int index) {
-            return ListMapsWidget(
+            return LocationListWidget(
               index: index,
             );
           },

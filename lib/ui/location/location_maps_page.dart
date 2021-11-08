@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
-import 'package:flutter_donor/ui/location/marker_widget.dart';
+import 'package:flutter_donor/ui/location/location_marker_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import 'list_maps_widget.dart';
+import 'location_list_widget.dart';
 
-class ShowMapsPage extends StatelessWidget {
-  const ShowMapsPage({Key? key}) : super(key: key);
+class LocationMapsPage extends StatelessWidget {
+  const LocationMapsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class ShowMapsPage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          const MarkerWidget(),
+          const LocationMarkerWidget(),
           DraggableScrollableSheet(
               initialChildSize: 0.25,
               builder: (_, scrollController) {
@@ -74,7 +74,7 @@ class ShowMapsPage extends StatelessWidget {
                       controller: scrollController,
                       itemCount: 25,
                       itemBuilder: (BuildContext context, int index) {
-                        return ListMapsWidget(
+                        return LocationListWidget(
                           index: index,
                         );
                       },
