@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_donor/get_x/state/register_getx.dart';
+import 'package:flutter_donor/get_x/state/register_goldar_getx.dart';
+import 'package:flutter_donor/shared/theme.dart';
 import 'package:get/get.dart';
 
 class RegisterWidget extends StatelessWidget {
@@ -78,6 +80,54 @@ class RegisterWidget extends StatelessWidget {
         maxLength: maxLength,
         validator: validator,
         onSaved: onSaved,
+      ),
+    );
+  }
+}
+
+class GolDarButton extends StatelessWidget {
+  GolDarButton({Key? key, required this.type, required this.i})
+      : super(key: key);
+  final String type;
+  final int i;
+  final RegisterGolDarGetX golDarGetX = Get.put(RegisterGolDarGetX());
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => ElevatedButton(
+        onPressed: () {
+          golDarGetX.changeNew(i);
+        },
+        style: golDarGetX.golDar[i]
+            ? ElevatedButton.styleFrom(
+                primary: AppColor.cDarkBlue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                minimumSize: const Size(137.0, 62),
+              )
+            : ElevatedButton.styleFrom(
+                primary: AppColor.cLightGrey,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                minimumSize: const Size(137.0, 62),
+              ),
+        child: Obx(
+          () => Text(
+            type,
+            textAlign: TextAlign.center,
+            style: golDarGetX.golDar[i]
+                ? AppText.textLarge.copyWith(
+                    color: AppColor.white,
+                    fontWeight: AppText.semiBold,
+                  )
+                : AppText.textLarge.copyWith(
+                    color: AppColor.cBlack,
+                    fontWeight: AppText.semiBold,
+                  ),
+          ),
+        ),
       ),
     );
   }

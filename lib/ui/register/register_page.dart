@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/state/register_getx.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
+import 'package:flutter_donor/ui/register/register_header.dart';
 import 'package:flutter_donor/ui/register/register_widget.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -22,22 +23,8 @@ class RegisterPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                margin: const EdgeInsets.only(top: 50, bottom: 8.0),
-                child: SvgPicture.asset(
-                  "assets/vector/ic_title.svg",
-                  width: 101.0,
-                  height: 38.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Text(
-                "Daftar",
-                style: AppText.textLarge.copyWith(
-                  fontWeight: AppText.semiBold,
-                  color: AppColor.cBlack,
-                ),
-              ),
+              headerLogo(),
+              namePage("Daftar"),
               const SizedBox(
                 height: 50.0,
               ),
@@ -155,6 +142,7 @@ class RegisterPage extends StatelessWidget {
                           return;
                         }
                         formKey.currentState!.save();
+                        Get.toNamed(Routes.register2);
                       },
                       child: const Text(
                         "Daftar",

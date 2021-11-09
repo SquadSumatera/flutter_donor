@@ -8,6 +8,7 @@ import 'package:flutter_donor/ui/login/login_page.dart';
 import 'package:flutter_donor/ui/register/register_page.dart';
 import 'package:flutter_donor/ui/splashscreen/splash_screen_page.dart';
 import 'package:get/get.dart';
+import 'package:flutter_donor/ui/register/register_2_page.dart';
 
 part 'app_routes.dart';
 
@@ -59,5 +60,9 @@ class AppPages {
       name: Routes.register,
       page: () => RegisterPage(),
     ),
+    GetPage(
+      name: Routes.register2,
+      page: () => RegisterPage2(),
+    )
   ];
 }
