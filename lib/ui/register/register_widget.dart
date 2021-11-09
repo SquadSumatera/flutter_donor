@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_donor/get_x/state/register_getx.dart';
+import 'package:get/get.dart';
 
 class RegisterWidget extends StatelessWidget {
   final String hintText;
@@ -8,11 +10,11 @@ class RegisterWidget extends StatelessWidget {
   final TextInputType inputType;
   final bool initial;
   final String initialText;
-
+  final bool needObscure;
   final ValueChanged<String?> onSaved;
   final FormFieldValidator<String>? validator;
 
-  const RegisterWidget({
+  RegisterWidget({
     Key? key,
     required this.hintText,
     required this.labelText,
@@ -20,6 +22,7 @@ class RegisterWidget extends StatelessWidget {
     this.inputType = TextInputType.text,
     this.initial = false,
     this.initialText = "",
+    required this.needObscure,
     required this.onSaved,
     this.validator,
   }) : super(key: key);
@@ -39,22 +42,43 @@ class RegisterWidget extends StatelessWidget {
     return _formatters;
   }
 
+  final RegisterController rControll = Get.find<RegisterController>();
+
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      initialValue: initial ? initialText : null,
-      keyboardType: inputType,
-      inputFormatters: _inputFormatters,
-      decoration: InputDecoration(
-        hintText: hintText,
-        labelText: labelText,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0),
+    return Obx(
+      () => TextFormField(
+        obscureText: rControll.dontChange.value
+            ? true
+            : needObscure
+                ? rControll.obscure.value
+                : false,
+        initialValue: initial ? initialText : null,
+        keyboardType: inputType,
+        inputFormatters: _inputFormatters,
+        decoration: InputDecoration(
+          hintText: hintText,
+          labelText: labelText,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          suffixIcon: needObscure
+              ? GestureDetector(
+                  onTap: () {
+                    rControll.changeObscure();
+                  },
+                  child: Obx(
+                    () => Icon(rControll.obscure.value
+                        ? Icons.visibility
+                        : Icons.visibility_off),
+                  ),
+                )
+              : null,
         ),
+        maxLength: maxLength,
+        validator: validator,
+        onSaved: onSaved,
       ),
-      maxLength: maxLength,
-      validator: validator,
-      onSaved: onSaved,
     );
   }
 }
