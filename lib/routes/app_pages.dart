@@ -63,11 +63,11 @@ class AppPages {
     ),
     GetPage(
       name: Routes.register2,
-      page: () => RegisterPage2(),
+      page: () => const RegisterPage2(),
     ),
     GetPage(
       name: Routes.register3,
-      page: () => const RegisterPage3(),
+      page: () => RegisterPage3(),
     )
   ];
 }

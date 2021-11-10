@@ -9,10 +9,7 @@ import 'package:get/get.dart';
 import 'register_header.dart';
 
 class RegisterPage2 extends StatelessWidget {
-  RegisterPage2({Key? key}) : super(key: key);
-
-  final RegisterGolDarGetX golDarGetXPage = Get.put(RegisterGolDarGetX());
-  final RegisterResusGetX resusGetXPage = Get.put(RegisterResusGetX());
+  const RegisterPage2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
