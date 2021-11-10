@@ -82,9 +82,6 @@ class RegisterPage extends StatelessWidget {
                                 rController.changeFirstPass(value!);
                                 if (value.isEmpty) {
                                   return 'Password is Required';
-                                } else if (value !=
-                                    rController.secondPass.value) {
-                                  return "Password not match";
                                 }
                                 return null;
                               },
@@ -103,8 +100,7 @@ class RegisterPage extends StatelessWidget {
                         validator: rController.dontChange.value
                             ? (String? value) {}
                             : (String? value) {
-                                rController.changeSecondPass(value!);
-                                if (value.isEmpty) {
+                                if (value!.isEmpty) {
                                   return 'Password is Required';
                                 } else if (value !=
                                     rController.firstPass.value) {
