@@ -9,6 +9,7 @@ import 'package:flutter_donor/ui/register/register_page.dart';
 import 'package:flutter_donor/ui/splashscreen/splash_screen_page.dart';
 import 'package:get/get.dart';
 import 'package:flutter_donor/ui/register/register_2_page.dart';
+import 'package:flutter_donor/ui/register/register_3_page.dart';
 
 part 'app_routes.dart';
 
@@ -63,6 +64,10 @@ class AppPages {
     GetPage(
       name: Routes.register2,
       page: () => RegisterPage2(),
+    ),
+    GetPage(
+      name: Routes.register3,
+      page: () => const RegisterPage3(),
     )
   ];
 }

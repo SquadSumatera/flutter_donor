@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_donor/get_x/state/register_getx.dart';
 import 'package:flutter_donor/get_x/state/register_goldar_getx.dart';
+import 'package:flutter_donor/get_x/state/register_resus_getx.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:get/get.dart';
 
@@ -90,13 +91,14 @@ class GolDarButton extends StatelessWidget {
       : super(key: key);
   final String type;
   final int i;
-  final RegisterGolDarGetX golDarGetX = Get.put(RegisterGolDarGetX());
+  final RegisterGolDarGetX golDarGetX = Get.find<RegisterGolDarGetX>();
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => ElevatedButton(
         onPressed: () {
-          golDarGetX.changeNew(i);
+          golDarGetX.changeGoldar(i);
+          golDarGetX.changeTypeGoldar(type);
         },
         style: golDarGetX.golDar[i]
             ? ElevatedButton.styleFrom(
@@ -118,6 +120,57 @@ class GolDarButton extends StatelessWidget {
             type,
             textAlign: TextAlign.center,
             style: golDarGetX.golDar[i]
+                ? AppText.textLarge.copyWith(
+                    color: AppColor.white,
+                    fontWeight: AppText.semiBold,
+                  )
+                : AppText.textLarge.copyWith(
+                    color: AppColor.cBlack,
+                    fontWeight: AppText.semiBold,
+                  ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ResusButton extends StatelessWidget {
+  ResusButton({Key? key, required this.type, required this.i})
+      : super(key: key);
+  final String type;
+  final int i;
+
+  final RegisterResusGetX resusGetX = Get.find<RegisterResusGetX>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => ElevatedButton(
+        onPressed: () {
+          resusGetX.changeResus(i);
+          resusGetX.changeTypeResus(type);
+        },
+        style: resusGetX.resus[i]
+            ? ElevatedButton.styleFrom(
+                primary: AppColor.cDarkBlue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                minimumSize: const Size(62.0, 62),
+              )
+            : ElevatedButton.styleFrom(
+                primary: AppColor.cLightGrey,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                minimumSize: const Size(62.0, 62),
+              ),
+        child: Obx(
+          () => Text(
+            type,
+            textAlign: TextAlign.center,
+            style: resusGetX.resus[i]
                 ? AppText.textLarge.copyWith(
                     color: AppColor.white,
                     fontWeight: AppText.semiBold,
