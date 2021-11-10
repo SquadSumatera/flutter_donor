@@ -13,7 +13,7 @@ class RegisterPage extends StatelessWidget {
   RegisterPage({Key? key}) : super(key: key);
 
   //late final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKeyRegsiter = GlobalKey<FormState>();
 
   final RegisterController rController = Get.put(RegisterController());
   final RegisterGolDarGetX golDarGetXPage = Get.put(RegisterGolDarGetX());
@@ -35,7 +35,7 @@ class RegisterPage extends StatelessWidget {
                 height: 50.0,
               ),
               Form(
-                key: formKey,
+                key: formKeyRegsiter,
                 child: Column(
                   children: [
                     RegisterWidget(
@@ -140,10 +140,10 @@ class RegisterPage extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        if (!formKey.currentState!.validate()) {
+                        if (!formKeyRegsiter.currentState!.validate()) {
                           return;
                         }
-                        formKey.currentState!.save();
+                        formKeyRegsiter.currentState!.save();
                         Get.toNamed(Routes.register2);
                       },
                       child: const Text(
@@ -166,7 +166,9 @@ class RegisterPage extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Get.back();
+                          },
                           child: Text(
                             " Login",
                             style: AppText.textMedium.copyWith(
