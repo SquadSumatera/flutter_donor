@@ -27,7 +27,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.login,
-      page: () => const LoginPage(),
+      page: () => LoginPage(),
     ),
     GetPage(
       name: Routes.profile,

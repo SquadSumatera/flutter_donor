@@ -122,7 +122,7 @@ class RegisterPage3 extends StatelessWidget {
                             ? () {}
                             : null,
                     child: const Text(
-                      "Lanjut",
+                      "Selesai",
                       textAlign: TextAlign.center,
                     ),
                   ),
