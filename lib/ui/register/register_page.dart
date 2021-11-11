@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/state/register_getx.dart';
-import 'package:flutter_donor/get_x/state/register_goldar_getx.dart';
+
 import 'package:flutter_donor/get_x/state/register_kontak_getx.dart';
-import 'package:flutter_donor/get_x/state/register_resus_getx.dart';
+
 import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_donor/ui/register/register_header.dart';
@@ -16,8 +16,8 @@ class RegisterPage extends StatelessWidget {
   final GlobalKey<FormState> formKeyRegsiter = GlobalKey<FormState>();
 
   final RegisterController rController = Get.put(RegisterController());
-  final RegisterGolDarGetX golDarGetXPage = Get.put(RegisterGolDarGetX());
-  final RegisterResusGetX resusGetXPage = Get.put(RegisterResusGetX());
+  // final RegisterGolDarGetX golDarGetXPage = Get.put(RegisterGolDarGetX());
+  // final RegisterResusGetX resusGetXPage = Get.put(RegisterResusGetX());
   final RegisterKontakGetX rKontakGetXPage = Get.put(RegisterKontakGetX());
 
   @override
@@ -144,10 +144,10 @@ class RegisterPage extends StatelessWidget {
                           return;
                         }
                         formKeyRegsiter.currentState!.save();
-                        Get.toNamed(Routes.register2);
+                        Get.toNamed(Routes.register3);
                       },
                       child: const Text(
-                        "Daftar",
+                        "Lanjut",
                         textAlign: TextAlign.center,
                       ),
                     ),
