@@ -95,13 +95,15 @@ class RegisterPage3 extends StatelessWidget {
                               fontWeight: AppText.semiBold,
                             ),
                           ),
-                          Text(
-                            "Ketentuan & Kebijakan Privasi",
-                            style: AppText.textMedium.copyWith(
-                              color: AppColor.cRed,
-                              fontWeight: AppText.semiBold,
+                          Expanded(
+                            child: Text(
+                              "Ketentuan & Kebijakan Privasi",
+                              style: AppText.textMedium.copyWith(
+                                color: AppColor.cRed,
+                                fontWeight: AppText.semiBold,
+                              ),
+                              softWrap: false,
                             ),
-                            softWrap: false,
                           ),
                         ],
                       ),
