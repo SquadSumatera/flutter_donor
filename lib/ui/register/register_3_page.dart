@@ -161,8 +161,7 @@ class RegisterPage3 extends StatelessWidget {
                                               contactDonators:
                                                   registerKontakGetXPage
                                                       .phone.value);
-                                  print("Status nihh" +
-                                      rRegister.status.toString());
+
                                   if (rRegister.status == 201) {
                                     registerKontakGetXPage.changeStatus();
                                     Get.snackbar(
@@ -182,11 +181,6 @@ class RegisterPage3 extends StatelessWidget {
                                           const Duration(milliseconds: 500),
                                     );
                                   }
-                                  //         LoginApiModel _loginClient =
-                                  //     await LoginClient.loginCheck(
-                                  //   email: email,
-                                  //   password: password,
-                                  // );
                                 }
                               : null,
                       child: registerKontakGetXPage.dontChange.value
