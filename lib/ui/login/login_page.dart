@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/state/login_getx.dart';
+import 'package:flutter_donor/models/login_model.dart';
 import 'package:flutter_donor/routes/app_pages.dart';
+import 'package:flutter_donor/services/login_services.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_donor/ui/login/login_widget.dart';
 import 'package:flutter_donor/ui/register/register_header.dart';
-import 'package:flutter_donor/ui/register/register_widget.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
@@ -76,33 +77,64 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(
                       height: 50.0,
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(
-                          MediaQuery.of(context).size.width - 50,
-                          38.0,
+                    Obx(
+                      () => ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(
+                            MediaQuery.of(context).size.width - 50,
+                            38.0,
+                          ),
+                          primary: AppColor.cRed,
+                          shadowColor: AppColor.cGrey,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          textStyle: AppText.textMedium.copyWith(
+                            fontSize: 14.0,
+                            color: AppColor.white,
+                            fontWeight: AppText.semiBold,
+                          ),
                         ),
-                        primary: AppColor.cRed,
-                        shadowColor: AppColor.cGrey,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        textStyle: AppText.textMedium.copyWith(
-                          fontSize: 14.0,
-                          color: AppColor.white,
-                          fontWeight: AppText.semiBold,
-                        ),
-                      ),
-                      onPressed: () {
-                        if (!formKeyLogin.currentState!.validate()) {
-                          return;
-                        }
-                        formKeyLogin.currentState!.save();
-                        Get.offAllNamed(Routes.home);
-                      },
-                      child: const Text(
-                        "Selesai",
-                        textAlign: TextAlign.center,
+                        onPressed: () async {
+                          if (!formKeyLogin.currentState!.validate()) {
+                            return;
+                          }
+                          formKeyLogin.currentState!.save();
+                          loginGetXPage.changeStatus();
+                          LoginModel loginCheck =
+                              await LoginServices.loginCheck(
+                                  emailDonators: loginGetXPage.email.value,
+                                  passwordDonators:
+                                      loginGetXPage.finalPass.value);
+
+                          if (loginCheck.status == 201) {
+                            loginGetXPage.changeStatus();
+                            loginGetXPage
+                                .changeToken(loginCheck.data!.jwtTokenDonators);
+                            loginGetXPage.setDataToken(
+                                loginCheck.data!.jwtTokenDonators);
+                            Get.offAllNamed(Routes.home);
+                          } else {
+                            loginGetXPage.changeStatus();
+                            Get.snackbar(
+                              "Login Gagal",
+                              "Cek lagi koneksi/ Akun Anda",
+                              duration: const Duration(seconds: 2),
+                            );
+                          }
+                        },
+                        child: loginGetXPage.dontChange.value
+                            ? null
+                            : loginGetXPage.isDone.value
+                                ? const Text(
+                                    "Masuk",
+                                    textAlign: TextAlign.center,
+                                  )
+                                : const CircularProgressIndicator(
+                                    color: AppColor.white,
+                                    strokeWidth: 3.0,
+                                    semanticsLabel: "Loading...",
+                                  ),
                       ),
                     ),
                     const SizedBox(

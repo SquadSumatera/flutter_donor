@@ -1,4 +1,5 @@
 import 'package:flutter_donor/models/register_model.dart';
+import 'package:flutter_donor/shared/constant.dart';
 import 'package:http/http.dart';
 
 class RegisterServices {
@@ -10,7 +11,7 @@ class RegisterServices {
     required String contactDonators,
   }) async {
     Response _response = await post(
-      Uri.parse("http://dorplas.herokuapp.com/register"),
+      Uri.parse(AppUrl.baseUrl + "/register"),
       body: <String, String>{
         "name_donators": nameDonators,
         "email_donators": emailDonators,

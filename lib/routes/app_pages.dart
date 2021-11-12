@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/ui/event/event_page.dart';
 import 'package:flutter_donor/ui/location/location_detail_page.dart';
 import 'package:flutter_donor/ui/location/location_maps_page.dart';
@@ -14,7 +15,10 @@ import 'package:flutter_donor/ui/register/register_3_page.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static const initial = Routes.splash;
+  static final LoginGetX tokenCheck = Get.put(LoginGetX());
+
+  static final initial =
+      tokenCheck.token.value.isEmpty ? Routes.splash : Routes.home;
 
   static final routes = [
     GetPage(
