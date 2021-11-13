@@ -6,11 +6,12 @@ import 'package:flutter_donor/ui/location/location_maps_page.dart';
 import 'package:flutter_donor/ui/location/location_page.dart';
 import 'package:flutter_donor/ui/location/location_search_page.dart';
 import 'package:flutter_donor/ui/login/login_page.dart';
+import 'package:flutter_donor/ui/main/main_page.dart';
+import 'package:flutter_donor/ui/register/register_2_page.dart';
+import 'package:flutter_donor/ui/register/register_3_page.dart';
 import 'package:flutter_donor/ui/register/register_page.dart';
 import 'package:flutter_donor/ui/splashscreen/splash_screen_page.dart';
 import 'package:get/get.dart';
-import 'package:flutter_donor/ui/register/register_2_page.dart';
-import 'package:flutter_donor/ui/register/register_3_page.dart';
 
 part 'app_routes.dart';
 
@@ -24,6 +25,10 @@ class AppPages {
     GetPage(
       name: Routes.splash,
       page: () => const SplashScreenPage(),
+    ),
+    GetPage(
+      name: Routes.main,
+      page: () => MainPage(),
     ),
     GetPage(
       name: Routes.home,
