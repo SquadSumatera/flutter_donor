@@ -8,6 +8,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return MainPageState();
@@ -15,10 +17,9 @@ class MainPage extends StatefulWidget {
 }
 
 class MainPageState extends State<MainPage> {
-  bool clickedCentreFAB = false;
   int selectedIndex = 0;
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = LocationPage();
+  Widget currentScreen = const HomePage();
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +36,16 @@ class MainPageState extends State<MainPage> {
             Get.toNamed(Routes.request);
           });
         },
-        tooltip: "Centre FAB",
+        tooltip: "Request plasma",
         child: Container(
-          margin: EdgeInsets.all(15.0),
+          margin: const EdgeInsets.all(15.0),
           child: Image.asset('assets/bitmap/blood.png'),
         ),
         elevation: 4.0,
       ),
       bottomNavigationBar: BottomAppBar(
         child: Container(
-          margin: EdgeInsets.only(left: 12.0, right: 12.0),
+          margin: const EdgeInsets.only(left: 12.0, right: 12.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,7 +54,7 @@ class MainPageState extends State<MainPage> {
                 //update the bottom app bar view each time an item is clicked
                 onPressed: () {
                   setState(() {
-                    currentScreen = HomePage();
+                    currentScreen = const HomePage();
                     selectedIndex = 0;
                   });
                 },
@@ -64,7 +65,7 @@ class MainPageState extends State<MainPage> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    currentScreen = LocationPage();
+                    currentScreen = const LocationPage();
                     selectedIndex = 1;
                   });
                 },
@@ -79,7 +80,7 @@ class MainPageState extends State<MainPage> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    currentScreen = EventPage();
+                    currentScreen = const EventPage();
                     selectedIndex = 2;
                   });
                 },
@@ -90,7 +91,7 @@ class MainPageState extends State<MainPage> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    currentScreen = HomePage();
+                    currentScreen = const HomePage();
                     selectedIndex = 3;
                   });
                 },
