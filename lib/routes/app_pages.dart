@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/ui/event/event_page.dart';
+import 'package:flutter_donor/ui/home/home_page.dart';
 import 'package:flutter_donor/ui/location/location_detail_page.dart';
 import 'package:flutter_donor/ui/location/location_maps_page.dart';
 import 'package:flutter_donor/ui/location/location_page.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_donor/ui/main/main_page.dart';
 import 'package:flutter_donor/ui/register/register_2_page.dart';
 import 'package:flutter_donor/ui/register/register_3_page.dart';
 import 'package:flutter_donor/ui/register/register_page.dart';
+import 'package:flutter_donor/ui/request/request_page.dart';
 import 'package:flutter_donor/ui/splashscreen/splash_screen_page.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +34,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.home,
-      page: () => const EventPage(),
+      page: () => const HomePage(),
     ),
     GetPage(
       name: Routes.login,
@@ -77,6 +79,10 @@ class AppPages {
     GetPage(
       name: Routes.register3,
       page: () => RegisterPage3(),
+    ),
+    GetPage(
+      name: Routes.request,
+      page: () => RequestPage(),
     )
   ];
 }
