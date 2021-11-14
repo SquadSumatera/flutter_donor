@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/state/login_getx.dart';
+import 'package:flutter_donor/models/dummy_event_model.dart';
+import 'package:flutter_donor/ui/event/event_detail_page.dart';
 import 'package:flutter_donor/ui/event/event_page.dart';
 import 'package:flutter_donor/ui/home/home_page.dart';
 import 'package:flutter_donor/ui/location/location_detail_page.dart';
@@ -66,7 +68,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.event + "/:id?",
-      page: () => const Scaffold(),
+      page: () => const EventDetailPage(),
     ),
     GetPage(
       name: Routes.register,

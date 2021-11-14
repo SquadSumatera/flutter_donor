@@ -22,6 +22,7 @@ class AppColor {
   static const Color cOrange = Color(0XFFF37024);
   static const Color cBlue = Color(0XFF458FF6);
   static const Color cBlack = Color(0xFF000000);
+  static const Color cGreen = Color(0XFF0CB569);
 }
 
 class AppText {

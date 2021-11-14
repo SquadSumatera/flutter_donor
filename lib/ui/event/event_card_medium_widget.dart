@@ -7,7 +7,7 @@ class EventCardMedium extends StatelessWidget {
   const EventCardMedium({Key? key, required this.eventDetail})
       : super(key: key);
 
-  final EventDetail eventDetail;
+  final EventDetailModel eventDetail;
 
   @override
   Widget build(BuildContext context) {
