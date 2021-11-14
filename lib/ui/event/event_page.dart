@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/models/dummy_event_model.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/ui/event/event_card_large_widget.dart';
 import 'package:flutter_donor/ui/event/event_card_medium_widget.dart';
 import '../../shared/theme.dart';
+import 'package:get/get.dart';
 
 class EventPage extends StatelessWidget {
   const EventPage({Key? key}) : super(key: key);
@@ -46,8 +48,12 @@ class EventPage extends StatelessWidget {
             shrinkWrap: true,
             primary: false,
             itemCount: 10,
-            itemBuilder: (context, i) => EventCardMedium(
-              eventDetail: EventDetail(name: "Diky", desc: "Contoh"),
+            itemBuilder: (context, i) => GestureDetector(
+              onTap: () => Get.toNamed(Routes.event +
+                  "/$i?nameHeading=Telah Dibuka Donor Plasma Covid di Wilayah Simbabwe&published=PMI&time=23-10-2021"),
+              child: EventCardMedium(
+                eventDetail: EventDetailModel(name: "Diky", desc: "Contoh"),
+              ),
             ),
           )
         ],
