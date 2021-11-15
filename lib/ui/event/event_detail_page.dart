@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_donor/ui/event/event_detail_widget.dart';
@@ -40,48 +41,40 @@ class EventDetailPage extends StatelessWidget {
               "${Get.parameters['time']}",
             ),
           ),
+          schedule("23/10/2021", "28/10/2021", "08.00 - 15.00"),
+          descLong(
+            "Deskripsi",
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce egestas dignissim nisl vitae placerat. Sed et finibus nunc. Curabitur tempus lobortis nisi, ac maximus neque iaculis vel. Praesent sed quam ac ipsum vulputate congue. Mauris eleifend fer mentum nibh, nec convallis leo pretium pharetra. Donec id mi quis massa viverra accumsan sed id purus. Nullam sodales malesuada enim, eu dapibus erat vulputate sit amet. Quisque commodo porta lectus vulputate maximus.",
+          ),
+          descLong(
+            "Alamat",
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce egestas dignissim nisl vitae",
+          ),
           Container(
-            margin: const EdgeInsets.only(top: 18, left: 18, right: 18),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Jadwal Donor",
-                  style: AppText.textMedium.copyWith(
-                    fontWeight: AppText.semiBold,
-                    color: AppColor.cDarkBlue,
-                  ),
+            alignment: Alignment.bottomCenter,
+            margin: const EdgeInsets.only(
+                left: 37.0, right: 37.0, top: 20.0, bottom: 18.0),
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
-                const SizedBox(
-                  height: 10.0,
+                minimumSize: Size(
+                  MediaQuery.of(context).size.width,
+                  37,
                 ),
-                elementOfJadwal(
-                  "Tanggal Mulai",
-                  "25/10/2021",
-                  Icons.date_range_rounded,
-                  AppColor.cGreen,
+                primary: AppColor.cRed,
+              ),
+              child: Text(
+                "Daftar",
+                style: AppText.textMedium.copyWith(
+                  color: AppColor.white,
+                  fontWeight: AppText.semiBold,
                 ),
-                const SizedBox(
-                  height: 16.0,
-                ),
-                elementOfJadwal(
-                  "Tanggal Berakhir",
-                  "28/10/2021",
-                  Icons.date_range_rounded,
-                  AppColor.cRed,
-                ),
-                const SizedBox(
-                  height: 16.0,
-                ),
-                elementOfJadwal(
-                  "Waktu Pelaksanaan",
-                  "09.00 - 15.00",
-                  Icons.access_time_filled_rounded,
-                  AppColor.cBlue,
-                ),
-              ],
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
