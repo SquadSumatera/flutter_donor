@@ -10,6 +10,7 @@ import 'package:flutter_donor/ui/location/location_page.dart';
 import 'package:flutter_donor/ui/location/location_search_page.dart';
 import 'package:flutter_donor/ui/login/login_page.dart';
 import 'package:flutter_donor/ui/main/main_page.dart';
+import 'package:flutter_donor/ui/profile/profile_edit_identity/profile_edit_identity_page.dart';
 import 'package:flutter_donor/ui/register/register_2_page.dart';
 import 'package:flutter_donor/ui/register/register_3_page.dart';
 import 'package:flutter_donor/ui/register/register_page.dart';
@@ -42,6 +43,12 @@ class AppPages {
     GetPage(
       name: Routes.profile,
       page: () => const ProfilePage(),
+      children: [
+        GetPage(
+          name: Routes.profileEditIdentity,
+          page: () => const ProfileEditIdentityPage(),
+        ),
+      ],
     ),
     GetPage(
       name: Routes.location,
