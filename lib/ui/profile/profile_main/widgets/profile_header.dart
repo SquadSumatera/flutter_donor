@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/profile_controller.dart';
 import 'package:flutter_donor/shared/theme.dart';
+import 'package:get/get.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({Key? key}) : super(key: key);
@@ -7,7 +9,7 @@ class ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const <Widget>[
+      children: <Widget>[
         ProfilePhotoHeader(),
         ProfileNameHeader(),
       ],
@@ -16,8 +18,8 @@ class ProfileHeader extends StatelessWidget {
 }
 
 class ProfilePhotoHeader extends StatelessWidget {
-  const ProfilePhotoHeader({Key? key}) : super(key: key);
-
+  ProfilePhotoHeader({Key? key}) : super(key: key);
+  final ProfileController profileController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -71,7 +73,8 @@ class ProfilePhotoHeader extends StatelessWidget {
 }
 
 class ProfileNameHeader extends StatelessWidget {
-  const ProfileNameHeader({Key? key}) : super(key: key);
+  ProfileNameHeader({Key? key}) : super(key: key);
+  final ProfileController profileController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -83,13 +86,13 @@ class ProfileNameHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
-            'Muhammad Diky Jaka',
+            profileController.profile?.nameDonators ?? '',
             style: AppText.textMedium.copyWith(
               fontWeight: AppText.bold,
             ),
           ),
           Text(
-            'Bergabung sejak 10 Juni 2021',
+            'Bergabung sejak ${profileController.profile?.createdAt}',
             style: AppText.textMedium.copyWith(
               fontWeight: AppText.normal,
             ),
