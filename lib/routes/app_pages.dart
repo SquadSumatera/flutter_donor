@@ -15,7 +15,6 @@ import 'package:flutter_donor/ui/register/register_3_page.dart';
 import 'package:flutter_donor/ui/register/register_page.dart';
 import 'package:flutter_donor/ui/request/request_page.dart';
 import 'package:flutter_donor/ui/splashscreen/splash_screen_page.dart';
-import 'package:flutter_donor/ui/profile/profile_page.dart';
 import 'package:get/get.dart';
 
 part 'app_routes.dart';
