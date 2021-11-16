@@ -4,77 +4,99 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
+
 class ProfileModel {
-    ProfileModel({
-        this.idDonators,
-        this.nameDonators,
-        this.emailDonators,
-        this.passwordDonators,
-        this.genderDonators,
-        this.bloodTypeDonators,
-        this.bloodRhesusDonators,
-        this.contactDonators,
-        this.addressDonators,
-        this.profileImageDonators,
-        this.verifyDonators,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt,
-    });
+  ProfileModel({
+    this.idDonators,
+    this.nameDonators,
+    this.emailDonators,
+    this.passwordDonators,
+    this.genderDonators,
+    this.bloodTypeDonators,
+    this.bloodRhesusDonators,
+    this.contactDonators,
+    this.addressDonators,
+    this.profileImageDonators,
+    this.verifyDonators,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
+  });
 
-    String? idDonators;
-    String? nameDonators;
-    String? emailDonators;
-    String? passwordDonators;
-    String? genderDonators;
-    String? bloodTypeDonators;
-    String? bloodRhesusDonators;
-    String? contactDonators;
-    String? addressDonators;
-    String? profileImageDonators;
-    DateTime? verifyDonators;
-    DateTime? createdAt;
-    DateTime? updatedAt;
-    dynamic deletedAt;
+  String? idDonators;
+  String? nameDonators;
+  String? emailDonators;
+  String? passwordDonators;
+  String? genderDonators;
+  String? bloodTypeDonators;
+  String? bloodRhesusDonators;
+  String? contactDonators;
+  String? addressDonators;
+  String? profileImageDonators;
+  DateTime? verifyDonators;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  dynamic deletedAt;
 
-    ProfileModel copyWith({
-        String? idDonators,
-        String? nameDonators,
-        String? emailDonators,
-        String? passwordDonators,
-        String? genderDonators,
-        String? bloodTypeDonators,
-        String? bloodRhesusDonators,
-        String? contactDonators,
-        String? addressDonators,
-        String? profileImageDonators,
-        DateTime? verifyDonators,
-        DateTime? createdAt,
-        DateTime? updatedAt,
-        dynamic deletedAt,
-    }) => 
-        ProfileModel(
-            idDonators: idDonators ?? this.idDonators,
-            nameDonators: nameDonators ?? this.nameDonators,
-            emailDonators: emailDonators ?? this.emailDonators,
-            passwordDonators: passwordDonators ?? this.passwordDonators,
-            genderDonators: genderDonators ?? this.genderDonators,
-            bloodTypeDonators: bloodTypeDonators ?? this.bloodTypeDonators,
-            bloodRhesusDonators: bloodRhesusDonators ?? this.bloodRhesusDonators,
-            contactDonators: contactDonators ?? this.contactDonators,
-            addressDonators: addressDonators ?? this.addressDonators,
-            profileImageDonators: profileImageDonators ?? this.profileImageDonators,
-            verifyDonators: verifyDonators ?? this.verifyDonators,
-            createdAt: createdAt ?? this.createdAt,
-            updatedAt: updatedAt ?? this.updatedAt,
-            deletedAt: deletedAt ?? this.deletedAt,
-        );
+  String get showJoined {
+    if (createdAt == null) {
+      return '--/--/----';
+    }
+    initializeDateFormatting("id");
+    DateTime joinDate = createdAt!;
+    return DateFormat("dd MMMM yyyy").format(joinDate);
+  }
 
-    factory ProfileModel.fromRawJson(String str) => ProfileModel.fromJson(json.decode(str)["data"]);
+  ImageProvider? get showProfilePhoto {
+    if (profileImageDonators != "") {
+      return MemoryImage(base64Decode(profileImageDonators!));
+    } else {
+      return null;
+    }
+  }
 
-    String toRawJson() => json.encode(toJson());
+  ProfileModel copyWith({
+    String? idDonators,
+    String? nameDonators,
+    String? emailDonators,
+    String? passwordDonators,
+    String? genderDonators,
+    String? bloodTypeDonators,
+    String? bloodRhesusDonators,
+    String? contactDonators,
+    String? addressDonators,
+    String? profileImageDonators,
+    DateTime? verifyDonators,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    dynamic deletedAt,
+  }) =>
+      ProfileModel(
+        idDonators: idDonators ?? this.idDonators,
+        nameDonators: nameDonators ?? this.nameDonators,
+        emailDonators: emailDonators ?? this.emailDonators,
+        passwordDonators: passwordDonators ?? this.passwordDonators,
+        genderDonators: genderDonators ?? this.genderDonators,
+        bloodTypeDonators: bloodTypeDonators ?? this.bloodTypeDonators,
+        bloodRhesusDonators: bloodRhesusDonators ?? this.bloodRhesusDonators,
+        contactDonators: contactDonators ?? this.contactDonators,
+        addressDonators: addressDonators ?? this.addressDonators,
+        profileImageDonators: profileImageDonators ?? this.profileImageDonators,
+        verifyDonators: verifyDonators ?? this.verifyDonators,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        deletedAt: deletedAt ?? this.deletedAt,
+      );
 
-    factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(
+  factory ProfileModel.fromRawJson(String str) =>
+      ProfileModel.fromJson(json.decode(str)["data"]);
+
+  String toRawJson() => json.encode(toJson());
+
+  factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(
         idDonators: json["id_donators"],
         nameDonators: json["name_donators"],
         emailDonators: json["email_donators"],
@@ -89,9 +111,9 @@ class ProfileModel {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         deletedAt: json["deleted_at"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id_donators": idDonators,
         "name_donators": nameDonators,
         "email_donators": emailDonators,
@@ -106,5 +128,5 @@ class ProfileModel {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "deleted_at": deletedAt,
-    };
+      };
 }

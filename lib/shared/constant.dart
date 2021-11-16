@@ -9,3 +9,8 @@ class AppMaps {
 class AppUrl {
   static const baseUrl = "http://dorplas.herokuapp.com";
 }
+
+// ONLY FOR DEVELOPMENT USES
+class AppToken {
+  static const dummyUser = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSb2xlcyI6IkRvbmF0b3JzIiwiZXhwIjoxNjM3MzU3NzAzLCJpZF9kb25hdG9ycyI6IjQ2OWE1NWI2LTQ1NmQtNDQwYi05Zjg2LTRhMmVjMDk3ODZhYyJ9.VsP0k_5oX66b84RdqlZRBSVRhh4_vXTzfc-V3n9iMZ8";
+}

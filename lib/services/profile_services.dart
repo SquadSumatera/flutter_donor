@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_donor/models/profile_model.dart';
 import 'package:flutter_donor/shared/constant.dart';
 import 'package:http/http.dart';
@@ -17,5 +19,32 @@ class ProfileServices {
     } else {
       throw Exception(_response.statusCode.toString());
     }
+  }
+
+  static Future<ProfileModel> updateProfileImage({
+    required String token,
+    required File file,
+  }) async {
+    var request = MultipartRequest(
+      "PUT",
+      Uri.parse(AppUrl.baseUrl + "/d/profile/image"),
+    );
+    request.headers.addAll({
+      "Authorization": "Bearer $token",
+    });
+    request.files.add(
+      MultipartFile.fromBytes(
+        "profile_image_donators",
+        await file.readAsBytes(),
+        filename: file.path.split("/").last,
+      ),
+    );
+    return request.send().then((_response) async {
+      if (_response.statusCode == 200) {
+        return ProfileModel.fromRawJson(await _response.stream.bytesToString());
+      } else {
+        throw Exception(_response.stream.toString());
+      }
+    });
   }
 }

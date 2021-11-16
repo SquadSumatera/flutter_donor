@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_donor/models/profile_model.dart';
 import 'package:flutter_donor/services/profile_services.dart';
 import 'package:get/get.dart';
@@ -21,7 +23,26 @@ class ProfileController extends GetxController {
     } catch (e) {
       status.value = ProfileLoadStatus.failed;
     }
-    print(status.value);
+    update();
+  }
+
+  void updateProfilePhoto({
+    required String token,
+    required File file,
+  }) async {
+    status.value = ProfileLoadStatus.loading;
+    update();
+
+    try {
+      profile = await ProfileServices.updateProfileImage(
+        token: token,
+        file: file,
+      );
+      status.value = ProfileLoadStatus.loaded;
+    } catch (e) {
+      print(e);
+      status.value = ProfileLoadStatus.failed;
+    }
     update();
   }
 

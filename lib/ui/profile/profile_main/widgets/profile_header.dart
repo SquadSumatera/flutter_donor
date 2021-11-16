@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
+import 'package:flutter_donor/shared/constant.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:get/get.dart';
 
@@ -39,9 +43,10 @@ class ProfilePhotoHeader extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 53,
-                backgroundImage: NetworkImage("https://picsum.photos/200"),
+                backgroundColor: Colors.grey.withOpacity(0.5),
+                backgroundImage: profileController.profile!.showProfilePhoto,
               ),
               Positioned(
                 bottom: 0,
@@ -57,10 +62,27 @@ class ProfilePhotoHeader extends StatelessWidget {
                       width: 1,
                     ),
                   ),
-                  child: const Icon(
-                    Icons.add_a_photo_outlined,
-                    color: AppColor.imperialRed,
-                    size: 20,
+                  child: IconButton(
+                    onPressed: () async {
+                      FilePickerResult? result =
+                          await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['jpg', 'png', 'jpeg'],
+                      );
+                      if (result != null) {
+                        profileController.updateProfilePhoto(
+                          file: File(result.files.single.path!),
+                          token: AppToken.dummyUser,
+                        );
+                      }
+                    },
+                    icon: const Icon(
+                      Icons.add_a_photo_outlined,
+                      color: AppColor.imperialRed,
+                      size: 20,
+                    ),
+                    padding: const EdgeInsets.all(0),
+                    splashRadius: 20,
                   ),
                 ),
               ),
@@ -92,7 +114,7 @@ class ProfileNameHeader extends StatelessWidget {
             ),
           ),
           Text(
-            'Bergabung sejak ${profileController.profile?.createdAt}',
+            'Bergabung sejak ${profileController.profile?.showJoined}',
             style: AppText.textMedium.copyWith(
               fontWeight: AppText.normal,
             ),

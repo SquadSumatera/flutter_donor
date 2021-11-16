@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
 import 'package:flutter_donor/routes/app_pages.dart';
+import 'package:flutter_donor/shared/constant.dart';
 import 'package:get/get.dart';
 import 'sections/history_section.dart';
 import 'sections/profile_identity_section.dart';
@@ -15,13 +16,14 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
   ProfileController profileController = Get.put(ProfileController());
 
   @override
   void initState() {
     super.initState();
     profileController.getProfile(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSb2xlcyI6IkRvbmF0b3JzIiwiZXhwIjoxNjM3MzI5OTYzLCJpZF9kb25hdG9ycyI6IjU5Y2FmMWVjLTU5YmQtNDVhZi04NzZlLTE0OWQ1ZGY3OTdmNiJ9.r7fT4W84XMNnNsLrxXLHXItNDcgcdXnbRXMHliIu4iE",
+      AppToken.dummyUser,
     );
   }
 
@@ -54,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         TextButton(
                           onPressed: () {
                             profileController.getProfile(
-                              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSb2xlcyI6IkRvbmF0b3JzIiwiZXhwIjoxNjM3MzI5OTYzLCJpZF9kb25hdG9ycyI6IjU5Y2FmMWVjLTU5YmQtNDVhZi04NzZlLTE0OWQ1ZGY3OTdmNiJ9.r7fT4W84XMNnNsLrxXLHXItNDcgcdXnbRXMHliIu4iE",
+                              AppToken.dummyUser,
                             );
                           },
                           child: const Text("Coba Lagi"),
