@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
 import '../../../get_x/controller/profile_controller.dart';
 import '../../../get_x/controller/profile_overlay_controller.dart';
 import '../../../models/profile_model.dart';
@@ -38,7 +39,7 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
           TextButton(
             onPressed: () {
               profileController.status.value = ProfileLoadStatus.loaded;
-              Get.back();
+              Get.offNamed(Routes.profile);
             },
             child: Row(
               children: <Widget>[

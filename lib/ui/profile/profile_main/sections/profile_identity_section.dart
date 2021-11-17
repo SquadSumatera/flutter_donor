@@ -44,8 +44,7 @@ class ProfileIdentitySection extends StatelessWidget {
               ),
               ProfileIdentityItem(
                 title: "Rhesus",
-                value:
-                    profileController.profile!.showRhesus ?? " ",
+                value: profileController.profile!.showRhesus ?? " ",
               ),
             ],
           ),
@@ -53,7 +52,7 @@ class ProfileIdentitySection extends StatelessWidget {
           Center(
             child: ElevatedButton(
               onPressed: () async {
-                await Get.toNamed(
+                await Get.offNamed(
                   "${Routes.profile}/${Routes.profileEditIdentity}",
                 );
               },
