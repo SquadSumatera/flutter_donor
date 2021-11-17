@@ -113,7 +113,7 @@ class LoginPage extends StatelessWidget {
                                 .changeToken(loginCheck.data!.jwtTokenDonators);
                             loginGetXPage.setDataToken(
                                 loginCheck.data!.jwtTokenDonators);
-                            Get.offAllNamed(Routes.home);
+                            Get.offAllNamed(Routes.profile);
                           } else {
                             loginGetXPage.changeStatus();
                             Get.snackbar(
