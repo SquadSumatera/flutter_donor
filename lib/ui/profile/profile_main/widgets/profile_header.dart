@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
+import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/shared/constant.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:get/get.dart';
@@ -24,6 +25,8 @@ class ProfileHeader extends StatelessWidget {
 class ProfilePhotoHeader extends StatelessWidget {
   ProfilePhotoHeader({Key? key}) : super(key: key);
   final ProfileController profileController = Get.find();
+  final LoginGetX loginGetXState = Get.find();
+  
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -72,7 +75,7 @@ class ProfilePhotoHeader extends StatelessWidget {
                       if (result != null) {
                         profileController.updateProfilePhoto(
                           file: File(result.files.single.path!),
-                          token: AppToken.dummyUser,
+                          token: loginGetXState.token.value,
                         );
                       }
                     },

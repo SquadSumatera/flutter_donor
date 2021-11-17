@@ -22,7 +22,10 @@ import 'package:get/get.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static const initial = Routes.profile;
+  static final LoginGetX tokenCheck = Get.put(LoginGetX());
+
+  static const initial = Routes.login;
+  
   static final routes = [
     GetPage(
       name: Routes.splash,
