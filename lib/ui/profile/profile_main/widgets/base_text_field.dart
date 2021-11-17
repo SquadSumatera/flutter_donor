@@ -13,6 +13,7 @@ class BaseTextField extends StatelessWidget {
     this.numberOnly = false,
     this.isEnabled = true,
     this.isTextarea = false,
+    this.customValidator,
   }) : super(key: key);
 
   final String label;
@@ -23,6 +24,7 @@ class BaseTextField extends StatelessWidget {
   final bool numberOnly;
   final bool isEnabled;
   final bool isTextarea;
+  final String? Function(String?)? customValidator;
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +75,14 @@ class BaseTextField extends StatelessWidget {
               vertical: 8,
             ),
           ),
-          onFieldSubmitted: (val) {
+          onSaved: (val) {
             callback(val);
+          },
+          validator: customValidator ?? (value) {
+            if (value == null || value.isEmpty) {
+              return 'Kolom ini wajib diisi!';
+            }
+            return null;
           },
         ),
       ],

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/models/profile_model.dart';
+import 'package:flutter_donor/models/update_password_model.dart';
 import 'package:flutter_donor/services/profile_services.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +10,8 @@ enum ProfileLoadStatus {
   loading,
   loaded,
   failed,
+  updateFailed,
+  updateLoading,
   updated,
 }
 
@@ -51,7 +54,7 @@ class ProfileController extends GetxController {
     required String token,
     required ProfileModel updatedProfile,
   }) async {
-    status.value = ProfileLoadStatus.loading;
+    status.value = ProfileLoadStatus.updateLoading;
     update();
 
     try {
@@ -61,7 +64,26 @@ class ProfileController extends GetxController {
       );
       status.value = ProfileLoadStatus.updated;
     } catch (e) {
-      status.value = ProfileLoadStatus.failed;
+      status.value = ProfileLoadStatus.updateFailed;
+    }
+    update();
+  }
+
+  void updatePassword({
+    required String token,
+    required UpdatePasswordModel updatedPassword,
+  }) async {
+    status.value = ProfileLoadStatus.updateLoading;
+    update();
+
+    try {
+      profile = await ProfileServices.updatePassword(
+        token: token,
+        updatedData: updatedPassword,
+      );
+      status.value = ProfileLoadStatus.updated;
+    } catch (e) {
+      status.value = ProfileLoadStatus.updateFailed;
     }
     update();
   }

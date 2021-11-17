@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/models/update_password_model.dart';
+import 'package:flutter_donor/shared/constant.dart';
 import 'package:get/get.dart';
-import '../../../../get_x/controller/profile_overlay_controller.dart';
 import '../widgets/base_text_field.dart';
+import '../../../../get_x/controller/profile_controller.dart';
+import '../../../../models/profile_model.dart';
+import '../../../../get_x/controller/profile_overlay_controller.dart';
 import '../../../../shared/theme.dart';
 
 class ChangePasswordSection extends StatefulWidget {
@@ -13,6 +17,9 @@ class ChangePasswordSection extends StatefulWidget {
 
 class _ChangePasswordSectionState extends State<ChangePasswordSection> {
   ProfileOverlayController c = Get.find();
+  ProfileController profileController = Get.find();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  UpdatePasswordModel tempChangePasswordData = UpdatePasswordModel();
 
   @override
   Widget build(BuildContext context) {
@@ -24,71 +31,105 @@ class _ChangePasswordSectionState extends State<ChangePasswordSection> {
       decoration: const BoxDecoration(
         color: AppColor.white,
       ),
-      child: ListView(
-        shrinkWrap: true,
-        children: <Widget>[
-          Align(
-            alignment: Alignment.topRight,
-            child: IconButton(
-              padding: EdgeInsets.zero,
-              icon: const Icon(Icons.close),
-              onPressed: () => c.removeOverlay(),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            "Ubah Password",
-            style: AppText.textMedium.copyWith(
-              fontWeight: AppText.bold,
-            ),
-          ),
-          const SizedBox(height: 18),
-          BaseTextField(
-            label: "Password Saat Ini",
-            placeholderText: "Masukkan password saat ini...",
-            obscureText: true,
-            callback: (val) {},
-          ),
-          const SizedBox(height: 12),
-          BaseTextField(
-            label: "Password Baru",
-            placeholderText: "Masukkan password baru...",
-            obscureText: true,
-            callback: (val) {},
-          ),
-          const SizedBox(height: 12),
-          BaseTextField(
-            label: "Konfirmasi Password Baru",
-            placeholderText: "Masukkan kembali password baru...",
-            obscureText: true,
-            callback: (val) {},
-          ),
-          const SizedBox(height: 12),
-          ElevatedButton(
-            onPressed: () async {},
-            style: ElevatedButton.styleFrom(
-              minimumSize: Size(
-                Get.width * 0.8,
-                45,
-              ),
-              padding: const EdgeInsets.symmetric(
-                vertical: 10,
-              ),
-              primary: AppColor.imperialRed,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+      child: Form(
+        key: _formKey,
+        child: ListView(
+          shrinkWrap: true,
+          children: <Widget>[
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                padding: EdgeInsets.zero,
+                icon: const Icon(Icons.close),
+                onPressed: () {
+                  c.removeOverlay();
+                  profileController.status.value = ProfileLoadStatus.loaded;
+                },
               ),
             ),
-            child: Text(
-              'Simpan',
-              style: AppText.textNormal.copyWith(
-                color: AppColor.white,
-                fontWeight: AppText.semiBold,
+            const SizedBox(height: 10),
+            Text(
+              "Ubah Password",
+              style: AppText.textMedium.copyWith(
+                fontWeight: AppText.bold,
               ),
             ),
-          ),
-          const SizedBox(height: 28),
-        ],
+            const SizedBox(height: 18),
+            BaseTextField(
+              label: "Password Saat Ini",
+              placeholderText: "Masukkan password saat ini...",
+              obscureText: true,
+              callback: (val) {
+                tempChangePasswordData.lastPassword = val;
+              },
+            ),
+            const SizedBox(height: 12),
+            BaseTextField(
+              label: "Password Baru",
+              placeholderText: "Masukkan password baru...",
+              obscureText: true,
+              callback: (val) {
+                tempChangePasswordData.newPassword = val;
+              },
+            ),
+            const SizedBox(height: 12),
+            BaseTextField(
+              label: "Konfirmasi Password Baru",
+              placeholderText: "Masukkan kembali password baru...",
+              obscureText: true,
+              callback: (val) {
+                tempChangePasswordData.confirmPassword = val;
+              },
+            ),
+            const SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: () {
+                if (profileController.status.value !=
+                    ProfileLoadStatus.updateLoading) {
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save();
+                    profileController.updatePassword(
+                      token: AppToken.dummyUser,
+                      updatedPassword: tempChangePasswordData,
+                    );
+                  }
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(
+                  Get.width * 0.8,
+                  45,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+                primary: AppColor.imperialRed,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              child: Obx(() {
+                return (profileController.status.value ==
+                        ProfileLoadStatus.updateLoading)
+                    ? const CircularProgressIndicator()
+                    : Text(
+                        (profileController.status.value ==
+                                ProfileLoadStatus.loaded)
+                            ? "Simpan"
+                            : (profileController.status.value ==
+                                    ProfileLoadStatus.updated)
+                                ? "Berhasil Tersimpan"
+                                : "Terjadi Kesalahan, Pastikan Isian Benar",
+                        style: AppText.textNormal.copyWith(
+                          color: AppColor.white,
+                          fontWeight: AppText.semiBold,
+                        ),
+                      );
+              }),
+            ),
+            const SizedBox(height: 28),
+          ],
+        ),
       ),
     );
   }
