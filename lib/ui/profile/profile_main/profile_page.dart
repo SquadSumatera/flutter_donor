@@ -30,24 +30,12 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
-        return (profileController.status.value == ProfileLoadStatus.loaded ||
-                profileController.status.value == ProfileLoadStatus.updated)
-            ? ListView(
-                children: <Widget>[
-                  const ProfileHeader(),
-                  const HistorySection(),
-                  const SizedBox(height: 35),
-                  ProfileIdentitySection(),
-                  const SizedBox(height: 50),
-                  const ProfileSettingsSection(),
-                  const SizedBox(height: 50),
-                ],
+        return (profileController.status.value == ProfileLoadStatus.loading)
+            ? const Center(
+                child: CircularProgressIndicator(),
               )
-            : (profileController.status.value == ProfileLoadStatus.loading)
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Center(
+            : (profileController.status.value == ProfileLoadStatus.failed)
+                ? Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -63,6 +51,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ],
                     ),
+                  )
+                : ListView(
+                    children: <Widget>[
+                      const ProfileHeader(),
+                      const HistorySection(),
+                      const SizedBox(height: 35),
+                      ProfileIdentitySection(),
+                      const SizedBox(height: 50),
+                      const ProfileSettingsSection(),
+                      const SizedBox(height: 50),
+                    ],
                   );
       }),
     );

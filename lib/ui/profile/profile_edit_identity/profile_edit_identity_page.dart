@@ -37,6 +37,7 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
           const SizedBox(height: 27),
           TextButton(
             onPressed: () {
+              profileController.status.value = ProfileLoadStatus.loaded;
               Get.back();
             },
             child: Row(
@@ -139,49 +140,50 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                  onPressed: () {
-                    if (profileController.status.value !=
-                        ProfileLoadStatus.loading) {
-                      Overlay.of(context)!.insert(
-                        profileOverlaySection(
-                          child: ConfirmChangeIdentity(
-                            data: tempProfile,
-                          ),
+                onPressed: () {
+                  if (profileController.status.value !=
+                      ProfileLoadStatus.updateLoading) {
+                    Overlay.of(context)!.insert(
+                      profileOverlaySection(
+                        child: ConfirmChangeIdentity(
+                          data: tempProfile,
                         ),
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(
-                      MediaQuery.of(context).size.width * 0.8,
-                      45,
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 10,
-                    ),
-                    primary: AppColor.imperialRed,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+                      ),
+                    );
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(
+                    MediaQuery.of(context).size.width * 0.8,
+                    45,
                   ),
-                  child: Obx(() {
-                    return (profileController.status.value ==
-                            ProfileLoadStatus.loading)
-                        ? const CircularProgressIndicator()
-                        : Text(
-                            (profileController.status.value ==
-                                    ProfileLoadStatus.loaded)
-                                ? "Simpan"
-                                : (profileController.status.value ==
-                                        ProfileLoadStatus.updated)
-                                    ? "Berhasil Tersimpan"
-                                    : "Terjadi Kesalahan, Coba Lagi",
-                            style: AppText.textNormal.copyWith(
-                              color: AppColor.white,
-                              fontWeight: AppText.semiBold,
-                            ),
-                          );
-                  })),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                  ),
+                  primary: AppColor.imperialRed,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                child: Obx(() {
+                  return (profileController.status.value ==
+                          ProfileLoadStatus.updateLoading)
+                      ? const CircularProgressIndicator()
+                      : Text(
+                          (profileController.status.value ==
+                                  ProfileLoadStatus.loaded)
+                              ? "Simpan"
+                              : (profileController.status.value ==
+                                      ProfileLoadStatus.updated)
+                                  ? "Berhasil Tersimpan"
+                                  : "Terjadi Kesalahan, Coba Lagi",
+                          style: AppText.textNormal.copyWith(
+                            color: AppColor.white,
+                            fontWeight: AppText.semiBold,
+                          ),
+                        );
+                }),
+              ),
             ],
           ),
           const SizedBox(height: 60),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_donor/get_x/controller/profile_controller.dart';
 import '../../../get_x/controller/profile_overlay_controller.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +8,8 @@ OverlayEntry profileOverlaySection({
   Widget? child,
 }) {
   ProfileOverlayController c = Get.put(ProfileOverlayController());
+  ProfileController p = Get.find();
+
   OverlayEntry? entry;
   entry = OverlayEntry(
     builder: (context) {
@@ -17,6 +20,7 @@ OverlayEntry profileOverlaySection({
             child: GestureDetector(
               onTap: () {
                 c.entry!.remove();
+                p.status.value = ProfileLoadStatus.loaded;
               },
               child: Container(
                 color: Colors.black.withOpacity(0.5),

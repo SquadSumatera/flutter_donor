@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/profile_controller.dart';
+import 'package:get/get.dart';
 import '../widgets/history_as_button.dart';
 import '../widgets/history_list_container.dart';
 import '../../../../shared/theme.dart';
@@ -11,6 +13,8 @@ class HistorySection extends StatefulWidget {
 }
 
 class _HistorySectionState extends State<HistorySection> {
+  ProfileController profileController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -74,7 +78,7 @@ class _HistorySectionState extends State<HistorySection> {
             ),
             child: Center(
               child: Text(
-                'B+',
+                '${profileController.profile!.bloodTypeDonators}${profileController.profile!.showRhesus}',
                 style: AppText.textMedium.copyWith(
                   color: AppColor.white,
                   fontWeight: AppText.bold,
