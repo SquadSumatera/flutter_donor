@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/get_x/controller/profile_overlay_controller.dart';
-import 'package:flutter_donor/ui/profile/overlay/profile_overlay_section.dart';
-import 'package:flutter_donor/ui/profile/profile_edit_identity/sections/confirm_change_identiry.dart';
+import '../../../get_x/controller/profile_controller.dart';
+import '../../../get_x/controller/profile_overlay_controller.dart';
+import '../../../models/profile_model.dart';
+import '../overlay/profile_overlay_section.dart';
+import 'sections/confirm_change_identity.dart';
 import 'package:get/get.dart';
 import '../profile_main/widgets/profile_header.dart';
 import '../../../shared/theme.dart';
 import 'sections/identity_choice_section.dart';
-
-// for dev purposes
-enum DummyPeopleGender {
-  male,
-  female,
-}
-
-class DummyPeople {
-  DummyPeopleGender gender = DummyPeopleGender.male;
-  String bloodType = "A";
-  String rhesusType = "+";
-}
 
 class ProfileEditIdentityPage extends StatefulWidget {
   const ProfileEditIdentityPage({Key? key}) : super(key: key);
@@ -28,8 +18,16 @@ class ProfileEditIdentityPage extends StatefulWidget {
 }
 
 class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
-  DummyPeople people = DummyPeople();
+  ProfileController profileController = Get.find();
   ProfileOverlayController c = Get.put(ProfileOverlayController());
+  late ProfileModel tempProfile;
+
+  @override
+  void initState() {
+    super.initState();
+    tempProfile = profileController.profile?.copyWith() ?? ProfileModel();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,12 +84,12 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
                 IdentityChoiceSection(
                   title: "Jenis Kelamin",
                   choices: const <String, dynamic>{
-                    "Pria": DummyPeopleGender.male,
-                    "Wanita": DummyPeopleGender.female,
+                    "Pria": ProfileGenderType.male,
+                    "Wanita": ProfileGenderType.female,
                   },
-                  groupValue: people.gender,
+                  groupValue: tempProfile.genderDonators,
                   onChanged: (val) {
-                    people.gender = val;
+                    tempProfile.genderDonators = val;
                     setState(() {});
                   },
                 ),
@@ -109,9 +107,9 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
                           "O": "O",
                           "AB": "AB",
                         },
-                        groupValue: people.bloodType,
+                        groupValue: tempProfile.bloodTypeDonators,
                         onChanged: (val) {
-                          people.bloodType = val;
+                          tempProfile.bloodTypeDonators = val;
                           setState(() {});
                         },
                       ),
@@ -121,12 +119,12 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
                       child: IdentityChoiceSection(
                         title: "Rhesus",
                         choices: const <String, dynamic>{
-                          "+": "+",
-                          "-": "-",
+                          "+": ProfileRhesusType.positive,
+                          "-": ProfileRhesusType.negative,
                         },
-                        groupValue: people.rhesusType,
+                        groupValue: tempProfile.bloodRhesusDonators,
                         onChanged: (val) {
-                          people.rhesusType = val;
+                          tempProfile.bloodRhesusDonators = val;
                           setState(() {});
                         },
                       ),
@@ -141,34 +139,49 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () {
-                  Overlay.of(context)!.insert(
-                    profileOverlaySection(
-                      child: ConfirmChangeIdentity(),
+                  onPressed: () {
+                    if (profileController.status.value !=
+                        ProfileLoadStatus.loading) {
+                      Overlay.of(context)!.insert(
+                        profileOverlaySection(
+                          child: ConfirmChangeIdentity(
+                            data: tempProfile,
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(
+                      MediaQuery.of(context).size.width * 0.8,
+                      45,
                     ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(
-                    MediaQuery.of(context).size.width * 0.8,
-                    45,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                    ),
+                    primary: AppColor.imperialRed,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                  ),
-                  primary: AppColor.imperialRed,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                child: Text(
-                  'Simpan',
-                  style: AppText.textNormal.copyWith(
-                    color: AppColor.white,
-                    fontWeight: AppText.semiBold,
-                  ),
-                ),
-              ),
+                  child: Obx(() {
+                    return (profileController.status.value ==
+                            ProfileLoadStatus.loading)
+                        ? const CircularProgressIndicator()
+                        : Text(
+                            (profileController.status.value ==
+                                    ProfileLoadStatus.loaded)
+                                ? "Simpan"
+                                : (profileController.status.value ==
+                                        ProfileLoadStatus.updated)
+                                    ? "Berhasil Tersimpan"
+                                    : "Terjadi Kesalahan, Coba Lagi",
+                            style: AppText.textNormal.copyWith(
+                              color: AppColor.white,
+                              fontWeight: AppText.semiBold,
+                            ),
+                          );
+                  })),
             ],
           ),
           const SizedBox(height: 60),

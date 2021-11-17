@@ -8,6 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
+class ProfileRhesusType{
+  static const String positive = "positive";
+  static const String negative = "negative";
+}
+
+class ProfileGenderType{
+  static const String male = "male";
+  static const String female = "female";
+}
+
 class ProfileModel {
   ProfileModel({
     this.idDonators,
@@ -40,6 +50,22 @@ class ProfileModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
+
+  String? get showGender {
+    Map<String, String> _genderList = {
+      ProfileGenderType.male: "Pria",
+      ProfileGenderType.female: "Wanita",
+    };
+    return _genderList[genderDonators];
+  }
+
+  String? get showRhesus {
+    Map<String, String> _rhesusList = {
+      ProfileRhesusType.positive: "+",
+      ProfileRhesusType.negative: "-",
+    };
+    return _rhesusList[bloodRhesusDonators];
+  }
 
   String get showJoined {
     if (createdAt == null) {

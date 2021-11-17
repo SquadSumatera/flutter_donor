@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_donor/models/profile_model.dart';
 import 'package:flutter_donor/services/profile_services.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ enum ProfileLoadStatus {
   loading,
   loaded,
   failed,
+  updated,
 }
 
 class ProfileController extends GetxController {
@@ -40,15 +42,27 @@ class ProfileController extends GetxController {
       );
       status.value = ProfileLoadStatus.loaded;
     } catch (e) {
-      print(e);
       status.value = ProfileLoadStatus.failed;
     }
     update();
   }
 
-  //TO-DO
-  void updateProfile(ProfileModel? newProfile) {
-    profile = newProfile;
+  void updateProfile({
+    required String token,
+    required ProfileModel updatedProfile,
+  }) async {
+    status.value = ProfileLoadStatus.loading;
+    update();
+
+    try {
+      profile = await ProfileServices.updateProfile(
+        token: token,
+        updatedData: updatedProfile,
+      );
+      status.value = ProfileLoadStatus.updated;
+    } catch (e) {
+      status.value = ProfileLoadStatus.failed;
+    }
     update();
   }
 }

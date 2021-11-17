@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/profile_controller.dart';
 import 'package:get/get.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/theme.dart';
 import '../widgets/profile_identity_item.dart';
 
 class ProfileIdentitySection extends StatelessWidget {
-  const ProfileIdentitySection({Key? key}) : super(key: key);
+  ProfileIdentitySection({Key? key}) : super(key: key);
+  final ProfileController profileController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +33,19 @@ class ProfileIdentitySection extends StatelessWidget {
           const SizedBox(height: 32),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: const <Widget>[
+            children: <Widget>[
               ProfileIdentityItem(
                 title: "Jenis Kelamin",
-                value: "Pria",
+                value: profileController.profile!.showGender ?? "-",
               ),
               ProfileIdentityItem(
                 title: "Golongan Darah",
-                value: "B",
+                value: profileController.profile!.bloodTypeDonators ?? "-",
               ),
               ProfileIdentityItem(
                 title: "Rhesus",
-                value: "+",
+                value:
+                    profileController.profile!.showRhesus ?? " ",
               ),
             ],
           ),
