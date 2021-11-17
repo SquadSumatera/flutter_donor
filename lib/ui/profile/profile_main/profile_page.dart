@@ -16,7 +16,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   ProfileController profileController = Get.put(ProfileController());
 
   @override
@@ -31,16 +30,17 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
-        return (profileController.status.value == ProfileLoadStatus.loaded)
+        return (profileController.status.value == ProfileLoadStatus.loaded ||
+                profileController.status.value == ProfileLoadStatus.updated)
             ? ListView(
-                children: const <Widget>[
-                  ProfileHeader(),
-                  HistorySection(),
-                  SizedBox(height: 35),
+                children: <Widget>[
+                  const ProfileHeader(),
+                  const HistorySection(),
+                  const SizedBox(height: 35),
                   ProfileIdentitySection(),
-                  SizedBox(height: 50),
-                  ProfileSettingsSection(),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
+                  const ProfileSettingsSection(),
+                  const SizedBox(height: 50),
                 ],
               )
             : (profileController.status.value == ProfileLoadStatus.loading)

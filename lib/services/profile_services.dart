@@ -47,4 +47,23 @@ class ProfileServices {
       }
     });
   }
+
+  static Future<ProfileModel> updateProfile({
+    required String token,
+    required ProfileModel updatedData,
+  }) async {
+    Response _response = await put(
+      Uri.parse(AppUrl.baseUrl + "/d/profile"),
+      headers: {
+        "Authorization": "Bearer $token",
+        'Content-Type': 'application/json; charset=UTF-8'
+      },
+      body: updatedData.toRawJson(),
+    );
+    if (_response.statusCode == 200) {
+      return ProfileModel.fromRawJson(_response.body);
+    } else {
+      throw Exception(_response.statusCode.toString());
+    }
+  }
 }
