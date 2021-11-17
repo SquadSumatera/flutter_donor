@@ -22,8 +22,7 @@ part 'app_routes.dart';
 class AppPages {
   static final LoginGetX tokenCheck = Get.put(LoginGetX());
 
-  static final initial =
-      tokenCheck.token.value.isEmpty ? Routes.splash : Routes.home;
+  static const initial = Routes.splash;
 
   static final routes = [
     GetPage(
