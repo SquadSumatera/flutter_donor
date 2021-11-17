@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/routes/app_pages.dart';
 import '../../../get_x/controller/profile_controller.dart';
 import '../../../get_x/controller/profile_overlay_controller.dart';
@@ -20,6 +21,7 @@ class ProfileEditIdentityPage extends StatefulWidget {
 
 class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
   ProfileController profileController = Get.find();
+  LoginGetX loginGetXState = Get.find();
   ProfileOverlayController c = Get.put(ProfileOverlayController());
   late ProfileModel tempProfile;
 
@@ -38,8 +40,8 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
           const SizedBox(height: 27),
           TextButton(
             onPressed: () {
-              profileController.status.value = ProfileLoadStatus.loaded;
-              Get.offNamed(Routes.profile);
+              profileController.getProfile(loginGetXState.token.value);
+              Get.back();
             },
             child: Row(
               children: <Widget>[

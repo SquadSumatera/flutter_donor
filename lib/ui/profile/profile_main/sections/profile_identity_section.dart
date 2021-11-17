@@ -52,7 +52,7 @@ class ProfileIdentitySection extends StatelessWidget {
           Center(
             child: ElevatedButton(
               onPressed: () async {
-                await Get.offNamed(
+                await Get.toNamed(
                   "${Routes.profile}/${Routes.profileEditIdentity}",
                 );
               },

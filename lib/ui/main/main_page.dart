@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/profile_controller.dart';
 import 'package:flutter_donor/get_x/state/home_getx.dart';
 import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_donor/ui/event/event_page.dart';
 import 'package:flutter_donor/ui/home/home_page.dart';
 import 'package:flutter_donor/ui/location/location_page.dart';
+import 'package:flutter_donor/ui/profile/profile_main/profile_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -13,12 +15,13 @@ class MainPage extends StatelessWidget {
 
   final PageStorageBucket bucket = PageStorageBucket();
   final HomeGetX homeGetXPage = Get.put(HomeGetX());
+  final ProfileController profileController = Get.put(ProfileController());
 
   final List<Widget> currentScrenList = [
     const HomePage(),
     const LocationPage(),
     const EventPage(),
-    const HomePage(),
+    const ProfilePage(),
   ];
 
   @override
@@ -97,16 +100,18 @@ class MainPage extends StatelessWidget {
                   ),
                 ),
               ),
-              IconButton(
-                onPressed: () {
-                  homeGetXPage.changeIndex(3);
-                },
-                iconSize: 27.0,
-                icon: SvgPicture.asset(
-                  'assets/vector/ic_profile.svg',
-                  color: homeGetXPage.currentIndex.value == 3
-                      ? AppColor.cRed
-                      : AppColor.cGrey,
+              Obx(
+                () => IconButton(
+                  onPressed: () {
+                    homeGetXPage.changeIndex(3);
+                  },
+                  iconSize: 27.0,
+                  icon: SvgPicture.asset(
+                    'assets/vector/ic_profile.svg',
+                    color: homeGetXPage.currentIndex.value == 3
+                        ? AppColor.cRed
+                        : AppColor.cGrey,
+                  ),
                 ),
               ),
             ],

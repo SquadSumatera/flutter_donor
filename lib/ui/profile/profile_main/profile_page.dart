@@ -17,7 +17,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  ProfileController profileController = Get.put(ProfileController());
+  ProfileController profileController = Get.find();
   LoginGetX loginGetXState = Get.find();
 
   @override
