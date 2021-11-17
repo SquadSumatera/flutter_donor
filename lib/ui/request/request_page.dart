@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -79,7 +80,9 @@ class RequestPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(Routes.donor);
+                },
               ),
               GestureDetector(
                 child: Container(
