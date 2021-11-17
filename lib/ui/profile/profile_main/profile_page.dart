@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
+import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/constant.dart';
 import 'package:get/get.dart';
@@ -17,12 +18,13 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   ProfileController profileController = Get.put(ProfileController());
+  LoginGetX loginGetXState = Get.find();
 
   @override
   void initState() {
     super.initState();
     profileController.getProfile(
-      AppToken.dummyUser,
+      loginGetXState.token.value,
     );
   }
 
@@ -44,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         TextButton(
                           onPressed: () {
                             profileController.getProfile(
-                              AppToken.dummyUser,
+                              loginGetXState.token.value,
                             );
                           },
                           child: const Text("Coba Lagi"),

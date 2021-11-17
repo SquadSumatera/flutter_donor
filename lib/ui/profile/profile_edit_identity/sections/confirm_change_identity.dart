@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
+import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/shared/constant.dart';
 import '../../../../models/profile_model.dart';
 import '../../../../shared/theme.dart';
@@ -15,6 +16,8 @@ class ConfirmChangeIdentity extends StatelessWidget {
   final ProfileModel data;
   final ProfileOverlayController c = Get.find();
   final ProfileController profileController = Get.find();
+  final LoginGetX loginGetXState = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,7 +50,7 @@ class ConfirmChangeIdentity extends StatelessWidget {
                 onPressed: () {
                   c.removeOverlay();
                   profileController.updateProfile(
-                    token: AppToken.dummyUser,
+                    token: loginGetXState.token.value,
                     updatedProfile: data,
                   );
                 },
