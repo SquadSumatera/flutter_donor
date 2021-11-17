@@ -25,11 +25,7 @@ void main() {
     }
     return getPref;
   });
-  Get.putAsync<TokenModel>(() async {
-    TokenModel tokenModel =
-        await TokenServices.tokenCheck(token: main.token.value);
-    return tokenModel;
-  });
+
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: Colors.black, // navigation bar color
       statusBarColor: Colors.transparent, // status bar
