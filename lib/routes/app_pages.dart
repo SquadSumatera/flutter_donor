@@ -20,8 +20,6 @@ import 'package:get/get.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static final LoginGetX tokenCheck = Get.put(LoginGetX());
-
   static const initial = Routes.splash;
 
   static final routes = [
