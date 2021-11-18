@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/models/update_password_model.dart';
-import 'package:flutter_donor/shared/constant.dart';
 import 'package:get/get.dart';
 import '../widgets/base_text_field.dart';
 import '../../../../get_x/controller/profile_controller.dart';
-import '../../../../models/profile_model.dart';
 import '../../../../get_x/controller/profile_overlay_controller.dart';
 import '../../../../shared/theme.dart';
 
@@ -19,7 +16,6 @@ class ChangePasswordSection extends StatefulWidget {
 class _ChangePasswordSectionState extends State<ChangePasswordSection> {
   ProfileOverlayController c = Get.find();
   ProfileController profileController = Get.find();
-  LoginGetX loginGetXState = Get.find();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   UpdatePasswordModel tempChangePasswordData = UpdatePasswordModel();
 
@@ -91,7 +87,6 @@ class _ChangePasswordSectionState extends State<ChangePasswordSection> {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
                     profileController.updatePassword(
-                      token: loginGetXState.token.value,
                       updatedPassword: tempChangePasswordData,
                     );
                   }

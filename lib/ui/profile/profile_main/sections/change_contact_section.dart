@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
-import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/models/profile_model.dart';
-import 'package:flutter_donor/shared/constant.dart';
 import 'package:get/get.dart';
 import '../widgets/base_text_field.dart';
 import '../../../../get_x/controller/profile_overlay_controller.dart';
@@ -17,7 +15,6 @@ class ChangeContactSection extends StatefulWidget {
 
 class _ChangeContactSectionState extends State<ChangeContactSection> {
   ProfileOverlayController c = Get.find();
-  LoginGetX loginGetXState = Get.find();
   ProfileController profileController = Get.find();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late ProfileModel tempProfile;
@@ -98,7 +95,6 @@ class _ChangeContactSectionState extends State<ChangeContactSection> {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
                     profileController.updateProfile(
-                      token: loginGetXState.token.value,
                       updatedProfile: tempProfile,
                     );
                   }

@@ -16,8 +16,17 @@ enum ProfileLoadStatus {
 }
 
 class ProfileController extends GetxController {
+  String token;
+  ProfileController({required this.token});
+
   ProfileModel? profile;
   Rx<ProfileLoadStatus> status = ProfileLoadStatus.loading.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    getProfile(token);
+  }
 
   void getProfile(String token) async {
     status.value = ProfileLoadStatus.loading;
@@ -32,7 +41,6 @@ class ProfileController extends GetxController {
   }
 
   void updateProfilePhoto({
-    required String token,
     required File file,
   }) async {
     status.value = ProfileLoadStatus.loading;
@@ -51,7 +59,6 @@ class ProfileController extends GetxController {
   }
 
   void updateProfile({
-    required String token,
     required ProfileModel updatedProfile,
   }) async {
     status.value = ProfileLoadStatus.updateLoading;
@@ -70,7 +77,6 @@ class ProfileController extends GetxController {
   }
 
   void updatePassword({
-    required String token,
     required UpdatePasswordModel updatedPassword,
   }) async {
     status.value = ProfileLoadStatus.updateLoading;

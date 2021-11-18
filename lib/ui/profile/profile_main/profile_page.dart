@@ -21,14 +21,6 @@ class _ProfilePageState extends State<ProfilePage> {
   LoginGetX loginGetXState = Get.find();
 
   @override
-  void initState() {
-    super.initState();
-    profileController.getProfile(
-      loginGetXState.token.value,
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {

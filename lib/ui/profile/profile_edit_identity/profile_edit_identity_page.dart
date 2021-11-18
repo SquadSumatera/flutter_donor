@@ -40,7 +40,10 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
           const SizedBox(height: 27),
           TextButton(
             onPressed: () {
-              profileController.getProfile(loginGetXState.token.value);
+              if (profileController.status.value == ProfileLoadStatus.updated) {
+                profileController.profile = tempProfile;
+              }
+              profileController.status.value == ProfileLoadStatus.loaded;
               Get.back();
             },
             child: Row(
