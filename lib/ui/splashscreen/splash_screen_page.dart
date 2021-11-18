@@ -59,9 +59,11 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
     final LoginGetX tokenCheck = Get.put(LoginGetX());
     var duration = const Duration(seconds: 3);
     return Timer(duration, () {
-      tokenCheck.token.value.isEmpty
-          ? Get.offNamed(Routes.login)
-          : Get.offNamed(Routes.main);
+      tokenCheck.onBoard.value
+          ? Get.offAllNamed(Routes.onBoarding)
+          : tokenCheck.token.value.isEmpty
+              ? Get.offNamed(Routes.login)
+              : Get.offNamed(Routes.main);
     });
   }
 }

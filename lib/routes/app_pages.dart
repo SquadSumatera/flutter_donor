@@ -10,6 +10,7 @@ import 'package:flutter_donor/ui/location/location_page.dart';
 import 'package:flutter_donor/ui/location/location_search_page.dart';
 import 'package:flutter_donor/ui/login/login_page.dart';
 import 'package:flutter_donor/ui/main/main_page.dart';
+import 'package:flutter_donor/ui/onboarding/onboarding_page.dart';
 import 'package:flutter_donor/ui/profile/profile_edit_identity/profile_edit_identity_page.dart';
 import 'package:flutter_donor/ui/profile/profile_main/profile_page.dart';
 import 'package:flutter_donor/ui/register/register_2_page.dart';
@@ -90,6 +91,10 @@ class AppPages {
     GetPage(
       name: Routes.request,
       page: () => RequestPage(),
-    )
+    ),
+    GetPage(
+      name: Routes.onBoarding,
+      page: () => OnBoardingPage(),
+    ),
   ];
 }

@@ -9,6 +9,7 @@ class LoginGetX extends GetxController {
   RxString finalPass = "".obs;
   RxString token = "".obs;
   RxBool isDone = true.obs;
+  RxBool onBoard = true.obs;
 
   void changeEmail(String cEmail) {
     email.value = cEmail;
@@ -30,26 +31,17 @@ class LoginGetX extends GetxController {
     token.value = cToken;
   }
 
+  void changeOnBoard(bool cOnBoard) {
+    onBoard.value = cOnBoard;
+  }
+
   Future<void> setDataToken(String token) async {
     final sPref = await SharedPreferences.getInstance();
     await sPref.setString("token", token);
+    print("Ini token ${sPref.getString("token")}");
   }
 
   void changeStatus() {
     isDone.value = !isDone.value;
   }
-
-  // Future<String?> getDataToken() async {
-  //   final sPref = await SharedPreferences.getInstance();
-  //   return sPref.getString("token")!.toString();
-  //   // return sPref.getInt("num")!.toInt();
-  // }
-
-  // void setDataToken() async {
-  //   String? token = await getDataToken();
-  //   tokenShr.value = token!;
-  //   // int? data = await getData();
-  //   // num.value = data!;
-  // }
-
 }
