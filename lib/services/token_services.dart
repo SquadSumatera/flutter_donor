@@ -6,11 +6,12 @@ import 'package:http/http.dart';
 
 class TokenServices {
   static Future<TokenModel> tokenCheck({required String token}) async {
-    Response _response = await get(
+    Response _response = await post(
       Uri.parse(AppUrl.baseUrl + "/d/profile"),
-      headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
     );
-
     return TokenModel.fromJson(_response.body);
   }
 }

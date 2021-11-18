@@ -5,15 +5,12 @@
 import 'dart:convert';
 
 class LoginModel {
-  LoginModel({
-    this.status,
-    this.message,
-    this.data,
-  });
+  LoginModel({this.status, this.message, this.data, this.token});
 
   int? status;
   String? message;
   Data? data;
+  String? token;
 
   factory LoginModel.fromJson(String str) =>
       LoginModel.fromMap(json.decode(str));
@@ -23,10 +20,10 @@ class LoginModel {
   factory LoginModel.fromMap(Map<String, dynamic> json) {
     if (json["status"] == 201) {
       return LoginModel(
-        status: json["status"],
-        message: json["message"],
-        data: Data.fromMap(json["data"]),
-      );
+          status: json["status"],
+          message: json["message"],
+          data: Data.fromMap(json["data"]),
+          token: json["data"]["jwt_token_donators"]);
     } else {
       return LoginModel(status: json["status"]);
     }

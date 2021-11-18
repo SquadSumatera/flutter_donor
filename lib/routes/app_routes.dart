@@ -16,4 +16,5 @@ abstract class Routes {
   static const String register2 = '/register-goldor';
   static const String register3 = '/register-kontak';
   static const String request = '/request';
+  static const String onBoarding = '/onBoarding';
 }

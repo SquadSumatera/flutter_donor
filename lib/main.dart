@@ -12,13 +12,12 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Get.putAsync<SharedPreferences>(() async {
     SharedPreferences getPref = await SharedPreferences.getInstance();
+    main.changeOnBoard(getPref.getBool("onboard") ?? true);
     main.changeToken(getPref.getString("token") ?? "");
     if (main.token.value.isNotEmpty) {
       TokenModel tokenModel =
           await TokenServices.tokenCheck(token: main.token.value);
-      if (tokenModel.status == 201) {
-        main.changeToken(getPref.getString("token")!);
-      } else {
+      if (tokenModel.status != 201) {
         main.changeToken("");
         getPref.setString("token", "");
       }

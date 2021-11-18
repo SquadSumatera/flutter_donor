@@ -7,6 +7,7 @@ import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_donor/ui/login/login_widget.dart';
 import 'package:flutter_donor/ui/register/register_header.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -109,10 +110,8 @@ class LoginPage extends StatelessWidget {
 
                           if (loginCheck.status == 201) {
                             loginGetXPage.changeStatus();
-                            loginGetXPage
-                                .changeToken(loginCheck.data!.jwtTokenDonators);
-                            loginGetXPage.setDataToken(
-                                loginCheck.data!.jwtTokenDonators);
+                            loginGetXPage.changeToken(loginCheck.token!);
+                            loginGetXPage.setDataToken(loginCheck.token!);
                             Get.offAllNamed(Routes.main);
                           } else {
                             loginGetXPage.changeStatus();
@@ -162,7 +161,7 @@ class LoginPage extends StatelessWidget {
                           ),
                         )
                       ],
-                    )
+                    ),
                   ],
                 ),
               )
