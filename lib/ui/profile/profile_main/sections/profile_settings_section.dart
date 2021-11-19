@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
+import 'package:get/get.dart';
 import 'change_contact_section.dart';
 import '../../overlay/profile_overlay_section.dart';
 import 'change_password_section.dart';
@@ -40,7 +42,9 @@ class ProfileSettingsSection extends StatelessWidget {
           SettingsItemTile(
             label: 'Frequently Asked Questions (FAQ)',
             icon: Icons.quiz,
-            callback: () {},
+            callback: () {
+              Get.toNamed(Routes.faq);
+            },
           ),
           SettingsItemTile(
             label: 'Log Out',

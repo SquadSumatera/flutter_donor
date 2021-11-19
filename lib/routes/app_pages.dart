@@ -3,6 +3,7 @@ import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/models/dummy_event_model.dart';
 import 'package:flutter_donor/ui/event/event_detail_page.dart';
 import 'package:flutter_donor/ui/event/event_page.dart';
+import 'package:flutter_donor/ui/faq/faq_page.dart';
 import 'package:flutter_donor/ui/home/home_page.dart';
 import 'package:flutter_donor/ui/location/location_detail_page.dart';
 import 'package:flutter_donor/ui/location/location_maps_page.dart';
@@ -95,6 +96,10 @@ class AppPages {
     GetPage(
       name: Routes.onBoarding,
       page: () => OnBoardingPage(),
+    ),
+    GetPage(
+      name: Routes.faq,
+      page: () => const FAQPage(),
     ),
   ];
 }

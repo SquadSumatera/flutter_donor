@@ -34,6 +34,10 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColor.cRed,
+        elevation: 0,
+      ),
       body: ListView(
         children: <Widget>[
           const ProfileHeader(),
