@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/state/login_getx.dart';
+import 'package:flutter_donor/ui/donor/donor_page.dart';
 import 'package:flutter_donor/models/dummy_event_model.dart';
 import 'package:flutter_donor/ui/event/event_detail_page.dart';
 import 'package:flutter_donor/ui/event/event_page.dart';
@@ -92,6 +93,10 @@ class AppPages {
     GetPage(
       name: Routes.request,
       page: () => RequestPage(),
+    ),
+    GetPage(
+      name: Routes.donor,
+      page: () => DonorPage(),
     ),
     GetPage(
       name: Routes.onBoarding,
