@@ -1,5 +1,5 @@
-class EventDetail {
-  EventDetail({
+class EventDetailModel {
+  EventDetailModel({
     required this.name,
     required this.desc,
     this.image = "assets/bitmap/header_bg.png",

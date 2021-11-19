@@ -22,6 +22,7 @@ class AppColor {
   static const Color cOrange = Color(0XFFF37024);
   static const Color cBlue = Color(0XFF458FF6);
   static const Color cBlack = Color(0xFF000000);
+  static const Color cGreen = Color(0XFF0CB569);
 }
 
 class AppText {
@@ -60,4 +61,37 @@ class AppText {
     fontFamily: fontFamily,
     fontSize: 24,
   );
+}
+
+class AppShadow {
+  static final small = [
+    BoxShadow(
+      color: const Color(0xFF141414).withOpacity(0.04),
+      blurRadius: 1.0,
+    ),
+    BoxShadow(
+      color: const Color(0xFF141414).withOpacity(0.08),
+      blurRadius: 8.0,
+    ),
+  ];
+
+  static final medium = [
+    BoxShadow(
+      color: const Color(0xFF141414).withOpacity(0.08),
+      blurRadius: 1.0,
+    ),
+    BoxShadow(
+      color: const Color(0xFF141414).withOpacity(0.08),
+      blurRadius: 8.0,
+      spreadRadius: 2.0,
+    ),
+  ];
+
+  static final large = [
+    BoxShadow(
+      color: const Color(0xFF141414).withOpacity(1),
+      blurRadius: 24.0,
+      spreadRadius: 8.0,
+    ),
+  ];
 }

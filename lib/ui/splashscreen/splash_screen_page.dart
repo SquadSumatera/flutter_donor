@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -55,9 +56,14 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   }
 
   startSplashScreen() {
+    final LoginGetX tokenCheck = Get.put(LoginGetX());
     var duration = const Duration(seconds: 3);
     return Timer(duration, () {
-      Get.offNamed(Routes.main);
+      tokenCheck.onBoard.value
+          ? Get.offAllNamed(Routes.onBoarding)
+          : tokenCheck.token.value.isEmpty
+              ? Get.offNamed(Routes.login)
+              : Get.offNamed(Routes.main);
     });
   }
 }

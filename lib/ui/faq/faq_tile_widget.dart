@@ -1,0 +1,95 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_donor/shared/theme.dart';
+
+class FAQTile extends StatelessWidget {
+  const FAQTile({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
+  final String index;
+
+  Widget _buildFaqRow({
+    required IconData icon,
+    required String text,
+    required bool isQuestion,
+  }) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(
+          icon,
+          color: AppColor.cRed,
+          size: 24,
+        ),
+        const SizedBox(width: 13),
+        Expanded(
+          child: Text(
+            text,
+            style: (isQuestion)
+                ? AppText.textNormal.copyWith(
+                    fontWeight: AppText.semiBold,
+                  )
+                : AppText.textNormal,
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          margin: const EdgeInsets.only(bottom: 15),
+          padding: const EdgeInsets.all(18),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: AppShadow.medium,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+              _buildFaqRow(
+                icon: Icons.help,
+                text: "Lorem ipsum dolor sit amet?",
+                isQuestion: true,
+              ),
+              const SizedBox(height: 18),
+              _buildFaqRow(
+                icon: Icons.question_answer,
+                text: "ndak bise basa design bang.",
+                isQuestion: false,
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          top: -10,
+          left: -10,
+          child: Container(
+            width: 34,
+            height: 34,
+            decoration: BoxDecoration(
+              color: AppColor.cRed,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: AppShadow.medium,
+            ),
+            child: Center(
+              child: Text(
+                index,
+                style: AppText.textSmall.copyWith(
+                  color: AppColor.white,
+                  fontWeight: AppText.bold,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

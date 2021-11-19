@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/profile_controller.dart';
+import 'package:flutter_donor/get_x/state/home_getx.dart';
+import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_donor/ui/event/event_page.dart';
 import 'package:flutter_donor/ui/home/home_page.dart';
 import 'package:flutter_donor/ui/location/location_page.dart';
+import 'package:flutter_donor/ui/profile/profile_main/profile_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -11,30 +15,45 @@ class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return MainPageState();
-  }
+  State<MainPage> createState() => _MainPageState();
 }
 
-class MainPageState extends State<MainPage> {
-  int selectedIndex = 0;
+class _MainPageState extends State<MainPage> {
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = const HomePage();
+
+  final HomeGetX homeGetXPage = Get.put(HomeGetX());
+  late final ProfileController profileController;
+  
+  @override
+  void initState() {
+    LoginGetX loginGetXState = Get.find();
+    profileController = Get.put(ProfileController(
+      token: loginGetXState.token.value,
+    ));
+    super.initState();
+  }
+
+  final List<Widget> currentScrenList = [
+    const HomePage(),
+    const LocationPage(),
+    const EventPage(),
+    const ProfilePage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageStorage(
-        child: currentScreen,
-        bucket: bucket,
+      body: Obx(
+        () => PageStorage(
+          child: currentScrenList[homeGetXPage.currentIndex.value],
+          bucket: bucket,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColor.cRed,
         onPressed: () {
-          setState(() {
-            Get.toNamed(Routes.request);
-          });
+          Get.toNamed(Routes.request);
         },
         tooltip: "Request plasma",
         child: Container(
@@ -50,54 +69,66 @@ class MainPageState extends State<MainPage> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              IconButton(
-                //update the bottom app bar view each time an item is clicked
-                onPressed: () {
-                  setState(() {
-                    currentScreen = const HomePage();
-                    selectedIndex = 0;
-                  });
-                },
-                iconSize: 27.0,
-                icon: SvgPicture.asset('assets/vector/ic_home.svg',
-                    color: selectedIndex == 0 ? AppColor.cRed : AppColor.cGrey),
+              Obx(
+                () => IconButton(
+                  //update the bottom app bar view each time an item is clicked
+                  onPressed: () {
+                    homeGetXPage.changeIndex(0);
+                  },
+                  iconSize: 27.0,
+                  icon: SvgPicture.asset(
+                    'assets/vector/ic_home.svg',
+                    color: homeGetXPage.currentIndex.value == 0
+                        ? AppColor.cRed
+                        : AppColor.cGrey,
+                  ),
+                ),
               ),
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    currentScreen = const LocationPage();
-                    selectedIndex = 1;
-                  });
-                },
-                iconSize: 27.0,
-                icon: SvgPicture.asset('assets/vector/ic_location.svg',
-                    color: selectedIndex == 1 ? AppColor.cRed : AppColor.cGrey),
+              Obx(
+                () => IconButton(
+                  onPressed: () {
+                    homeGetXPage.changeIndex(1);
+                  },
+                  iconSize: 27.0,
+                  icon: SvgPicture.asset(
+                    'assets/vector/ic_location.svg',
+                    color: homeGetXPage.currentIndex.value == 1
+                        ? AppColor.cRed
+                        : AppColor.cGrey,
+                  ),
+                ),
               ),
               //to leave space in between the bottom app bar items and below the FAB
               const SizedBox(
                 width: 50.0,
               ),
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    currentScreen = const EventPage();
-                    selectedIndex = 2;
-                  });
-                },
-                iconSize: 27.0,
-                icon: SvgPicture.asset('assets/vector/ic_dashboard.svg',
-                    color: selectedIndex == 2 ? AppColor.cRed : AppColor.cGrey),
+              Obx(
+                () => IconButton(
+                  onPressed: () {
+                    homeGetXPage.changeIndex(2);
+                  },
+                  iconSize: 27.0,
+                  icon: SvgPicture.asset(
+                    'assets/vector/ic_dashboard.svg',
+                    color: homeGetXPage.currentIndex.value == 2
+                        ? AppColor.cRed
+                        : AppColor.cGrey,
+                  ),
+                ),
               ),
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    currentScreen = const HomePage();
-                    selectedIndex = 3;
-                  });
-                },
-                iconSize: 27.0,
-                icon: SvgPicture.asset('assets/vector/ic_profile.svg',
-                    color: selectedIndex == 3 ? AppColor.cRed : AppColor.cGrey),
+              Obx(
+                () => IconButton(
+                  onPressed: () {
+                    homeGetXPage.changeIndex(3);
+                  },
+                  iconSize: 27.0,
+                  icon: SvgPicture.asset(
+                    'assets/vector/ic_profile.svg',
+                    color: homeGetXPage.currentIndex.value == 3
+                        ? AppColor.cRed
+                        : AppColor.cGrey,
+                  ),
+                ),
               ),
             ],
           ),
