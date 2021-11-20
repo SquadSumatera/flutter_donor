@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/models/profile_model.dart';
 import 'package:flutter_donor/models/update_password_model.dart';
 import 'package:flutter_donor/services/profile_services.dart';
@@ -16,8 +17,7 @@ enum ProfileLoadStatus {
 }
 
 class ProfileController extends GetxController {
-  String token;
-  ProfileController({required this.token});
+  final LoginGetX token = Get.find();
 
   ProfileModel? profile;
   Rx<ProfileLoadStatus> status = ProfileLoadStatus.loading.obs;
@@ -25,7 +25,7 @@ class ProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getProfile(token);
+    getProfile(token.token.value);
   }
 
   void getProfile(String token) async {
@@ -48,7 +48,7 @@ class ProfileController extends GetxController {
 
     try {
       profile = await ProfileServices.updateProfileImage(
-        token: token,
+        token: token.token.value,
         file: file,
       );
       status.value = ProfileLoadStatus.loaded;
@@ -66,7 +66,7 @@ class ProfileController extends GetxController {
 
     try {
       profile = await ProfileServices.updateProfile(
-        token: token,
+        token: token.token.value,
         updatedData: updatedProfile,
       );
       status.value = ProfileLoadStatus.updated;
@@ -84,7 +84,7 @@ class ProfileController extends GetxController {
 
     try {
       profile = await ProfileServices.updatePassword(
-        token: token,
+        token: token.token.value,
         updatedData: updatedPassword,
       );
       status.value = ProfileLoadStatus.updated;

@@ -38,7 +38,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.home,
-      page: () => const HomePage(),
+      page: () => HomePage(),
     ),
     GetPage(
       name: Routes.login,

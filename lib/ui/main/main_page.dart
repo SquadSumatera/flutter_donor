@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
+import 'package:flutter_donor/get_x/state/check_connection_getx.dart';
 import 'package:flutter_donor/get_x/state/home_getx.dart';
 import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/routes/app_pages.dart';
@@ -11,30 +12,25 @@ import 'package:flutter_donor/ui/profile/profile_main/profile_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class MainPage extends StatelessWidget {
+  MainPage({Key? key}) : super(key: key);
 
-  @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
   final PageStorageBucket bucket = PageStorageBucket();
-
   final HomeGetX homeGetXPage = Get.put(HomeGetX());
-  late final ProfileController profileController;
-  
-  @override
-  void initState() {
-    LoginGetX loginGetXState = Get.find();
-    profileController = Get.put(ProfileController(
-      token: loginGetXState.token.value,
-    ));
-    super.initState();
-  }
+  final LoginGetX loginGetX = Get.find();
+
+  final checkConnection = Get.lazyPut(
+    () => CheckConnectionGetX(),
+    fenix: true,
+  );
+
+  final profileController = Get.lazyPut(
+    () => ProfileController(),
+    fenix: true,
+  );
 
   final List<Widget> currentScrenList = [
-    const HomePage(),
+    HomePage(),
     const LocationPage(),
     const EventPage(),
     const ProfilePage(),
