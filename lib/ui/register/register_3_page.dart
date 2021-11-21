@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/get_x/state/register_getx.dart';
-import 'package:flutter_donor/get_x/state/register_kontak_getx.dart';
-import 'package:flutter_donor/models/register_model.dart';
-import 'package:flutter_donor/routes/app_pages.dart';
-import 'package:flutter_donor/services/register_services.dart';
-import 'package:flutter_donor/shared/theme.dart';
-import 'package:flutter_donor/ui/register/register_header.dart';
-import 'package:flutter_donor/ui/register/register_widget.dart';
 import 'package:get/get.dart';
+import '../../get_x/state/register_getx.dart';
+import '../../get_x/state/register_kontak_getx.dart';
+import '../../models/register_model.dart';
+import '../../routes/app_pages.dart';
+import '../../services/register_services.dart';
+import '../../shared/theme.dart';
+import 'register_widget.dart';
 
 class RegisterPage3 extends StatelessWidget {
   RegisterPage3({Key? key}) : super(key: key);

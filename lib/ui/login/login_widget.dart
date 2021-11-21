@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_donor/get_x/state/login_getx.dart';
-import 'package:flutter_donor/get_x/state/register_getx.dart';
-import 'package:flutter_donor/get_x/state/register_goldar_getx.dart';
-import 'package:flutter_donor/get_x/state/register_resus_getx.dart';
-import 'package:flutter_donor/shared/theme.dart';
 import 'package:get/get.dart';
+import 'package:flutter/services.dart';
+import '../../get_x/state/login_getx.dart';
 
 class LoginWidget extends StatelessWidget {
   final String hintText;

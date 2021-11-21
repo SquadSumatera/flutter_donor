@@ -15,7 +15,7 @@ import 'package:flutter_donor/ui/main/main_page.dart';
 import 'package:flutter_donor/ui/onboarding/onboarding_page.dart';
 import 'package:flutter_donor/ui/profile/profile_edit_identity/profile_edit_identity_page.dart';
 import 'package:flutter_donor/ui/profile/profile_main/profile_page.dart';
-import 'package:flutter_donor/ui/register/register_2_page.dart';
+// import 'package:flutter_donor/ui/register/register_2_page.dart';
 import 'package:flutter_donor/ui/register/register_3_page.dart';
 import 'package:flutter_donor/ui/register/register_page.dart';
 import 'package:flutter_donor/ui/request/request_page.dart';
@@ -82,10 +82,10 @@ class AppPages {
       name: Routes.register,
       page: () => RegisterPage(),
     ),
-    GetPage(
-      name: Routes.register2,
-      page: () => const RegisterPage2(),
-    ),
+    // GetPage(
+    //   name: Routes.register2,
+    //   page: () => const RegisterPage2(),
+    // ),
     GetPage(
       name: Routes.register3,
       page: () => RegisterPage3(),
