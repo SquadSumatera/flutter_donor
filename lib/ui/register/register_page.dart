@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/get_x/state/register_getx.dart';
-
-import 'package:flutter_donor/get_x/state/register_kontak_getx.dart';
-
-import 'package:flutter_donor/routes/app_pages.dart';
-import 'package:flutter_donor/shared/theme.dart';
-import 'package:flutter_donor/ui/register/register_header.dart';
-import 'package:flutter_donor/ui/register/register_widget.dart';
 import 'package:get/get.dart';
+import '../../get_x/state/register_getx.dart';
+import '../../get_x/state/register_kontak_getx.dart';
+import '../../routes/app_pages.dart';
+import '../../shared/theme.dart';
+import 'register_widget.dart';
 
 class RegisterPage extends StatelessWidget {
   RegisterPage({Key? key}) : super(key: key);
 
-  //late final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> formKeyRegsiter = GlobalKey<FormState>();
 
   final RegisterController rController = Get.put(RegisterController());
-  // final RegisterGolDarGetX golDarGetXPage = Get.put(RegisterGolDarGetX());
-  // final RegisterResusGetX resusGetXPage = Get.put(RegisterResusGetX());
   final RegisterKontakGetX rKontakGetXPage = Get.put(RegisterKontakGetX());
 
   @override

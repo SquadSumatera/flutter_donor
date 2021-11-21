@@ -6,7 +6,7 @@ import '../../routes/app_pages.dart';
 import '../../services/login_services.dart';
 import '../../shared/theme.dart';
 import 'login_widget.dart';
-import '../register/register_header.dart';
+import '../register/register_widget.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
