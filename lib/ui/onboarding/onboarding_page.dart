@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_donor/ui/onboarding/onboarding_widget.dart';
+import 'onboarding_widget.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../get_x/controller/onboarding_controller.dart';

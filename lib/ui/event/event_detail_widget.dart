@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/shared/theme.dart';
+import '../../shared/theme.dart';
 
 Widget headerEventDetail(BuildContext context) {
   return Container(

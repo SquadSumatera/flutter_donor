@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/models/dummy_event_model.dart';
-import 'package:flutter_donor/routes/app_pages.dart';
-import 'package:flutter_donor/ui/event/event_card_large_widget.dart';
-import 'package:flutter_donor/ui/event/event_card_medium_widget.dart';
+import '../../models/dummy_event_model.dart';
+import '../../routes/app_pages.dart';
+import 'event_page_widget.dart';
 import '../../shared/theme.dart';
 import 'package:get/get.dart';
 
@@ -33,7 +32,7 @@ class EventPage extends StatelessWidget {
               ),
             ),
           ),
-          const EventCardWidgetLarge(),
+          eventCardLarge(),
           Padding(
             padding: const EdgeInsets.only(left: 32.0, top: 6.0),
             child: Text(
@@ -51,8 +50,8 @@ class EventPage extends StatelessWidget {
             itemBuilder: (context, i) => GestureDetector(
               onTap: () => Get.toNamed(Routes.event +
                   "/$i?nameHeading=Telah Dibuka Donor Plasma Covid di Wilayah Simbabwe&published=PMI&time=23-10-2021"),
-              child: EventCardMedium(
-                eventDetail: EventDetailModel(name: "Diky", desc: "Contoh"),
+              child: eventCardMedium(
+                EventDetailModel(name: "Diky", desc: "Contoh"),
               ),
             ),
           )

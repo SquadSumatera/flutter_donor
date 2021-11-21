@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/shared/theme.dart';
-import 'package:flutter_donor/ui/event/event_detail_widget.dart';
 import 'package:get/get.dart';
+import '../../shared/theme.dart';
+import 'event_detail_widget.dart';
 
 class EventDetailPage extends StatelessWidget {
   const EventDetailPage({Key? key}) : super(key: key);
