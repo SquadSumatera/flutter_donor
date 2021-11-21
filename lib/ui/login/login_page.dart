@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/get_x/state/login_getx.dart';
-import 'package:flutter_donor/models/login_model.dart';
-import 'package:flutter_donor/routes/app_pages.dart';
-import 'package:flutter_donor/services/login_services.dart';
-import 'package:flutter_donor/shared/theme.dart';
-import 'package:flutter_donor/ui/login/login_widget.dart';
-import 'package:flutter_donor/ui/register/register_header.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../get_x/state/login_getx.dart';
+import '../../models/login_model.dart';
+import '../../routes/app_pages.dart';
+import '../../services/login_services.dart';
+import '../../shared/theme.dart';
+import 'login_widget.dart';
+import '../register/register_header.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -118,7 +117,7 @@ class LoginPage extends StatelessWidget {
                             Get.snackbar(
                               "Login Gagal",
                               "Cek lagi koneksi/ Akun Anda",
-                              duration: const Duration(seconds: 2),
+                              duration: const Duration(seconds: 3),
                             );
                           }
                         },
