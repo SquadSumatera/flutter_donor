@@ -50,9 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             "Terjadi Kesalahan, coba beberapa saat kembali."),
                         TextButton(
                           onPressed: () {
-                            profileController.getProfile(
-                              loginGetXState.token.value,
-                            );
+                            profileController.onInit();
                           },
                           child: const Text("Coba Lagi"),
                         ),
