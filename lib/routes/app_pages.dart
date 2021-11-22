@@ -104,7 +104,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.faq,
-      page: () => const FAQPage(),
+      page: () => FAQPage(),
     ),
   ];
 }

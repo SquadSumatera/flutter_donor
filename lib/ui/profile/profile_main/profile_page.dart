@@ -66,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(height: 35),
                       ProfileIdentitySection(),
                       const SizedBox(height: 50),
-                      const ProfileSettingsSection(),
+                      ProfileSettingsSection(),
                       const SizedBox(height: 50),
                     ],
                   );

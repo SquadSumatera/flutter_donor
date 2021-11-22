@@ -5,8 +5,12 @@ class FAQTile extends StatelessWidget {
   const FAQTile({
     Key? key,
     required this.index,
+    required this.title,
+    required this.content,
   }) : super(key: key);
   final String index;
+  final String title;
+  final String content;
 
   Widget _buildFaqRow({
     required IconData icon,
@@ -55,13 +59,13 @@ class FAQTile extends StatelessWidget {
               const SizedBox(height: 10),
               _buildFaqRow(
                 icon: Icons.help,
-                text: "Lorem ipsum dolor sit amet?",
+                text: title,
                 isQuestion: true,
               ),
               const SizedBox(height: 18),
               _buildFaqRow(
                 icon: Icons.question_answer,
-                text: "ndak bise basa design bang.",
+                text: content,
                 isQuestion: false,
               ),
             ],

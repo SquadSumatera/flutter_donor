@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/faq_controller.dart';
 import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'change_contact_section.dart';
@@ -8,7 +9,12 @@ import '../../../../shared/theme.dart';
 import '../widgets/settings_item_tile.dart';
 
 class ProfileSettingsSection extends StatelessWidget {
-  const ProfileSettingsSection({Key? key}) : super(key: key);
+  ProfileSettingsSection({Key? key}) : super(key: key);
+  
+  final faqController = Get.lazyPut(
+    () => FaqController(),
+    fenix: true,
+  );
 
   @override
   Widget build(BuildContext context) {

@@ -1,11 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/faq_controller.dart';
+import 'package:flutter_donor/models/faq_model.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_donor/ui/faq/faq_tile_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class FAQPage extends StatelessWidget {
-  const FAQPage({Key? key}) : super(key: key);
+  FAQPage({Key? key}) : super(key: key);
+  final FaqController faqController = Get.find();
+
+  Widget _buildFaqList() {
+    int idx = 1;
+    List<Widget> _result = [];
+    for (FaqModel faq in faqController.faqList) {
+      _result.add(FAQTile(
+        index: idx.toString(),
+        title: faq.titleFaqs ?? "",
+        content: faq.contentFaqs ?? "",
+      ));
+      idx++;
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: _result,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,17 +73,26 @@ class FAQPage extends StatelessWidget {
                   style: AppText.textNormal,
                 ),
                 const SizedBox(height: 50),
-                const FAQTile(
-                  index: "1.",
-                ),
-                const FAQTile(
-                  index: "1.",
-                ),
-                const FAQTile(
-                  index: "1.",
-                ),
-                const FAQTile(
-                  index: "1.",
+                Obx(
+                  () => (faqController.status.value == FaqLoadStatus.loaded)
+                      ? _buildFaqList()
+                      : (faqController.status.value == FaqLoadStatus.loading)
+                          ? const Center(child: CircularProgressIndicator())
+                          : Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                      "Terjadi Kesalahan, coba beberapa saat kembali."),
+                                  TextButton(
+                                    onPressed: () {
+                                      faqController.onInit();
+                                    },
+                                    child: const Text("Coba Lagi"),
+                                  ),
+                                ],
+                              ),
+                            ),
                 ),
               ],
             ),
