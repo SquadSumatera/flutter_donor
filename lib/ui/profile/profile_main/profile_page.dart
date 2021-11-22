@@ -39,7 +39,10 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Obx(() {
         return (profileController.status.value == ProfileLoadStatus.loading)
             ? const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: AppColor.cBlack,
+                  strokeWidth: 5,
+                ),
               )
             : (profileController.status.value == ProfileLoadStatus.failed)
                 ? Center(

@@ -30,7 +30,10 @@ class HomePage extends StatelessWidget {
         () {
           return (checkConnectionGetX.status.value == StatusConnection.loading)
               ? const Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    color: AppColor.cBlack,
+                    strokeWidth: 5,
+                  ),
                 )
               : (checkConnectionGetX.status.value == StatusConnection.failed)
                   ? Center(

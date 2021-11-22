@@ -116,7 +116,10 @@ class _ChangeContactSectionState extends State<ChangeContactSection> {
               child: Obx(() {
                 return (profileController.status.value ==
                         ProfileLoadStatus.updateLoading)
-                    ? const CircularProgressIndicator()
+                    ? const CircularProgressIndicator(
+                        color: AppColor.white,
+                        strokeWidth: 2,
+                      )
                     : Text(
                         (profileController.status.value ==
                                 ProfileLoadStatus.loaded)

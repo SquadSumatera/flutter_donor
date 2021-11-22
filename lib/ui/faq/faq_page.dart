@@ -77,7 +77,12 @@ class FAQPage extends StatelessWidget {
                   () => (faqController.status.value == FaqLoadStatus.loaded)
                       ? _buildFaqList()
                       : (faqController.status.value == FaqLoadStatus.loading)
-                          ? const Center(child: CircularProgressIndicator())
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: AppColor.cBlack,
+                                strokeWidth: 5,
+                              ),
+                            )
                           : Center(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
