@@ -26,6 +26,9 @@ class _DonorPageState extends State<DonorPage> {
   final LoginGetX loginGetX = Get.find<LoginGetX>();
   final DonorController donorGetX = Get.put(DonorController());
 
+  var blood = Get.parameters['blood'];
+  var rhesus = Get.parameters['rhesus'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,12 +148,12 @@ class _DonorPageState extends State<DonorPage> {
                                   await DonorServices.createDonorNotes(
                                       token: loginGetX.token.value,
                                       uuid: donorGetX.dataInstitution.value,
-                                      blood: "O",
-                                      rhesus: "positive",
+                                      blood: "$blood",
+                                      rhesus: "$rhesus",
                                       date: dateController.text);
 
-                              print(loginGetX.token.value);
-                              print(donorGetX.dataInstitution.value);
+                              print(blood);
+                              print(rhesus);
 
                               if (response.status == 200) {
                                 Get.offAllNamed(Routes.main);

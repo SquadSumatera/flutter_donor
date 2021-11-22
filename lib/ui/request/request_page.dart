@@ -7,7 +7,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class RequestPage extends StatelessWidget {
-  const RequestPage({Key? key}) : super(key: key);
+  RequestPage({Key? key}) : super(key: key);
+
+  var blood = Get.parameters['blood'];
+  var rhesus = Get.parameters['rhesus'];
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +84,8 @@ class RequestPage extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  Get.toNamed(Routes.donor);
+                  var arg = {"blood": "$blood", "rhesus": "$rhesus"};
+                  Get.toNamed(Routes.donor, parameters: arg);
                 },
               ),
               GestureDetector(

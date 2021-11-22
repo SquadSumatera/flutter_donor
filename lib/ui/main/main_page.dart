@@ -78,7 +78,11 @@ class _MainPageState extends State<MainPage> {
                     duration: const Duration(seconds: 2),
                   );
                 } else {
-                  Get.toNamed(Routes.request);
+                  var arg = {
+                    "blood": "${data.bloodTypeDonators}",
+                    "rhesus": "${data.bloodRhesusDonators}"
+                  };
+                  Get.toNamed(Routes.request, parameters: arg);
                 }
               }
               print(data!.bloodTypeDonators.toString());
