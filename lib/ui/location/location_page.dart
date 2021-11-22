@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class LocationPage extends StatefulWidget {
@@ -43,6 +45,7 @@ class _LocationPageState extends State<LocationPage> {
     var duration = const Duration(seconds: 5);
     return Timer(duration, () {
       // Get.offNamed(Routes.showMaps);
+      Get.toNamed(Routes.showMaps);
     });
   }
 }

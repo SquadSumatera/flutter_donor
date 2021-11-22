@@ -2,6 +2,13 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_donor/get_x/controller/donor_controller.dart';
+import 'package:flutter_donor/get_x/state/login_getx.dart';
+import 'package:flutter_donor/models/create_donor_model.dart';
+import 'package:flutter_donor/models/institution_model.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
+import 'package:flutter_donor/services/donor_services.dart';
+import 'package:flutter_donor/services/institution_services.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -15,6 +22,10 @@ class DonorPage extends StatefulWidget {
 
 class _DonorPageState extends State<DonorPage> {
   TextEditingController dateController = TextEditingController();
+
+  final LoginGetX loginGetX = Get.find<LoginGetX>();
+  final DonorController donorGetX = Get.put(DonorController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,12 +72,20 @@ class _DonorPageState extends State<DonorPage> {
                 ),
                 SizedBox(
                   width: 300,
-                  child: DropdownSearch<String>(
+                  child: DropdownSearch<Datum?>(
                     showSearchBox: true,
                     mode: Mode.BOTTOM_SHEET,
-                    showSelectedItems: true,
-                    items: ["Brazil", "Italia", "Tunisia", 'Canada'],
-                    onChanged: print,
+                    showSelectedItems: false,
+                    onFind: (String? filter) async {
+                      var a = await InstitutionServices.listInstitution(
+                          token: loginGetX.token.value);
+                      return a;
+                    },
+                    itemAsString: (data) => data!.nameInstitutions,
+                    onChanged: (data) {
+                      donorGetX.changeDataInstituion(data!.idInstitutions);
+                      print(data.idInstitutions);
+                    },
                     dropdownSearchBaseStyle: TextStyle(color: AppColor.rubyRed),
                     dropdownSearchDecoration: InputDecoration(
                       hintText: "Pilih Lokasi Pendonoran Terdekat",
@@ -98,12 +117,12 @@ class _DonorPageState extends State<DonorPage> {
                       showDatePicker(
                               context: context,
                               initialDate: DateTime.now(),
-                              firstDate: DateTime(1945),
-                              lastDate: DateTime.now())
+                              firstDate: DateTime.now(),
+                              lastDate: DateTime(2025))
                           .then((date) {
                         setState(() {
                           dateController.text =
-                              "${date!.day}-${date.weekday}-${date.year}";
+                              "${date!.year}-${date.weekday}-${date.day}";
                         });
                       });
                     },
@@ -116,8 +135,46 @@ class _DonorPageState extends State<DonorPage> {
                 Center(
                   child: SizedBox(
                     width: 300,
-                    child:
-                        ElevatedButton(child: Text('Kirim'), onPressed: () {}),
+                    child: Obx(() => ElevatedButton(
+                          child:
+                              donorGetX.dontChange.value ? null : Text("Kirim"),
+                          onPressed: () async {
+                            if (dateController.text.isNotEmpty &&
+                                donorGetX.dataInstitution.value.isNotEmpty) {
+                              CreateDonorModel response =
+                                  await DonorServices.createDonorNotes(
+                                      token: loginGetX.token.value,
+                                      uuid: donorGetX.dataInstitution.value,
+                                      blood: "O",
+                                      rhesus: "positive",
+                                      date: dateController.text);
+
+                              print(loginGetX.token.value);
+                              print(donorGetX.dataInstitution.value);
+
+                              if (response.status == 200) {
+                                Get.offAllNamed(Routes.main);
+                                Get.snackbar(
+                                  "${response.message}",
+                                  "${response.status}",
+                                  duration: const Duration(seconds: 2),
+                                );
+                              } else {
+                                Get.snackbar(
+                                  "${response.message}",
+                                  "${response.status}",
+                                  duration: const Duration(seconds: 2),
+                                );
+                              }
+                            } else {
+                              Get.snackbar(
+                                "Data belum diisi",
+                                "Harap mengisi data yang tersedia",
+                                duration: const Duration(seconds: 2),
+                              );
+                            }
+                          },
+                        )),
                   ),
                 ),
               ],
