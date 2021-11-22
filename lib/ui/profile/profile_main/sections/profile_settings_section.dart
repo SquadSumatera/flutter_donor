@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/faq_controller.dart';
+import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'change_contact_section.dart';
@@ -10,11 +11,13 @@ import '../widgets/settings_item_tile.dart';
 
 class ProfileSettingsSection extends StatelessWidget {
   ProfileSettingsSection({Key? key}) : super(key: key);
-  
+
   final faqController = Get.lazyPut(
     () => FaqController(),
     fenix: true,
   );
+
+  final LoginGetX token = Get.find<LoginGetX>();
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +58,11 @@ class ProfileSettingsSection extends StatelessWidget {
           SettingsItemTile(
             label: 'Log Out',
             icon: Icons.logout,
-            callback: () {},
+            callback: () {
+              token.changeToken("");
+              token.setDataToken("");
+              Get.offAllNamed(Routes.login);
+            },
             textColor: AppColor.white,
             backgroundColor: AppColor.imperialRed,
           ),
