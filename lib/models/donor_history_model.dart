@@ -4,93 +4,138 @@
 
 import 'dart:convert';
 
+enum DonorHistoryStatus {
+  waitingConfirmation,
+  scheduleRejected,
+  registered,
+  conditionsRejected,
+  canceled,
+  finished,
+  undefined,
+}
+
 class DonorHistoryModel {
-    DonorHistoryModel({
-        this.idDonorNotes,
-        this.idDonators,
-        this.nameDonators,
-        this.idDonorEvents,
-        this.titleDonorEvents,
-        this.idInstitutions,
-        this.nameInstitutions,
-        this.bloodTypeDonorNotes,
-        this.bloodRhesusDonorNotes,
-        this.certificateDonorNotes,
-        this.scheduleDonorNotes,
-        this.statusDonorNotes,
-        this.locationAddress,
-        this.latitudeAddress,
-        this.longitudeAddress,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt,
-    });
+  DonorHistoryModel({
+    this.idDonorNotes,
+    this.idDonators,
+    this.nameDonators,
+    this.idDonorEvents,
+    this.titleDonorEvents,
+    this.idInstitutions,
+    this.nameInstitutions,
+    this.bloodTypeDonorNotes,
+    this.bloodRhesusDonorNotes,
+    this.certificateDonorNotes,
+    this.scheduleDonorNotes,
+    this.statusDonorNotes,
+    this.locationAddress,
+    this.latitudeAddress,
+    this.longitudeAddress,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
+  });
 
-    String? idDonorNotes;
-    String? idDonators;
-    String? nameDonators;
-    dynamic idDonorEvents;
-    dynamic titleDonorEvents;
-    String? idInstitutions;
-    String? nameInstitutions;
-    String? bloodTypeDonorNotes;
-    String? bloodRhesusDonorNotes;
-    bool? certificateDonorNotes;
-    DateTime? scheduleDonorNotes;
-    String? statusDonorNotes;
-    String? locationAddress;
-    String? latitudeAddress;
-    String? longitudeAddress;
-    DateTime? createdAt;
-    DateTime? updatedAt;
-    dynamic deletedAt;
+  String? idDonorNotes;
+  String? idDonators;
+  String? nameDonators;
+  dynamic idDonorEvents;
+  dynamic titleDonorEvents;
+  String? idInstitutions;
+  String? nameInstitutions;
+  String? bloodTypeDonorNotes;
+  String? bloodRhesusDonorNotes;
+  bool? certificateDonorNotes;
+  DateTime? scheduleDonorNotes;
+  String? statusDonorNotes;
+  String? locationAddress;
+  String? latitudeAddress;
+  String? longitudeAddress;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  dynamic deletedAt;
 
-    DonorHistoryModel copyWith({
-        String? idDonorNotes,
-        String? idDonators,
-        String? nameDonators,
-        dynamic idDonorEvents,
-        dynamic titleDonorEvents,
-        String? idInstitutions,
-        String? nameInstitutions,
-        String? bloodTypeDonorNotes,
-        String? bloodRhesusDonorNotes,
-        bool? certificateDonorNotes,
-        DateTime? scheduleDonorNotes,
-        String? statusDonorNotes,
-        String? locationAddress,
-        String? latitudeAddress,
-        String? longitudeAddress,
-        DateTime? createdAt,
-        DateTime? updatedAt,
-        dynamic deletedAt,
-    }) => 
-        DonorHistoryModel(
-            idDonorNotes: idDonorNotes ?? this.idDonorNotes,
-            idDonators: idDonators ?? this.idDonators,
-            nameDonators: nameDonators ?? this.nameDonators,
-            idDonorEvents: idDonorEvents ?? this.idDonorEvents,
-            titleDonorEvents: titleDonorEvents ?? this.titleDonorEvents,
-            idInstitutions: idInstitutions ?? this.idInstitutions,
-            nameInstitutions: nameInstitutions ?? this.nameInstitutions,
-            bloodTypeDonorNotes: bloodTypeDonorNotes ?? this.bloodTypeDonorNotes,
-            bloodRhesusDonorNotes: bloodRhesusDonorNotes ?? this.bloodRhesusDonorNotes,
-            certificateDonorNotes: certificateDonorNotes ?? this.certificateDonorNotes,
-            scheduleDonorNotes: scheduleDonorNotes ?? this.scheduleDonorNotes,
-            statusDonorNotes: statusDonorNotes ?? this.statusDonorNotes,
-            locationAddress: locationAddress ?? this.locationAddress,
-            latitudeAddress: latitudeAddress ?? this.latitudeAddress,
-            longitudeAddress: longitudeAddress ?? this.longitudeAddress,
-            createdAt: createdAt ?? this.createdAt,
-            updatedAt: updatedAt ?? this.updatedAt,
-            deletedAt: deletedAt ?? this.deletedAt,
-        );
+  // waiting_confirmation -> pas daftar langsung gini
+  // schedule_rejected -> ditolak karna jadwal
+  // registered -> terdaftar
+  // conditions_rejected -> ditolak karna kondisi kesehatan saat pemeriksaan
+  // canceled -> pembataalan jadwal (cuma bisa saat kondisi waiting_confirmation & schedule_rejected)
+  // finished -> selesai
 
-    factory DonorHistoryModel.fromRawJson(String str) => DonorHistoryModel.fromJson(json.decode(str));
+  static Map<String, DonorHistoryStatus> donorHistoryStatusEnum = {
+    'canceled': DonorHistoryStatus.canceled,
+    'conditions_rejected': DonorHistoryStatus.conditionsRejected,
+    'finished': DonorHistoryStatus.finished,
+    'registered': DonorHistoryStatus.registered,
+    'schedule_rejected': DonorHistoryStatus.scheduleRejected,
+    'waiting_confirmation': DonorHistoryStatus.waitingConfirmation,
+  };
+  DonorHistoryStatus get statusDonorNotesEnum =>
+      donorHistoryStatusEnum[statusDonorNotes] ?? DonorHistoryStatus.undefined;
 
-    String toRawJson() => json.encode(toJson());
+  String get showStatus {
+    Map<DonorHistoryStatus, String> _status = {
+      DonorHistoryStatus.canceled: 'Dibatalkan',
+      DonorHistoryStatus.conditionsRejected: 'Ditolak karena kondisi kesehatan',
+      DonorHistoryStatus.finished: 'Selesai',
+      DonorHistoryStatus.registered: 'Terdaftar',
+      DonorHistoryStatus.scheduleRejected: 'Jadwal Ditolak',
+      DonorHistoryStatus.waitingConfirmation: 'Menunggu Konfirmasi',
+    };
 
-    factory DonorHistoryModel.fromJson(Map<String, dynamic> json) => DonorHistoryModel(
+    return _status[statusDonorNotesEnum] ?? "-";
+  }
+
+  DonorHistoryModel copyWith({
+    String? idDonorNotes,
+    String? idDonators,
+    String? nameDonators,
+    dynamic idDonorEvents,
+    dynamic titleDonorEvents,
+    String? idInstitutions,
+    String? nameInstitutions,
+    String? bloodTypeDonorNotes,
+    String? bloodRhesusDonorNotes,
+    bool? certificateDonorNotes,
+    DateTime? scheduleDonorNotes,
+    String? statusDonorNotes,
+    String? locationAddress,
+    String? latitudeAddress,
+    String? longitudeAddress,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    dynamic deletedAt,
+  }) =>
+      DonorHistoryModel(
+        idDonorNotes: idDonorNotes ?? this.idDonorNotes,
+        idDonators: idDonators ?? this.idDonators,
+        nameDonators: nameDonators ?? this.nameDonators,
+        idDonorEvents: idDonorEvents ?? this.idDonorEvents,
+        titleDonorEvents: titleDonorEvents ?? this.titleDonorEvents,
+        idInstitutions: idInstitutions ?? this.idInstitutions,
+        nameInstitutions: nameInstitutions ?? this.nameInstitutions,
+        bloodTypeDonorNotes: bloodTypeDonorNotes ?? this.bloodTypeDonorNotes,
+        bloodRhesusDonorNotes:
+            bloodRhesusDonorNotes ?? this.bloodRhesusDonorNotes,
+        certificateDonorNotes:
+            certificateDonorNotes ?? this.certificateDonorNotes,
+        scheduleDonorNotes: scheduleDonorNotes ?? this.scheduleDonorNotes,
+        statusDonorNotes: statusDonorNotes ?? this.statusDonorNotes,
+        locationAddress: locationAddress ?? this.locationAddress,
+        latitudeAddress: latitudeAddress ?? this.latitudeAddress,
+        longitudeAddress: longitudeAddress ?? this.longitudeAddress,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        deletedAt: deletedAt ?? this.deletedAt,
+      );
+
+  factory DonorHistoryModel.fromRawJson(String str) =>
+      DonorHistoryModel.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory DonorHistoryModel.fromJson(Map<String, dynamic> json) =>
+      DonorHistoryModel(
         idDonorNotes: json["id_donor_notes"],
         idDonators: json["id_donators"],
         nameDonators: json["name_donators"],
@@ -109,9 +154,9 @@ class DonorHistoryModel {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         deletedAt: json["deleted_at"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id_donor_notes": idDonorNotes,
         "id_donators": idDonators,
         "name_donators": nameDonators,
@@ -122,7 +167,8 @@ class DonorHistoryModel {
         "blood_type_donor_notes": bloodTypeDonorNotes,
         "blood_rhesus_donor_notes": bloodRhesusDonorNotes,
         "certificate_donor_notes": certificateDonorNotes,
-        "schedule_donor_notes": "${scheduleDonorNotes?.year.toString().padLeft(4, '0')}-${scheduleDonorNotes?.month.toString().padLeft(2, '0')}-${scheduleDonorNotes?.day.toString().padLeft(2, '0')}",
+        "schedule_donor_notes":
+            "${scheduleDonorNotes?.year.toString().padLeft(4, '0')}-${scheduleDonorNotes?.month.toString().padLeft(2, '0')}-${scheduleDonorNotes?.day.toString().padLeft(2, '0')}",
         "status_donor_notes": statusDonorNotes,
         "location_address": locationAddress,
         "latitude_address": latitudeAddress,
@@ -130,5 +176,5 @@ class DonorHistoryModel {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "deleted_at": deletedAt,
-    };
+      };
 }
