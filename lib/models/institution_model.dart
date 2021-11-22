@@ -54,8 +54,8 @@ class Datum {
   String? emailInstitutions;
   String? contactInstitutions;
   String? addressInstitutions;
-  int? latitudeInstitutions;
-  int? longitudeInstitutions;
+  String? latitudeInstitutions;
+  String? longitudeInstitutions;
   String? forInstitutionRoles;
   DateTime? createdAt;
   DateTime? updatedAt;
