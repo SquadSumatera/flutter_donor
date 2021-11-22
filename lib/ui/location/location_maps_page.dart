@@ -13,9 +13,6 @@ class LocationMapsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // SystemChrome.setSystemUIOverlayStyle(
-    //     const SystemUiOverlayStyle(statusBarColor: AppColor.cRed,
-    //       statusBarIconBrightness: Brightness.dark ));
     return WillPopScope(
       onWillPop: () {
         Get.toNamed(Routes.main);
