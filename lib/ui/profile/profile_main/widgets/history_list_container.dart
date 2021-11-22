@@ -31,8 +31,8 @@ class HistoryListContainer extends StatelessWidget {
           HistoryTileItem(
             title: "Permintaan Mendonorkan Darah",
             statusText: data.showStatus,
-            dateText: "29/10/2021",
-            color: AppColor.imperialRed,
+            dateText: data.dateFormatterString(data.createdAt),
+            color: data.designatedColor,
           ),
         );
       }

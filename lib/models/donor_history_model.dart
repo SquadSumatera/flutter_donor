@@ -4,6 +4,10 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_donor/shared/theme.dart';
+import 'package:intl/intl.dart';
+
 enum DonorHistoryStatus {
   waitingConfirmation,
   scheduleRejected,
@@ -73,12 +77,48 @@ class DonorHistoryModel {
   DonorHistoryStatus get statusDonorNotesEnum =>
       donorHistoryStatusEnum[statusDonorNotes] ?? DonorHistoryStatus.undefined;
 
+  Color get designatedColor {
+    switch (statusDonorNotesEnum) {
+      case DonorHistoryStatus.waitingConfirmation:
+        return AppColor.carnelian;
+      case DonorHistoryStatus.scheduleRejected:
+        return AppColor.bloodRed;
+      case DonorHistoryStatus.registered:
+        return AppColor.imperialRed;
+      case DonorHistoryStatus.conditionsRejected:
+        return AppColor.bloodRed;
+      case DonorHistoryStatus.canceled:
+        return AppColor.bloodRed;
+      case DonorHistoryStatus.finished:
+        return AppColor.imperialRed;
+      default:
+        return Colors.grey;
+    }
+  }
+
+  String dateFormatterString(DateTime? date) {
+    if (date == null) {
+      return "--/--/----";
+    } else {
+      return DateFormat('dd/MM/yyyy').format(date);
+    }
+  }
+
+  String get scheduleDonorNotesString {
+    if (scheduleDonorNotes == null) {
+      return "--/--/----";
+    } else {
+      return DateFormat('dd/MM/yyyy HH:mm').format(scheduleDonorNotes!);
+    }
+  }
+
   String get showStatus {
     Map<DonorHistoryStatus, String> _status = {
       DonorHistoryStatus.canceled: 'Dibatalkan',
       DonorHistoryStatus.conditionsRejected: 'Ditolak karena kondisi kesehatan',
       DonorHistoryStatus.finished: 'Selesai',
-      DonorHistoryStatus.registered: 'Terdaftar',
+      DonorHistoryStatus.registered:
+          'Terjadwal Tanggal $scheduleDonorNotesString',
       DonorHistoryStatus.scheduleRejected: 'Jadwal Ditolak',
       DonorHistoryStatus.waitingConfirmation: 'Menunggu Konfirmasi',
     };
