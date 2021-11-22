@@ -42,9 +42,8 @@ class _LocationPageState extends State<LocationPage> {
   }
 
   startSplashScreen() {
-    var duration = const Duration(seconds: 5);
+    var duration = const Duration(seconds: 2);
     return Timer(duration, () {
-      // Get.offNamed(Routes.showMaps);
       Get.toNamed(Routes.showMaps);
     });
   }
