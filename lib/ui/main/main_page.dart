@@ -12,20 +12,24 @@ import 'package:flutter_donor/ui/profile/profile_main/profile_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   MainPage({Key? key}) : super(key: key);
 
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
   final PageStorageBucket bucket = PageStorageBucket();
+
   final HomeGetX homeGetXPage = Get.put(HomeGetX());
+
   final LoginGetX loginGetX = Get.find();
+
+  final ProfileController profileController = Get.put(ProfileController());
 
   final checkConnection = Get.lazyPut(
     () => CheckConnectionGetX(),
-    fenix: true,
-  );
-
-  final profileController = Get.lazyPut(
-    () => ProfileController(),
     fenix: true,
   );
 
@@ -37,6 +41,12 @@ class MainPage extends StatelessWidget {
   ];
 
   @override
+  void initState() {
+    profileController.getProfile(loginGetX.token.value);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(
@@ -46,18 +56,41 @@ class MainPage extends StatelessWidget {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColor.cRed,
-        onPressed: () {
-          Get.toNamed(Routes.request);
-        },
-        tooltip: "Request plasma",
-        child: Container(
-          margin: const EdgeInsets.all(15.0),
-          child: Image.asset('assets/bitmap/blood.png'),
-        ),
-        elevation: 4.0,
-      ),
+      floatingActionButton: Obx(() => FloatingActionButton(
+            backgroundColor: loginGetX.dontChange.value ? null : AppColor.cRed,
+            onPressed: () {
+              var data = profileController.profile;
+              if (profileController.status.value == ProfileLoadStatus.loading) {
+                Get.snackbar(
+                  "Loading",
+                  "",
+                  duration: const Duration(seconds: 2),
+                );
+              } else if (profileController.status.value ==
+                  ProfileLoadStatus.loaded) {
+                if (data!.bloodTypeDonators.isBlank! ||
+                    data.bloodTypeDonators == null ||
+                    data.bloodRhesusDonators.isBlank! ||
+                    data.bloodRhesusDonators == null) {
+                  Get.snackbar(
+                    "Lengkapi Data",
+                    "Lengkapi data di menu profile",
+                    duration: const Duration(seconds: 2),
+                  );
+                } else {
+                  Get.toNamed(Routes.request);
+                }
+              }
+              print(data!.bloodTypeDonators.toString());
+              print(data.bloodRhesusDonators.toString());
+            },
+            tooltip: "Request plasma",
+            child: Container(
+              margin: const EdgeInsets.all(15.0),
+              child: Image.asset('assets/bitmap/blood.png'),
+            ),
+            elevation: 4.0,
+          )),
       bottomNavigationBar: BottomAppBar(
         child: Container(
           margin: const EdgeInsets.only(left: 12.0, right: 12.0),
