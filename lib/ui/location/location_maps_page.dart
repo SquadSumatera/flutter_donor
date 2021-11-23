@@ -53,7 +53,7 @@ class LocationMapsPage extends StatelessWidget {
         ),
         body: Stack(
           children: [
-            const LocationMarkerWidget(),
+            LocationMarkerWidget(),
             DraggableScrollableSheet(
                 initialChildSize: 0.25,
                 builder: (_, scrollController) {

@@ -1,12 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/ui/donor/donor_page.dart';
-import 'package:flutter_donor/models/dummy_event_model.dart';
 import 'package:flutter_donor/ui/event/event_detail_page.dart';
 import 'package:flutter_donor/ui/event/event_page.dart';
 import 'package:flutter_donor/ui/faq/faq_page.dart';
 import 'package:flutter_donor/ui/home/home_page.dart';
-import 'package:flutter_donor/ui/location/location_detail_page.dart';
 import 'package:flutter_donor/ui/location/location_maps_page.dart';
 import 'package:flutter_donor/ui/location/location_page.dart';
 import 'package:flutter_donor/ui/location/location_search_page.dart';
@@ -15,7 +11,6 @@ import 'package:flutter_donor/ui/main/main_page.dart';
 import 'package:flutter_donor/ui/onboarding/onboarding_page.dart';
 import 'package:flutter_donor/ui/profile/profile_edit_identity/profile_edit_identity_page.dart';
 import 'package:flutter_donor/ui/profile/profile_main/profile_page.dart';
-// import 'package:flutter_donor/ui/register/register_2_page.dart';
 import 'package:flutter_donor/ui/register/register_3_page.dart';
 import 'package:flutter_donor/ui/register/register_page.dart';
 import 'package:flutter_donor/ui/request/request_page.dart';
@@ -65,10 +60,6 @@ class AppPages {
     GetPage(
       name: Routes.locationSearch,
       page: () => const LocationSearchPage(),
-    ),
-    GetPage(
-      name: Routes.locationDetail,
-      page: () => const LocationDetailPage(),
     ),
     GetPage(
       name: Routes.event,
