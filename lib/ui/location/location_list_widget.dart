@@ -35,13 +35,14 @@ class LocationListWidget extends StatelessWidget {
           onTap: () {
             // Get.toNamed(Routes.locationDetail);
             showDialog(
-                context: context,
-                builder: (context) => const LocationDialogWidget(
-                    name: "Kantor PMI Kota Kediri",
-                    bloodA: 1,
-                    bloodB: 2,
-                    bloodAB: 2,
-                    bloodO: 5));
+              context: context,
+              builder: (context) => const LocationDialogWidget(
+                  name: "Kantor PMI Kota Kediri",
+                  bloodA: 1,
+                  bloodB: 2,
+                  bloodAB: 2,
+                  bloodO: 5),
+            );
           },
         ),
         Container(

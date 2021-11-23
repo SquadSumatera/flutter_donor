@@ -33,49 +33,93 @@ class LocationDialogWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 24),
       width: double.infinity,
-      height: MediaQuery.of(context).size.height / 2,
+      height: MediaQuery.of(context).size.height / 1.25,
       child: SingleChildScrollView(
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text("Informasi Bank Darah"),
-                      Text(name),
-                    ],
-                  ),
-                  InkWell(
-                    child: const Icon(
-                      Icons.close,
-                      color: Colors.black,
-                      size: 24.0,
-                      semanticLabel: 'Close',
-                    ),
-                    onTap: () {
-                      Get.back();
-                    },
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 45),
-                child: Wrap(
-                  spacing: 30,
-                  runSpacing: 20,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    boxBloodInformation(context, "A", bloodA),
-                    boxBloodInformation(context, "A", bloodB),
-                    boxBloodInformation(context, "A", bloodAB),
-                    boxBloodInformation(context, "A", bloodO),
+                    Text(
+                      "Informasi Bank Darah",
+                      style: AppText.textMedium.copyWith(
+                          color: AppColor.cBlack, fontWeight: AppText.bold),
+                    ),
+                    Text(
+                      name,
+                      style: AppText.textMedium.copyWith(
+                          color: AppColor.cBlack, fontWeight: AppText.normal),
+                    ),
                   ],
                 ),
-              ),
-            ]),
+                InkWell(
+                  child: const Icon(
+                    Icons.close,
+                    color: Colors.black,
+                    size: 24.0,
+                    semanticLabel: 'Close',
+                  ),
+                  onTap: () {
+                    Get.back();
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 30.0),
+            Text(
+              'Bank Darah',
+              style: AppText.textMedium.copyWith(
+                  color: AppColor.cBlack, fontWeight: AppText.semiBold),
+            ),
+            const SizedBox(height: 15.0),
+            Wrap(
+              spacing: 30,
+              runSpacing: 10,
+              children: [
+                boxBloodInformation(context, "A", bloodA),
+                boxBloodInformation(context, "A", bloodB),
+                boxBloodInformation(context, "A", bloodAB),
+                boxBloodInformation(context, "A", bloodO),
+              ],
+            ),
+            const SizedBox(height: 30.0),
+            Text(
+              'Alamat',
+              style: AppText.textMedium.copyWith(
+                  color: AppColor.cBlack, fontWeight: AppText.semiBold),
+            ),
+            const SizedBox(height: 15.0),
+            Text(
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultrices laoreet senectus vitae vitae. Id aliquam diam, metus at tempus, fringilla tincidunt pellentesque purus. Massa quam metus.',
+              maxLines: 4,
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
+              style: AppText.textMedium
+                  .copyWith(color: AppColor.cBlack, fontWeight: AppText.normal),
+            ),
+            const SizedBox(height: 30.0),
+            Row(
+              children: [
+                Expanded(child: Container()),
+                InkWell(
+                  child: Text(
+                    'Buka di Maps',
+                    style: AppText.textMedium.copyWith(
+                        color: AppColor.cRed, fontWeight: AppText.semiBold),
+                  ),
+                  onTap: (){
+                    Get.snackbar("title", "message");
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -98,14 +142,16 @@ class LocationDialogWidget extends StatelessWidget {
               child: Center(
                   child: Text(
                 bloodType,
-                style: TextStyle(color: Colors.white),
+                style: AppText.textLarge.copyWith(
+                    color: AppColor.white, fontWeight: AppText.normal),
               )),
             ),
             Expanded(
               child: Center(
                 child: Text(
                   bloodStock.toString(),
-                  style: TextStyle(color: Colors.white),
+                  style: AppText.textLarge.copyWith(
+                      color: AppColor.white, fontWeight: AppText.semiBold),
                 ),
               ),
             ),
