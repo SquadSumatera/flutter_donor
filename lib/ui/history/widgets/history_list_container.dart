@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/get_x/controller/donor_history_controller.dart';
-import 'package:flutter_donor/get_x/controller/history_controller.dart';
-import 'package:flutter_donor/models/donor_history_model.dart';
 import 'package:get/get.dart';
+
 import '../../../../shared/theme.dart';
+import '../../../get_x/controller/donor_history_controller.dart';
+import '../../../get_x/controller/history_controller.dart';
+import '../../../models/donor_history_model.dart';
+import '../../../routes/app_pages.dart';
 import 'history_tile_item.dart';
 
 class HistoryListContainer extends StatelessWidget {
@@ -33,6 +35,7 @@ class HistoryListContainer extends StatelessWidget {
             statusText: data.showStatus,
             dateText: data.dateFormatterString(data.createdAt),
             color: data.designatedColor,
+            callback: () => Get.toNamed(Routes.donorDetail),
           ),
         );
       }

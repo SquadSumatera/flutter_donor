@@ -5,6 +5,7 @@ import 'package:flutter_donor/models/dummy_event_model.dart';
 import 'package:flutter_donor/ui/event/event_detail_page.dart';
 import 'package:flutter_donor/ui/event/event_page.dart';
 import 'package:flutter_donor/ui/faq/faq_page.dart';
+import 'package:flutter_donor/ui/history/subpages/donor_detail_page.dart';
 import 'package:flutter_donor/ui/home/home_page.dart';
 import 'package:flutter_donor/ui/location/location_detail_page.dart';
 import 'package:flutter_donor/ui/location/location_maps_page.dart';
@@ -105,6 +106,10 @@ class AppPages {
     GetPage(
       name: Routes.faq,
       page: () => FAQPage(),
+    ),
+    GetPage(
+      name: Routes.donorDetail,
+      page: () => const DonorDetailPage(),
     ),
   ];
 }
