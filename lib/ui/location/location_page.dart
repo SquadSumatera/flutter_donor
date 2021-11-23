@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/state/home_getx.dart';
 import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,8 @@ class LocationPage extends StatefulWidget {
 class _LocationPageState extends State<LocationPage> {
   @override
   void initState() => startSplashScreen();
+
+  final HomeGetX homeGetX = Get.find<HomeGetX>();
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +47,7 @@ class _LocationPageState extends State<LocationPage> {
   startSplashScreen() {
     var duration = const Duration(seconds: 2);
     return Timer(duration, () {
+      homeGetX.changeIndex(0);
       Get.toNamed(Routes.showMaps);
     });
   }
