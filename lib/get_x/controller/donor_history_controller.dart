@@ -9,12 +9,21 @@ enum DonorHistoryLoadStatus {
   failed,
 }
 
+enum DonorHistorySelectedStatus {
+  loaded,
+  updated,
+  loading,
+  failed,
+}
+
 class DonorHistoryController extends GetxController {
   final LoginGetX token = Get.find();
   late List<DonorHistoryModel> donorHistoryList = [];
   DonorHistoryModel? selected;
 
   Rx<DonorHistoryLoadStatus> status = DonorHistoryLoadStatus.loading.obs;
+  Rx<DonorHistorySelectedStatus> selectedStatus =
+      DonorHistorySelectedStatus.loaded.obs;
 
   @override
   void onInit() {
@@ -36,4 +45,21 @@ class DonorHistoryController extends GetxController {
     update();
   }
 
+  void cancelingSchedule() async {
+    selectedStatus.value = DonorHistorySelectedStatus.loading;
+    update();
+    try {
+      selected = await DonorHistoryServices.canceledDonor(
+        token: token.token.value,
+        id: selected?.idDonorNotes ?? '',
+      );
+      int idx = donorHistoryList.indexWhere(
+          (element) => element.idDonorNotes == selected!.idDonorNotes);
+      donorHistoryList[idx] = selected!;
+      selectedStatus.value = DonorHistorySelectedStatus.updated;
+    } catch (e) {
+      selectedStatus.value = DonorHistorySelectedStatus.failed;
+    }
+    update();
+  }
 }

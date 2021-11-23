@@ -6,17 +6,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/shared/theme.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
-enum DonorHistoryStatus {
-  waitingConfirmation,
-  scheduleRejected,
-  registered,
-  conditionsRejected,
-  canceled,
-  finished,
-  undefined,
+class DonorHistoryStatus {
+  static const String canceled = 'canceled';
+  static const String conditionsRejected = 'conditions_rejected';
+  static const String finished = 'finished';
+  static const String registered = 'registered';
+  static const String scheduleRejected = 'schedule_rejected';
+  static const String waitingConfirmation = 'waiting_confirmation';
 }
 
 class DonorHistoryModel {
@@ -67,19 +65,8 @@ class DonorHistoryModel {
   // canceled -> pembataalan jadwal (cuma bisa saat kondisi waiting_confirmation & schedule_rejected)
   // finished -> selesai
 
-  static Map<String, DonorHistoryStatus> donorHistoryStatusEnum = {
-    'canceled': DonorHistoryStatus.canceled,
-    'conditions_rejected': DonorHistoryStatus.conditionsRejected,
-    'finished': DonorHistoryStatus.finished,
-    'registered': DonorHistoryStatus.registered,
-    'schedule_rejected': DonorHistoryStatus.scheduleRejected,
-    'waiting_confirmation': DonorHistoryStatus.waitingConfirmation,
-  };
-  DonorHistoryStatus get statusDonorNotesEnum =>
-      donorHistoryStatusEnum[statusDonorNotes] ?? DonorHistoryStatus.undefined;
-
   Color get designatedColor {
-    switch (statusDonorNotesEnum) {
+    switch (statusDonorNotes) {
       case DonorHistoryStatus.waitingConfirmation:
         return AppColor.carnelian;
       case DonorHistoryStatus.scheduleRejected:
@@ -114,7 +101,7 @@ class DonorHistoryModel {
   }
 
   String get showStatus {
-    Map<DonorHistoryStatus, String> _status = {
+    Map<String, String> _status = {
       DonorHistoryStatus.canceled: 'Dibatalkan',
       DonorHistoryStatus.conditionsRejected: 'Ditolak karena kondisi kesehatan',
       DonorHistoryStatus.finished: 'Selesai',
@@ -124,7 +111,7 @@ class DonorHistoryModel {
       DonorHistoryStatus.waitingConfirmation: 'Menunggu Konfirmasi',
     };
 
-    return _status[statusDonorNotesEnum] ?? "-";
+    return _status[statusDonorNotes] ?? "-";
   }
 
   DonorHistoryModel copyWith({

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/donor_detail_overlay_controller.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_donor/ui/history/subsection/detail_header.dart';
 import 'package:flutter_donor/ui/history/subsection/schedule_detail_section.dart';
@@ -6,8 +7,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class DonorDetailPage extends StatelessWidget {
-  const DonorDetailPage({Key? key}) : super(key: key);
-
+  DonorDetailPage({Key? key}) : super(key: key);
+  final DonorDetailOverlayController c =
+      Get.put(DonorDetailOverlayController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,12 +36,16 @@ class DonorDetailPage extends StatelessWidget {
         backgroundColor: AppColor.cRed,
         elevation: 0,
       ),
-      body: ListView(
-        clipBehavior: Clip.none,
+      body: Stack(
         children: [
-          DetailHeader(),
-          const SizedBox(height: 33),
-          ScheduleDetailSection(),
+          ListView(
+            clipBehavior: Clip.none,
+            children: [
+              DetailHeader(),
+              const SizedBox(height: 33),
+              ScheduleDetailSection(),
+            ],
+          ),
         ],
       ),
     );

@@ -109,7 +109,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.donorDetail,
-      page: () => const DonorDetailPage(),
+      page: () => DonorDetailPage(),
     ),
   ];
 }
