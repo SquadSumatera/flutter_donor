@@ -118,7 +118,7 @@ class DonorHistoryModel {
       DonorHistoryStatus.conditionsRejected: 'Ditolak karena kondisi kesehatan',
       DonorHistoryStatus.finished: 'Selesai',
       DonorHistoryStatus.registered:
-          'Terjadwal Tanggal $scheduleDonorNotesString',
+          'Terjadwalkan Tanggal $scheduleDonorNotesString',
       DonorHistoryStatus.scheduleRejected: 'Jadwal Ditolak',
       DonorHistoryStatus.waitingConfirmation: 'Menunggu Konfirmasi',
     };

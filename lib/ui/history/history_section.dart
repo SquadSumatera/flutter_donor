@@ -3,9 +3,10 @@ import 'package:flutter_donor/get_x/controller/donor_history_controller.dart';
 import 'package:flutter_donor/get_x/controller/history_controller.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
 import 'package:get/get.dart';
-import '../widgets/history_as_button.dart';
-import '../widgets/history_list_container.dart';
-import '../../../../shared/theme.dart';
+
+import '../../shared/theme.dart';
+import 'widgets/history_as_button.dart';
+import 'widgets/history_list_container.dart';
 
 class HistorySection extends StatefulWidget {
   const HistorySection({Key? key}) : super(key: key);
