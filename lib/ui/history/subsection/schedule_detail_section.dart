@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/shared/theme.dart';
+import '../../../get_x/controller/donor_history_controller.dart';
+import '../../../shared/theme.dart';
+import 'package:get/get.dart';
 
 class ScheduleDetailSection extends StatelessWidget {
-  const ScheduleDetailSection({Key? key}) : super(key: key);
+  ScheduleDetailSection({Key? key}) : super(key: key);
+  final DonorHistoryController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class ScheduleDetailSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "03 November 2021",
+                      controller.selected?.scheduleDonorNotesString ?? "-",
                       style: AppText.textNormal.copyWith(
                         fontWeight: AppText.bold,
                         color: AppColor.cBlack,
@@ -72,7 +75,7 @@ class ScheduleDetailSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Rumah Sakit Nightingale",
+                      controller.selected?.nameInstitutions ?? "-",
                       style: AppText.textNormal.copyWith(
                         fontWeight: AppText.bold,
                         color: AppColor.imperialRed,

@@ -6,6 +6,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/shared/theme.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 enum DonorHistoryStatus {
@@ -108,7 +109,7 @@ class DonorHistoryModel {
     if (scheduleDonorNotes == null) {
       return "--/--/----";
     } else {
-      return DateFormat('dd/MM/yyyy HH:mm').format(scheduleDonorNotes!);
+      return DateFormat("dd MMMM yyyy", "id").format(scheduleDonorNotes!);
     }
   }
 

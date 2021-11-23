@@ -36,9 +36,9 @@ class DonorDetailPage extends StatelessWidget {
       ),
       body: ListView(
         clipBehavior: Clip.none,
-        children: const [
+        children: [
           DetailHeader(),
-          SizedBox(height: 33),
+          const SizedBox(height: 33),
           ScheduleDetailSection(),
         ],
       ),

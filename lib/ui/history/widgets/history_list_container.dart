@@ -35,7 +35,10 @@ class HistoryListContainer extends StatelessWidget {
             statusText: data.showStatus,
             dateText: data.dateFormatterString(data.createdAt),
             color: data.designatedColor,
-            callback: () => Get.toNamed(Routes.donorDetail),
+            callback: () {
+              Get.toNamed(Routes.donorDetail);
+              donorHistoryController.selected = data;
+            },
           ),
         );
       }

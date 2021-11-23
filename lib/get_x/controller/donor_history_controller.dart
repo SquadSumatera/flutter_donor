@@ -12,6 +12,7 @@ enum DonorHistoryLoadStatus {
 class DonorHistoryController extends GetxController {
   final LoginGetX token = Get.find();
   late List<DonorHistoryModel> donorHistoryList = [];
+  DonorHistoryModel? selected;
 
   Rx<DonorHistoryLoadStatus> status = DonorHistoryLoadStatus.loading.obs;
 
@@ -34,4 +35,5 @@ class DonorHistoryController extends GetxController {
     }
     update();
   }
+
 }

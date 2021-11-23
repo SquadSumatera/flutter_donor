@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../../get_x/controller/donor_history_controller.dart';
 import 'package:flutter_donor/shared/theme.dart';
 
 class DetailHeader extends StatelessWidget {
-  const DetailHeader({Key? key}) : super(key: key);
+  DetailHeader({Key? key}) : super(key: key);
+  final DonorHistoryController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,7 @@ class DetailHeader extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
             ),
             child: Text(
-              "Menunggu Konfirmasi",
+              controller.selected?.showStatus ?? "-",
               style: AppText.textNormal.copyWith(
                 color: AppColor.bloodRed,
                 fontWeight: AppText.bold,
