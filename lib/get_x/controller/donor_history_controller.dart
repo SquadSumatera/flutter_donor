@@ -18,8 +18,8 @@ enum DonorHistorySelectedStatus {
 
 class DonorHistoryController extends GetxController {
   final LoginGetX token = Get.find();
-  late List<DonorHistoryModel> donorHistoryList = [];
-  DonorHistoryModel? selected;
+  late List<Rx<DonorHistoryModel>> donorHistoryList = [];
+  Rx<DonorHistoryModel>? selected;
 
   Rx<DonorHistoryLoadStatus> status = DonorHistoryLoadStatus.loading.obs;
   Rx<DonorHistorySelectedStatus> selectedStatus =
@@ -31,13 +31,19 @@ class DonorHistoryController extends GetxController {
     getDonorHistory(token.token.value);
   }
 
+  void setSelected(DonorHistoryModel data) {
+    selected = data.obs;
+    update();
+  }
+
   void getDonorHistory(String token) async {
     status.value = DonorHistoryLoadStatus.loading;
     update();
     try {
       donorHistoryList = await DonorHistoryServices.getDonorHistoryList(
         token: token,
-      );
+      ).then((value) => value.map((e) => e.obs).toList());
+
       status.value = DonorHistoryLoadStatus.loaded;
     } catch (e) {
       status.value = DonorHistoryLoadStatus.failed;
@@ -49,17 +55,17 @@ class DonorHistoryController extends GetxController {
     selectedStatus.value = DonorHistorySelectedStatus.loading;
     update();
     try {
-      selected = await DonorHistoryServices.canceledDonor(
+      selected?.value = await DonorHistoryServices.canceledDonor(
         token: token.token.value,
-        id: selected?.idDonorNotes ?? '',
+        id: selected?.value.idDonorNotes ?? '',
       );
-      int idx = donorHistoryList.indexWhere(
-          (element) => element.idDonorNotes == selected!.idDonorNotes);
-      donorHistoryList[idx] = selected!;
+      int idx = donorHistoryList.indexWhere((element) =>
+          element.value.idDonorNotes == selected?.value.idDonorNotes);
+      donorHistoryList[idx].value = selected!.value;
       selectedStatus.value = DonorHistorySelectedStatus.updated;
     } catch (e) {
       selectedStatus.value = DonorHistorySelectedStatus.failed;
     }
-    update();
+    notifyChildrens();
   }
 }

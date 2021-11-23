@@ -30,23 +30,22 @@ class DonorHistoryServices {
     required String token,
     required String id,
   }) async {
-    Response _response = await put(
-      Uri.parse(AppUrl.baseUrl + "/d/donor_notes/$id"),
-      headers: {
-        "Authorization": "Bearer $token",
-        'Content-Type': 'application/json; charset=UTF-8'
-      },
-      body: json.encode(
-        {
-          "status_donor_notes": DonorHistoryStatus.canceled,
-        },
-      ),
-    );
-    print(_response.body);
-    print(id);
-    print(token);
+    final url = Uri.parse(AppUrl.baseUrl + "/d/donor_notes/$id");
+    Map<String, String> requestBody = <String, String>{
+      "status_donor_notes": DonorHistoryStatus.canceled,
+    };
+
+    var request = MultipartRequest("PUT", url);
+    request.fields.addAll(requestBody);
+    request.headers.addAll({
+      "Authorization": "Bearer $token",
+    });
+
+    StreamedResponse _response = await request.send();
+    final respStr = await _response.stream.bytesToString();
+    
     if (_response.statusCode == 200) {
-      return DonorHistoryModel.fromJson(json.decode(_response.body)["data"]);
+      return DonorHistoryModel.fromJson(json.decode(respStr)["data"]);
     } else {
       throw Exception(_response.statusCode.toString());
     }

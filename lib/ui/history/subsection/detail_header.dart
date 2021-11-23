@@ -47,11 +47,13 @@ class DetailHeader extends StatelessWidget {
               color: AppColor.white,
               borderRadius: BorderRadius.circular(10.0),
             ),
-            child: Text(
-              controller.selected?.showStatus ?? "-",
-              style: AppText.textNormal.copyWith(
-                color: AppColor.bloodRed,
-                fontWeight: AppText.bold,
+            child: Obx(
+              () => Text(
+                controller.selected?.value.showStatus ?? "-",
+                style: AppText.textNormal.copyWith(
+                  color: AppColor.bloodRed,
+                  fontWeight: AppText.bold,
+                ),
               ),
             ),
           ),

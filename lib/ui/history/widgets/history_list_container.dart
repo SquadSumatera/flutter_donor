@@ -28,17 +28,19 @@ class HistoryListContainer extends StatelessWidget {
         ),
       );
     } else {
-      for (DonorHistoryModel data in donorHistoryController.donorHistoryList) {
+      for (Rx<DonorHistoryModel> data in donorHistoryController.donorHistoryList) {
         _result.add(
-          HistoryTileItem(
-            title: "Permintaan Mendonorkan Darah",
-            statusText: data.showStatus,
-            dateText: data.dateFormatterString(data.createdAt),
-            color: data.designatedColor,
-            callback: () {
-              Get.toNamed(Routes.donorDetail);
-              donorHistoryController.selected = data;
-            },
+          Obx(
+            () => HistoryTileItem(
+              title: "Permintaan Mendonorkan Darah",
+              statusText: data.value.showStatus,
+              dateText: data.value.dateFormatterString(data.value.createdAt),
+              color: data.value.designatedColor,
+              callback: () {
+                Get.toNamed(Routes.donorDetail);
+                donorHistoryController.setSelected(data.value);
+              },
+            ),
           ),
         );
       }

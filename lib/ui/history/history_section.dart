@@ -18,9 +18,8 @@ class HistorySection extends StatefulWidget {
 class _HistorySectionState extends State<HistorySection> {
   ProfileController profileController = Get.find();
   HistoryController historyController = Get.put(HistoryController());
-  var donorHistoryController = Get.lazyPut(
-    () => DonorHistoryController(),
-    fenix: true,
+  DonorHistoryController donorHistoryController = Get.put(
+    DonorHistoryController(),
   );
 
   @override
@@ -70,6 +69,7 @@ class _HistorySectionState extends State<HistorySection> {
                               HistoryViewAs.donator,
                           callback: () {
                             historyController.change(HistoryViewAs.donator);
+                            donorHistoryController.onInit();
                           },
                         ),
                       ],
