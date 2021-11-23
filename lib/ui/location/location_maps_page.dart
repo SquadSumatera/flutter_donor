@@ -15,7 +15,7 @@ class LocationMapsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        Get.toNamed(Routes.main);
+        Get.back();
         return Future.value(false);
       },
       child: Scaffold(
@@ -26,7 +26,7 @@ class LocationMapsPage extends StatelessWidget {
               width: 12,
             ),
             onPressed: () {
-              Get.toNamed(Routes.main);
+              Get.back();
             },
           ),
           title: Text(
