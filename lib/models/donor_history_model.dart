@@ -14,6 +14,7 @@ class DonorHistoryStatus {
   static const String finished = 'finished';
   static const String registered = 'registered';
   static const String scheduleRejected = 'schedule_rejected';
+  static const String updateSchedule = 'update_schedule';
   static const String waitingConfirmation = 'waiting_confirmation';
 }
 

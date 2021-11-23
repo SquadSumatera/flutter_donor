@@ -2,6 +2,7 @@ import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/models/donor_history_model.dart';
 import 'package:flutter_donor/services/donor_history_services.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 enum DonorHistoryLoadStatus {
   loading,
@@ -58,6 +59,27 @@ class DonorHistoryController extends GetxController {
       selected?.value = await DonorHistoryServices.canceledDonor(
         token: token.token.value,
         id: selected?.value.idDonorNotes ?? '',
+      );
+      int idx = donorHistoryList.indexWhere((element) =>
+          element.value.idDonorNotes == selected?.value.idDonorNotes);
+      donorHistoryList[idx].value = selected!.value;
+      selectedStatus.value = DonorHistorySelectedStatus.updated;
+    } catch (e) {
+      selectedStatus.value = DonorHistorySelectedStatus.failed;
+    }
+    notifyChildrens();
+  }
+
+  void updateSchedule(
+    DateTime proposedDate,
+  ) async {
+    selectedStatus.value = DonorHistorySelectedStatus.loading;
+    update();
+    try {
+      selected?.value = await DonorHistoryServices.updateScheduleDonor(
+        token: token.token.value,
+        data: selected!.value,
+        proposedDate: DateFormat('yyyy-MM-dd', 'id').format(proposedDate),
       );
       int idx = donorHistoryList.indexWhere((element) =>
           element.value.idDonorNotes == selected?.value.idDonorNotes);

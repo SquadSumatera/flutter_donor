@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_donor/models/donor_history_model.dart';
 import 'package:flutter_donor/ui/history/overlay/detail_overlay_section.dart';
 import 'package:flutter_donor/ui/history/subsection/confirm_cancel_dialog.dart';
+import 'package:flutter_donor/ui/history/subsection/confirm_change_dialog.dart';
 import '../../../get_x/controller/donor_history_controller.dart';
 import '../../../shared/theme.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,25 @@ import 'package:get/get.dart';
 class ScheduleDetailSection extends StatelessWidget {
   ScheduleDetailSection({Key? key}) : super(key: key);
   final DonorHistoryController controller = Get.find();
+
+  void _selectDate(BuildContext context) async {
+    final DateTime? newDate = await showDatePicker(
+      context: context,
+      initialDate:
+          controller.selected?.value.scheduleDonorNotes ?? DateTime.now(),
+      firstDate: DateTime(1945),
+      lastDate: DateTime(2999),
+    );
+    if (newDate != null) {
+      Overlay.of(context)!.insert(
+        detailOverlaySection(
+          child: ConfirmChangeDialog(
+            proposedDate: newDate,
+          ),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +75,9 @@ class ScheduleDetailSection extends StatelessWidget {
                               controller.selected?.value.statusDonorNotes ==
                                   DonorHistoryStatus.scheduleRejected)
                           ? TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                _selectDate(context);
+                              },
                               style: TextButton.styleFrom(
                                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 primary: AppColor.cGrey,
