@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
+import 'package:flutter_donor/ui/location/location_dialog_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 
 class LocationListWidget extends StatelessWidget {
   final int index;
@@ -34,7 +33,15 @@ class LocationListWidget extends StatelessWidget {
                 fontWeight: AppText.normal, color: AppColor.cDarkBlue),
           ),
           onTap: () {
-            Get.toNamed(Routes.locationDetail);
+            // Get.toNamed(Routes.locationDetail);
+            showDialog(
+                context: context,
+                builder: (context) => const LocationDialogWidget(
+                    name: "Kantor PMI Kota Kediri",
+                    bloodA: 1,
+                    bloodB: 2,
+                    bloodAB: 2,
+                    bloodO: 5));
           },
         ),
         Container(
