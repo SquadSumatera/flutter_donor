@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:intl/intl.dart';
+import 'package:latlong2/latlong.dart';
 
 class DonorHistoryStatus {
   static const String canceled = 'canceled';
@@ -113,6 +114,13 @@ class DonorHistoryModel {
     };
 
     return _status[statusDonorNotes] ?? "-";
+  }
+
+  LatLng get locationLatLong {
+    return LatLng(
+      double.tryParse(latitudeAddress ?? '') ?? 0,
+      double.tryParse(longitudeAddress ?? '') ?? 0,
+    );
   }
 
   DonorHistoryModel copyWith({

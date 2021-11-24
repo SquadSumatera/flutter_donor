@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/get_x/controller/donor_detail_overlay_controller.dart';
-import 'package:flutter_donor/shared/theme.dart';
-import 'package:flutter_donor/ui/history/subsection/detail_header.dart';
-import 'package:flutter_donor/ui/history/subsection/schedule_detail_section.dart';
+import 'package:flutter_donor/get_x/controller/donor_history_controller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../../get_x/controller/donor_detail_overlay_controller.dart';
+import '../../../shared/theme.dart';
+import '../subsection/detail_header.dart';
+import '../subsection/donor_location.dart';
+import '../subsection/schedule_detail_section.dart';
+
 class DonorDetailPage extends StatelessWidget {
   DonorDetailPage({Key? key}) : super(key: key);
-  final DonorDetailOverlayController c =
+  final DonorDetailOverlayController overlay =
       Get.put(DonorDetailOverlayController());
+  final DonorHistoryController donorController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +48,8 @@ class DonorDetailPage extends StatelessWidget {
               DetailHeader(),
               const SizedBox(height: 33),
               ScheduleDetailSection(),
+              const SizedBox(height: 30),
+              DonorLocation(),
             ],
           ),
         ],
