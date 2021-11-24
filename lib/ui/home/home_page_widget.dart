@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/state/check_connection_getx.dart';
 import 'package:flutter_donor/shared/theme.dart';
 
-Widget banner() {
+Widget banner(CheckConnectionGetX model) {
   return SizedBox(
     height: 222.0,
     child: Stack(
@@ -107,9 +108,10 @@ Widget banner() {
                   width: 50.0,
                   height: 50.0,
                   decoration: BoxDecoration(
-                    image: const DecorationImage(
+                    image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage("assets/bitmap/header_bg.png"),
+                      image: model.profile!.showProfilePhoto ??
+                          const AssetImage("assets/bitmap/header_bg.png"),
                     ),
                     shape: BoxShape.circle,
                     border: Border.all(
