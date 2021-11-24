@@ -4,10 +4,12 @@ import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/models/token_model.dart';
 import 'package:flutter_donor/services/token_services.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'routes/app_pages.dart';
 
 void main() {
+  initializeDateFormatting('id');
   final LoginGetX main = Get.put(LoginGetX());
   WidgetsFlutterBinding.ensureInitialized();
   Get.putAsync<SharedPreferences>(() async {

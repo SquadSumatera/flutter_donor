@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
 import 'package:flutter_donor/get_x/state/login_getx.dart';
-import 'package:flutter_donor/routes/app_pages.dart';
-import 'package:flutter_donor/shared/constant.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:get/get.dart';
-import 'sections/history_section.dart';
+import '../../history/history_section.dart';
 import 'sections/profile_identity_section.dart';
 import 'widgets/profile_header.dart';
 import 'sections/profile_settings_section.dart';
