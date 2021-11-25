@@ -9,7 +9,7 @@ class DonorCertificateView extends StatelessWidget {
     return Container(
       color: AppColor.carnelian,
       child: const Center(
-        child: Text('P'),
+        child: Text('a'),
       ),
     );
   }
