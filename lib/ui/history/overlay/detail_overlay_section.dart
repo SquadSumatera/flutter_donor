@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_donor/get_x/controller/profile_controller.dart';
-import '../../../get_x/controller/profile_overlay_controller.dart';
+import '../../../get_x/controller/donor_detail_overlay_controller.dart';
+import '../../../get_x/controller/donor_history_controller.dart';
 import 'package:get/get.dart';
 
-OverlayEntry profileOverlaySection({
+OverlayEntry detailOverlaySection({
   Widget? child,
 }) {
-  ProfileOverlayController c = Get.put(ProfileOverlayController());
-  ProfileController p = Get.find();
+  DonorDetailOverlayController c = Get.find();
+  DonorHistoryController h = Get.find();
 
   OverlayEntry? entry;
   entry = OverlayEntry(
@@ -19,10 +19,12 @@ OverlayEntry profileOverlaySection({
           Positioned.fill(
             child: GestureDetector(
               onTap: () {
-                if (p.status.value != ProfileLoadStatus.loading &&
-                    p.status.value != ProfileLoadStatus.updateLoading) {
+                if (h.status.value != DonorHistoryLoadStatus.loading &&
+                    h.selectedStatus.value !=
+                        DonorHistorySelectedStatus.loading) {
                   c.entry!.remove();
-                  p.status.value = ProfileLoadStatus.loaded;
+                  h.status.value = DonorHistoryLoadStatus.loaded;
+                  h.selectedStatus.value = DonorHistorySelectedStatus.loaded;
                 }
               },
               child: Container(

@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
-class ProfileRhesusType{
+class ProfileRhesusType {
   static const String positive = "positive";
   static const String negative = "negative";
 }
 
-class ProfileGenderType{
+class ProfileGenderType {
   static const String male = "male";
   static const String female = "female";
 }
@@ -71,9 +71,8 @@ class ProfileModel {
     if (createdAt == null) {
       return '--/--/----';
     }
-    initializeDateFormatting("id");
     DateTime joinDate = createdAt!;
-    return DateFormat("dd MMMM yyyy").format(joinDate);
+    return DateFormat("dd MMMM yyyy", "id").format(joinDate);
   }
 
   ImageProvider? get showProfilePhoto {

@@ -85,8 +85,8 @@ class _MainPageState extends State<MainPage> {
                   Get.toNamed(Routes.request, parameters: arg);
                 }
               }
-              print(data!.bloodTypeDonators.toString());
-              print(data.bloodRhesusDonators.toString());
+              //print(data!.bloodTypeDonators.toString());
+              //print(data.bloodRhesusDonators.toString());
             },
             tooltip: "Request plasma",
             child: Container(

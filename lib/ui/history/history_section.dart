@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/donor_history_controller.dart';
+import 'package:flutter_donor/get_x/controller/history_controller.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
 import 'package:get/get.dart';
-import '../widgets/history_as_button.dart';
-import '../widgets/history_list_container.dart';
-import '../../../../shared/theme.dart';
+
+import '../../shared/theme.dart';
+import 'widgets/history_as_button.dart';
+import 'widgets/history_list_container.dart';
 
 class HistorySection extends StatefulWidget {
   const HistorySection({Key? key}) : super(key: key);
@@ -14,6 +17,10 @@ class HistorySection extends StatefulWidget {
 
 class _HistorySectionState extends State<HistorySection> {
   ProfileController profileController = Get.find();
+  HistoryController historyController = Get.put(HistoryController());
+  DonorHistoryController donorHistoryController = Get.put(
+    DonorHistoryController(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -41,24 +48,35 @@ class _HistorySectionState extends State<HistorySection> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const <Widget>[
-                      HistoryAsButton(
-                        label: 'Sebagai pemohon',
-                        icon: Icons.find_replace,
-                        active: true,
-                      ),
-                      SizedBox(height: 25),
-                      HistoryAsButton(
-                        label: 'Sebagai Pendonor',
-                        icon: Icons.volunteer_activism_outlined,
-                        active: false,
-                      ),
-                    ],
+                  Obx(
+                    () => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        HistoryAsButton(
+                          label: 'Sebagai pemohon',
+                          icon: Icons.find_replace,
+                          active: historyController.currentView.value ==
+                              HistoryViewAs.requester,
+                          callback: () {
+                            historyController.change(HistoryViewAs.requester);
+                          },
+                        ),
+                        const SizedBox(height: 25),
+                        HistoryAsButton(
+                          label: 'Sebagai Pendonor',
+                          icon: Icons.volunteer_activism_outlined,
+                          active: historyController.currentView.value ==
+                              HistoryViewAs.donator,
+                          callback: () {
+                            historyController.change(HistoryViewAs.donator);
+                            donorHistoryController.onInit();
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(width: 13),
-                  const Expanded(
+                  Expanded(
                     child: HistoryListContainer(),
                   ),
                 ],
@@ -91,5 +109,3 @@ class _HistorySectionState extends State<HistorySection> {
     );
   }
 }
-
-

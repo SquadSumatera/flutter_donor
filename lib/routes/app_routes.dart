@@ -18,4 +18,5 @@ abstract class Routes {
   static const String donor = '/donor';
   static const String onBoarding = '/onBoarding';
   static const String faq = '/faq';
+  static const String donorDetail = '/donor-detail';
 }
