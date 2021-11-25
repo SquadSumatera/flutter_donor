@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:get/get.dart';
 
@@ -108,12 +109,12 @@ class LocationDialogWidget extends StatelessWidget {
                 Expanded(child: Container()),
                 InkWell(
                   child: Text(
-                    'Buka di Maps',
+                    'Donor di sini',
                     style: AppText.textMedium.copyWith(
                         color: AppColor.cRed, fontWeight: AppText.semiBold),
                   ),
                   onTap: (){
-                    Get.snackbar("title", "message");
+                    Get.offNamed(Routes.donor, arguments: ["40e4f760-7098-4c3c-8750-b6b95e0396b7", "PMI Pusat"]);
                   },
                 ),
               ],
