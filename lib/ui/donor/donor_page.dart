@@ -180,8 +180,10 @@ class _DonorPageState extends State<DonorPage> {
                                   await DonorServices.createDonorNotes(
                                       token: loginGetX.token.value,
                                       uuid: (donorGetX.dataInstitution.value),
-                                      blood: "${profileController.profile!.bloodTypeDonators}",
-                                      rhesus: "${profileController.profile!.bloodRhesusDonators}",
+                                      blood:
+                                          "${profileController.profile!.bloodTypeDonators}",
+                                      rhesus:
+                                          "${profileController.profile!.bloodRhesusDonators}",
                                       date: dateController.text);
 
                               if (response.status == 200) {
@@ -199,8 +201,10 @@ class _DonorPageState extends State<DonorPage> {
                                   await DonorServices.createDonorNotes(
                                       token: loginGetX.token.value,
                                       uuid: uuid!,
-                                      blood: "${profileController.profile!.bloodTypeDonators}",
-                                      rhesus: "${profileController.profile!.bloodRhesusDonators}",
+                                      blood:
+                                          "${profileController.profile!.bloodTypeDonators}",
+                                      rhesus:
+                                          "${profileController.profile!.bloodRhesusDonators}",
                                       date: dateController.text);
 
                               if (response.status == 200) {

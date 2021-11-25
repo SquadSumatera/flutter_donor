@@ -12,7 +12,6 @@ import 'package:flutter_donor/ui/profile/profile_main/profile_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-
 class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);
   final PageStorageBucket bucket = PageStorageBucket();
@@ -34,7 +33,6 @@ class MainPage extends StatelessWidget {
     const EventPage(),
     const ProfilePage(),
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,19 +60,11 @@ class MainPage extends StatelessWidget {
                     data.bloodTypeDonators == null ||
                     data.bloodRhesusDonators.isBlank! ||
                     data.bloodRhesusDonators == null) {
-
                   Get.snackbar(
                     "Lengkapi Data",
                     "Lengkapi data di menu profile",
                     duration: const Duration(seconds: 2),
                   );
-
-                  Future.delayed(const Duration(seconds: 2), () {
-                    Get.toNamed(
-                      "${Routes.profile}/${Routes.profileEditIdentity}",
-                    );
-                  });
-
                 } else {
                   Get.toNamed(Routes.request);
                 }

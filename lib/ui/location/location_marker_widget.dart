@@ -36,7 +36,7 @@ class LocationMarkerWidget extends StatelessWidget {
                 onTap: () {
                   showDialog(
                     context: context,
-                    builder: (context) => const LocationDialogWidget(
+                    builder: (context) => LocationDialogWidget(
                         name: "Kantor PMI Kota Kediri",
                         bloodA: 1,
                         bloodB: 2,
