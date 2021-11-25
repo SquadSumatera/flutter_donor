@@ -11,7 +11,6 @@ enum StatusConnection {
 
 class CheckConnectionGetX extends GetxController {
   final LoginGetX token = Get.find();
-  final Rx<bool> dontChange = false.obs;
 
   ProfileModel? profile;
   Rx<StatusConnection> status = StatusConnection.loading.obs;
