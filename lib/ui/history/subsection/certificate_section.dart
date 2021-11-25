@@ -16,22 +16,6 @@ class CertificateSection extends StatefulWidget {
 
 class _CertificateSectionState extends State<CertificateSection> {
   ScreenshotController screenshotController = ScreenshotController();
-  Uint8List? certificateImage;
-
-  Future<MemoryImage> _showCertificate() async {
-    return screenshotController
-        .captureFromWidget(
-      Material(
-        child: Center(child: DonorLocation()),
-        color: Colors.transparent,
-      ),
-    )
-        .then((value) async {
-      certificateImage = value;
-      return MemoryImage(value);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -56,31 +40,18 @@ class _CertificateSectionState extends State<CertificateSection> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FutureBuilder<MemoryImage>(
-                    future: _showCertificate(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: snapshot.data as ImageProvider,
-                              fit: BoxFit.fitHeight,
-                            ),
-                            boxShadow: AppShadow.medium,
-                          ),
-                          height: 214.5,
-                          width: double.infinity,
-                        );
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            color: AppColor.cBlack,
-                            strokeWidth: 2,
-                          ),
-                        );
-                      }
-                    }),
+                Container(
+                  height: 214.5,
+                  width: 300,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: AppShadow.small,
+                  ),
+                  child: Screenshot(
+                    controller: screenshotController,
+                    child: const DonorCertificateView(),
+                  ),
+                ),
                 const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,9 +67,21 @@ class _CertificateSectionState extends State<CertificateSection> {
                     ),
                     IconButton(
                       onPressed: () async {
-                        if (certificateImage != null) {
-                          await ImageGallerySaver.saveImage(certificateImage!);
-                        }
+                        screenshotController
+                            .capture(
+                          pixelRatio: 3.5,
+                        )
+                            .then((image) {
+                          ImageGallerySaver.saveImage(
+                            image!,
+                            quality: 100,
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Sertifikat berhasil disimpan!"),
+                            ),
+                          );
+                        });
                       },
                       icon: const Icon(
                         Icons.file_download,
