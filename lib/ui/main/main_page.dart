@@ -43,6 +43,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     profileController.getProfile(loginGetX.token.value);
+    homeGetXPage.getPointUser(loginGetX.token.value);
     super.initState();
   }
 
