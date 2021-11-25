@@ -12,14 +12,9 @@ import 'package:flutter_donor/ui/profile/profile_main/profile_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class MainPage extends StatefulWidget {
+
+class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);
-
-  @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
   final PageStorageBucket bucket = PageStorageBucket();
 
   final HomeGetX homeGetXPage = Get.put(HomeGetX());
@@ -40,11 +35,6 @@ class _MainPageState extends State<MainPage> {
     const ProfilePage(),
   ];
 
-  @override
-  void initState() {
-    profileController.getProfile(loginGetX.token.value);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +49,6 @@ class _MainPageState extends State<MainPage> {
       floatingActionButton: Obx(() => FloatingActionButton(
             backgroundColor: loginGetX.dontChange.value ? null : AppColor.cRed,
             onPressed: () {
-              var data = profileController.profile;
               if (profileController.status.value == ProfileLoadStatus.loading) {
                 Get.snackbar(
                   "Loading",
@@ -68,25 +57,28 @@ class _MainPageState extends State<MainPage> {
                 );
               } else if (profileController.status.value ==
                   ProfileLoadStatus.loaded) {
+                var data = profileController.profile;
                 if (data!.bloodTypeDonators.isBlank! ||
                     data.bloodTypeDonators == null ||
                     data.bloodRhesusDonators.isBlank! ||
                     data.bloodRhesusDonators == null) {
+
                   Get.snackbar(
                     "Lengkapi Data",
                     "Lengkapi data di menu profile",
                     duration: const Duration(seconds: 2),
                   );
+
+                  Future.delayed(const Duration(seconds: 2), () {
+                    Get.toNamed(
+                      "${Routes.profile}/${Routes.profileEditIdentity}",
+                    );
+                  });
+
                 } else {
-                  var arg = {
-                    "blood": "${data.bloodTypeDonators}",
-                    "rhesus": "${data.bloodRhesusDonators}"
-                  };
-                  Get.toNamed(Routes.request, parameters: arg);
+                  Get.toNamed(Routes.request);
                 }
               }
-              //print(data!.bloodTypeDonators.toString());
-              //print(data.bloodRhesusDonators.toString());
             },
             tooltip: "Request plasma",
             child: Container(
