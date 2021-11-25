@@ -166,11 +166,12 @@ Widget banner(CheckConnectionGetX model, HomeGetX index) {
                           size: 26.0,
                         ),
                         Text(
-                          "999 PTS",
+                          index.pointUser?.skor.toString() ?? "??",
                           style: AppText.textNormal.copyWith(
-                              color: AppColor.cDarkBlue,
-                              fontWeight: AppText.normal),
-                        )
+                            color: AppColor.cDarkBlue,
+                            fontWeight: AppText.normal,
+                          ),
+                        ),
                       ],
                     ),
                   ),
