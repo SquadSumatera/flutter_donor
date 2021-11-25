@@ -111,7 +111,8 @@ Widget banner(CheckConnectionGetX model, HomeGetX index) {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: model.profile!.showProfilePhoto!,
+                      image: model.profile?.showProfilePhoto ??
+                          const AssetImage("assets/bitmap/header_bg.png"),
                     ),
                     shape: BoxShape.circle,
                     border: Border.all(
