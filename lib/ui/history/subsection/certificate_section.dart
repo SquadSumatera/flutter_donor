@@ -1,22 +1,33 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_donor/ui/history/subsection/donor_certificate_view.dart';
+import 'package:flutter_donor/ui/history/subsection/donor_location.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:screenshot/screenshot.dart';
 
 class CertificateSection extends StatefulWidget {
-  CertificateSection({Key? key}) : super(key: key);
+  const CertificateSection({Key? key}) : super(key: key);
 
   @override
   _CertificateSectionState createState() => _CertificateSectionState();
 }
 
 class _CertificateSectionState extends State<CertificateSection> {
+  ScreenshotController screenshotController = ScreenshotController();
+  Uint8List? certificateImage;
 
   Future<MemoryImage> _showCertificate() async {
-    ScreenshotController screenshotController = ScreenshotController();
     return screenshotController
-        .captureFromWidget(const DonorCertificateView())
-        .then((value) {
+        .captureFromWidget(
+      Material(
+        child: Center(child: DonorLocation()),
+        color: Colors.transparent,
+      ),
+    )
+        .then((value) async {
+      certificateImage = value;
       return MemoryImage(value);
     });
   }
@@ -54,11 +65,11 @@ class _CertificateSectionState extends State<CertificateSection> {
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
                               image: snapshot.data as ImageProvider,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fitHeight,
                             ),
                             boxShadow: AppShadow.medium,
                           ),
-                          height: 200,
+                          height: 214.5,
                           width: double.infinity,
                         );
                       } else {
@@ -84,7 +95,11 @@ class _CertificateSectionState extends State<CertificateSection> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () => _showCertificate(),
+                      onPressed: () async {
+                        if (certificateImage != null) {
+                          await ImageGallerySaver.saveImage(certificateImage!);
+                        }
+                      },
                       icon: const Icon(
                         Icons.file_download,
                         size: 20,
