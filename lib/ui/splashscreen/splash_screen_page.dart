@@ -6,6 +6,7 @@ import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({Key? key}) : super(key: key);
@@ -16,7 +17,9 @@ class SplashScreenPage extends StatefulWidget {
 
 class _SplashScreenPageState extends State<SplashScreenPage> {
   @override
-  void initState() => startSplashScreen();
+  void initState() {
+    checkPermission();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,5 +68,21 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
               ? Get.offNamed(Routes.login)
               : Get.offNamed(Routes.main);
     });
+  }
+
+  checkPermission() async {
+    var locationStatus = await Permission.location.status.isGranted;
+    var locationAlwaysStatus = await Permission.locationAlways.status.isGranted;
+    var locationWhenInUseStatus =
+        await Permission.locationWhenInUse.status.isGranted;
+    if (!locationStatus) await Permission.location.request();
+    if (!locationAlwaysStatus) await Permission.locationAlways.request();
+    if (!locationWhenInUseStatus) await Permission.locationWhenInUse.request();
+
+    if (locationStatus && locationAlwaysStatus && locationWhenInUseStatus) {
+      startSplashScreen();
+    } else {
+      checkPermission();
+    }
   }
 }
