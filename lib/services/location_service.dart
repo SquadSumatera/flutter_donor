@@ -2,20 +2,20 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
-class LocationService{
+class LocationService {
   static Position? currentPosition;
   static late String? _currentAddress;
 
-
-  static Future<LatLng> getCurrentLocation() async => Geolocator.getCurrentPosition(
+  static Future<LatLng> getCurrentLocation() async =>
+      Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best,
-        forceAndroidLocationManager: true)
-        .then((Position position) {
-          currentPosition = position;
+        forceAndroidLocationManager: false,
+      ).then((Position position) {
+        currentPosition = position;
         return LatLng(position.latitude, position.longitude);
-    }).catchError((e) {
-      print(e);
-    });
+      }).catchError((e) {
+        print(e);
+      });
 
   static Future<String?> getAddressFromLatLng() async {
     try {
@@ -24,11 +24,11 @@ class LocationService{
 
       Placemark place = placemarks[0];
 
-      _currentAddress = "${place.locality}, ${place.postalCode}, ${place.country}";
+      _currentAddress =
+          "${place.locality}, ${place.postalCode}, ${place.country}";
       return _currentAddress;
     } catch (e) {
       print(e);
     }
   }
-
 }

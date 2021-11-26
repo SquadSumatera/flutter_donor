@@ -43,6 +43,7 @@ class LocationMapsPage extends StatelessWidget {
                         )
                       ]),
                   child: ListView(
+                    controller: scrollController,
                     children: [
                       Text(
                         "Ini Search",
@@ -58,7 +59,6 @@ class LocationMapsPage extends StatelessWidget {
                       ListView.builder(
                         primary: false,
                         shrinkWrap: true,
-                        controller: scrollController,
                         itemCount: 25,
                         itemBuilder: (BuildContext context, int index) {
                           return LocationListWidget(
