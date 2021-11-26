@@ -35,7 +35,7 @@ class MainPage extends StatelessWidget {
 
   final List<Widget> currentScrenList = [
     HomePage(),
-    const LocationPage(),
+    LocationPage(),
     const EventPage(),
     const ProfilePage(),
   ];

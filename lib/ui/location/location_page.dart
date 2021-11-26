@@ -5,14 +5,10 @@ import 'package:get/get.dart';
 
 import 'location_maps_page.dart';
 
-class LocationPage extends StatefulWidget {
-  const LocationPage({Key? key}) : super(key: key);
 
-  @override
-  State<LocationPage> createState() => _LocationPageState();
-}
+class LocationPage extends StatelessWidget {
+  LocationPage({Key? key}) : super(key: key);
 
-class _LocationPageState extends State<LocationPage> {
   final LocationController locationController = Get.find();
 
   final List<Widget> currentScreenList = [

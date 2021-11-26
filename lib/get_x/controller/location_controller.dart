@@ -1,6 +1,6 @@
 import 'package:flutter_donor/services/location_service.dart';
 import 'package:get/get.dart';
-import 'package:latlng/latlng.dart';
+import 'package:latlong2/latlong.dart';
 
 enum LocationStatus {
   loading,
@@ -9,8 +9,8 @@ enum LocationStatus {
 }
 
 class LocationController extends GetxController {
-  late final LatLng latLng;
-  late final String? address;
+  LatLng? latLng;
+  String? address;
 
   Rx<LocationStatus> status = LocationStatus.loading.obs;
 

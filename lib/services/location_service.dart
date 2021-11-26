@@ -1,6 +1,6 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:latlng/latlng.dart';
+import 'package:latlong2/latlong.dart';
 
 class LocationService{
   static Position? currentPosition;
@@ -12,7 +12,7 @@ class LocationService{
         forceAndroidLocationManager: true)
         .then((Position position) {
           currentPosition = position;
-        return LatLng(position.latitude, position.latitude);
+        return LatLng(position.latitude, position.longitude);
     }).catchError((e) {
       print(e);
     });
