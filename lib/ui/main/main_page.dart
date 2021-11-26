@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/location_controller.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
 import 'package:flutter_donor/get_x/state/check_connection_getx.dart';
 import 'package:flutter_donor/get_x/state/home_getx.dart';
@@ -21,6 +22,11 @@ class MainPage extends StatelessWidget {
   final LoginGetX loginGetX = Get.find();
 
   final ProfileController profileController = Get.put(ProfileController());
+
+  final locationController = Get.lazyPut(
+    () => LocationController(),
+    fenix: true,
+  );
 
   final checkConnection = Get.lazyPut(
     () => CheckConnectionGetX(),
