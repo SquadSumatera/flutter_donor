@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/shared/theme.dart';
+import 'package:flutter_donor/ui/history/widgets/certificate_identity_section.dart';
+import 'package:flutter_donor/ui/history/widgets/certificate_line_text.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DonorCertificateView extends StatelessWidget {
@@ -23,7 +25,7 @@ class DonorCertificateView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 23),
-                _buildCertificateText(
+                const CertificateLineText(
                   titleText: 'Surat Keterangan Donor Darah',
                   titleTextSize: 8.94,
                   subTitleText: 'Certificate of Blood Donation',
@@ -31,103 +33,113 @@ class DonorCertificateView extends StatelessWidget {
                   subTitleTextSpacing: 2,
                 ),
                 const SizedBox(height: 15),
-                _buildCertificateText(
+                const CertificateLineText(
                   titleText: 'Sertifikat ini diberikan kepada',
                   titleTextSize: 5.59,
                   subTitleText: 'This is to certify that',
                   subTitleTextSize: 4.47,
                 ),
                 const SizedBox(height: 8),
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColor.white,
-                    borderRadius: BorderRadius.circular(2),
+                const CertificateIdentitySection(
+                  donorName: "Awanama Wijaya",
+                  donorId: "59caf1ec-59bd-45af-876e-149d5df797f6",
+                  donorGender: "Pria",
+                  donorBloodTypeAndRhesus: "AB+",
+                ),
+                const SizedBox(height: 10),
+                const CertificateLineText(
+                  titleText:
+                      "telah melakukan pendonoran darah yang berlokasi di",
+                  titleTextSize: 5.59,
+                  subTitleText: "has made blood donation at",
+                  subTitleTextSize: 4.47,
+                ),
+                const SizedBox(height: 7),
+                Text(
+                  "PMI Runeterra",
+                  style: AppText.textCustom.copyWith(
+                    fontSize: 8.94,
+                    fontWeight: AppText.bold,
+                    color: AppColor.carnelian,
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(2),
-                            bottomLeft: Radius.circular(2),
-                          ),
-                          gradient: LinearGradient(
-                            colors: [
-                              const Color(0xFFA4161A),
-                              const Color(0xFFDC2626).withOpacity(0.65),
-                            ],
-                          ),
-                        ),
-                        padding: const EdgeInsets.all(6),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Awanama Anonkusuma",
-                              style: AppText.textCustom.copyWith(
-                                color: AppColor.white,
-                                fontSize: 5.59,
-                                fontWeight: AppText.bold,
-                              ),
-                            ),
-                          ],
-                        ),
+                ),
+                Text(
+                  "ID Institusi: 40e4f760-7098-4c3c-8750-b6b95e0396b7",
+                  style: AppText.textCustom.copyWith(
+                    fontSize: 2.79,
+                    fontWeight: AppText.semiBold,
+                    color: AppColor.carnelian,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  "pada tanggal 30 Desember 2021",
+                  style: AppText.textCustom.copyWith(
+                    fontSize: 5.03,
+                    fontWeight: AppText.semiBold,
+                    color: AppColor.carnelian,
+                  ),
+                ),
+                Text(
+                  "on date December 30, 2021",
+                  style: AppText.textCustom.copyWith(
+                    fontSize: 3.91,
+                    fontWeight: AppText.semiBold,
+                    color: AppColor.carnelian,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "ID Pendonoran: ad08bcc6-8241-43cd-bf17-01b26875a48c",
+                  style: AppText.textCustom.copyWith(
+                    fontSize: 3.35,
+                    color: AppColor.carnelian,
+                  ),
+                ),
+                Text(
+                  "ID Event: 00000000-0000-0000-0000-000000000000",
+                  style: AppText.textCustom.copyWith(
+                    fontSize: 3.35,
+                    color: AppColor.carnelian,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            right: 8,
+            bottom: 8,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                SvgPicture.asset(
+                  'assets/vector/ic_title.svg',
+                  width: 35,
+                ),
+                const SizedBox(height: 2),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'powered by ',
+                      style: AppText.textCustom.copyWith(
+                        color: AppColor.cBlack,
+                        fontWeight: AppText.semiBold,
+                        fontSize: 5.03,
                       ),
-                      Container()
-                    ],
-                  ),
+                    ),
+                    Image.asset(
+                      'assets/bitmap/logo.png',
+                      width: 12,
+                    )
+                  ],
                 ),
               ],
             ),
           ),
         ],
       ),
-    );
-  }
-
-  Column _buildCertificateText(
-      {String titleText = '',
-      String subTitleText = '',
-      double titleTextSize = 0,
-      double subTitleTextSize = 0,
-      double subTitleTextSpacing = 0}) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.only(
-            left: 5.0,
-            right: 5.0,
-            bottom: 1.5,
-          ),
-          decoration: const BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: AppColor.imperialRed,
-                width: 0.5,
-              ),
-            ),
-          ),
-          child: Text(
-            titleText,
-            style: AppText.textCustom.copyWith(
-              fontSize: titleTextSize,
-              color: AppColor.bloodRed,
-              fontWeight: AppText.semiBold,
-            ),
-          ),
-        ),
-        Text(
-          subTitleText,
-          style: AppText.textCustom.copyWith(
-            letterSpacing: subTitleTextSpacing,
-            color: AppColor.bloodRed,
-            fontSize: subTitleTextSize,
-            fontWeight: AppText.semiBold,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-      ],
     );
   }
 }
