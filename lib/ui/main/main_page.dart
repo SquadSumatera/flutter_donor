@@ -40,7 +40,6 @@ class MainPage extends StatelessWidget {
     const ProfilePage(),
   ];
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(
