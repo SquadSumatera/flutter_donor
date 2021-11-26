@@ -19,7 +19,7 @@ class OnBoardingController extends GetxController {
       getPref.setBool("onboard", false);
       Get.offAllNamed(Routes.login);
     } else {
-      pageController.jumpToPage(onBoardingModelList.length);
+      pageController.jumpToPage(onBoardingModelList.length - 1);
     }
   }
 
