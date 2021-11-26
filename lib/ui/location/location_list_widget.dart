@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/shared/theme.dart';
-import 'package:flutter_donor/ui/location/location_dialog_widget.dart';
+import 'package:flutter_donor/ui/location/location_maps_dialog_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LocationListWidget extends StatelessWidget {
@@ -36,7 +36,7 @@ class LocationListWidget extends StatelessWidget {
             // Get.toNamed(Routes.locationDetail);
             showDialog(
               context: context,
-              builder: (context) => LocationDialogWidget(
+              builder: (context) => LocationMapsDialogWidget(
                   name: "Kantor PMI Kota Kediri",
                   bloodA: 1,
                   bloodB: 2,

@@ -6,8 +6,8 @@ import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:get/get.dart';
 
-class LocationDialogWidget extends StatelessWidget {
-  LocationDialogWidget(
+class LocationMapsDialogWidget extends StatelessWidget {
+  LocationMapsDialogWidget(
       {Key? key,
       required this.name,
       required this.bloodA,

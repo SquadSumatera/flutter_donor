@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/location_controller.dart';
 import 'package:flutter_donor/ui/location/location_loading_page.dart';

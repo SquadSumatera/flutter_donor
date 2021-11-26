@@ -3,10 +3,10 @@ import 'package:flutter_donor/shared/constant.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
-import 'location_dialog_widget.dart';
+import 'location_maps_dialog_widget.dart';
 
-class LocationMarkerWidget extends StatelessWidget {
-  const LocationMarkerWidget({Key? key}) : super(key: key);
+class LocationMapsMarkerWidget extends StatelessWidget {
+  const LocationMapsMarkerWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class LocationMarkerWidget extends StatelessWidget {
                 onTap: () {
                   showDialog(
                     context: context,
-                    builder: (context) => LocationDialogWidget(
+                    builder: (context) => LocationMapsDialogWidget(
                         name: "Kantor PMI Kota Kediri",
                         bloodA: 1,
                         bloodB: 2,
