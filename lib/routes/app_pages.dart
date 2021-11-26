@@ -52,7 +52,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.location,
-      page: () => const LocationPage(),
+      page: () => LocationPage(),
     ),
     GetPage(
       name: Routes.showMaps,
