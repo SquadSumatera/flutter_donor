@@ -14,13 +14,9 @@ class OnBoardingController extends GetxController {
   }
 
   lastPage() async {
-    if (currentScreen.value == onBoardingModelList.length - 1) {
-      SharedPreferences getPref = await SharedPreferences.getInstance();
-      getPref.setBool("onboard", false);
-      Get.offAllNamed(Routes.login);
-    } else {
-      pageController.jumpToPage(onBoardingModelList.length - 1);
-    }
+    SharedPreferences getPref = await SharedPreferences.getInstance();
+    getPref.setBool("onboard", false);
+    Get.offAllNamed(Routes.login);
   }
 
   List<OnBoardingModel> onBoardingModelList = <OnBoardingModel>[
