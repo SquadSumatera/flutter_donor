@@ -3,8 +3,11 @@ import 'package:flutter_donor/get_x/state/check_connection_getx.dart';
 import 'package:flutter_donor/get_x/state/home_getx.dart';
 import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/shared/theme.dart';
-import 'package:flutter_donor/ui/home/home_page_widget.dart';
+import 'package:flutter_donor/ui/home/home_banner_widget.dart';
+import 'package:flutter_donor/ui/home/home_trend_widget.dart';
 import 'package:get/get.dart';
+
+import 'home_stok_widget.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
@@ -54,7 +57,8 @@ class HomePage extends StatelessWidget {
                         color: AppColor.cLightGrey,
                         height: 4.0,
                         thickness: 6.0,
-                      )
+                      ),
+                      trend(),
                     ],
                   ),
       ),
