@@ -7,6 +7,7 @@ import 'package:flutter_donor/ui/home/home_banner_widget.dart';
 import 'package:flutter_donor/ui/home/home_trend_widget.dart';
 import 'package:get/get.dart';
 
+import 'home_schedule_widget.dart';
 import 'home_stok_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -59,6 +60,15 @@ class HomePage extends StatelessWidget {
                         thickness: 6.0,
                       ),
                       trend(),
+                      const Divider(
+                        color: AppColor.cLightGrey,
+                        height: 4.0,
+                        thickness: 6.0,
+                      ),
+                      schedule(),
+                      cardSchedule(),
+                      cardSchedule(),
+                      cardSchedule(),
                     ],
                   ),
       ),

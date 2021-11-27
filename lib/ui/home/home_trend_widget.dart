@@ -21,7 +21,7 @@ Widget trend() {
           ),
         ),
         const SizedBox(
-          height: 8.0,
+          height: 12.0,
         ),
         AspectRatio(
           aspectRatio: 1.70,
