@@ -24,28 +24,9 @@ Widget trend() {
           height: 12.0,
         ),
         AspectRatio(
-          aspectRatio: 1.70,
-          child: Container(
-            decoration: const BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: AppColor.cGrey,
-                  blurRadius: 4.0,
-                  offset: Offset(0, 4),
-                ),
-              ],
-              borderRadius: BorderRadius.all(
-                Radius.circular(18),
-              ),
-              color: AppColor.white,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  right: 18.0, left: 12.0, top: 24, bottom: 12),
-              child: LineChart(
-                mainData(),
-              ),
-            ),
+          aspectRatio: 1.60,
+          child: LineChart(
+            mainData(),
           ),
         ),
       ],
@@ -72,7 +53,6 @@ LineChartData mainData() {
       },
       getDrawingVerticalLine: (value) {
         return FlLine(
-          color: const Color(0xff37434d),
           strokeWidth: 0,
         );
       },
@@ -85,43 +65,75 @@ LineChartData mainData() {
         showTitles: true,
         reservedSize: 22,
         interval: 1,
-        getTextStyles: (context, value) => AppText.textMedium.copyWith(
-          color: AppColor.cGrey,
+        getTextStyles: (context, value) => AppText.textSmall.copyWith(
+          color: AppColor.cDarkBlue,
           fontWeight: AppText.bold,
         ),
         getTitles: (value) {
           switch (value.toInt()) {
+            case 0:
+              return 'JAN';
+            case 1:
+              return 'FEB';
             case 2:
               return 'MAR';
+            case 3:
+              return 'APR';
+            case 4:
+              return 'MEI';
             case 5:
               return 'JUN';
+            case 6:
+              return 'JUL';
+            case 7:
+              return 'AGU';
             case 8:
               return 'SEP';
+            case 9:
+              return 'OKT';
+            case 10:
+              return 'NOV';
+            case 11:
+              return 'DES';
           }
           return '';
         },
-        margin: 8,
+        margin: 1,
       ),
       leftTitles: SideTitles(
         showTitles: true,
         interval: 1,
-        getTextStyles: (context, value) => AppText.textMedium.copyWith(
-          color: AppColor.cGrey,
+        getTextStyles: (context, value) => AppText.textSmall.copyWith(
+          color: AppColor.cDarkBlue,
           fontWeight: AppText.bold,
         ),
         getTitles: (value) {
           switch (value.toInt()) {
             case 1:
-              return '10k';
+              return '10';
+            case 2:
+              return '20';
             case 3:
-              return '30k';
+              return '30';
+            case 4:
+              return '40';
             case 5:
-              return '50k';
+              return '50';
+            case 6:
+              return '60';
+            case 7:
+              return '70';
+            case 8:
+              return '80';
+            case 9:
+              return '90';
+            case 10:
+              return '100';
           }
           return '';
         },
         reservedSize: 32,
-        margin: 12,
+        margin: 1,
       ),
     ),
     borderData: FlBorderData(
@@ -131,16 +143,21 @@ LineChartData mainData() {
     minX: 0,
     maxX: 11,
     minY: 0,
-    maxY: 6,
+    maxY: 10,
     lineBarsData: [
       LineChartBarData(
         spots: const [
           FlSpot(0, 3),
-          FlSpot(2.6, 2),
-          FlSpot(4.9, 5),
-          FlSpot(6.8, 3.1),
+          FlSpot(1, 2.5),
+          FlSpot(2, 2),
+          FlSpot(3, 4.5),
+          FlSpot(4, 5),
+          FlSpot(5, 5.5),
+          FlSpot(6, 3.1),
+          FlSpot(7, 3),
           FlSpot(8, 4),
-          FlSpot(9.5, 3),
+          FlSpot(9, 3),
+          FlSpot(10, 2),
           FlSpot(11, 4),
         ],
         isCurved: true,
