@@ -160,10 +160,10 @@ Widget banner(CheckConnectionGetX model, HomeGetX index) {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Icons.star,
-                          color: AppColor.cDarkBlue,
-                          size: 26.0,
+                        const Image(
+                          image: AssetImage("assets/bitmap/stars_circle.png"),
+                          height: 22.0,
+                          width: 22.0,
                         ),
                         Text(
                           index.pointUser?.skor.toString() ?? "??",
