@@ -19,7 +19,7 @@ class ProfileIdentityItem extends StatelessWidget {
         Text(
           title,
           style: AppText.textNormal.copyWith(
-            color: AppColor.imperialRed,
+            color: AppColor.camelotRed,
             fontWeight: AppText.bold,
           ),
         ),
@@ -31,7 +31,7 @@ class ProfileIdentityItem extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: AppColor.imperialRed,
+            color: AppColor.camelotRed,
           ),
           child: Center(
             child: Text(

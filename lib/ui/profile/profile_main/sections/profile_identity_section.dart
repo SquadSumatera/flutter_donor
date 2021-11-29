@@ -64,7 +64,7 @@ class ProfileIdentitySection extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                   vertical: 10,
                 ),
-                primary: AppColor.imperialRed,
+                primary: AppColor.cRed,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),

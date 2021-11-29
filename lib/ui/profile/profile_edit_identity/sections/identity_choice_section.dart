@@ -41,13 +41,13 @@ class _IdentityChoiceSectionState extends State<IdentityChoiceSection> {
         Text(
           widget.title,
           style: AppText.textNormal.copyWith(
-            color: AppColor.white,
+            color: AppColor.cRed,
             fontWeight: AppText.bold,
           ),
         ),
         const SizedBox(height: 10),
         Wrap(
-          runSpacing: 10,
+          runSpacing: 5,
           children: _buildChoices(),
         ),
       ],

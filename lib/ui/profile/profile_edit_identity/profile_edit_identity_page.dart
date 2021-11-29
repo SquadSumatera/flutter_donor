@@ -34,6 +34,7 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: AppColor.cRed,
         elevation: 0,
@@ -41,45 +42,14 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
       body: ListView(
         children: <Widget>[
           const ProfileHeader(),
-          const SizedBox(height: 27),
-          TextButton(
-            onPressed: () {
-              if (profileController.status.value == ProfileLoadStatus.updated) {
-                profileController.profile = tempProfile;
-              }
-              profileController.status.value == ProfileLoadStatus.loaded;
-              Get.back();
-            },
-            child: Row(
-              children: <Widget>[
-                const Icon(
-                  Icons.arrow_back,
-                  size: 24,
-                  color: AppColor.imperialRed,
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  "Kembali",
-                  style: AppText.textMedium.copyWith(
-                    color: AppColor.imperialRed,
-                    fontWeight: AppText.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 27),
+          const SizedBox(height: 30),
           Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  const Color(0xFFA4161A),
-                  const Color(0xFFDC2626).withOpacity(0.65),
-                ],
-              ),
+            padding: const EdgeInsets.symmetric(
+              vertical: 16,
+              horizontal: 36,
+            ),
+            decoration: const BoxDecoration(
+              color: AppColor.cultured,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +57,7 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
                 Text(
                   "Identitas Pribadi",
                   style: AppText.textMedium.copyWith(
-                    color: AppColor.white,
+                    color: AppColor.imperialRed,
                     fontWeight: AppText.bold,
                   ),
                 ),
@@ -126,7 +96,7 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
                       ),
                     ),
                     Expanded(
-                      flex: 1,
+                      flex: 2,
                       child: IdentityChoiceSection(
                         title: "Rhesus",
                         choices: const <String, dynamic>{
@@ -170,7 +140,7 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
                   padding: const EdgeInsets.symmetric(
                     vertical: 10,
                   ),
-                  primary: AppColor.imperialRed,
+                  primary: AppColor.cRed,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),

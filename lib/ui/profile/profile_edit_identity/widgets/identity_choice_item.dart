@@ -16,18 +16,18 @@ class IdentityChoiceItem extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(right: 10),
       padding: const EdgeInsets.symmetric(
-        horizontal: 30,
+        horizontal: 18,
         vertical: 7,
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: (active) ? AppColor.imperialRed : AppColor.white,
+        color: (active) ? AppColor.camelotRed : AppColor.white,
         boxShadow: AppShadow.medium,
       ),
       child: Text(
         label,
         style: AppText.textNormal.copyWith(
-          color: (active) ? AppColor.white : AppColor.imperialRed,
+          color: (active) ? AppColor.white : AppColor.camelotRed,
           fontWeight: AppText.bold,
         ),
       ),

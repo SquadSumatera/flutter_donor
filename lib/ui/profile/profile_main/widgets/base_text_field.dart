@@ -33,7 +33,9 @@ class BaseTextField extends StatelessWidget {
       children: [
         Text(
           label,
-          style: AppText.textMedium,
+          style: AppText.textMedium.copyWith(
+            color: AppColor.richBlack,
+          ),
         ),
         const SizedBox(height: 8),
         TextFormField(
@@ -45,8 +47,8 @@ class BaseTextField extends StatelessWidget {
                 ]
               : null,
           obscureText: obscureText,
-          style: AppText.textMedium.copyWith(
-            fontWeight: AppText.semiBold,
+          style: AppText.textNormal.copyWith(
+            color: AppColor.luckyPointBlack,
           ),
           decoration: InputDecoration(
             alignLabelWithHint: true,
@@ -58,16 +60,16 @@ class BaseTextField extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: const BorderSide(
-                color: AppColor.cultured,
+                color: AppColor.rockBlue,
               ),
               borderRadius: BorderRadius.circular(10),
             ),
-            fillColor: AppColor.lightGrey,
+            fillColor: AppColor.cultured,
             filled: initialValue != null,
             labelText: placeholderText,
             floatingLabelBehavior: FloatingLabelBehavior.never,
             labelStyle: AppText.textNormal.copyWith(
-              color: AppColor.silverChalice,
+              color: AppColor.richBlack,
             ),
             enabled: isEnabled,
             contentPadding: const EdgeInsets.symmetric(

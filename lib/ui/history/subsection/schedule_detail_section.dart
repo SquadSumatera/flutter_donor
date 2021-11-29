@@ -86,14 +86,15 @@ class ScheduleDetailSection extends StatelessWidget {
                                 children: [
                                   const Icon(
                                     Icons.edit,
-                                    size: 9,
+                                    size: 18,
+                                    color: AppColor.cBlue,
                                   ),
                                   const SizedBox(width: 10),
                                   Text(
                                     "Ubah Jadwal",
                                     style: AppText.textSmall.copyWith(
                                       fontWeight: AppText.bold,
-                                      color: AppColor.cBlack,
+                                      color: AppColor.cBlue,
                                       decoration: TextDecoration.underline,
                                     ),
                                   ),
@@ -134,7 +135,7 @@ class ScheduleDetailSection extends StatelessWidget {
                                 children: [
                                   const Icon(
                                     Icons.delete_forever,
-                                    size: 12,
+                                    size: 18,
                                     color: AppColor.imperialRed,
                                   ),
                                   const SizedBox(width: 5),

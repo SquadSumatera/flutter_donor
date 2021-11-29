@@ -70,17 +70,17 @@ class DonorHistoryModel {
   Color get designatedColor {
     switch (statusDonorNotes) {
       case DonorHistoryStatus.waitingConfirmation:
-        return AppColor.carnelian;
+        return AppColor.imperialRed;
       case DonorHistoryStatus.scheduleRejected:
-        return AppColor.bloodRed;
+        return AppColor.camelotRed;
       case DonorHistoryStatus.registered:
-        return AppColor.imperialRed;
+        return AppColor.cBlue;
       case DonorHistoryStatus.conditionsRejected:
-        return AppColor.bloodRed;
+        return AppColor.camelotRed;
       case DonorHistoryStatus.canceled:
-        return AppColor.bloodRed;
+        return AppColor.camelotRed;
       case DonorHistoryStatus.finished:
-        return AppColor.imperialRed;
+        return AppColor.cGreen;
       default:
         return Colors.grey;
     }

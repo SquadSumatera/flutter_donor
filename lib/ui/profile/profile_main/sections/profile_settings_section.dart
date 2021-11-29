@@ -64,7 +64,7 @@ class ProfileSettingsSection extends StatelessWidget {
               Get.offAllNamed(Routes.login);
             },
             textColor: AppColor.white,
-            backgroundColor: AppColor.imperialRed,
+            backgroundColor: AppColor.cRed,
           ),
         ],
       ),
