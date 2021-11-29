@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/location_controller.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
 import 'package:flutter_donor/get_x/state/check_connection_getx.dart';
 import 'package:flutter_donor/get_x/state/home_getx.dart';
@@ -12,14 +13,8 @@ import 'package:flutter_donor/ui/profile/profile_main/profile_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class MainPage extends StatefulWidget {
+class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);
-
-  @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
   final PageStorageBucket bucket = PageStorageBucket();
 
   final HomeGetX homeGetXPage = Get.put(HomeGetX());
@@ -28,6 +23,11 @@ class _MainPageState extends State<MainPage> {
 
   final ProfileController profileController = Get.put(ProfileController());
 
+  final locationController = Get.lazyPut(
+    () => LocationController(),
+    fenix: true,
+  );
+
   final checkConnection = Get.lazyPut(
     () => CheckConnectionGetX(),
     fenix: true,
@@ -35,18 +35,11 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> currentScrenList = [
     HomePage(),
-    const LocationPage(),
+    LocationPage(),
     const EventPage(),
     const ProfilePage(),
   ];
 
-  @override
-  void initState() {
-    profileController.getProfile(loginGetX.token.value);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(
@@ -59,7 +52,6 @@ class _MainPageState extends State<MainPage> {
       floatingActionButton: Obx(() => FloatingActionButton(
             backgroundColor: loginGetX.dontChange.value ? null : AppColor.cRed,
             onPressed: () {
-              var data = profileController.profile;
               if (profileController.status.value == ProfileLoadStatus.loading) {
                 Get.snackbar(
                   "Loading",
@@ -68,6 +60,7 @@ class _MainPageState extends State<MainPage> {
                 );
               } else if (profileController.status.value ==
                   ProfileLoadStatus.loaded) {
+                var data = profileController.profile;
                 if (data!.bloodTypeDonators.isBlank! ||
                     data.bloodTypeDonators == null ||
                     data.bloodRhesusDonators.isBlank! ||
@@ -78,15 +71,9 @@ class _MainPageState extends State<MainPage> {
                     duration: const Duration(seconds: 2),
                   );
                 } else {
-                  var arg = {
-                    "blood": "${data.bloodTypeDonators}",
-                    "rhesus": "${data.bloodRhesusDonators}"
-                  };
-                  Get.toNamed(Routes.request, parameters: arg);
+                  Get.toNamed(Routes.request);
                 }
               }
-              //print(data!.bloodTypeDonators.toString());
-              //print(data.bloodRhesusDonators.toString());
             },
             tooltip: "Request plasma",
             child: Container(

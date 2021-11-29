@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/state/check_connection_getx.dart';
+import 'package:flutter_donor/get_x/state/home_getx.dart';
 import 'package:flutter_donor/shared/theme.dart';
 
-Widget banner(CheckConnectionGetX model) {
+Widget banner(CheckConnectionGetX model, HomeGetX index) {
   return SizedBox(
     height: 222.0,
     child: Stack(
@@ -110,7 +111,7 @@ Widget banner(CheckConnectionGetX model) {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: model.profile!.showProfilePhoto ??
+                      image: model.profile?.showProfilePhoto ??
                           const AssetImage("assets/bitmap/header_bg.png"),
                     ),
                     shape: BoxShape.circle,
@@ -129,7 +130,7 @@ Widget banner(CheckConnectionGetX model) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Diky Nugraa Difiera",
+                      model.profile!.nameDonators!,
                       style: AppText.textMedium.copyWith(
                         color: AppColor.cRed,
                         fontWeight: AppText.semiBold,
@@ -139,11 +140,13 @@ Widget banner(CheckConnectionGetX model) {
                       height: 2.0,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        index.changeIndex(3);
+                      },
                       child: Text(
                         "Lihat Selengkapnya",
                         style: AppText.textSmall.copyWith(
-                          color: AppColor.lightGrey,
+                          color: AppColor.cGrey,
                           fontWeight: AppText.normal,
                         ),
                       ),
@@ -157,17 +160,18 @@ Widget banner(CheckConnectionGetX model) {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Icons.star,
-                          color: AppColor.cDarkBlue,
-                          size: 26.0,
+                        const Image(
+                          image: AssetImage("assets/bitmap/stars_circle.png"),
+                          height: 22.0,
+                          width: 22.0,
                         ),
                         Text(
-                          "999 PTS",
+                          index.pointUser?.skor.toString() ?? "??",
                           style: AppText.textNormal.copyWith(
-                              color: AppColor.cDarkBlue,
-                              fontWeight: AppText.normal),
-                        )
+                            color: AppColor.cDarkBlue,
+                            fontWeight: AppText.normal,
+                          ),
+                        ),
                       ],
                     ),
                   ),

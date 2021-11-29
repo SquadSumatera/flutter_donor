@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_donor/get_x/controller/profile_controller.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:get/get.dart';
 
-class LocationDialogWidget extends StatelessWidget {
-  const LocationDialogWidget(
+class LocationMapsDialogWidget extends StatelessWidget {
+  LocationMapsDialogWidget(
       {Key? key,
       required this.name,
       required this.bloodA,
@@ -19,6 +21,8 @@ class LocationDialogWidget extends StatelessWidget {
   final int bloodB;
   final int bloodAB;
   final int bloodO;
+
+  final ProfileController profileController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -108,12 +112,29 @@ class LocationDialogWidget extends StatelessWidget {
                 Expanded(child: Container()),
                 InkWell(
                   child: Text(
-                    'Buka di Maps',
+                    'Donor di sini',
                     style: AppText.textMedium.copyWith(
                         color: AppColor.cRed, fontWeight: AppText.semiBold),
                   ),
-                  onTap: (){
-                    Get.snackbar("title", "message");
+                  onTap: () {
+                    if (profileController.profile!.bloodTypeDonators.isBlank! ||
+                        profileController.profile!.bloodTypeDonators == null ||
+                        profileController
+                            .profile!.bloodRhesusDonators.isBlank! ||
+                        profileController.profile!.bloodRhesusDonators ==
+                            null) {
+                      Get.back();
+                      Get.snackbar(
+                        "Lengkapi Data",
+                        "Lengkapi data di menu profile",
+                        duration: const Duration(seconds: 2),
+                      );
+                    } else {
+                      Get.offNamed(Routes.donor, arguments: [
+                        "40e4f760-7098-4c3c-8750-b6b95e0396b7",
+                        "PMI Pusat"
+                      ]);
+                    }
                   },
                 ),
               ],
