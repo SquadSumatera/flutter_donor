@@ -13,6 +13,8 @@ import 'package:flutter_donor/ui/profile/profile_main/profile_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import 'widgets/navigation_item.dart';
+
 class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);
   final PageStorageBucket bucket = PageStorageBucket();
@@ -90,64 +92,36 @@ class MainPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Obx(
-                () => IconButton(
-                  //update the bottom app bar view each time an item is clicked
-                  onPressed: () {
-                    homeGetXPage.changeIndex(0);
-                  },
-                  iconSize: 27.0,
-                  icon: SvgPicture.asset(
-                    'assets/vector/ic_home.svg',
-                    color: homeGetXPage.currentIndex.value == 0
-                        ? AppColor.cRed
-                        : AppColor.cGrey,
-                  ),
+                () => NavigationItem(
+                  callback: () => homeGetXPage.changeIndex(0),
+                  svgSource: 'assets/vector/ic_home.svg',
+                  active: homeGetXPage.currentIndex.value == 0,
+                  label: "Beranda",
                 ),
               ),
               Obx(
-                () => IconButton(
-                  onPressed: () {
-                    homeGetXPage.changeIndex(1);
-                  },
-                  iconSize: 27.0,
-                  icon: SvgPicture.asset(
-                    'assets/vector/ic_location.svg',
-                    color: homeGetXPage.currentIndex.value == 1
-                        ? AppColor.cRed
-                        : AppColor.cGrey,
-                  ),
+                () => NavigationItem(
+                  callback: () => homeGetXPage.changeIndex(1),
+                  svgSource: 'assets/vector/ic_location.svg',
+                  active: homeGetXPage.currentIndex.value == 1,
+                  label: "Lokasi",
                 ),
               ),
-              //to leave space in between the bottom app bar items and below the FAB
-              const SizedBox(
-                width: 50.0,
-              ),
+              const SizedBox(width: 50.0),
               Obx(
-                () => IconButton(
-                  onPressed: () {
-                    homeGetXPage.changeIndex(2);
-                  },
-                  iconSize: 27.0,
-                  icon: SvgPicture.asset(
-                    'assets/vector/ic_dashboard.svg',
-                    color: homeGetXPage.currentIndex.value == 2
-                        ? AppColor.cRed
-                        : AppColor.cGrey,
-                  ),
+                () => NavigationItem(
+                  callback: () => homeGetXPage.changeIndex(2),
+                  svgSource: 'assets/vector/ic_dashboard.svg',
+                  active: homeGetXPage.currentIndex.value == 2,
+                  label: "Acara",
                 ),
               ),
               Obx(
-                () => IconButton(
-                  onPressed: () {
-                    homeGetXPage.changeIndex(3);
-                  },
-                  iconSize: 27.0,
-                  icon: SvgPicture.asset(
-                    'assets/vector/ic_profile.svg',
-                    color: homeGetXPage.currentIndex.value == 3
-                        ? AppColor.cRed
-                        : AppColor.cGrey,
-                  ),
+                () => NavigationItem(
+                  callback: () => homeGetXPage.changeIndex(3),
+                  svgSource: 'assets/vector/ic_profile.svg',
+                  active: homeGetXPage.currentIndex.value == 3,
+                  label: "Profil",
                 ),
               ),
             ],

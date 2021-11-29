@@ -16,13 +16,9 @@ class DetailHeader extends StatelessWidget {
         bottom: 27.0,
       ),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            const Color(0xFFA4161A),
-            const Color(0xFFDC2626).withOpacity(0.65),
-          ],
+        image: const DecorationImage(
+          image: AssetImage('assets/bitmap/header_bg.png'),
+          fit: BoxFit.cover,
         ),
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(10.0),
