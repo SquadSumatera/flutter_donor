@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/donor_history_controller.dart';
+import 'package:flutter_donor/ui/history/subsection/certificate_section.dart';
+import 'package:flutter_donor/ui/history/subsection/donor_certificate_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:screenshot/screenshot.dart';
 
 import '../../../get_x/controller/donor_detail_overlay_controller.dart';
 import '../../../shared/theme.dart';
@@ -50,6 +53,9 @@ class DonorDetailPage extends StatelessWidget {
               ScheduleDetailSection(),
               const SizedBox(height: 30),
               DonorLocation(),
+              const SizedBox(height: 23),
+              CertificateSection(),
+              const SizedBox(height: 50),
             ],
           ),
         ],

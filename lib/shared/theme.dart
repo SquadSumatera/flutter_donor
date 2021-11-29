@@ -61,6 +61,9 @@ class AppText {
     fontFamily: fontFamily,
     fontSize: 24,
   );
+  static const TextStyle textCustom = TextStyle(
+    fontFamily: fontFamily,
+  );
 }
 
 class AppShadow {
