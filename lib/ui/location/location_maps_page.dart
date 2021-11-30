@@ -13,7 +13,7 @@ class LocationMapsPage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Petunjuk",
+          "Lokasi",
           style: AppText.textSemiLarge
               .copyWith(color: AppColor.white, fontWeight: AppText.semiBold),
         ),
@@ -45,13 +45,29 @@ class LocationMapsPage extends StatelessWidget {
                   child: ListView(
                     controller: scrollController,
                     children: [
-                      Text(
-                        "Ini Search",
-                        style: AppText.textLarge.copyWith(
-                          color: AppColor.cRed,
-                          fontWeight: AppText.bold,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            isDense: true,
+                            filled: true,
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(Icons.location_on, size: 24,),
+                            ),
+                            fillColor: Color(0xFFE4E8F8),
+                            hintText: "Search Lokasi",
+                            contentPadding: EdgeInsets.only(bottom: 20, left: 20),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColor.cGrey),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          ),
                         ),
-                        textAlign: TextAlign.center,
                       ),
                       const SizedBox(
                         height: 4.0,
