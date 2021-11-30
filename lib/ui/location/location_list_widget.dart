@@ -5,7 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class LocationListWidget extends StatelessWidget {
   final int index;
-  const LocationListWidget({Key? key, required this.index}) : super(key: key);
+  final String name;
+  final String address;
+  final String? distance;
+  const LocationListWidget({Key? key, required this.index, required this.name, required this.address, this.distance}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +21,17 @@ class LocationListWidget extends StatelessWidget {
             color: (index % 2 == 0) ? AppColor.cRed : AppColor.cOrange,
           ),
           title: Text(
-            'Kantor PMI Kota Kediri',
+            name,
             style: AppText.textMedium.copyWith(
                 fontWeight: AppText.normal, color: AppColor.cDarkBlue),
           ),
           subtitle: Text(
-            'Jl. Doang Jadian Kagak',
+            address,
             style: AppText.textNormal.copyWith(
                 fontWeight: AppText.normal, color: AppColor.cDarkBlue),
           ),
           trailing: Text(
-            '100 km',
+            '- Km',
             style: AppText.textNormal.copyWith(
                 fontWeight: AppText.normal, color: AppColor.cDarkBlue),
           ),
@@ -37,7 +40,7 @@ class LocationListWidget extends StatelessWidget {
             showDialog(
               context: context,
               builder: (context) => LocationMapsDialogWidget(
-                  name: "Kantor PMI Kota Kediri",
+                  name: "-",
                   bloodA: 1,
                   bloodB: 2,
                   bloodAB: 2,

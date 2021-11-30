@@ -13,7 +13,7 @@ class LocationPage extends StatelessWidget {
 
   final List<Widget> currentScreenList = [
     const LocationLoadingPage(),
-    const LocationMapsPage(),
+    LocationMapsPage(),
   ];
 
   @override
