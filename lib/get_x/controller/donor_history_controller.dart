@@ -48,7 +48,6 @@ class DonorHistoryController extends GetxController {
       );
       selectedStatus.value = DonorHistorySelectedStatus.loaded;
     } catch (e) {
-      print(data.idDonorNotes);
       selectedStatus.value = DonorHistorySelectedStatus.failed;
     }
     update();
@@ -67,6 +66,13 @@ class DonorHistoryController extends GetxController {
       status.value = DonorHistoryLoadStatus.failed;
     }
     update();
+  }
+
+  List<Rx<DonorHistoryModel>> getScheduledDonor() {
+    return donorHistoryList
+        .where((element) =>
+            element.value.statusDonorNotes == DonorHistoryStatus.registered)
+        .toList();
   }
 
   void cancelingSchedule() async {
