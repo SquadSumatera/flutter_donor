@@ -1,5 +1,7 @@
 import 'package:flutter_donor/get_x/state/login_getx.dart';
+import 'package:flutter_donor/models/donor_certificate_model.dart';
 import 'package:flutter_donor/models/donor_history_model.dart';
+import 'package:flutter_donor/services/donor_certificate_services.dart';
 import 'package:flutter_donor/services/donor_history_services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -21,6 +23,7 @@ class DonorHistoryController extends GetxController {
   final LoginGetX token = Get.find();
   late List<Rx<DonorHistoryModel>> donorHistoryList = [];
   Rx<DonorHistoryModel>? selected;
+  Rx<DonorCertificateModel> selectedCertificate = DonorCertificateModel().obs;
 
   Rx<DonorHistoryLoadStatus> status = DonorHistoryLoadStatus.loading.obs;
   Rx<DonorHistorySelectedStatus> selectedStatus =
@@ -32,8 +35,22 @@ class DonorHistoryController extends GetxController {
     getDonorHistory(token.token.value);
   }
 
-  void setSelected(DonorHistoryModel data) {
+  void setSelected(DonorHistoryModel data) async {
+    selectedStatus.value = DonorHistorySelectedStatus.loading;
     selected = data.obs;
+    update();
+
+    try {
+      selectedCertificate.value =
+          await DonorCertificateServices.getCertificateDetail(
+        token: token.token.value,
+        id: data.idDonorNotes!,
+      );
+      selectedStatus.value = DonorHistorySelectedStatus.loaded;
+    } catch (e) {
+      print(data.idDonorNotes);
+      selectedStatus.value = DonorHistorySelectedStatus.failed;
+    }
     update();
   }
 

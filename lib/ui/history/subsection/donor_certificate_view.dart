@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/donor_history_controller.dart';
+import 'package:flutter_donor/models/donor_certificate_model.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_donor/ui/history/widgets/certificate_identity_section.dart';
 import 'package:flutter_donor/ui/history/widgets/certificate_line_text.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class DonorCertificateView extends StatelessWidget {
-  const DonorCertificateView({Key? key}) : super(key: key);
+  DonorCertificateView({Key? key}) : super(key: key);
+  final DonorHistoryController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    DonorCertificateModel c = controller.selectedCertificate.value;
     return Container(
       color: AppColor.cultured,
       child: Stack(
@@ -40,11 +45,11 @@ class DonorCertificateView extends StatelessWidget {
                   subTitleTextSize: 4.47,
                 ),
                 const SizedBox(height: 8),
-                const CertificateIdentitySection(
-                  donorName: "Awanama Wijaya",
-                  donorId: "59caf1ec-59bd-45af-876e-149d5df797f6",
-                  donorGender: "Pria",
-                  donorBloodTypeAndRhesus: "AB+",
+                CertificateIdentitySection(
+                  donorName: c.nameDonators ?? '-',
+                  donorId: c.idDonators ?? '-',
+                  donorGender: c.showGender ?? '-',
+                  donorBloodTypeAndRhesus: c.showFullBloodType ?? '-',
                 ),
                 const SizedBox(height: 10),
                 const CertificateLineText(
@@ -56,7 +61,7 @@ class DonorCertificateView extends StatelessWidget {
                 ),
                 const SizedBox(height: 7),
                 Text(
-                  "PMI Runeterra",
+                  c.nameInstitutions ?? '-',
                   style: AppText.textCustom.copyWith(
                     fontSize: 8.94,
                     fontWeight: AppText.bold,
@@ -64,7 +69,7 @@ class DonorCertificateView extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "ID Institusi: 40e4f760-7098-4c3c-8750-b6b95e0396b7",
+                  "ID Institusi: ${c.idInstitutions ?? '-'}",
                   style: AppText.textCustom.copyWith(
                     fontSize: 2.79,
                     fontWeight: AppText.semiBold,
@@ -73,7 +78,7 @@ class DonorCertificateView extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "pada tanggal 30 Desember 2021",
+                  "pada tanggal ${c.scheduleDonorNotesString}",
                   style: AppText.textCustom.copyWith(
                     fontSize: 5.03,
                     fontWeight: AppText.semiBold,
@@ -81,7 +86,7 @@ class DonorCertificateView extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "on date December 30, 2021",
+                  "on date ${c.scheduleDonorNotesStringEn}",
                   style: AppText.textCustom.copyWith(
                     fontSize: 3.91,
                     fontWeight: AppText.semiBold,
@@ -91,19 +96,20 @@ class DonorCertificateView extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  "ID Pendonoran: ad08bcc6-8241-43cd-bf17-01b26875a48c",
+                  "ID Pendonoran: ${c.idDonorNotes ?? '-'}",
                   style: AppText.textCustom.copyWith(
                     fontSize: 3.35,
                     color: AppColor.carnelian,
                   ),
                 ),
-                Text(
-                  "ID Event: 00000000-0000-0000-0000-000000000000",
-                  style: AppText.textCustom.copyWith(
-                    fontSize: 3.35,
-                    color: AppColor.carnelian,
+                if (c.idDonorEvents != null)
+                  Text(
+                    "ID Event: ${c.idDonorEvents ?? '-'}",
+                    style: AppText.textCustom.copyWith(
+                      fontSize: 3.35,
+                      color: AppColor.carnelian,
+                    ),
                   ),
-                ),
               ],
             ),
           ),

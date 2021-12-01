@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/get_x/controller/donor_history_controller.dart';
-import 'package:flutter_donor/ui/history/subsection/certificate_section.dart';
-import 'package:flutter_donor/ui/history/subsection/donor_certificate_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:screenshot/screenshot.dart';
 
 import '../../../get_x/controller/donor_detail_overlay_controller.dart';
+import '../../../get_x/controller/donor_history_controller.dart';
+import '../../../models/donor_history_model.dart';
 import '../../../shared/theme.dart';
+import '../subsection/certificate_section.dart';
 import '../subsection/detail_header.dart';
 import '../subsection/donor_location.dart';
 import '../subsection/schedule_detail_section.dart';
@@ -54,7 +53,9 @@ class DonorDetailPage extends StatelessWidget {
               const SizedBox(height: 30),
               DonorLocation(),
               const SizedBox(height: 23),
-              CertificateSection(),
+              if (donorController.selected?.value.statusDonorNotes ==
+                  DonorHistoryStatus.finished)
+                const CertificateSection(),
               const SizedBox(height: 50),
             ],
           ),
