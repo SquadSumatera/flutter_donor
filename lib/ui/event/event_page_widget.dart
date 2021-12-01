@@ -71,7 +71,7 @@ Widget eventCardMedium(EventDetailModel eventDetail) {
 Widget eventCardLarge() {
   return LayoutBuilder(
     builder: (context, constrain) => Container(
-      margin: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 4),
+      margin: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
       height: 205.0,
       decoration: BoxDecoration(
         boxShadow: [
