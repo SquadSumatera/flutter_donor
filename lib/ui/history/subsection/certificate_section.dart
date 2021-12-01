@@ -104,11 +104,11 @@ class _CertificateSectionState extends State<CertificateSection> {
                               image!,
                               quality: 100,
                             );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("Sertifikat berhasil disimpan di galeri anda!"),
-                              ),
-                            );
+                            Get.snackbar(
+                                "Sertifikat berhasil disimpan!",
+                                "Sertifikat telah disimpan di galeri anda.",
+                                duration: const Duration(seconds: 2),
+                              );
                           });
                         },
                         icon: const Icon(
