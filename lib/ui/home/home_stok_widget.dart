@@ -4,7 +4,7 @@ import 'package:flutter_donor/shared/theme.dart';
 Widget stokPlasma() {
   return Container(
     height: 110.0,
-    margin: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 32.0),
+    margin: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 30.0),
     child: Row(
       mainAxisSize: MainAxisSize.max,
       children: [

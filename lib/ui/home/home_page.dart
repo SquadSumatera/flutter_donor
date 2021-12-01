@@ -3,7 +3,9 @@ import 'package:flutter_donor/get_x/state/check_connection_getx.dart';
 import 'package:flutter_donor/get_x/state/home_getx.dart';
 import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/shared/theme.dart';
+import 'package:flutter_donor/ui/home/home_artikel_widget.dart';
 import 'package:flutter_donor/ui/home/home_banner_widget.dart';
+import 'package:flutter_donor/ui/home/home_divider_widget.dart';
 import 'package:flutter_donor/ui/home/home_trend_widget.dart';
 import 'package:get/get.dart';
 
@@ -54,21 +56,31 @@ class HomePage extends StatelessWidget {
                     children: [
                       banner(checkConnectionGetX, index),
                       stokPlasma(),
-                      const Divider(
-                        color: AppColor.cLightGrey,
-                        height: 4.0,
-                        thickness: 6.0,
-                      ),
+                      homeDivier(),
                       trend(),
-                      const Divider(
-                        color: AppColor.cLightGrey,
-                        height: 4.0,
-                        thickness: 6.0,
+                      homeDivier(),
+                      title("Jadwal Donor"),
+                      ListView.builder(
+                        primary: false,
+                        shrinkWrap: true,
+                        itemCount: 5,
+                        itemBuilder: (context, i) {
+                          return cardSchedule();
+                        },
                       ),
-                      schedule(),
-                      cardSchedule(),
-                      cardSchedule(),
-                      cardSchedule(),
+                      const SizedBox(
+                        height: 35.0,
+                      ),
+                      homeDivier(),
+                      title("Artikel"),
+                      ListView.builder(
+                        primary: false,
+                        shrinkWrap: true,
+                        itemCount: 5,
+                        itemBuilder: (context, i) {
+                          return atricle();
+                        },
+                      ),
                     ],
                   ),
       ),
