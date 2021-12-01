@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/shared/theme.dart';
 
-Widget schedule() {
+Widget title(String title) {
   return Container(
     margin: const EdgeInsets.only(
       top: 16.0,
       right: 32.0,
-      left: 32.0,
+      left: 30.0,
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Jadwal Donor",
+          title,
           style: AppText.textMedium.copyWith(
             fontWeight: AppText.bold,
             color: AppColor.cDarkBlue,
@@ -31,8 +31,8 @@ Widget cardSchedule() {
     height: 72.0,
     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     margin: const EdgeInsets.only(
-      right: 32.0,
-      left: 32.0,
+      left: 30.0,
+      right: 30.0,
       bottom: 8.0,
     ),
     decoration: BoxDecoration(

@@ -6,8 +6,8 @@ Widget trend() {
   return Container(
     margin: const EdgeInsets.only(
       top: 16.0,
-      right: 32.0,
-      left: 32.0,
+      left: 30.0,
+      right: 30.0,
       bottom: 24.0,
     ),
     child: Column(
@@ -112,22 +112,12 @@ LineChartData mainData() {
             case 1:
               return '10';
             case 2:
-              return '20';
-            case 3:
               return '30';
-            case 4:
-              return '40';
-            case 5:
+            case 3:
               return '50';
-            case 6:
-              return '60';
-            case 7:
+            case 4:
               return '70';
-            case 8:
-              return '80';
-            case 9:
-              return '90';
-            case 10:
+            case 5:
               return '100';
           }
           return '';
@@ -143,7 +133,7 @@ LineChartData mainData() {
     minX: 0,
     maxX: 11,
     minY: 0,
-    maxY: 10,
+    maxY: 5,
     lineBarsData: [
       LineChartBarData(
         spots: const [
@@ -151,8 +141,8 @@ LineChartData mainData() {
           FlSpot(1, 2.5),
           FlSpot(2, 2),
           FlSpot(3, 4.5),
-          FlSpot(4, 5),
-          FlSpot(5, 5.5),
+          FlSpot(4, 4.6),
+          FlSpot(5, 5),
           FlSpot(6, 3.1),
           FlSpot(7, 3),
           FlSpot(8, 4),
