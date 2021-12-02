@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/institutions_controller.dart';
 import 'package:flutter_donor/get_x/controller/location_controller.dart';
 import 'package:flutter_donor/ui/location/location_loading_page.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ class LocationPage extends StatelessWidget {
   LocationPage({Key? key}) : super(key: key);
 
   final LocationController locationController = Get.find();
+  final InstitutionsController institutionsController = Get.find();
 
   final List<Widget> currentScreenList = [
     const LocationLoadingPage(),
@@ -21,7 +23,7 @@ class LocationPage extends StatelessWidget {
     return Scaffold(
       body: Obx(
         () => PageStorage(
-          child: (locationController.status == LocationStatus.loaded)
+          child: (locationController.status == LocationStatus.loaded) && (institutionsController.status == InstitutionsStatus.loaded)
               ? currentScreenList[1]
               : currentScreenList[0],
           bucket: PageStorageBucket(),

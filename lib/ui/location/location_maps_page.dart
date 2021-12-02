@@ -17,6 +17,12 @@ class _LocationMapsPageState extends State<LocationMapsPage> {
   InstitutionsController institutionsController = Get.find();
 
   @override
+  void initState() {
+    institutionsController.getInitInstitution();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -97,7 +103,7 @@ class _LocationMapsPageState extends State<LocationMapsPage> {
                             itemBuilder: (BuildContext context, int index) {
                               return LocationListWidget(
                                 index: index,
-                                name: institutionsController.filterInstitutions[index]!.nameInstitutions,
+                                name: institutionsController.filterInstitutions[index]!.nameInstitutions!,
                                 address: institutionsController.filterInstitutions[index]!.addressInstitutions!,
                               );
                             },

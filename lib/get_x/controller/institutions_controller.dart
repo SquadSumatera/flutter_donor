@@ -38,11 +38,19 @@ class InstitutionsController extends GetxController {
     update();
   }
 
+  void getInitInstitution(){
+    if(status.value == InstitutionsStatus.loaded){
+      filterInstitutions = institutionsModel;
+    } else {
+      getInstitution(_token);
+    }
+  }
+
   void searchInstitution() async {
     status.value = InstitutionsStatus.loading;
     update();
     try {
-      filterInstitutions = institutionsModel.where((datum) => datum!.nameInstitutions.toLowerCase().contains(query.toLowerCase())).toList();
+      filterInstitutions = institutionsModel.where((datum) => datum!.nameInstitutions!.toLowerCase().contains(query.toLowerCase())).toList();
       print(filterInstitutions);
       status.value = InstitutionsStatus.loaded;
     } catch (e) {

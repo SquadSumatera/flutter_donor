@@ -85,10 +85,10 @@ class LocationMapsDialogWidget extends StatelessWidget {
               spacing: 30,
               runSpacing: 10,
               children: [
-                boxBloodInformation(context, "A", bloodA),
-                boxBloodInformation(context, "A", bloodB),
-                boxBloodInformation(context, "A", bloodAB),
-                boxBloodInformation(context, "A", bloodO),
+                boxBloodInformation(context, "A", "60", "90"),
+                boxBloodInformation(context, "B", "60", "90"),
+                boxBloodInformation(context, "AB", "60", "90"),
+                boxBloodInformation(context, "O", "60", "90"),
               ],
             ),
             const SizedBox(height: 30.0),
@@ -145,7 +145,7 @@ class LocationMapsDialogWidget extends StatelessWidget {
     );
   }
 
-  boxBloodInformation(BuildContext context, String bloodType, int bloodStock) {
+  boxBloodInformation(BuildContext context, String bloodType, String rhesusPositive, String rhesusNegative) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20.0),
       child: Container(
@@ -168,17 +168,48 @@ class LocationMapsDialogWidget extends StatelessWidget {
               )),
             ),
             Expanded(
-              child: Center(
-                child: Text(
-                  bloodStock.toString(),
-                  style: AppText.textLarge.copyWith(
-                      color: AppColor.white, fontWeight: AppText.semiBold),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 6),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    reshusInformation(Icons.add, rhesusPositive),
+                    reshusInformation(Icons.remove, rhesusNegative),
+                  ],
                 ),
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  reshusInformation(IconData icon, String stock) {
+    return Row(
+      children: [
+        Container(
+          width: 18,
+          height: 18,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: Colors.white,
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+          ),
+          child: Icon(icon, size: 15, color: AppColor.cRed,),
+        ),
+        const SizedBox(width: 10,),
+        Expanded(
+          child: Text(
+            stock,
+            style: AppText.textSemiLarge.copyWith(
+                color: AppColor.white, fontWeight: AppText.semiBold), overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
     );
   }
 }
