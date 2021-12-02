@@ -6,7 +6,6 @@ import 'package:flutter_donor/ui/history/subpages/donor_detail_page.dart';
 import 'package:flutter_donor/ui/home/home_page.dart';
 import 'package:flutter_donor/ui/location/location_maps_page.dart';
 import 'package:flutter_donor/ui/location/location_page.dart';
-import 'package:flutter_donor/ui/location/location_search_page.dart';
 import 'package:flutter_donor/ui/login/login_page.dart';
 import 'package:flutter_donor/ui/main/main_page.dart';
 import 'package:flutter_donor/ui/onboarding/onboarding_page.dart';
@@ -57,10 +56,6 @@ class AppPages {
     GetPage(
       name: Routes.showMaps,
       page: () => const LocationMapsPage(),
-    ),
-    GetPage(
-      name: Routes.locationSearch,
-      page: () => const LocationSearchPage(),
     ),
     GetPage(
       name: Routes.event,

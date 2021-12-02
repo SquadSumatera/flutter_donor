@@ -1,4 +1,17 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_donor/get_x/controller/institutions_controller.dart';
+import 'package:flutter_donor/get_x/controller/location_controller.dart';
+import 'package:flutter_donor/get_x/controller/profile_controller.dart';
+import 'package:flutter_donor/get_x/state/check_connection_getx.dart';
+import 'package:flutter_donor/get_x/state/home_getx.dart';
+import 'package:flutter_donor/get_x/state/login_getx.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
+import 'package:flutter_donor/shared/theme.dart';
+import 'package:flutter_donor/ui/event/event_page.dart';
+import 'package:flutter_donor/ui/home/home_page.dart';
+import 'package:flutter_donor/ui/location/location_page.dart';
+import 'package:flutter_donor/ui/profile/profile_main/profile_page.dart';
 import 'package:get/get.dart';
 
 import '../../get_x/controller/donor_history_controller.dart';
@@ -21,13 +34,18 @@ class MainPage extends StatelessWidget {
 
   final HomeGetX homeGetXPage = Get.put(HomeGetX());
 
-  final LoginGetX loginGetX = Get.find();
+  static LoginGetX loginGetX = Get.find();
 
   final ProfileController profileController = Get.put(ProfileController());
   final DonorHistoryController donorHistoryController = Get.put(DonorHistoryController());
 
   final locationController = Get.lazyPut(
     () => LocationController(),
+    fenix: true,
+  );
+
+  final institutionController = Get.lazyPut(
+        () => InstitutionsController(loginGetX.token.value),
     fenix: true,
   );
 

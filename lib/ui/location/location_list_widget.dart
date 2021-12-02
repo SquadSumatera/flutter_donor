@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/models/institution_model.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_donor/ui/location/location_maps_dialog_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LocationListWidget extends StatelessWidget {
   final int index;
-  const LocationListWidget({Key? key, required this.index}) : super(key: key);
+  final Datum data;
+  const LocationListWidget({Key? key, required this.index, required this.data})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +21,17 @@ class LocationListWidget extends StatelessWidget {
             color: (index % 2 == 0) ? AppColor.cRed : AppColor.cOrange,
           ),
           title: Text(
-            'Kantor PMI Kota Kediri',
+            data.nameInstitutions!,
             style: AppText.textMedium.copyWith(
                 fontWeight: AppText.normal, color: AppColor.cDarkBlue),
           ),
           subtitle: Text(
-            'Jl. Doang Jadian Kagak',
+            data.addressInstitutions!,
             style: AppText.textNormal.copyWith(
                 fontWeight: AppText.normal, color: AppColor.cDarkBlue),
           ),
           trailing: Text(
-            '100 km',
+            '- Km',
             style: AppText.textNormal.copyWith(
                 fontWeight: AppText.normal, color: AppColor.cDarkBlue),
           ),
@@ -36,12 +39,7 @@ class LocationListWidget extends StatelessWidget {
             // Get.toNamed(Routes.locationDetail);
             showDialog(
               context: context,
-              builder: (context) => LocationMapsDialogWidget(
-                  name: "Kantor PMI Kota Kediri",
-                  bloodA: 1,
-                  bloodB: 2,
-                  bloodAB: 2,
-                  bloodO: 5),
+              builder: (context) => LocationMapsDialogWidget(data: data),
             );
           },
         ),

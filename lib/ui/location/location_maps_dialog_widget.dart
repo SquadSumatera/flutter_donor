@@ -2,26 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
+import 'package:flutter_donor/models/institution_model.dart';
 import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:get/get.dart';
 
 class LocationMapsDialogWidget extends StatelessWidget {
-  LocationMapsDialogWidget(
-      {Key? key,
-      required this.name,
-      required this.bloodA,
-      required this.bloodB,
-      required this.bloodAB,
-      required this.bloodO})
-      : super(key: key);
+  LocationMapsDialogWidget({Key? key, required this.data}) : super(key: key);
 
-  final String name;
-  final int bloodA;
-  final int bloodB;
-  final int bloodAB;
-  final int bloodO;
-
+  final Datum data;
   final ProfileController profileController = Get.find();
 
   @override
@@ -55,7 +44,7 @@ class LocationMapsDialogWidget extends StatelessWidget {
                           color: AppColor.cBlack, fontWeight: AppText.bold),
                     ),
                     Text(
-                      name,
+                      data.nameInstitutions!,
                       style: AppText.textMedium.copyWith(
                           color: AppColor.cBlack, fontWeight: AppText.normal),
                     ),
@@ -85,10 +74,26 @@ class LocationMapsDialogWidget extends StatelessWidget {
               spacing: 30,
               runSpacing: 10,
               children: [
-                boxBloodInformation(context, "A", bloodA),
-                boxBloodInformation(context, "A", bloodB),
-                boxBloodInformation(context, "A", bloodAB),
-                boxBloodInformation(context, "A", bloodO),
+                boxBloodInformation(
+                    context,
+                    "A",
+                    data.bloodStockInstitutions![0].stock!.toString(),
+                    data.bloodStockInstitutions![1].stock!.toString()),
+                boxBloodInformation(
+                    context,
+                    "B",
+                    data.bloodStockInstitutions![2].stock!.toString(),
+                    data.bloodStockInstitutions![3].stock!.toString()),
+                boxBloodInformation(
+                    context,
+                    "AB",
+                    data.bloodStockInstitutions![4].stock!.toString(),
+                    data.bloodStockInstitutions![5].stock!.toString()),
+                boxBloodInformation(
+                    context,
+                    "O",
+                    data.bloodStockInstitutions![6].stock!.toString(),
+                    data.bloodStockInstitutions![7].stock!.toString()),
               ],
             ),
             const SizedBox(height: 30.0),
@@ -99,7 +104,7 @@ class LocationMapsDialogWidget extends StatelessWidget {
             ),
             const SizedBox(height: 15.0),
             Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultrices laoreet senectus vitae vitae. Id aliquam diam, metus at tempus, fringilla tincidunt pellentesque purus. Massa quam metus.',
+              data.addressInstitutions!,
               maxLines: 4,
               overflow: TextOverflow.ellipsis,
               softWrap: false,
@@ -107,6 +112,20 @@ class LocationMapsDialogWidget extends StatelessWidget {
                   .copyWith(color: AppColor.cBlack, fontWeight: AppText.normal),
             ),
             const SizedBox(height: 30.0),
+            Text(
+              'Kontak',
+              style: AppText.textMedium.copyWith(
+                  color: AppColor.cBlack, fontWeight: AppText.semiBold),
+            ),
+            const SizedBox(height: 15.0),
+            Text(
+              data.contactInstitutions!,
+              maxLines: 4,
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
+              style: AppText.textMedium
+                  .copyWith(color: AppColor.cBlack, fontWeight: AppText.normal),
+            ),
             Row(
               children: [
                 Expanded(child: Container()),
@@ -145,7 +164,8 @@ class LocationMapsDialogWidget extends StatelessWidget {
     );
   }
 
-  boxBloodInformation(BuildContext context, String bloodType, int bloodStock) {
+  boxBloodInformation(BuildContext context, String bloodType,
+      String rhesusPositive, String rhesusNegative) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20.0),
       child: Container(
@@ -168,17 +188,55 @@ class LocationMapsDialogWidget extends StatelessWidget {
               )),
             ),
             Expanded(
-              child: Center(
-                child: Text(
-                  bloodStock.toString(),
-                  style: AppText.textLarge.copyWith(
-                      color: AppColor.white, fontWeight: AppText.semiBold),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 6),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    reshusInformation(Icons.add, rhesusPositive),
+                    reshusInformation(Icons.remove, rhesusNegative),
+                  ],
                 ),
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  reshusInformation(IconData icon, String stock) {
+    return Row(
+      children: [
+        Container(
+          width: 18,
+          height: 18,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: Colors.white,
+            ),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+          ),
+          child: Icon(
+            icon,
+            size: 15,
+            color: AppColor.cRed,
+          ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Expanded(
+          child: Text(
+            stock,
+            style: AppText.textSemiLarge
+                .copyWith(color: AppColor.white, fontWeight: AppText.semiBold),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
     );
   }
 }

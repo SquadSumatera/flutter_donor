@@ -93,11 +93,10 @@ class _DonorPageState extends State<DonorPage> {
                           mode: Mode.BOTTOM_SHEET,
                           showSelectedItems: false,
                           onFind: (String? filter) async {
-                            var a = await InstitutionServices.listInstitution(
+                            return await InstitutionServices.listInstitution(
                                 token: loginGetX.token.value);
-                            return a;
                           },
-                          itemAsString: (data) => data!.nameInstitutions,
+                          itemAsString: (data) => data!.nameInstitutions!,
                           onChanged: (data) {
                             donorGetX
                                 .changeDataInstituion(data!.idInstitutions);

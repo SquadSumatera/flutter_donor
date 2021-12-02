@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/institutions_controller.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_donor/ui/location/location_maps_marker_widget.dart';
+import 'package:get/get.dart';
 
 import 'location_list_widget.dart';
 
-class LocationMapsPage extends StatelessWidget {
+class LocationMapsPage extends StatefulWidget {
   const LocationMapsPage({Key? key}) : super(key: key);
+
+  @override
+  State<LocationMapsPage> createState() => _LocationMapsPageState();
+}
+
+class _LocationMapsPageState extends State<LocationMapsPage> {
+  InstitutionsController institutionsController = Get.find();
+
+  @override
+  void initState() {
+    institutionsController.getInitInstitution();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +28,7 @@ class LocationMapsPage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Petunjuk",
+          "Lokasi",
           style: AppText.textSemiLarge
               .copyWith(color: AppColor.white, fontWeight: AppText.semiBold),
         ),
@@ -21,7 +36,7 @@ class LocationMapsPage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          LocationMapsMarkerWidget(),
+          LocationMapsMarkerWidget(data: institutionsController.filterInstitutions,),
           DraggableScrollableSheet(
             initialChildSize: 0.25,
             builder: (_, scrollController) {
@@ -42,31 +57,65 @@ class LocationMapsPage extends StatelessWidget {
                           offset: const Offset(0, 3),
                         )
                       ]),
-                  child: ListView(
-                    controller: scrollController,
-                    children: [
-                      Text(
-                        "Ini Search",
-                        style: AppText.textLarge.copyWith(
-                          color: AppColor.cRed,
-                          fontWeight: AppText.bold,
+                  child: Obx(
+                    () => ListView(
+                      controller: scrollController,
+                      reverse: institutionsController.dontChange.value,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 24),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              isDense: true,
+                              filled: true,
+                              prefixIcon: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Icon(
+                                  Icons.location_on,
+                                  size: 24,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              fillColor: const Color(0xFFE4E8F8),
+                              hintText: "Search Lokasi",
+                              contentPadding:
+                                  const EdgeInsets.only(bottom: 20, left: 20),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: Colors.transparent),
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: AppColor.cGrey),
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                            ),
+                            onChanged: (text) {
+                              institutionsController.query.value = text;
+                              institutionsController.searchInstitution();
+                              setState(() {});
+                            },
+                          ),
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(
-                        height: 4.0,
-                      ),
-                      ListView.builder(
-                        primary: false,
-                        shrinkWrap: true,
-                        itemCount: 25,
-                        itemBuilder: (BuildContext context, int index) {
-                          return LocationListWidget(
-                            index: index,
-                          );
-                        },
-                      ),
-                    ],
+                        const SizedBox(
+                          height: 4.0,
+                        ),
+                        ListView.builder(
+                          primary: false,
+                          shrinkWrap: true,
+                          itemCount:
+                              institutionsController.filterInstitutions.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return LocationListWidget(
+                                index: index,
+                                data: institutionsController
+                                    .filterInstitutions[index]!);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );

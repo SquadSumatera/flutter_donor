@@ -36,27 +36,27 @@ class Datum {
   Datum({
     this.idInstitutions,
     this.idInstitutionRoles,
-    required this.nameInstitutions,
+    this.nameInstitutions,
     this.emailInstitutions,
     this.contactInstitutions,
     this.addressInstitutions,
     this.latitudeInstitutions,
     this.longitudeInstitutions,
-    this.forInstitutionRoles,
-    this.createdAt,
-    this.updatedAt,
+    this.bloodStockInstitutions,
+    required this.createdAt,
+    required this.updatedAt,
     this.deletedAt,
   });
 
   String? idInstitutions;
   String? idInstitutionRoles;
-  String nameInstitutions;
+  String? nameInstitutions;
   String? emailInstitutions;
   String? contactInstitutions;
   String? addressInstitutions;
   String? latitudeInstitutions;
   String? longitudeInstitutions;
-  String? forInstitutionRoles;
+  List<BloodStockInstitution>? bloodStockInstitutions;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? deletedAt;
@@ -74,7 +74,7 @@ class Datum {
     addressInstitutions: json["address_institutions"],
     latitudeInstitutions: json["latitude_institutions"],
     longitudeInstitutions: json["longitude_institutions"],
-    forInstitutionRoles: json["ForInstitutionRoles"],
+    bloodStockInstitutions: json["blood_stock_institutions"] == null ? null : List<BloodStockInstitution>.from(json["blood_stock_institutions"].map((x) => BloodStockInstitution.fromMap(x))),
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     deletedAt: json["deleted_at"],
@@ -89,9 +89,37 @@ class Datum {
     "address_institutions": addressInstitutions,
     "latitude_institutions": latitudeInstitutions,
     "longitude_institutions": longitudeInstitutions,
-    "ForInstitutionRoles": forInstitutionRoles,
+    "blood_stock_institutions": bloodStockInstitutions == null ? null : List<dynamic>.from(bloodStockInstitutions!.map((x) => x.toMap())),
     "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
     "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
     "deleted_at": deletedAt,
+  };
+}
+
+class BloodStockInstitution {
+  BloodStockInstitution({
+    this.bloodType,
+    this.bloodRhesus,
+    this.stock,
+  });
+
+  String? bloodType;
+  String? bloodRhesus;
+  int? stock;
+
+  factory BloodStockInstitution.fromJson(String str) => BloodStockInstitution.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory BloodStockInstitution.fromMap(Map<String, dynamic> json) => BloodStockInstitution(
+    bloodType: json["blood_type"],
+    bloodRhesus: json["blood_rhesus"],
+    stock: json["stock"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "blood_type": bloodType,
+    "blood_rhesus": bloodRhesus,
+    "stock": stock,
   };
 }
