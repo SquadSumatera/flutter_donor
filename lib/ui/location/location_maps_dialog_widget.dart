@@ -217,7 +217,7 @@ class LocationMapsDialogWidget extends StatelessWidget {
             border: Border.all(
               color: Colors.white,
             ),
-            borderRadius: BorderRadius.all(Radius.circular(5)),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
           ),
           child: Icon(
             icon,
