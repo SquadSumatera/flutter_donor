@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'location_list_widget.dart';
 
 class LocationMapsPage extends StatefulWidget {
-  LocationMapsPage({Key? key}) : super(key: key);
+  const LocationMapsPage({Key? key}) : super(key: key);
 
   @override
   State<LocationMapsPage> createState() => _LocationMapsPageState();
@@ -63,33 +63,39 @@ class _LocationMapsPageState extends State<LocationMapsPage> {
                       reverse: institutionsController.dontChange.value,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 24),
                           child: TextField(
                             decoration: InputDecoration(
                               isDense: true,
                               filled: true,
                               prefixIcon: const Padding(
                                 padding: EdgeInsets.all(8.0),
-                                child: Icon(Icons.location_on, size: 24, color: Colors.grey,),
+                                child: Icon(
+                                  Icons.location_on,
+                                  size: 24,
+                                  color: Colors.grey,
+                                ),
                               ),
                               fillColor: const Color(0xFFE4E8F8),
                               hintText: "Search Lokasi",
-                              contentPadding: const EdgeInsets.only(bottom: 20, left: 20),
+                              contentPadding:
+                                  const EdgeInsets.only(bottom: 20, left: 20),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.transparent),
+                                borderSide:
+                                    const BorderSide(color: Colors.transparent),
                                 borderRadius: BorderRadius.circular(20.0),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: AppColor.cGrey),
+                                borderSide:
+                                    const BorderSide(color: AppColor.cGrey),
                                 borderRadius: BorderRadius.circular(20.0),
                               ),
                             ),
                             onChanged: (text) {
                               institutionsController.query.value = text;
                               institutionsController.searchInstitution();
-                              setState(() {
-
-                              });
+                              setState(() {});
                             },
                           ),
                         ),
@@ -97,18 +103,17 @@ class _LocationMapsPageState extends State<LocationMapsPage> {
                           height: 4.0,
                         ),
                         ListView.builder(
-                            primary: false,
-                            shrinkWrap: true,
-                            itemCount: institutionsController.filterInstitutions.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return LocationListWidget(
+                          primary: false,
+                          shrinkWrap: true,
+                          itemCount:
+                              institutionsController.filterInstitutions.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return LocationListWidget(
                                 index: index,
-                                name: institutionsController.filterInstitutions[index]!.nameInstitutions!,
-                                address: institutionsController.filterInstitutions[index]!.addressInstitutions!,
-                              );
-                            },
-                          ),
-
+                                data: institutionsController
+                                    .filterInstitutions[index]!);
+                          },
+                        ),
                       ],
                     ),
                   ),

@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 
 import 'location_maps_page.dart';
 
-
 class LocationPage extends StatelessWidget {
   LocationPage({Key? key}) : super(key: key);
 
@@ -15,7 +14,7 @@ class LocationPage extends StatelessWidget {
 
   final List<Widget> currentScreenList = [
     const LocationLoadingPage(),
-    LocationMapsPage(),
+    const LocationMapsPage(),
   ];
 
   @override
@@ -23,7 +22,8 @@ class LocationPage extends StatelessWidget {
     return Scaffold(
       body: Obx(
         () => PageStorage(
-          child: (locationController.status == LocationStatus.loaded) && (institutionsController.status == InstitutionsStatus.loaded)
+          child: (locationController.status == LocationStatus.loaded) &&
+                  (institutionsController.status == InstitutionsStatus.loaded)
               ? currentScreenList[1]
               : currentScreenList[0],
           bucket: PageStorageBucket(),

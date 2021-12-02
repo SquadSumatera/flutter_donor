@@ -55,7 +55,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.showMaps,
-      page: () => LocationMapsPage(),
+      page: () => const LocationMapsPage(),
     ),
     GetPage(
       name: Routes.event,

@@ -5,8 +5,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 
-import 'location_maps_dialog_widget.dart';
-
 class LocationMapsMarkerWidget extends StatelessWidget {
   LocationMapsMarkerWidget({Key? key}) : super(key: key);
 
@@ -47,17 +45,17 @@ class LocationMapsMarkerWidget extends StatelessWidget {
                 child: Image.asset(
                   'assets/bitmap/maps_placeholder.png',
                 ),
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => LocationMapsDialogWidget(
-                        name: "Kantor PMI Kota Kediri",
-                        bloodA: 1,
-                        bloodB: 2,
-                        bloodAB: 2,
-                        bloodO: 5),
-                  );
-                },
+                // onTap: () {
+                //   showDialog(
+                //     context: context,
+                //     builder: (context) => LocationMapsDialogWidget(
+                //         name: "Kantor PMI Kota Kediri",
+                //         bloodA: 1,
+                //         bloodB: 2,
+                //         bloodAB: 2,
+                //         bloodO: 5),
+                //   );
+                // },
               ),
             ),
           ],
