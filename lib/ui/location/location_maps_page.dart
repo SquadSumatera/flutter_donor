@@ -36,7 +36,7 @@ class _LocationMapsPageState extends State<LocationMapsPage> {
       ),
       body: Stack(
         children: [
-          LocationMapsMarkerWidget(),
+          LocationMapsMarkerWidget(data: institutionsController.filterInstitutions,),
           DraggableScrollableSheet(
             initialChildSize: 0.25,
             builder: (_, scrollController) {
