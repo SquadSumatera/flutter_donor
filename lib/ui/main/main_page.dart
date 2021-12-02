@@ -1,20 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_donor/get_x/controller/institutions_controller.dart';
-import 'package:flutter_donor/get_x/controller/location_controller.dart';
-import 'package:flutter_donor/get_x/controller/profile_controller.dart';
-import 'package:flutter_donor/get_x/state/check_connection_getx.dart';
-import 'package:flutter_donor/get_x/state/home_getx.dart';
-import 'package:flutter_donor/get_x/state/login_getx.dart';
-import 'package:flutter_donor/routes/app_pages.dart';
-import 'package:flutter_donor/shared/theme.dart';
-import 'package:flutter_donor/ui/event/event_page.dart';
-import 'package:flutter_donor/ui/home/home_page.dart';
-import 'package:flutter_donor/ui/location/location_page.dart';
-import 'package:flutter_donor/ui/profile/profile_main/profile_page.dart';
 import 'package:get/get.dart';
 
 import '../../get_x/controller/donor_history_controller.dart';
+import '../../get_x/controller/institutions_controller.dart';
 import '../../get_x/controller/location_controller.dart';
 import '../../get_x/controller/profile_controller.dart';
 import '../../get_x/state/check_connection_getx.dart';
