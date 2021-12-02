@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/donor_history_controller.dart';
 import 'package:flutter_donor/get_x/state/check_connection_getx.dart';
 import 'package:flutter_donor/get_x/state/home_getx.dart';
 import 'package:flutter_donor/get_x/state/login_getx.dart';
@@ -19,9 +20,14 @@ class HomePage extends StatelessWidget {
       Get.find<CheckConnectionGetX>();
   final LoginGetX loginGetXState = Get.find<LoginGetX>();
   final HomeGetX index = Get.find<HomeGetX>();
+  final DonorHistoryController donorHistoryController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    // dapatkan data jadwal donor dalam bentuk list
+    // [DonorHistoryModel.value, DonorHistoryModel.value, ...]
+    final scheduledDonorNotes = donorHistoryController.getScheduledDonor();
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.cRed,

@@ -15,15 +15,17 @@ class EventPage extends StatelessWidget {
         centerTitle: true,
         title: Text(
           "Event",
-          style: AppText.textSemiLarge
-              .copyWith(color: AppColor.white, fontWeight: AppText.semiBold),
+          style: AppText.textSemiLarge.copyWith(
+            color: AppColor.white,
+            fontWeight: AppText.bold,
+          ),
         ),
         backgroundColor: AppColor.cRed,
       ),
       body: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 32.0, top: 21.0),
+            padding: const EdgeInsets.only(left: 24.0, top: 24.0),
             child: Text(
               "Terbaru",
               style: AppText.textSemiLarge.copyWith(
@@ -34,7 +36,7 @@ class EventPage extends StatelessWidget {
           ),
           eventCardLarge(),
           Padding(
-            padding: const EdgeInsets.only(left: 32.0, top: 6.0),
+            padding: const EdgeInsets.only(left: 24.0, bottom: 18.0),
             child: Text(
               "Event lain",
               style: AppText.textSemiLarge.copyWith(

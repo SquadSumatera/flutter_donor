@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_donor/get_x/controller/institutions_controller.dart';
 import 'package:flutter_donor/get_x/controller/location_controller.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
@@ -13,6 +14,18 @@ import 'package:flutter_donor/ui/location/location_page.dart';
 import 'package:flutter_donor/ui/profile/profile_main/profile_page.dart';
 import 'package:get/get.dart';
 
+import '../../get_x/controller/donor_history_controller.dart';
+import '../../get_x/controller/location_controller.dart';
+import '../../get_x/controller/profile_controller.dart';
+import '../../get_x/state/check_connection_getx.dart';
+import '../../get_x/state/home_getx.dart';
+import '../../get_x/state/login_getx.dart';
+import '../../routes/app_pages.dart';
+import '../../shared/theme.dart';
+import '../event/event_page.dart';
+import '../home/home_page.dart';
+import '../location/location_page.dart';
+import '../profile/profile_main/profile_page.dart';
 import 'widgets/navigation_item.dart';
 
 class MainPage extends StatelessWidget {
@@ -24,6 +37,7 @@ class MainPage extends StatelessWidget {
   static LoginGetX loginGetX = Get.find();
 
   final ProfileController profileController = Get.put(ProfileController());
+  final DonorHistoryController donorHistoryController = Get.put(DonorHistoryController());
 
   final locationController = Get.lazyPut(
     () => LocationController(),
@@ -47,6 +61,7 @@ class MainPage extends StatelessWidget {
     const ProfilePage(),
   ];
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(
