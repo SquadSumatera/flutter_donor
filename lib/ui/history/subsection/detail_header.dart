@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../../../get_x/controller/donor_history_controller.dart';
 import 'package:flutter_donor/shared/theme.dart';
 
 class DetailHeader extends StatelessWidget {
-  DetailHeader({Key? key}) : super(key: key);
-  final DonorHistoryController controller = Get.find();
+  const DetailHeader({
+    Key? key,
+    required this.title,
+    required this.status,
+  }) : super(key: key);
+  final String title;
+  final String status;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class DetailHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Detail Pendonoran",
+            title,
             style: AppText.textMedium.copyWith(
               color: AppColor.white,
               fontWeight: AppText.bold,
@@ -43,15 +46,23 @@ class DetailHeader extends StatelessWidget {
               color: AppColor.white,
               borderRadius: BorderRadius.circular(10.0),
             ),
-            child: Obx(
-              () => Text(
-                controller.selected?.value.showStatus ?? "-",
-                style: AppText.textNormal.copyWith(
-                  color: AppColor.bloodRed,
-                  fontWeight: AppText.bold,
-                ),
+            child: Text(
+              status,
+              style: AppText.textNormal.copyWith(
+                color: AppColor.bloodRed,
+                fontWeight: AppText.bold,
               ),
             ),
+
+            // child: Obx(
+            //   () => Text(
+            //     controller.selected?.value.showStatus ?? "-",
+            //     style: AppText.textNormal.copyWith(
+            //       color: AppColor.bloodRed,
+            //       fontWeight: AppText.bold,
+            //     ),
+            //   ),
+            // ),
           ),
         ],
       ),

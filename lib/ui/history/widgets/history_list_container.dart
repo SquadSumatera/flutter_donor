@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/request_history_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../../shared/theme.dart';
@@ -15,10 +16,12 @@ class HistoryListContainer extends StatelessWidget {
 
   final HistoryController historyController = Get.find();
   final DonorHistoryController donorHistoryController = Get.find();
+  final RequestHistoryController requestHistoryController = Get.find();
 
-  List<Widget> _donorHistoryTile() {
+  List<Widget> _requestHistoryTiles() {
     List<Widget> _result = [];
-    if (donorHistoryController.status.value == DonorHistoryLoadStatus.loading) {
+    if (requestHistoryController.status.value !=
+        RequestHistoryLoadStatus.loaded) {
       _result.add(
         const Center(
           child: CircularProgressIndicator(
@@ -28,7 +31,42 @@ class HistoryListContainer extends StatelessWidget {
         ),
       );
     } else {
-      for (Rx<DonorHistoryModel> data in donorHistoryController.donorHistoryList) {
+      for (Rx<DummyRequestModel> data
+          in requestHistoryController.requestHistoryList) {
+        _result.add(
+          Obx(
+            () => HistoryTileItem(
+              title: "Permohonan darah",
+              statusText: '', //TUNGGU BACKEND
+              dateText: '', //TUNGGU BACKEND
+              color: AppColor.cRed, //TUNGGU BACKEND
+              callback: () {
+                Get.toNamed(Routes.donorDetail);
+                requestHistoryController.setSelected(data.value);
+              },
+            ),
+          ),
+        );
+      }
+    }
+
+    return _result;
+  }
+
+  List<Widget> _donorHistoryTiles() {
+    List<Widget> _result = [];
+    if (donorHistoryController.status.value != DonorHistoryLoadStatus.loaded) {
+      _result.add(
+        const Center(
+          child: CircularProgressIndicator(
+            color: AppColor.cBlack,
+            strokeWidth: 5,
+          ),
+        ),
+      );
+    } else {
+      for (Rx<DonorHistoryModel> data
+          in donorHistoryController.donorHistoryList) {
         _result.add(
           Obx(
             () => HistoryTileItem(
@@ -62,8 +100,8 @@ class HistoryListContainer extends StatelessWidget {
         () => ListView(
           children:
               (historyController.currentView.value == HistoryViewAs.donator)
-                  ? _donorHistoryTile()
-                  : [const SizedBox()],
+                  ? _donorHistoryTiles()
+                  : _requestHistoryTiles(),
         ),
       ),
     );

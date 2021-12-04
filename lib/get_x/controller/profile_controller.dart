@@ -17,7 +17,7 @@ enum ProfileLoadStatus {
 }
 
 class ProfileController extends GetxController {
-  final LoginGetX token = Get.find();
+  final LoginGetX loginData = Get.find();
 
   ProfileModel? profile;
   Rx<ProfileLoadStatus> status = ProfileLoadStatus.loading.obs;
@@ -25,7 +25,7 @@ class ProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getProfile(token.token.value);
+    getProfile(loginData.token.value);
   }
 
   void getProfile(String token) async {
@@ -48,7 +48,7 @@ class ProfileController extends GetxController {
 
     try {
       profile = await ProfileServices.updateProfileImage(
-        token: token.token.value,
+        token: loginData.token.value,
         file: file,
       );
       status.value = ProfileLoadStatus.loaded;
@@ -66,7 +66,7 @@ class ProfileController extends GetxController {
 
     try {
       profile = await ProfileServices.updateProfile(
-        token: token.token.value,
+        token: loginData.token.value,
         updatedData: updatedProfile,
       );
       status.value = ProfileLoadStatus.updated;
@@ -84,7 +84,7 @@ class ProfileController extends GetxController {
 
     try {
       profile = await ProfileServices.updatePassword(
-        token: token.token.value,
+        token: loginData.token.value,
         updatedData: updatedPassword,
       );
       status.value = ProfileLoadStatus.updated;

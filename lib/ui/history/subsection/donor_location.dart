@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/shared/constant.dart';
 import 'package:flutter_map/plugin_api.dart';
-import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
-import '../../../get_x/controller/donor_history_controller.dart';
 import '../../../shared/theme.dart';
 
 class DonorLocation extends StatelessWidget {
-  DonorLocation({Key? key}) : super(key: key);
+  const DonorLocation({
+    Key? key,
+    required this.latLong,
+    required this.locationAddress,
+    required this.title,
+  }) : super(key: key);
 
-  final DonorHistoryController controller = Get.find();
+  final String title;
+  final LatLng latLong;
+  final String locationAddress;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,7 +24,7 @@ class DonorLocation extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Lokasi",
+            title,
             style: AppText.textMedium.copyWith(
               fontWeight: AppText.bold,
             ),
@@ -46,7 +52,7 @@ class DonorLocation extends StatelessWidget {
                   ),
                   child: FlutterMap(
                     options: MapOptions(
-                      center: controller.selected?.value.locationLatLong,
+                      center: latLong,
                       zoom: 13.0,
                     ),
                     layers: [
@@ -62,8 +68,7 @@ class DonorLocation extends StatelessWidget {
                           Marker(
                             width: 80.0,
                             height: 80.0,
-                            point: controller.selected?.value.locationLatLong ??
-                                LatLng(0, 0),
+                            point: latLong,
                             builder: (ctx) => Image.asset(
                                 'assets/bitmap/maps_placeholder.png'),
                           ),
@@ -74,7 +79,7 @@ class DonorLocation extends StatelessWidget {
                 ),
                 const SizedBox(height: 15),
                 Text(
-                  controller.selected?.value.locationAddress ?? "-",
+                  locationAddress,
                   style: AppText.textMedium.copyWith(
                     color: AppColor.imperialRed,
                     fontWeight: AppText.bold,

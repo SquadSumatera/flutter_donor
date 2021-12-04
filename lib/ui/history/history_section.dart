@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/donor_history_controller.dart';
 import 'package:flutter_donor/get_x/controller/history_controller.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
+import 'package:flutter_donor/get_x/controller/request_history_controller.dart';
 import 'package:get/get.dart';
 
 import '../../shared/theme.dart';
@@ -20,6 +21,9 @@ class _HistorySectionState extends State<HistorySection> {
   HistoryController historyController = Get.put(HistoryController());
   DonorHistoryController donorHistoryController = Get.put(
     DonorHistoryController(),
+  );
+  RequestHistoryController requestHistoryController = Get.put(
+    RequestHistoryController(),
   );
 
   @override

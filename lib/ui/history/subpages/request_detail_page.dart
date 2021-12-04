@@ -12,11 +12,9 @@ import '../subsection/detail_header.dart';
 import '../subsection/donor_location.dart';
 import '../subsection/schedule_detail_section.dart';
 
-class DonorDetailPage extends StatelessWidget {
-  DonorDetailPage({Key? key}) : super(key: key);
-  final DonorDetailOverlayController overlay =
-      Get.put(DonorDetailOverlayController());
-  final DonorHistoryController donorController = Get.find();
+class RequestDetailPage extends StatelessWidget {
+  const RequestDetailPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +32,7 @@ class DonorDetailPage extends StatelessWidget {
         ),
         centerTitle: true,
         title: Text(
-          "Detail Pendonoran",
+          "Detail Permohonan",
           style: AppText.textSemiLarge.copyWith(
             color: AppColor.white,
             fontWeight: AppText.semiBold,
@@ -47,26 +45,19 @@ class DonorDetailPage extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Obx(
-            () => DetailHeader(
-              title: 'Detail Pendonoran',
-              status: donorController.selected?.value.showStatus ?? "-",
+            () => const DetailHeader(
+              title: 'Detail Permohonan',
+              status: "-",
             ),
           ),
           const SizedBox(height: 24),
-          ScheduleDetailSection(),
-          const SizedBox(height: 30),
+          
+          const SizedBox(height: 20),
           DonorLocation(
-            latLong: donorController.selected?.value.locationLatLong ??
-                LatLng(0, 0),
-            locationAddress:
-                donorController.selected?.value.locationAddress ?? "",
-            title: 'Lokasi'
+            latLong: LatLng(0, 0),
+            locationAddress: "PMI Runeterra",
+            title: 'Penyedia',
           ),
-          const SizedBox(height: 23),
-          if (donorController.selected?.value.statusDonorNotes ==
-              DonorHistoryStatus.finished)
-            const CertificateSection(),
-          const SizedBox(height: 50),
         ],
       ),
     );

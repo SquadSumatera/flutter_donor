@@ -3,6 +3,7 @@ import 'package:flutter_donor/ui/event/event_detail_page.dart';
 import 'package:flutter_donor/ui/event/event_page.dart';
 import 'package:flutter_donor/ui/faq/faq_page.dart';
 import 'package:flutter_donor/ui/history/subpages/donor_detail_page.dart';
+import 'package:flutter_donor/ui/history/subpages/request_detail_page.dart';
 import 'package:flutter_donor/ui/home/home_page.dart';
 import 'package:flutter_donor/ui/location/location_maps_page.dart';
 import 'package:flutter_donor/ui/location/location_page.dart';
@@ -96,6 +97,10 @@ class AppPages {
     GetPage(
       name: Routes.donorDetail,
       page: () => DonorDetailPage(),
+    ),
+    GetPage(
+      name: Routes.requestDetail,
+      page: () => const RequestDetailPage(),
     ),
   ];
 }
