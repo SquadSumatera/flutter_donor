@@ -22,6 +22,8 @@ enum DonorHistorySelectedStatus {
 class DonorHistoryController extends GetxController {
   final LoginGetX token = Get.find();
   late List<Rx<DonorHistoryModel>> donorHistoryList = [];
+  late List<Rx<DonorHistoryModel>> donorSchedule = [];
+
   Rx<DonorHistoryModel>? selected;
   Rx<DonorCertificateModel> selectedCertificate = DonorCertificateModel().obs;
 
@@ -61,6 +63,11 @@ class DonorHistoryController extends GetxController {
         token: token,
       ).then((value) => value.map((e) => e.obs).toList());
 
+      donorSchedule = donorHistoryList
+          .where((element) =>
+              element.value.statusDonorNotes == DonorHistoryStatus.registered)
+          .toList();
+
       status.value = DonorHistoryLoadStatus.loaded;
     } catch (e) {
       status.value = DonorHistoryLoadStatus.failed;
@@ -68,12 +75,12 @@ class DonorHistoryController extends GetxController {
     update();
   }
 
-  List<Rx<DonorHistoryModel>> getScheduledDonor() {
-    return donorHistoryList
-        .where((element) =>
-            element.value.statusDonorNotes == DonorHistoryStatus.registered)
-        .toList();
-  }
+  // void getScheduledDonor() async {
+  //   donorHistoryList
+  //       .where((element) =>
+  //           element.value.statusDonorNotes == DonorHistoryStatus.registered)
+  //       .toList();
+  // }
 
   void cancelingSchedule() async {
     selectedStatus.value = DonorHistorySelectedStatus.loading;

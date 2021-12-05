@@ -102,6 +102,22 @@ class DonorHistoryModel {
     }
   }
 
+  String get scheduleDonorNotesDate {
+    if (scheduleDonorNotes == null) {
+      return "--/--/----";
+    } else {
+      return DateFormat("dd", "id").format(scheduleDonorNotes!);
+    }
+  }
+
+  String get scheduleDonorNotesCard {
+    if (scheduleDonorNotes == null) {
+      return "--/--/----";
+    } else {
+      return DateFormat('EEEE, dd MMMM yyyy', "id").format(scheduleDonorNotes!);
+    }
+  }
+
   String get showStatus {
     Map<String, String> _status = {
       DonorHistoryStatus.canceled: 'Dibatalkan',
