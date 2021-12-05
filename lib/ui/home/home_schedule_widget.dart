@@ -26,7 +26,7 @@ Widget title(String title) {
   );
 }
 
-Widget cardSchedule() {
+Widget cardSchedule(String date, String title, String address) {
   return Container(
     height: 72.0,
     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -56,7 +56,7 @@ Widget cardSchedule() {
               Padding(
                 padding: const EdgeInsets.only(left: 10.0, top: 10.0),
                 child: Text(
-                  "17",
+                  date,
                   textAlign: TextAlign.center,
                   style: AppText.textLarge.copyWith(
                     color: AppColor.cDarkBlue,
@@ -85,21 +85,21 @@ Widget cardSchedule() {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "Sabtu, 17 Nov 2021",
+              title,
               style: AppText.textMedium.copyWith(
                 fontWeight: AppText.semiBold,
                 color: AppColor.white,
               ),
             ),
             Text(
-              "Lokasi PMI Lumbung No. 23",
+              "Lokasi $address",
               style: AppText.textSmall.copyWith(
                 fontWeight: AppText.normal,
                 color: AppColor.white,
               ),
             ),
             Text(
-              "09.00 - 10.00 WIB",
+              "00.00.00 WIB",
               style: AppText.textSmall.copyWith(
                 fontWeight: AppText.normal,
                 color: AppColor.white,

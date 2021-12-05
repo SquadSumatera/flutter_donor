@@ -25,7 +25,11 @@ class MainPage extends StatelessWidget {
   static LoginGetX loginGetX = Get.find();
 
   final ProfileController profileController = Get.put(ProfileController());
-  final DonorHistoryController donorHistoryController = Get.put(DonorHistoryController());
+
+  final DonorHistoryController donorHistoryController = Get.put(
+    DonorHistoryController(),
+    permanent: true,
+  );
 
   final locationController = Get.lazyPut(
     () => LocationController(),
@@ -33,7 +37,7 @@ class MainPage extends StatelessWidget {
   );
 
   final institutionController = Get.lazyPut(
-        () => InstitutionsController(loginGetX.token.value),
+    () => InstitutionsController(loginGetX.token.value),
     fenix: true,
   );
 
