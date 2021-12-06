@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/event_list_controller.dart';
 import 'package:get/get.dart';
 
 import '../../get_x/controller/donor_history_controller.dart';
@@ -46,10 +47,15 @@ class MainPage extends StatelessWidget {
     fenix: true,
   );
 
+  final listEvent = Get.lazyPut(
+    () => EventListController(),
+    fenix: true,
+  );
+
   final List<Widget> currentScrenList = [
     HomePage(),
     LocationPage(),
-    const EventPage(),
+    EventPage(),
     const ProfilePage(),
   ];
 

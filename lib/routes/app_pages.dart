@@ -60,7 +60,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.event,
-      page: () => const EventPage(),
+      page: () => EventPage(),
     ),
     GetPage(
       name: Routes.event + "/:id?",
