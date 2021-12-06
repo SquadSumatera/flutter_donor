@@ -109,15 +109,15 @@ LineChartData mainData() {
         ),
         getTitles: (value) {
           switch (value.toInt()) {
-            case 1:
-              return '10';
-            case 2:
-              return '30';
-            case 3:
-              return '50';
-            case 4:
-              return '70';
-            case 5:
+            case 20:
+              return '20';
+            case 40:
+              return '40';
+            case 60:
+              return '60';
+            case 80:
+              return '80';
+            case 100:
               return '100';
           }
           return '';
@@ -133,22 +133,22 @@ LineChartData mainData() {
     minX: 0,
     maxX: 11,
     minY: 0,
-    maxY: 5,
+    maxY: 100,
     lineBarsData: [
       LineChartBarData(
         spots: const [
-          FlSpot(0, 3),
-          FlSpot(1, 2.5),
-          FlSpot(2, 2),
-          FlSpot(3, 4.5),
-          FlSpot(4, 4.6),
-          FlSpot(5, 5),
-          FlSpot(6, 3.1),
-          FlSpot(7, 3),
-          FlSpot(8, 4),
-          FlSpot(9, 3),
-          FlSpot(10, 2),
-          FlSpot(11, 4),
+          FlSpot(0, 5),
+          FlSpot(1, 10),
+          FlSpot(2, 55),
+          FlSpot(3, 23),
+          FlSpot(4, 25),
+          FlSpot(5, 40),
+          FlSpot(6, 10),
+          FlSpot(7, 5),
+          FlSpot(8, 15),
+          FlSpot(9, 14),
+          FlSpot(10, 20),
+          FlSpot(11, 40),
         ],
         isCurved: true,
         colors: gradientColors,
