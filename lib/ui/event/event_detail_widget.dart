@@ -1,14 +1,19 @@
-import 'package:flutter/material.dart';
-import '../../shared/theme.dart';
+import 'dart:typed_data';
 
-Widget headerEventDetail(BuildContext context) {
+import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/event_list_controller.dart';
+import '../../shared/theme.dart';
+import 'package:get/get.dart';
+
+Widget headerEventDetail(BuildContext context, String image) {
+  final EventListController getImage = Get.find<EventListController>();
   return Container(
     height: 180.0,
     width: MediaQuery.of(context).size.width,
-    decoration: const BoxDecoration(
+    decoration: BoxDecoration(
       image: DecorationImage(
         fit: BoxFit.cover,
-        image: AssetImage("assets/bitmap/header_bg.png"),
+        image: Image.memory(getImage.image[int.parse(image)]).image,
       ),
     ),
   );
@@ -23,7 +28,7 @@ Widget headingTextDetail(String heading, String institution, String time) {
         children: [
           Expanded(
             child: Text(
-              "Telah Dibuka Donor Plasma Covid di Wilayah Simbabwe",
+              heading,
               style: AppText.textMedium.copyWith(
                 color: AppColor.cBlack,
                 fontWeight: AppText.semiBold,
@@ -47,21 +52,21 @@ Widget headingTextDetail(String heading, String institution, String time) {
             ),
           ),
           const SizedBox(
-            width: 20.0,
+            width: 8.0,
           ),
           const Icon(
             Icons.circle_rounded,
             size: 8.0,
-            color: AppColor.cGrey,
+            color: AppColor.lightGrey,
           ),
           const SizedBox(
             width: 8.0,
           ),
           Expanded(
             child: Text(
-              "23-10-2021",
+              time,
               style: AppText.textSmall.copyWith(
-                color: AppColor.cGrey,
+                color: AppColor.cBlack,
                 fontWeight: AppText.normal,
               ),
             ),

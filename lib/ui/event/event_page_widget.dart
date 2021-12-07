@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import '../../models/dummy_event_model.dart';
 import '../../shared/theme.dart';
@@ -28,7 +30,7 @@ Widget eventCardMedium(EventDetailModel eventDetail) {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                eventDetail.name + " Judul",
+                eventDetail.title,
                 overflow: TextOverflow.clip,
                 style: AppText.textSmall.copyWith(
                   fontWeight: AppText.medium,
@@ -36,7 +38,7 @@ Widget eventCardMedium(EventDetailModel eventDetail) {
                 ),
               ),
               Text(
-                eventDetail.desc + "Sub Judul",
+                eventDetail.desc,
                 style: AppText.textSmall.copyWith(
                   fontWeight: AppText.normal,
                   color: AppColor.cBlue,
@@ -56,9 +58,7 @@ Widget eventCardMedium(EventDetailModel eventDetail) {
             ),
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage(
-                eventDetail.image,
-              ),
+              image: Image.memory(eventDetail.image).image,
             ),
           ),
           child: null,
@@ -68,7 +68,7 @@ Widget eventCardMedium(EventDetailModel eventDetail) {
   );
 }
 
-Widget eventCardLarge() {
+Widget eventCardLarge(Uint8List image) {
   return LayoutBuilder(
     builder: (context, constrain) => Container(
       margin: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
@@ -90,16 +90,14 @@ Widget eventCardLarge() {
           Container(
             height: 134.0,
             width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(8.0),
                 topRight: Radius.circular(8.0),
               ),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(
-                  "assets/bitmap/header_bg.png",
-                ),
+                image: Image.memory(image).image,
               ),
             ),
             child: null,

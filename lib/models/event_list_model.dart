@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+import 'package:latlong2/latlong.dart';
+
 class EventListModel {
   EventListModel({
     this.status,
@@ -68,6 +71,30 @@ class DataEvent {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? deletedAt;
+
+  String get created {
+    if (createdAt == null) {
+      return "--/--/----";
+    } else {
+      return DateFormat("dd MMMM yyyy", "id").format(createdAt!);
+    }
+  }
+
+  String get start {
+    if (startDonorEvents == null) {
+      return "--/--/----";
+    } else {
+      return DateFormat("dd MMMM yyyy", "id").format(startDonorEvents!);
+    }
+  }
+
+  String get end {
+    if (endDonorEvents == null) {
+      return "--/--/----";
+    } else {
+      return DateFormat("dd MMMM yyyy", "id").format(endDonorEvents!);
+    }
+  }
 
   factory DataEvent.fromJson(String str) => DataEvent.fromMap(json.decode(str));
 

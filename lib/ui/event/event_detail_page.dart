@@ -32,7 +32,7 @@ class EventDetailPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          headerEventDetail(context),
+          headerEventDetail(context, Get.parameters['image']!),
           Container(
             margin: const EdgeInsets.only(right: 18, left: 18, top: 16),
             child: headingTextDetail(
@@ -41,14 +41,18 @@ class EventDetailPage extends StatelessWidget {
               "${Get.parameters['time']}",
             ),
           ),
-          schedule("23/10/2021", "28/10/2021", "08.00 - 15.00"),
+          schedule(
+            "${Get.parameters['start']}",
+            "${Get.parameters['end']}",
+            "09.00 - 15.00",
+          ),
           descLong(
             "Deskripsi",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce egestas dignissim nisl vitae placerat. Sed et finibus nunc. Curabitur tempus lobortis nisi, ac maximus neque iaculis vel. Praesent sed quam ac ipsum vulputate congue. Mauris eleifend fer mentum nibh, nec convallis leo pretium pharetra. Donec id mi quis massa viverra accumsan sed id purus. Nullam sodales malesuada enim, eu dapibus erat vulputate sit amet. Quisque commodo porta lectus vulputate maximus.",
+            "${Get.parameters['desc']}",
           ),
           descLong(
             "Alamat",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce egestas dignissim nisl vitae",
+            "${Get.parameters['address']}",
           ),
           Container(
             alignment: Alignment.bottomCenter,

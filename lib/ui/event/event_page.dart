@@ -61,7 +61,7 @@ class EventPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      eventCardLarge(),
+                      eventCardLarge(listEvent.image[0]),
                       Padding(
                         padding:
                             const EdgeInsets.only(left: 24.0, bottom: 18.0),
@@ -79,9 +79,15 @@ class EventPage extends StatelessWidget {
                         itemCount: listEvent.listData.length,
                         itemBuilder: (context, i) => GestureDetector(
                           onTap: () => Get.toNamed(Routes.event +
-                              "/$i?nameHeading=Telah Dibuka Donor Plasma Covid di Wilayah Simbabwe&published=PMI&time=23-10-2021"),
+                              "/$i?nameHeading=${listEvent.listData[i].value.titleDonorEvents}&published=${listEvent.listData[i].value.nameInstitutions}&time=${listEvent.listData[i].value.created}&start=${listEvent.listData[i].value.start}&end=${listEvent.listData[i].value.end}&desc=${listEvent.listData[i].value.descDonorEvents}&address=${listEvent.listData[i].value.addressDonorEvents}&image=${i.toString()}"),
                           child: eventCardMedium(
-                            EventDetailModel(name: "Diky", desc: "Contoh"),
+                            EventDetailModel(
+                              title:
+                                  listEvent.listData[i].value.titleDonorEvents!,
+                              desc:
+                                  listEvent.listData[i].value.descDonorEvents!,
+                              image: listEvent.image[i],
+                            ),
                           ),
                         ),
                       )
