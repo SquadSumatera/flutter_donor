@@ -4,8 +4,10 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../shared/theme.dart';
 import 'profile_model.dart';
 
 // 'waiting_confirmation', -> saat ketika melakukan pendaftaran donor request
@@ -56,6 +58,23 @@ class SubmissionHistoryModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
+
+  Color get designatedColor {
+    switch (statusDonorSubmissions) {
+      case SubmissionHistoryStatus.waitingConfirmation:
+        return AppColor.imperialRed;
+      case SubmissionHistoryStatus.registered:
+        return AppColor.cBlue;
+      case SubmissionHistoryStatus.conditionsRejected:
+        return AppColor.camelotRed;
+      case SubmissionHistoryStatus.canceled:
+        return AppColor.camelotRed;
+      case SubmissionHistoryStatus.finished:
+        return AppColor.cGreen;
+      default:
+        return Colors.grey;
+    }
+  }
 
   String? get showRhesus {
     Map<String, String> _rhesusList = {

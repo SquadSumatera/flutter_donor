@@ -7,11 +7,13 @@ import '../../../shared/theme.dart';
 class DonorLocation extends StatelessWidget {
   const DonorLocation({
     Key? key,
+    this.isLoading = false,
     required this.latLong,
     required this.locationAddress,
     required this.title,
   }) : super(key: key);
 
+  final bool isLoading;
   final String title;
   final LatLng latLong;
   final String locationAddress;
@@ -50,32 +52,39 @@ class DonorLocation extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: AppShadow.small,
                   ),
-                  child: FlutterMap(
-                    options: MapOptions(
-                      center: latLong,
-                      zoom: 13.0,
-                    ),
-                    layers: [
-                      TileLayerOptions(
-                        urlTemplate: AppMaps.urlTemplate,
-                        additionalOptions: {
-                          'accessToken': AppMaps.accessToken,
-                          'id': AppMaps.id
-                        },
-                      ),
-                      MarkerLayerOptions(
-                        markers: [
-                          Marker(
-                            width: 80.0,
-                            height: 80.0,
-                            point: latLong,
-                            builder: (ctx) => Image.asset(
-                                'assets/bitmap/maps_placeholder.png'),
+                  child: (!isLoading)
+                      ? FlutterMap(
+                          options: MapOptions(
+                            center: latLong,
+                            zoom: 13.0,
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                          layers: [
+                            TileLayerOptions(
+                              urlTemplate: AppMaps.urlTemplate,
+                              additionalOptions: {
+                                'accessToken': AppMaps.accessToken,
+                                'id': AppMaps.id
+                              },
+                            ),
+                            MarkerLayerOptions(
+                              markers: [
+                                Marker(
+                                  width: 80.0,
+                                  height: 80.0,
+                                  point: latLong,
+                                  builder: (ctx) => Image.asset(
+                                      'assets/bitmap/maps_placeholder.png'),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                      : const Center(
+                          child: CircularProgressIndicator(
+                            color: AppColor.cBlack,
+                            strokeWidth: 5,
+                          ),
+                        ),
                 ),
                 const SizedBox(height: 15),
                 Text(

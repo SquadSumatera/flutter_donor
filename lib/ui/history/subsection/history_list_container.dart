@@ -39,9 +39,9 @@ class HistoryListContainer extends StatelessWidget {
             () => HistoryTileItem(
               title:
                   "Memohon Golongan Darah Bertipe ${data.value.showBloodType}",
-              statusText: data.value.showStatus, //TUNGGU BACKEND
-              dateText: data.value.showCreatedDate, //TUNGGU BACKEND
-              color: AppColor.cRed, //TUNGGU BACKEND
+              statusText: data.value.showStatus,
+              dateText: data.value.showCreatedDate,
+              color: data.value.designatedColor,
               callback: () {
                 Get.toNamed(Routes.submissionDetail);
                 submissionHistoryController.setSelected(data.value);

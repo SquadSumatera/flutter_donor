@@ -55,12 +55,15 @@ class DonorDetailPage extends StatelessWidget {
           const SizedBox(height: 24),
           ScheduleDetailSection(),
           const SizedBox(height: 30),
-          DonorLocation(
-            latLong: donorController.selected?.value.locationLatLong ??
-                LatLng(0, 0),
-            locationAddress:
-                donorController.selected?.value.locationAddress ?? "",
-            title: 'Lokasi'
+          Obx(
+            () => DonorLocation(
+                isLoading: donorController.selectedStatus.value ==
+                    DonorHistorySelectedStatus.loading,
+                latLong: donorController.selected?.value.locationLatLong ??
+                    LatLng(0, 0),
+                locationAddress:
+                    donorController.selected?.value.locationAddress ?? "",
+                title: 'Lokasi'),
           ),
           const SizedBox(height: 23),
           if (donorController.selected?.value.statusDonorNotes ==

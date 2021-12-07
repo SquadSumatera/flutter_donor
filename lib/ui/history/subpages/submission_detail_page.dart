@@ -60,6 +60,8 @@ class SubmissionDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 38),
             DonorLocation(
+              isLoading: controller.selectedStatus.value ==
+                  SubmissionHistorySelectedStatus.loading,
               latLong: LatLng(
                   double.tryParse(controller.selectedInstitution?.value
                               .latitudeInstitutions ??
