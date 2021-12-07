@@ -50,7 +50,7 @@ class SubmissionHistoryModel {
   String? bloodRhesusDonorSubmissions;
   int? quantityDonorSubmissions;
   String? statusDonorSubmissions;
-  String? scheduleDonorSubmissions;
+  DateTime? scheduleDonorSubmissions;
   dynamic forDonators;
   dynamic forInstitution;
   DateTime? createdAt;
@@ -61,6 +61,14 @@ class SubmissionHistoryModel {
     Map<String, String> _rhesusList = {
       ProfileRhesusType.positive: "+",
       ProfileRhesusType.negative: "-",
+    };
+    return _rhesusList[bloodRhesusDonorSubmissions];
+  }
+
+  String? get showRhesusText {
+    Map<String, String> _rhesusList = {
+      ProfileRhesusType.positive: "Positif",
+      ProfileRhesusType.negative: "Negatif",
     };
     return _rhesusList[bloodRhesusDonorSubmissions];
   }
@@ -89,6 +97,10 @@ class SubmissionHistoryModel {
     return dateFormatterString(createdAt);
   }
 
+  String get showScheduledDate {
+    return dateFormatterString2(scheduleDonorSubmissions);
+  }
+
   String get showStatus {
     Map<String, String> _status = {
       SubmissionHistoryStatus.canceled: 'Dibatalkan',
@@ -113,7 +125,7 @@ class SubmissionHistoryModel {
     String? bloodRhesusDonorSubmissions,
     int? quantityDonorSubmissions,
     String? statusDonorSubmissions,
-    String? scheduleDonorSubmissions,
+    DateTime? scheduleDonorSubmissions,
     dynamic forDonators,
     dynamic forInstitution,
     DateTime? createdAt,
@@ -161,11 +173,12 @@ class SubmissionHistoryModel {
         bloodRhesusDonorSubmissions: json["blood_rhesus_donor_submissions"],
         quantityDonorSubmissions: json["quantity_donor_submissions"],
         statusDonorSubmissions: json["status_donor_submissions"],
-        scheduleDonorSubmissions: json["schedule_donor_submissions"],
+        scheduleDonorSubmissions:
+            DateTime?.tryParse(json["schedule_donor_submissions"]),
         forDonators: json["ForDonators"],
         forInstitution: json["ForInstitution"],
-        createdAt: DateTime?.parse(json["created_at"]),
-        updatedAt: DateTime?.parse(json["updated_at"]),
+        createdAt: DateTime?.tryParse(json["created_at"]),
+        updatedAt: DateTime?.tryParse(json["updated_at"]),
         deletedAt: json["deleted_at"],
       );
 
@@ -179,7 +192,8 @@ class SubmissionHistoryModel {
         "blood_rhesus_donor_submissions": bloodRhesusDonorSubmissions,
         "quantity_donor_submissions": quantityDonorSubmissions,
         "status_donor_submissions": statusDonorSubmissions,
-        "schedule_donor_submissions": scheduleDonorSubmissions,
+        "schedule_donor_submissions":
+            scheduleDonorSubmissions?.toIso8601String(),
         "ForDonators": forDonators,
         "ForInstitution": forInstitution,
         "created_at": createdAt?.toIso8601String(),

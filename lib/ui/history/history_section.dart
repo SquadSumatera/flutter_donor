@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 import '../../shared/theme.dart';
 import 'widgets/history_as_button.dart';
-import 'widgets/history_list_container.dart';
+import 'subsection/history_list_container.dart';
 
 class HistorySection extends StatefulWidget {
   const HistorySection({Key? key}) : super(key: key);
@@ -22,7 +22,7 @@ class _HistorySectionState extends State<HistorySection> {
   DonorHistoryController donorHistoryController = Get.put(
     DonorHistoryController(),
   );
-  SubmissionHistoryController requestHistoryController = Get.put(
+  SubmissionHistoryController submissionHistoryController = Get.put(
     SubmissionHistoryController(),
   );
 
@@ -63,6 +63,7 @@ class _HistorySectionState extends State<HistorySection> {
                               HistoryViewAs.requester,
                           callback: () {
                             historyController.change(HistoryViewAs.requester);
+                            submissionHistoryController.onInit();
                           },
                         ),
                         const SizedBox(height: 25),

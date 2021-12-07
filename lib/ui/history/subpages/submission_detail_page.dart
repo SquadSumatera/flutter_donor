@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/ui/history/subsection/submission_requirement_section.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
@@ -39,23 +40,42 @@ class SubmissionDetailPage extends StatelessWidget {
         backgroundColor: AppColor.cRed,
         elevation: 0,
       ),
-      body: ListView(
-        clipBehavior: Clip.none,
-        children: [
-          Obx(
-            () => DetailHeader(
+      body: Obx(
+        () => ListView(
+          clipBehavior: Clip.none,
+          children: [
+            DetailHeader(
               title: 'Detail Permohonan',
               status: controller.selected?.value.showStatus ?? '-',
             ),
-          ),
-          const SizedBox(height: 24),
-          const SizedBox(height: 20),
-          DonorLocation(
-            latLong: LatLng(0, 0),
-            locationAddress: "PMI Runeterra",
-            title: 'Penyedia',
-          ),
-        ],
+            const SizedBox(height: 24),
+            SubmissionRequirementSection(
+              title: 'Kebutuhan',
+              bloodType:
+                  controller.selected?.value.bloodTypeDonorSubmissions ?? '-',
+              rhesusType: controller.selected?.value.showRhesusText ?? '-',
+              quantity:
+                  controller.selected?.value.quantityDonorSubmissions ?? 0,
+              dateScheduled: controller.selected?.value.showScheduledDate,
+            ),
+            const SizedBox(height: 38),
+            DonorLocation(
+              latLong: LatLng(
+                  double.tryParse(controller.selectedInstitution?.value
+                              .latitudeInstitutions ??
+                          '0') ??
+                      0,
+                  double.tryParse(controller.selectedInstitution?.value
+                              .longitudeInstitutions ??
+                          '0') ??
+                      0),
+              locationAddress:
+                  controller.selectedInstitution?.value.addressInstitutions ??
+                      '-',
+              title: 'Penyedia',
+            ),
+          ],
+        ),
       ),
     );
   }

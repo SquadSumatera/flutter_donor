@@ -1,5 +1,7 @@
 import 'package:flutter_donor/get_x/state/login_getx.dart';
+import 'package:flutter_donor/models/institution_model.dart';
 import 'package:flutter_donor/models/submission_history_model.dart';
+import 'package:flutter_donor/services/institution_services.dart';
 import 'package:flutter_donor/services/submission_history_services.dart';
 import 'package:get/get.dart';
 
@@ -24,6 +26,7 @@ class SubmissionHistoryController extends GetxController {
       SubmissionHistoryLoadStatus.loading.obs;
   Rx<SubmissionHistorySelectedStatus> selectedStatus =
       SubmissionHistorySelectedStatus.loaded.obs;
+  Rx<Datum>? selectedInstitution;
 
   @override
   void onInit() {
@@ -46,13 +49,21 @@ class SubmissionHistoryController extends GetxController {
     update();
   }
 
-  void setSelected(SubmissionHistoryModel data) {
+  void setSelected(SubmissionHistoryModel data) async {
     selectedStatus.value = SubmissionHistorySelectedStatus.loading;
     update();
 
-    selected = data.obs;
+    try {
+      selected = data.obs;
+      await InstitutionServices.getInstitutionDetail(
+        token: loginData.token.value,
+        id: data.idInstitutions!,
+      ).then((value) => (selectedInstitution = value?.obs));
 
-    selectedStatus.value = SubmissionHistorySelectedStatus.loaded;
-    update();
+      selectedStatus.value = SubmissionHistorySelectedStatus.loaded;
+      update();
+    } catch (e) {
+      selectedStatus.value = SubmissionHistorySelectedStatus.failed;
+    }
   }
 }

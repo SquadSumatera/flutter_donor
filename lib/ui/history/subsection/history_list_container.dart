@@ -8,7 +8,7 @@ import '../../../get_x/controller/donor_history_controller.dart';
 import '../../../get_x/controller/history_controller.dart';
 import '../../../models/donor_history_model.dart';
 import '../../../routes/app_pages.dart';
-import 'history_tile_item.dart';
+import '../widgets/history_tile_item.dart';
 
 class HistoryListContainer extends StatelessWidget {
   HistoryListContainer({
