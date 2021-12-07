@@ -1,5 +1,6 @@
 import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/models/event_list_model.dart';
+import 'package:flutter_donor/services/event_image_services.dart';
 import 'package:flutter_donor/services/event_list_services.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +15,7 @@ class EventListController extends GetxController {
   Rx<ListEventStatus> status = ListEventStatus.loading.obs;
 
   late List<Rx<DataEvent>> listData = [];
+  var image = [].obs;
 
   @override
   void onInit() {
@@ -26,8 +28,16 @@ class EventListController extends GetxController {
     try {
       listData = await EventListServices.eventListServices(token: tokenGet)
           .then((value) => value.map((e) => e.obs).toList());
+      for (var i = 0; i < listData.length; i++) {
+        var linkFor = listData[i].value.pictureDonorEvents;
+        var j = await EventImageServices.eventImageServices(
+                token: tokenGet, link: linkFor!)
+            .then((value) => value.file);
+        image.add(j);
+      }
       status.value = ListEventStatus.loaded;
     } catch (e) {
+      print(e);
       status.value = ListEventStatus.failed;
     }
   }

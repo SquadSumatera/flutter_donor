@@ -1,10 +1,14 @@
+import 'dart:ffi';
+
+import 'dart:typed_data';
+
 class EventDetailModel {
   EventDetailModel({
-    required this.name,
+    required this.title,
     required this.desc,
-    this.image = "assets/bitmap/header_bg.png",
+    required this.image,
   });
-  final String name;
+  final String title;
   final String desc;
-  String image;
+  final Uint8List image;
 }
