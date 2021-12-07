@@ -6,7 +6,7 @@ enum HistoryViewAs {
 }
 
 class HistoryController extends GetxController {
-  Rx<HistoryViewAs> currentView = HistoryViewAs.donator.obs;
+  Rx<HistoryViewAs> currentView = HistoryViewAs.requester.obs;
 
   void change(HistoryViewAs view) {
     currentView.value = view;

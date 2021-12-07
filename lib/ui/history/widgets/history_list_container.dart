@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/get_x/controller/request_history_controller.dart';
+import 'package:flutter_donor/get_x/controller/submission_history_controller.dart';
+import 'package:flutter_donor/models/submission_history_model.dart';
 import 'package:get/get.dart';
 
 import '../../../../shared/theme.dart';
@@ -16,12 +17,12 @@ class HistoryListContainer extends StatelessWidget {
 
   final HistoryController historyController = Get.find();
   final DonorHistoryController donorHistoryController = Get.find();
-  final RequestHistoryController requestHistoryController = Get.find();
+  final SubmissionHistoryController submissionHistoryController = Get.find();
 
-  List<Widget> _requestHistoryTiles() {
+  List<Widget> _submissionHistoryTiles() {
     List<Widget> _result = [];
-    if (requestHistoryController.status.value !=
-        RequestHistoryLoadStatus.loaded) {
+    if (submissionHistoryController.status.value !=
+        SubmissionHistoryLoadStatus.loaded) {
       _result.add(
         const Center(
           child: CircularProgressIndicator(
@@ -31,18 +32,19 @@ class HistoryListContainer extends StatelessWidget {
         ),
       );
     } else {
-      for (Rx<DummyRequestModel> data
-          in requestHistoryController.requestHistoryList) {
+      for (Rx<SubmissionHistoryModel> data
+          in submissionHistoryController.submissiontHistoryList) {
         _result.add(
           Obx(
             () => HistoryTileItem(
-              title: "Permohonan darah",
-              statusText: '', //TUNGGU BACKEND
-              dateText: '', //TUNGGU BACKEND
+              title:
+                  "Memohon Golongan Darah Bertipe ${data.value.showBloodType}",
+              statusText: data.value.showStatus, //TUNGGU BACKEND
+              dateText: data.value.showCreatedDate, //TUNGGU BACKEND
               color: AppColor.cRed, //TUNGGU BACKEND
               callback: () {
-                Get.toNamed(Routes.donorDetail);
-                requestHistoryController.setSelected(data.value);
+                Get.toNamed(Routes.submissionDetail);
+                submissionHistoryController.setSelected(data.value);
               },
             ),
           ),
@@ -101,7 +103,7 @@ class HistoryListContainer extends StatelessWidget {
           children:
               (historyController.currentView.value == HistoryViewAs.donator)
                   ? _donorHistoryTiles()
-                  : _requestHistoryTiles(),
+                  : _submissionHistoryTiles(),
         ),
       ),
     );

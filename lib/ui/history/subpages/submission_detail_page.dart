@@ -3,17 +3,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../../../get_x/controller/donor_detail_overlay_controller.dart';
-import '../../../get_x/controller/donor_history_controller.dart';
-import '../../../models/donor_history_model.dart';
+import '../../../get_x/controller/submission_history_controller.dart';
 import '../../../shared/theme.dart';
-import '../subsection/certificate_section.dart';
 import '../subsection/detail_header.dart';
 import '../subsection/donor_location.dart';
-import '../subsection/schedule_detail_section.dart';
 
-class RequestDetailPage extends StatelessWidget {
-  const RequestDetailPage({Key? key}) : super(key: key);
+class SubmissionDetailPage extends StatelessWidget {
+  SubmissionDetailPage({Key? key}) : super(key: key);
+
+  final SubmissionHistoryController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +43,12 @@ class RequestDetailPage extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Obx(
-            () => const DetailHeader(
+            () => DetailHeader(
               title: 'Detail Permohonan',
-              status: "-",
+              status: controller.selected?.value.showStatus ?? '-',
             ),
           ),
           const SizedBox(height: 24),
-          
           const SizedBox(height: 20),
           DonorLocation(
             latLong: LatLng(0, 0),
