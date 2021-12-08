@@ -108,7 +108,7 @@ class SubmissionHistoryModel {
     if (date == null) {
       return "--/--/----";
     } else {
-      return DateFormat('dd MMMM yyyy').format(date);
+      return DateFormat('dd MMMM yyyy', 'id').format(date);
     }
   }
 
@@ -127,7 +127,7 @@ class SubmissionHistoryModel {
           'Ditolak karena tidak memenuhi persyaratan',
       SubmissionHistoryStatus.finished: 'Selesai',
       SubmissionHistoryStatus.registered:
-          'Terjadwalkan Tanggal $scheduleDonorSubmissions',
+          'Terjadwalkan Tanggal $showScheduledDate',
       SubmissionHistoryStatus.waitingConfirmation: 'Menunggu Konfirmasi',
     };
 
