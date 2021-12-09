@@ -43,13 +43,14 @@ class ArticleTileWidget extends StatelessWidget {
                 );
               },
               progressIndicatorBuilder: (context, url, downloadProgress) {
-                return const SizedBox(
+                return SizedBox(
                   width: 80,
                   height: 90,
                   child: Center(
                     child: CircularProgressIndicator(
                       color: AppColor.cBlack,
                       strokeWidth: 2,
+                      value: downloadProgress.progress,
                     ),
                   ),
                 );

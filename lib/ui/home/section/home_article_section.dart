@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/models/news_model.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/ui/home/widgets/article_tile_widget.dart';
 import 'package:html/parser.dart';
 import '../../../get_x/controller/news_controller.dart';
@@ -49,14 +50,21 @@ class HomeArticleSection extends StatelessWidget {
 
                   return Container(
                     margin: const EdgeInsets.only(bottom: 15),
-                    child: ArticleTileWidget(
-                      imageSrc: news.enclosure?.url ?? '-',
-                      title: news.title ?? '-',
-                      description:
-                          parse(news.description).querySelector('p')?.text ??
-                              '-',
-                      pubDate:
-                          '${pubDateArray[0]}, ${pubDateArray[1]} ${pubDateArray[2]} ${pubDateArray[3]}',
+                    child: GestureDetector(
+                      onTap: () {
+                        newsController.selectNews(news);
+                        print(newsController.selected?.value.link);
+                        Get.toNamed(Routes.webviewArticle);
+                      },
+                      child: ArticleTileWidget(
+                        imageSrc: news.enclosure?.url ?? '-',
+                        title: news.title ?? '-',
+                        description:
+                            parse(news.description).querySelector('p')?.text ??
+                                '-',
+                        pubDate:
+                            '${pubDateArray[0]}, ${pubDateArray[1]} ${pubDateArray[2]} ${pubDateArray[3]}',
+                      ),
                     ),
                   );
                 },

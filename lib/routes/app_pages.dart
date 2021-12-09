@@ -1,22 +1,23 @@
-import 'package:flutter_donor/ui/donor/donor_page.dart';
-import 'package:flutter_donor/ui/event/event_detail_page.dart';
-import 'package:flutter_donor/ui/event/event_page.dart';
-import 'package:flutter_donor/ui/faq/faq_page.dart';
-import 'package:flutter_donor/ui/history/subpages/donor_detail_page.dart';
-import 'package:flutter_donor/ui/history/subpages/submission_detail_page.dart';
-import 'package:flutter_donor/ui/home/home_page.dart';
-import 'package:flutter_donor/ui/location/location_maps_page.dart';
-import 'package:flutter_donor/ui/location/location_page.dart';
-import 'package:flutter_donor/ui/login/login_page.dart';
-import 'package:flutter_donor/ui/main/main_page.dart';
-import 'package:flutter_donor/ui/onboarding/onboarding_page.dart';
-import 'package:flutter_donor/ui/profile/profile_edit_identity/profile_edit_identity_page.dart';
-import 'package:flutter_donor/ui/profile/profile_main/profile_page.dart';
-import 'package:flutter_donor/ui/register/register_3_page.dart';
-import 'package:flutter_donor/ui/register/register_page.dart';
-import 'package:flutter_donor/ui/request/request_page.dart';
-import 'package:flutter_donor/ui/splashscreen/splash_screen_page.dart';
 import 'package:get/get.dart';
+import '../ui/donor/donor_page.dart';
+import '../ui/event/event_detail_page.dart';
+import '../ui/event/event_page.dart';
+import '../ui/faq/faq_page.dart';
+import '../ui/history/subpages/donor_detail_page.dart';
+import '../ui/history/subpages/submission_detail_page.dart';
+import '../ui/home/home_page.dart';
+import '../ui/home/section/webview_article_page.dart';
+import '../ui/location/location_maps_page.dart';
+import '../ui/location/location_page.dart';
+import '../ui/login/login_page.dart';
+import '../ui/main/main_page.dart';
+import '../ui/onboarding/onboarding_page.dart';
+import '../ui/profile/profile_edit_identity/profile_edit_identity_page.dart';
+import '../ui/profile/profile_main/profile_page.dart';
+import '../ui/register/register_3_page.dart';
+import '../ui/register/register_page.dart';
+import '../ui/request/request_page.dart';
+import '../ui/splashscreen/splash_screen_page.dart';
 
 part 'app_routes.dart';
 
@@ -101,6 +102,10 @@ class AppPages {
     GetPage(
       name: Routes.submissionDetail,
       page: () => SubmissionDetailPage(),
+    ),
+    GetPage(
+      name: Routes.webviewArticle,
+      page: () => WebviewArticlePage(),
     ),
   ];
 }

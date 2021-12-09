@@ -20,6 +20,7 @@ extension NewsLoadStatusExt on NewsLoadStatus {
 class NewsController extends GetxController {
   late List<Rx<NewsModel>> newsList = [];
   Rx<NewsLoadStatus> status = NewsLoadStatus.initial.obs;
+  Rx<NewsModel>? selected;
 
   @override
   void onInit() {
@@ -37,6 +38,11 @@ class NewsController extends GetxController {
     } catch (e) {
       status.value = NewsLoadStatus.fail;
     }
+    update();
+  }
+
+  void selectNews(NewsModel news) {
+    selected = news.obs;
     update();
   }
 }
