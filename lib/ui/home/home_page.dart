@@ -112,15 +112,6 @@ class HomePage extends StatelessWidget {
                       ),
                       homeDivider(),
                       HomeArticleSection(),
-                      // title("Artikel"),
-                      // ListView.builder(
-                      //   primary: false,
-                      //   shrinkWrap: true,
-                      //   itemCount: 5,
-                      //   itemBuilder: (context, i) {
-                      //     return article();
-                      //   },
-                      // )
                     ],
                   ),
       ),
