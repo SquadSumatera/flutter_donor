@@ -61,7 +61,7 @@ class HomePage extends StatelessWidget {
                               : stokPlasma(
                                   donorStatisticController.dataSubmission.value,
                                 ),
-                      homeDivier(),
+                      homeDivider(),
                       donorStatisticController.statusStatistic.value ==
                               StatusStatisticDonor.loading
                           ? onLoad()
@@ -71,7 +71,7 @@ class HomePage extends StatelessWidget {
                                   donorStatisticController.onInit();
                                 })
                               : trend(donorStatisticController.dataList),
-                      homeDivier(),
+                      homeDivider(),
                       title("Jadwal Donor"),
                       Obx(
                         () => donorHistoryController.status.value ==
