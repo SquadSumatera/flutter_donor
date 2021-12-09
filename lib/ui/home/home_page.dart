@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/donor_history_controller.dart';
+import 'package:flutter_donor/get_x/controller/donor_statistic_controller.dart';
 import 'package:flutter_donor/get_x/state/check_connection_getx.dart';
 import 'package:flutter_donor/get_x/state/home_getx.dart';
 import 'package:flutter_donor/get_x/state/login_getx.dart';
-import 'package:flutter_donor/models/donor_history_model.dart';
+import 'package:flutter_donor/models/donor_statistic_model.dart';
+
 import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_donor/ui/home/home_artikel_widget.dart';
 import 'package:flutter_donor/ui/home/home_banner_widget.dart';
 import 'package:flutter_donor/ui/home/home_divider_widget.dart';
+import 'package:flutter_donor/ui/home/home_handle_widget.dart';
 import 'package:flutter_donor/ui/home/home_trend_widget.dart';
 import 'package:flutter_donor/ui/home/section/home_article_section.dart';
 import 'package:get/get.dart';
@@ -24,13 +27,11 @@ class HomePage extends StatelessWidget {
   final LoginGetX loginGetXState = Get.find<LoginGetX>();
   final HomeGetX index = Get.find<HomeGetX>();
   final DonorHistoryController donorHistoryController = Get.find();
+  final DonorStatisticController donorStatisticController =
+      Get.find<DonorStatisticController>();
 
   @override
   Widget build(BuildContext context) {
-    // dapatkan data jadwal donor dalam bentuk list
-    // [DonorHistoryModel.value, DonorHistoryModel.value, ...]
-    // final scheduledDonorNotes = donorHistoryController.getScheduledDonor();
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.cRed,
@@ -39,35 +40,38 @@ class HomePage extends StatelessWidget {
       ),
       body: Obx(
         () => checkConnectionGetX.status.value == StatusConnection.loading
-            ? const Center(
-                child: CircularProgressIndicator(
-                  color: AppColor.cBlack,
-                  strokeWidth: 5,
-                ),
-              )
+            ? onLoad()
             : checkConnectionGetX.status.value == StatusConnection.failed
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                            "Terjadi Kesalahan, coba beberapa saat kembali."),
-                        TextButton(
-                          onPressed: () {
-                            checkConnectionGetX.onInit();
-                          },
-                          child: const Text("Coba Lagi"),
-                        ),
-                      ],
-                    ),
+                ? failed(
+                    () {
+                      checkConnectionGetX.onInit();
+                    },
                   )
                 : ListView(
                     children: [
                       banner(checkConnectionGetX, index),
-                      stokPlasma(),
-                      homeDivider(),
-                      trend(),
-                      homeDivider(),
+                      donorStatisticController.statusSubmission.value ==
+                              StatusSubmissionDonor.loading
+                          ? onLoad()
+                          : donorStatisticController.statusSubmission.value ==
+                                  StatusSubmissionDonor.failed
+                              ? failed(() {
+                                  donorStatisticController.onInit();
+                                })
+                              : stokPlasma(
+                                  donorStatisticController.dataSubmission.value,
+                                ),
+                      homeDivier(),
+                      donorStatisticController.statusStatistic.value ==
+                              StatusStatisticDonor.loading
+                          ? onLoad()
+                          : donorStatisticController.statusStatistic.value ==
+                                  StatusStatisticDonor.failed
+                              ? failed(() {
+                                  donorStatisticController.onInit();
+                                })
+                              : trend(donorStatisticController.dataList),
+                      homeDivier(),
                       title("Jadwal Donor"),
                       Obx(
                         () => donorHistoryController.status.value ==
