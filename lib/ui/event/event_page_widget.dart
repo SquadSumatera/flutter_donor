@@ -70,28 +70,31 @@ Widget eventCardMedium(EventDetailModel eventDetail) {
             ),
           ),
         ),
-        Container(
-          height: 69.0,
-          width: 84.0,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              bottomRight: Radius.circular(8.0),
-              topRight: Radius.circular(8.0),
+        Hero(
+          tag: eventDetail.idDonor,
+          child: Container(
+            height: 69.0,
+            width: 84.0,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                bottomRight: Radius.circular(8.0),
+                topRight: Radius.circular(8.0),
+              ),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: Image.memory(eventDetail.image).image,
+              ),
             ),
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: Image.memory(eventDetail.image).image,
-            ),
+            child: null,
           ),
-          child: null,
         ),
       ],
     ),
   );
 }
 
-Widget eventCardLarge(
-    Uint8List image, String title, String institutions, String time) {
+Widget eventCardLarge(Uint8List image, String title, String institutions,
+    String time, String idDonor) {
   return LayoutBuilder(
     builder: (context, constrain) => Container(
       margin: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
@@ -110,20 +113,23 @@ Widget eventCardLarge(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 134.0,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(8.0),
-                topRight: Radius.circular(8.0),
+          Hero(
+            tag: idDonor,
+            child: Container(
+              height: 134.0,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  topRight: Radius.circular(8.0),
+                ),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: Image.memory(image).image,
+                ),
               ),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: Image.memory(image).image,
-              ),
+              child: null,
             ),
-            child: null,
           ),
           Expanded(
             child: Padding(

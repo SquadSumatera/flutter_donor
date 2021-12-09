@@ -5,15 +5,18 @@ import 'package:flutter_donor/get_x/controller/event_list_controller.dart';
 import '../../shared/theme.dart';
 import 'package:get/get.dart';
 
-Widget headerEventDetail(BuildContext context, String image) {
+Widget headerEventDetail(BuildContext context, String image, String idDonor) {
   final EventListController getImage = Get.find<EventListController>();
-  return Container(
-    height: 180.0,
-    width: MediaQuery.of(context).size.width,
-    decoration: BoxDecoration(
-      image: DecorationImage(
-        fit: BoxFit.cover,
-        image: Image.memory(getImage.image[int.parse(image)]).image,
+  return Hero(
+    tag: idDonor,
+    child: Container(
+      height: 180.0,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: Image.memory(getImage.image[int.parse(image)]).image,
+        ),
       ),
     ),
   );
