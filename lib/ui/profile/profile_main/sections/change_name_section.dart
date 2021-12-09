@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/shared/theme.dart';
-import 'package:flutter_donor/models/profile_model.dart';
 import 'package:get/get.dart';
 import '../../../../get_x/controller/profile_controller.dart';
 import '../../../../get_x/controller/profile_overlay_controller.dart';
+import '../../../../models/profile_model.dart';
+import '../../../../shared/theme.dart';
 import '../widgets/base_text_field.dart';
 
 class ChangeNameSection extends StatefulWidget {
@@ -22,7 +22,7 @@ class _ChangeNameSectionState extends State<ChangeNameSection> {
   @override
   void initState() {
     super.initState();
-    tempProfile = profileController.profile?.copyWith() ?? ProfileModel();
+    tempProfile = profileController.profile.value.copyWith();
   }
 
   @override

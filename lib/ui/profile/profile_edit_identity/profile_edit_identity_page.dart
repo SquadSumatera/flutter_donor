@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/routes/app_pages.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../get_x/controller/profile_controller.dart';
 import '../../../get_x/controller/profile_overlay_controller.dart';
 import '../../../models/profile_model.dart';
@@ -28,7 +29,7 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
   @override
   void initState() {
     super.initState();
-    tempProfile = profileController.profile?.copyWith() ?? ProfileModel();
+    tempProfile = profileController.profile.value.copyWith();
   }
 
   @override
@@ -36,6 +37,24 @@ class _ProfileEditIdentityPageState extends State<ProfileEditIdentityPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        leading: IconButton(
+          icon: SvgPicture.asset(
+            'assets/vector/ic_back.svg',
+            width: 12,
+          ),
+          onPressed: () {
+            profileController.status.value = ProfileLoadStatus.loaded;
+            Get.back();
+          },
+        ),
+        centerTitle: true,
+        title: Text(
+          "Ubah Identitas",
+          style: AppText.textSemiLarge.copyWith(
+            color: AppColor.white,
+            fontWeight: AppText.semiBold,
+          ),
+        ),
         backgroundColor: AppColor.cRed,
         elevation: 0,
       ),

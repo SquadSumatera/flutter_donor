@@ -1,7 +1,6 @@
 import '../../models/news_model.dart';
 import '../../services/news_services.dart';
 import 'package:get/get.dart';
-import 'package:html/parser.dart' show parse;
 
 enum NewsLoadStatus {
   initial,

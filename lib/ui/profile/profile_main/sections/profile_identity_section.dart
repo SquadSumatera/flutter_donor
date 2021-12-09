@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/get_x/controller/profile_controller.dart';
 import 'package:get/get.dart';
+import '../../../../get_x/controller/profile_controller.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/theme.dart';
 import '../widgets/profile_identity_item.dart';
@@ -31,22 +31,25 @@ class ProfileIdentitySection extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              ProfileIdentityItem(
-                title: "Jenis Kelamin",
-                value: profileController.profile!.showGender ?? "-",
-              ),
-              ProfileIdentityItem(
-                title: "Golongan Darah",
-                value: profileController.profile!.bloodTypeDonators ?? "-",
-              ),
-              ProfileIdentityItem(
-                title: "Rhesus",
-                value: profileController.profile!.showRhesus ?? " ",
-              ),
-            ],
+          Obx(
+            () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                ProfileIdentityItem(
+                  title: "Jenis Kelamin",
+                  value: profileController.profile.value.showGender ?? "-",
+                ),
+                ProfileIdentityItem(
+                  title: "Golongan Darah",
+                  value:
+                      profileController.profile.value.bloodTypeDonators ?? "-",
+                ),
+                ProfileIdentityItem(
+                  title: "Rhesus",
+                  value: profileController.profile.value.showRhesus ?? " ",
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 32),
           Center(

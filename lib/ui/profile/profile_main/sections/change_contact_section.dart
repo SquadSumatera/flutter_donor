@@ -22,7 +22,7 @@ class _ChangeContactSectionState extends State<ChangeContactSection> {
   @override
   void initState() {
     super.initState();
-    tempProfile = profileController.profile?.copyWith() ?? ProfileModel();
+    tempProfile = profileController.profile.value.copyWith();
   }
 
   @override

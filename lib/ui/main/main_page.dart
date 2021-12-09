@@ -80,8 +80,8 @@ class MainPage extends StatelessWidget {
                 );
               } else if (profileController.status.value ==
                   ProfileLoadStatus.loaded) {
-                var data = profileController.profile;
-                if (data!.bloodTypeDonators.isBlank! ||
+                var data = profileController.profile.value;
+                if (data.bloodTypeDonators.isBlank! ||
                     data.bloodTypeDonators == null ||
                     data.bloodRhesusDonators.isBlank! ||
                     data.bloodRhesusDonators == null) {

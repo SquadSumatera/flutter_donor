@@ -45,10 +45,13 @@ class ProfilePhotoHeader extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
-              CircleAvatar(
-                radius: 53,
-                backgroundColor: Colors.grey.withOpacity(0.5),
-                backgroundImage: profileController.profile!.showProfilePhoto,
+              Obx(
+                () => CircleAvatar(
+                  radius: 53,
+                  backgroundColor: Colors.grey.withOpacity(0.5),
+                  backgroundImage:
+                      profileController.profile.value.showProfilePhoto,
+                ),
               ),
               Positioned(
                 bottom: 0,
@@ -111,10 +114,12 @@ class ProfileNameHeader extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                profileController.profile?.nameDonators ?? '',
-                style: AppText.textMedium.copyWith(
-                  fontWeight: AppText.bold,
+              Obx(
+                () => Text(
+                  profileController.profile.value.nameDonators ?? '',
+                  style: AppText.textMedium.copyWith(
+                    fontWeight: AppText.bold,
+                  ),
                 ),
               ),
               const SizedBox(width: 4),
@@ -139,7 +144,7 @@ class ProfileNameHeader extends StatelessWidget {
             ],
           ),
           Text(
-            'Bergabung sejak ${profileController.profile?.showJoined}',
+            'Bergabung sejak ${profileController.profile.value.showJoined}',
             style: AppText.textMedium.copyWith(
               fontWeight: AppText.normal,
             ),

@@ -247,9 +247,9 @@ class _DonorPageState extends State<DonorPage> {
                                   token: loginGetX.token.value,
                                   uuid: (donorGetX.dataInstitution.value),
                                   blood:
-                                      "${profileController.profile!.bloodTypeDonators}",
+                                      "${profileController.profile.value.bloodTypeDonators}",
                                   rhesus:
-                                      "${profileController.profile!.bloodRhesusDonators}",
+                                      "${profileController.profile.value.bloodRhesusDonators}",
                                   date: dateController.text);
 
                           if (response.status == 200) {
@@ -268,9 +268,9 @@ class _DonorPageState extends State<DonorPage> {
                                   token: loginGetX.token.value,
                                   uuid: uuid!,
                                   blood:
-                                      "${profileController.profile!.bloodTypeDonators}",
+                                      "${profileController.profile.value.bloodTypeDonators}",
                                   rhesus:
-                                      "${profileController.profile!.bloodRhesusDonators}",
+                                      "${profileController.profile.value.bloodRhesusDonators}",
                                   date: dateController.text);
 
                           if (response.status == 200) {

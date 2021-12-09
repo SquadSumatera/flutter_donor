@@ -100,11 +100,13 @@ class _HistorySectionState extends State<HistorySection> {
               borderRadius: BorderRadius.circular(50),
             ),
             child: Center(
-              child: Text(
-                '${profileController.profile!.bloodTypeDonators}${profileController.profile!.showRhesus}',
-                style: AppText.textMedium.copyWith(
-                  color: AppColor.white,
-                  fontWeight: AppText.bold,
+              child: Obx(
+                () => Text(
+                  '${profileController.profile.value.bloodTypeDonators}${profileController.profile.value.showRhesus}',
+                  style: AppText.textMedium.copyWith(
+                    color: AppColor.white,
+                    fontWeight: AppText.bold,
+                  ),
                 ),
               ),
             ),

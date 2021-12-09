@@ -10,8 +10,8 @@ import 'routes/app_pages.dart';
 
 void main() {
   initializeDateFormatting('id');
-  final LoginGetX main = Get.put(LoginGetX());
   WidgetsFlutterBinding.ensureInitialized();
+  final LoginGetX main = Get.put(LoginGetX());
   Get.putAsync<SharedPreferences>(() async {
     SharedPreferences getPref = await SharedPreferences.getInstance();
     main.changeOnBoard(getPref.getBool("onboard") ?? true);

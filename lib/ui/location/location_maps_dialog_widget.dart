@@ -136,11 +136,13 @@ class LocationMapsDialogWidget extends StatelessWidget {
                         color: AppColor.cRed, fontWeight: AppText.semiBold),
                   ),
                   onTap: () {
-                    if (profileController.profile!.bloodTypeDonators.isBlank! ||
-                        profileController.profile!.bloodTypeDonators == null ||
+                    if (profileController
+                            .profile.value.bloodTypeDonators.isBlank! ||
+                        profileController.profile.value.bloodTypeDonators ==
+                            null ||
                         profileController
-                            .profile!.bloodRhesusDonators.isBlank! ||
-                        profileController.profile!.bloodRhesusDonators ==
+                            .profile.value.bloodRhesusDonators.isBlank! ||
+                        profileController.profile.value.bloodRhesusDonators ==
                             null) {
                       Get.back();
                       Get.snackbar(

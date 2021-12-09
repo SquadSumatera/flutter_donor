@@ -1,11 +1,10 @@
 import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_donor/get_x/state/login_getx.dart';
-import 'package:flutter_donor/models/profile_model.dart';
-import 'package:flutter_donor/models/update_password_model.dart';
-import 'package:flutter_donor/services/profile_services.dart';
 import 'package:get/get.dart';
+
+import '../state/login_getx.dart';
+import '../../models/profile_model.dart';
+import '../../models/update_password_model.dart';
+import '../../services/profile_services.dart';
 
 enum ProfileLoadStatus {
   loading,
@@ -19,7 +18,7 @@ enum ProfileLoadStatus {
 class ProfileController extends GetxController {
   final LoginGetX loginData = Get.find();
 
-  ProfileModel? profile;
+  Rx<ProfileModel> profile = ProfileModel().obs;
   Rx<ProfileLoadStatus> status = ProfileLoadStatus.loading.obs;
 
   @override
@@ -32,7 +31,8 @@ class ProfileController extends GetxController {
     status.value = ProfileLoadStatus.loading;
     update();
     try {
-      profile = await ProfileServices.getProfile(token: token);
+      profile.value = await ProfileServices.getProfile(token: token)
+          .then((value) => value);
       status.value = ProfileLoadStatus.loaded;
     } catch (e) {
       status.value = ProfileLoadStatus.failed;
@@ -47,10 +47,10 @@ class ProfileController extends GetxController {
     update();
 
     try {
-      profile = await ProfileServices.updateProfileImage(
+      profile.value = await ProfileServices.updateProfileImage(
         token: loginData.token.value,
         file: file,
-      );
+      ).then((value) => value);
       status.value = ProfileLoadStatus.loaded;
     } catch (e) {
       status.value = ProfileLoadStatus.failed;
@@ -65,10 +65,10 @@ class ProfileController extends GetxController {
     update();
 
     try {
-      profile = await ProfileServices.updateProfile(
+      profile.value = await ProfileServices.updateProfile(
         token: loginData.token.value,
         updatedData: updatedProfile,
-      );
+      ).then((value) => value);
       status.value = ProfileLoadStatus.updated;
     } catch (e) {
       status.value = ProfileLoadStatus.updateFailed;
@@ -83,10 +83,10 @@ class ProfileController extends GetxController {
     update();
 
     try {
-      profile = await ProfileServices.updatePassword(
+      profile.value = await ProfileServices.updatePassword(
         token: loginData.token.value,
         updatedData: updatedPassword,
-      );
+      ).then((value) => value);
       status.value = ProfileLoadStatus.updated;
     } catch (e) {
       status.value = ProfileLoadStatus.updateFailed;
