@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/donor_statistic_controller.dart';
 import 'package:flutter_donor/get_x/controller/event_list_controller.dart';
 import 'package:get/get.dart';
 
@@ -22,6 +23,10 @@ class MainPage extends StatelessWidget {
   final PageStorageBucket bucket = PageStorageBucket();
 
   final HomeGetX homeGetXPage = Get.put(HomeGetX());
+
+  final DonorStatisticController donorGetXPage = Get.put(
+    DonorStatisticController(),
+  );
 
   static LoginGetX loginGetX = Get.find();
 

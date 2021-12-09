@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/shared/theme.dart';
+import '../../models/donor_submission_model.dart';
 
-Widget stokPlasma() {
+Widget stokPlasma(DataSubmission dataSubmission) {
   return Container(
     height: 110.0,
     margin: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 30.0),
@@ -28,7 +29,7 @@ Widget stokPlasma() {
               ),
             ),
             Text(
-              "Diperbarui 28/10/2045",
+              "Diperbarui ${dataSubmission.last}",
               style: AppText.textExtraSmall.copyWith(
                 color: AppColor.cDarkBlue,
                 letterSpacing: 0.4,
@@ -43,7 +44,7 @@ Widget stokPlasma() {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "59",
+                  dataSubmission.bloodsCounts.toString(),
                   style: AppText.textSemiLarge.copyWith(
                     color: AppColor.cDarkBlue,
                     fontWeight: AppText.semiBold,
@@ -87,7 +88,7 @@ Widget stokPlasma() {
                       color: AppColor.cDarkBlue,
                     ),
                     Text(
-                      "210",
+                      dataSubmission.donorSubmissions.toString(),
                       style: AppText.textSemiLarge.copyWith(
                         color: AppColor.cDarkBlue,
                         fontWeight: AppText.bold,
