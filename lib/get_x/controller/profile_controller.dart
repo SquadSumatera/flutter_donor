@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter_donor/services/point_services.dart';
 import 'package:get/get.dart';
 
 import '../state/login_getx.dart';
@@ -20,6 +21,7 @@ class ProfileController extends GetxController {
 
   Rx<ProfileModel> profile = ProfileModel().obs;
   Rx<ProfileLoadStatus> status = ProfileLoadStatus.loading.obs;
+  Rx<int> userPoint = 0.obs;
 
   @override
   void onInit() {
@@ -31,8 +33,10 @@ class ProfileController extends GetxController {
     status.value = ProfileLoadStatus.loading;
     update();
     try {
-      profile.value = await ProfileServices.getProfile(token: token)
-          .then((value) => value);
+      profile.value =
+          await ProfileServices.getProfile(token: token).then((value) => value);
+      userPoint.value = await PointServices.getPointUser(token: token)
+          .then((value) => value.skor);
       status.value = ProfileLoadStatus.loaded;
     } catch (e) {
       status.value = ProfileLoadStatus.failed;
@@ -76,7 +80,7 @@ class ProfileController extends GetxController {
     update();
   }
 
-  void updatePassword({
+  Future<void> updatePassword({
     required UpdatePasswordModel updatedPassword,
   }) async {
     status.value = ProfileLoadStatus.updateLoading;

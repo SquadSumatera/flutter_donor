@@ -41,11 +41,13 @@ class _HistorySectionState extends State<HistorySection> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'Sampai saat ini, telah mendapatkan 0 poin donor.',
-                style: AppText.textSmall.copyWith(
-                  color: AppColor.imperialRed,
-                  fontWeight: AppText.bold,
+              Obx(
+                () =>  Text(
+                  'Sampai saat ini, telah mendapatkan ${profileController.userPoint.value} poin donor.',
+                  style: AppText.textSmall.copyWith(
+                    color: AppColor.imperialRed,
+                    fontWeight: AppText.bold,
+                  ),
                 ),
               ),
               const SizedBox(height: 20),

@@ -44,13 +44,13 @@ class _ChangePasswordSectionState extends State<ChangePasswordSection> {
                   ),
                 ),
                 IconButton(
-                padding: EdgeInsets.zero,
-                icon: const Icon(Icons.close),
-                onPressed: () {
-                  c.removeOverlay();
-                  profileController.status.value = ProfileLoadStatus.loaded;
-                },
-              ),
+                  padding: EdgeInsets.zero,
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    c.removeOverlay();
+                    profileController.status.value = ProfileLoadStatus.loaded;
+                  },
+                ),
               ],
             ),
             const SizedBox(height: 18),
@@ -87,9 +87,21 @@ class _ChangePasswordSectionState extends State<ChangePasswordSection> {
                     ProfileLoadStatus.updateLoading) {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    profileController.updatePassword(
-                      updatedPassword: tempChangePasswordData,
-                    );
+                    profileController
+                        .updatePassword(
+                          updatedPassword: tempChangePasswordData,
+                        )
+                        .then((value) => {
+                              if (profileController.status.value ==
+                                  ProfileLoadStatus.updateFailed)
+                                {
+                                  Get.snackbar(
+                                    'Terjadi Kesalahan!',
+                                    'Pastikan password saat ini benar serta memiliki panjang minimal 8 karakter!',
+                                    backgroundColor: AppColor.white,
+                                  )
+                                }
+                            });
                   }
                 }
               },
