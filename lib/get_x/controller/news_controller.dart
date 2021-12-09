@@ -1,6 +1,7 @@
 import '../../models/news_model.dart';
 import '../../services/news_services.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart' show parse;
 
 enum NewsLoadStatus {
   initial,
@@ -20,7 +21,13 @@ class NewsController extends GetxController {
   late List<Rx<NewsModel>> newsList = [];
   Rx<NewsLoadStatus> status = NewsLoadStatus.initial.obs;
 
-  void getNews() async {
+  @override
+  void onInit() {
+    super.onInit();
+    loadNews();
+  }
+
+  void loadNews() async {
     status.value = NewsLoadStatus.loading;
     update();
     try {
@@ -30,5 +37,6 @@ class NewsController extends GetxController {
     } catch (e) {
       status.value = NewsLoadStatus.fail;
     }
+    update();
   }
 }

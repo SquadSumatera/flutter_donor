@@ -10,6 +10,7 @@ import 'package:flutter_donor/ui/home/home_artikel_widget.dart';
 import 'package:flutter_donor/ui/home/home_banner_widget.dart';
 import 'package:flutter_donor/ui/home/home_divider_widget.dart';
 import 'package:flutter_donor/ui/home/home_trend_widget.dart';
+import 'package:flutter_donor/ui/home/section/home_article_section.dart';
 import 'package:get/get.dart';
 
 import 'home_schedule_widget.dart';
@@ -64,9 +65,9 @@ class HomePage extends StatelessWidget {
                     children: [
                       banner(checkConnectionGetX, index),
                       stokPlasma(),
-                      homeDivier(),
+                      homeDivider(),
                       trend(),
-                      homeDivier(),
+                      homeDivider(),
                       title("Jadwal Donor"),
                       Obx(
                         () => donorHistoryController.status.value ==
@@ -105,16 +106,17 @@ class HomePage extends StatelessWidget {
                       const SizedBox(
                         height: 35.0,
                       ),
-                      homeDivier(),
-                      title("Artikel"),
-                      ListView.builder(
-                        primary: false,
-                        shrinkWrap: true,
-                        itemCount: 5,
-                        itemBuilder: (context, i) {
-                          return atricle();
-                        },
-                      )
+                      homeDivider(),
+                      HomeArticleSection(),
+                      // title("Artikel"),
+                      // ListView.builder(
+                      //   primary: false,
+                      //   shrinkWrap: true,
+                      //   itemCount: 5,
+                      //   itemBuilder: (context, i) {
+                      //     return article();
+                      //   },
+                      // )
                     ],
                   ),
       ),

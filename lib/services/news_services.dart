@@ -7,7 +7,7 @@ import '../models/news_model.dart';
 class NewsServices {
   static Future<List<NewsModel>> getNews() async {
     Response _response = await get(
-      Uri.parse(AppUrl.baseUrl + "/d/donor_notes"),
+      Uri.parse(AppUrl.baseUrl + "/berita-api"),
     );
     if (_response.statusCode == 200) {
       List newsResp =
