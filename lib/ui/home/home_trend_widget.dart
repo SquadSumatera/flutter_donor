@@ -51,7 +51,7 @@ LineChartData mainData(List<Rx<ListData>> data) {
     }
   }
   return LineChartData(
-    backgroundColor: AppColor.white,
+    backgroundColor: AppColor.white.withOpacity(0.3),
     lineTouchData: LineTouchData(
       enabled: true,
       touchTooltipData: LineTouchTooltipData(

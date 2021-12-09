@@ -22,6 +22,7 @@ class CheckConnectionGetX extends GetxController {
   }
 
   void getCheckConnect(String token) async {
+    status.value = StatusConnection.loading;
     update();
     try {
       profile = await ProfileServices.getProfile(token: token);

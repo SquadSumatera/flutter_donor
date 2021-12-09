@@ -23,29 +23,51 @@ Widget eventCardMedium(EventDetailModel eventDetail) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 12.0, top: 5.0, bottom: 5.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                eventDetail.title,
-                overflow: TextOverflow.clip,
-                style: AppText.textSmall.copyWith(
-                  fontWeight: AppText.medium,
-                  color: AppColor.cBlack,
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 12.0, top: 5.0, bottom: 5.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  eventDetail.title,
+                  overflow: TextOverflow.clip,
+                  style: AppText.textNormal.copyWith(
+                    fontWeight: AppText.medium,
+                    color: AppColor.cBlack,
+                  ),
                 ),
-              ),
-              Text(
-                eventDetail.desc,
-                style: AppText.textSmall.copyWith(
-                  fontWeight: AppText.normal,
-                  color: AppColor.cBlue,
-                  fontSize: 9.0,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      eventDetail.institutions,
+                      style: AppText.textSmall.copyWith(
+                        fontWeight: AppText.normal,
+                        color: AppColor.cBlue,
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Icon(
+                        Icons.circle_rounded,
+                        size: 6.0,
+                        color: AppColor.lightGrey,
+                      ),
+                    ),
+                    Text(
+                      eventDetail.time,
+                      style: AppText.textSmall.copyWith(
+                        color: AppColor.cBlack,
+                        fontWeight: AppText.normal,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         Container(
@@ -68,7 +90,8 @@ Widget eventCardMedium(EventDetailModel eventDetail) {
   );
 }
 
-Widget eventCardLarge(Uint8List image) {
+Widget eventCardLarge(
+    Uint8List image, String title, String institutions, String time) {
   return LayoutBuilder(
     builder: (context, constrain) => Container(
       margin: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
@@ -102,8 +125,60 @@ Widget eventCardLarge(Uint8List image) {
             ),
             child: null,
           ),
-          Text(
-            MediaQuery.of(context).size.width.toString(),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 16.0,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    title,
+                    maxLines: 2,
+                    style: AppText.textNormal.copyWith(
+                      color: AppColor.cBlack,
+                      fontWeight: AppText.semiBold,
+                    ),
+                    softWrap: true,
+                    overflow: TextOverflow.clip,
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        institutions,
+                        style: AppText.textSmall.copyWith(
+                          fontWeight: AppText.normal,
+                          color: AppColor.cBlue,
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4.0),
+                        child: Icon(
+                          Icons.circle_rounded,
+                          size: 6.0,
+                          color: AppColor.lightGrey,
+                        ),
+                      ),
+                      Text(
+                        time,
+                        style: AppText.textSmall.copyWith(
+                          color: AppColor.cBlack,
+                          fontWeight: AppText.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),

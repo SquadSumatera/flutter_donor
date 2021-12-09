@@ -164,7 +164,7 @@ Widget descLong(String heading, String desc) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "${heading}",
+          heading,
           style: AppText.textMedium.copyWith(
             color: AppColor.cDarkBlue,
             fontWeight: AppText.semiBold,
@@ -174,7 +174,7 @@ Widget descLong(String heading, String desc) {
           height: 4.0,
         ),
         Text(
-          "${desc}",
+          desc,
           style: AppText.textSmall.copyWith(
             color: AppColor.cBlack,
             fontWeight: AppText.normal,

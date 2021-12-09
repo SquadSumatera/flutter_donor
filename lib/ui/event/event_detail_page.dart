@@ -54,6 +54,14 @@ class EventDetailPage extends StatelessWidget {
             "Alamat",
             "${Get.parameters['address']}",
           ),
+          descLong(
+            "Kontak",
+            "${Get.parameters['contact']}",
+          ),
+          descLong(
+            "Email",
+            "${Get.parameters['email']}",
+          ),
           Container(
             alignment: Alignment.bottomCenter,
             margin: const EdgeInsets.only(
