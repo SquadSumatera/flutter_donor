@@ -32,7 +32,8 @@ class EventDetailPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          headerEventDetail(context, Get.parameters['image']!),
+          headerEventDetail(context, Get.parameters['image']!,
+              "${Get.parameters["idDonor"]}"),
           Container(
             margin: const EdgeInsets.only(right: 18, left: 18, top: 16),
             child: headingTextDetail(
@@ -53,6 +54,14 @@ class EventDetailPage extends StatelessWidget {
           descLong(
             "Alamat",
             "${Get.parameters['address']}",
+          ),
+          descLong(
+            "Kontak",
+            "${Get.parameters['contact']}",
+          ),
+          descLong(
+            "Email",
+            "${Get.parameters['email']}",
           ),
           Container(
             alignment: Alignment.bottomCenter,

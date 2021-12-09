@@ -61,7 +61,19 @@ class EventPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      eventCardLarge(listEvent.image[0]),
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.event +
+                              "/0?nameHeading=${listEvent.listData[0].value.titleDonorEvents}&published=${listEvent.listData[0].value.nameInstitutions}&time=${listEvent.listData[0].value.created}&start=${listEvent.listData[0].value.start}&end=${listEvent.listData[0].value.end}&desc=${listEvent.listData[0].value.descDonorEvents}&address=${listEvent.listData[0].value.addressDonorEvents}&image=${0.toString()}&contact=${listEvent.listData[0].value.contactConstitutions}&email=${listEvent.listData[0].value.emailConstitutions}&idDonor=${listEvent.listData[0].value.idDonorEvents}");
+                        },
+                        child: eventCardLarge(
+                          listEvent.image[0],
+                          listEvent.listData[0].value.titleDonorEvents!,
+                          listEvent.listData[0].value.nameInstitutions!,
+                          listEvent.listData[0].value.created,
+                          listEvent.listData[0].value.idDonorEvents!,
+                        ),
+                      ),
                       Padding(
                         padding:
                             const EdgeInsets.only(left: 24.0, bottom: 18.0),
@@ -76,17 +88,20 @@ class EventPage extends StatelessWidget {
                       ListView.builder(
                         shrinkWrap: true,
                         primary: false,
-                        itemCount: listEvent.listData.length,
+                        itemCount: listEvent.listData.length - 1,
                         itemBuilder: (context, i) => GestureDetector(
                           onTap: () => Get.toNamed(Routes.event +
-                              "/$i?nameHeading=${listEvent.listData[i].value.titleDonorEvents}&published=${listEvent.listData[i].value.nameInstitutions}&time=${listEvent.listData[i].value.created}&start=${listEvent.listData[i].value.start}&end=${listEvent.listData[i].value.end}&desc=${listEvent.listData[i].value.descDonorEvents}&address=${listEvent.listData[i].value.addressDonorEvents}&image=${i.toString()}"),
+                              "/${i + 1}?nameHeading=${listEvent.listData[i + 1].value.titleDonorEvents}&published=${listEvent.listData[i + 1].value.nameInstitutions}&time=${listEvent.listData[i + 1].value.created}&start=${listEvent.listData[i + 1].value.start}&end=${listEvent.listData[i + 1].value.end}&desc=${listEvent.listData[i + 1].value.descDonorEvents}&address=${listEvent.listData[i + 1].value.addressDonorEvents}&image=${(i + 1).toString()}&contact=${listEvent.listData[i + 1].value.contactConstitutions}&email=${listEvent.listData[i + 1].value.emailConstitutions}&idDonor=${listEvent.listData[i + 1].value.idDonorEvents}"),
                           child: eventCardMedium(
                             EventDetailModel(
-                              title:
-                                  listEvent.listData[i].value.titleDonorEvents!,
-                              desc:
-                                  listEvent.listData[i].value.descDonorEvents!,
-                              image: listEvent.image[i],
+                              idDonor: listEvent
+                                  .listData[i + 1].value.idDonorEvents!,
+                              title: listEvent
+                                  .listData[i + 1].value.titleDonorEvents!,
+                              institutions: listEvent
+                                  .listData[i + 1].value.nameInstitutions!,
+                              time: listEvent.listData[i + 1].value.created,
+                              image: listEvent.image[i + 1],
                             ),
                           ),
                         ),

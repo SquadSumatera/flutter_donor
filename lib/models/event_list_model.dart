@@ -49,6 +49,8 @@ class DataEvent {
     this.idInstitutions,
     this.nameInstitutions,
     this.titleDonorEvents,
+    this.emailConstitutions,
+    this.contactConstitutions,
     this.pictureDonorEvents,
     this.startDonorEvents,
     this.endDonorEvents,
@@ -63,6 +65,8 @@ class DataEvent {
   String? idInstitutions;
   String? nameInstitutions;
   String? titleDonorEvents;
+  String? emailConstitutions;
+  String? contactConstitutions;
   String? pictureDonorEvents;
   DateTime? startDonorEvents;
   DateTime? endDonorEvents;
@@ -105,6 +109,8 @@ class DataEvent {
         idInstitutions: json["id_institutions"],
         nameInstitutions: json["name_institutions"],
         titleDonorEvents: json["title_donor_events"],
+        emailConstitutions: json["email_institutions"],
+        contactConstitutions: json["contact_institutions"],
         pictureDonorEvents: json["picture_donor_events"],
         startDonorEvents: DateTime.parse(json["start_donor_events"]),
         endDonorEvents: DateTime.parse(json["end_donor_events"]),
