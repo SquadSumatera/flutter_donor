@@ -1,8 +1,12 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/models/donor_statistic_model.dart';
 import 'package:flutter_donor/shared/theme.dart';
+import 'package:get/get.dart';
 
-Widget trend() {
+Widget trend(
+  List<Rx<ListData>> data,
+) {
   return Container(
     margin: const EdgeInsets.only(
       top: 16.0,
@@ -26,7 +30,7 @@ Widget trend() {
         AspectRatio(
           aspectRatio: 1.60,
           child: LineChart(
-            mainData(),
+            mainData(data),
           ),
         ),
       ],
@@ -39,7 +43,7 @@ List<Color> gradientColors = [
   const Color(0xFFE84545),
 ];
 
-LineChartData mainData() {
+LineChartData mainData(List<Rx<ListData>> data) {
   return LineChartData(
     backgroundColor: AppColor.white,
     gridData: FlGridData(
@@ -72,29 +76,29 @@ LineChartData mainData() {
         getTitles: (value) {
           switch (value.toInt()) {
             case 0:
-              return 'JAN';
+              return data[0].value.months;
             case 1:
-              return 'FEB';
+              return data[1].value.months;
             case 2:
-              return 'MAR';
+              return data[2].value.months;
             case 3:
-              return 'APR';
+              return data[3].value.months;
             case 4:
-              return 'MEI';
+              return data[4].value.months;
             case 5:
-              return 'JUN';
+              return data[5].value.months;
             case 6:
-              return 'JUL';
+              return data[6].value.months;
             case 7:
-              return 'AGU';
+              return data[7].value.months;
             case 8:
-              return 'SEP';
+              return data[8].value.months;
             case 9:
-              return 'OKT';
+              return data[9].value.months;
             case 10:
-              return 'NOV';
+              return data[10].value.months;
             case 11:
-              return 'DES';
+              return data[11].value.months;
           }
           return '';
         },
@@ -136,19 +140,19 @@ LineChartData mainData() {
     maxY: 100,
     lineBarsData: [
       LineChartBarData(
-        spots: const [
-          FlSpot(0, 5),
-          FlSpot(1, 10),
-          FlSpot(2, 55),
-          FlSpot(3, 23),
-          FlSpot(4, 25),
-          FlSpot(5, 40),
-          FlSpot(6, 10),
-          FlSpot(7, 5),
-          FlSpot(8, 15),
-          FlSpot(9, 14),
-          FlSpot(10, 20),
-          FlSpot(11, 40),
+        spots: [
+          FlSpot(0, data[0].value.counts!.toDouble()),
+          FlSpot(1, data[1].value.counts!.toDouble()),
+          FlSpot(2, data[2].value.counts!.toDouble()),
+          FlSpot(3, data[3].value.counts!.toDouble()),
+          FlSpot(4, data[4].value.counts!.toDouble()),
+          FlSpot(5, data[5].value.counts!.toDouble()),
+          FlSpot(6, data[6].value.counts!.toDouble()),
+          FlSpot(7, data[7].value.counts!.toDouble()),
+          FlSpot(8, data[8].value.counts!.toDouble()),
+          FlSpot(9, data[9].value.counts!.toDouble()),
+          FlSpot(10, data[10].value.counts!.toDouble()),
+          FlSpot(11, data[11].value.counts!.toDouble()),
         ],
         isCurved: true,
         colors: gradientColors,
