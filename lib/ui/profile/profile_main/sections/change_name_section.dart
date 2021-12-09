@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/models/update_password_model.dart';
+import 'package:flutter_donor/shared/theme.dart';
+import 'package:flutter_donor/models/profile_model.dart';
 import 'package:get/get.dart';
-import '../widgets/base_text_field.dart';
 import '../../../../get_x/controller/profile_controller.dart';
 import '../../../../get_x/controller/profile_overlay_controller.dart';
-import '../../../../shared/theme.dart';
+import '../widgets/base_text_field.dart';
 
-class ChangePasswordSection extends StatefulWidget {
-  const ChangePasswordSection({Key? key}) : super(key: key);
+class ChangeNameSection extends StatefulWidget {
+  const ChangeNameSection({Key? key}) : super(key: key);
 
   @override
-  _ChangePasswordSectionState createState() => _ChangePasswordSectionState();
+  _ChangeNameSectionState createState() => _ChangeNameSectionState();
 }
 
-class _ChangePasswordSectionState extends State<ChangePasswordSection> {
+class _ChangeNameSectionState extends State<ChangeNameSection> {
   ProfileOverlayController c = Get.find();
   ProfileController profileController = Get.find();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  UpdatePasswordModel tempChangePasswordData = UpdatePasswordModel();
+  late ProfileModel tempProfile;
+
+  @override
+  void initState() {
+    super.initState();
+    tempProfile = profileController.profile?.copyWith() ?? ProfileModel();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,46 +44,28 @@ class _ChangePasswordSectionState extends State<ChangePasswordSection> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Ubah Password",
+                  "Ubah Nama",
                   style: AppText.textMedium.copyWith(
                     fontWeight: AppText.bold,
                   ),
                 ),
                 IconButton(
-                padding: EdgeInsets.zero,
-                icon: const Icon(Icons.close),
-                onPressed: () {
-                  c.removeOverlay();
-                  profileController.status.value = ProfileLoadStatus.loaded;
-                },
-              ),
+                  padding: EdgeInsets.zero,
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    c.removeOverlay();
+                    profileController.status.value = ProfileLoadStatus.loaded;
+                  },
+                ),
               ],
             ),
             const SizedBox(height: 18),
             BaseTextField(
-              label: "Password Saat Ini",
-              placeholderText: "Masukkan password saat ini...",
-              obscureText: true,
+              label: "Nama Sesuai KTP",
+              initialValue: tempProfile.nameDonators,
+              placeholderText: "Masukkan nama sesuai KTP...",
               callback: (val) {
-                tempChangePasswordData.lastPassword = val;
-              },
-            ),
-            const SizedBox(height: 12),
-            BaseTextField(
-              label: "Password Baru",
-              placeholderText: "Masukkan password baru...",
-              obscureText: true,
-              callback: (val) {
-                tempChangePasswordData.newPassword = val;
-              },
-            ),
-            const SizedBox(height: 12),
-            BaseTextField(
-              label: "Konfirmasi Password Baru",
-              placeholderText: "Masukkan kembali password baru...",
-              obscureText: true,
-              callback: (val) {
-                tempChangePasswordData.confirmPassword = val;
+                tempProfile.nameDonators = val;
               },
             ),
             const SizedBox(height: 12),
@@ -87,8 +75,8 @@ class _ChangePasswordSectionState extends State<ChangePasswordSection> {
                     ProfileLoadStatus.updateLoading) {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    profileController.updatePassword(
-                      updatedPassword: tempChangePasswordData,
+                    profileController.updateProfile(
+                      updatedProfile: tempProfile,
                     );
                   }
                 }
@@ -120,7 +108,7 @@ class _ChangePasswordSectionState extends State<ChangePasswordSection> {
                             : (profileController.status.value ==
                                     ProfileLoadStatus.updated)
                                 ? "Berhasil Tersimpan"
-                                : "Terjadi Kesalahan, Pastikan Isian Benar",
+                                : "Terjadi Kesalahan, Coba Lagi",
                         style: AppText.textNormal.copyWith(
                           color: AppColor.white,
                           fontWeight: AppText.semiBold,
@@ -128,7 +116,7 @@ class _ChangePasswordSectionState extends State<ChangePasswordSection> {
                       );
               }),
             ),
-            const SizedBox(height: 28),
+            const SizedBox(height: 50),
           ],
         ),
       ),
