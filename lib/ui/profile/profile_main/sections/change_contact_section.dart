@@ -40,23 +40,24 @@ class _ChangeContactSectionState extends State<ChangeContactSection> {
         child: ListView(
           shrinkWrap: true,
           children: <Widget>[
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                padding: EdgeInsets.zero,
-                icon: const Icon(Icons.close),
-                onPressed: () {
-                  c.removeOverlay();
-                  profileController.status.value = ProfileLoadStatus.loaded;
-                },
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Ubah Informasi Kontak",
-              style: AppText.textMedium.copyWith(
-                fontWeight: AppText.bold,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Ubah Informasi Kontak",
+                  style: AppText.textMedium.copyWith(
+                    fontWeight: AppText.bold,
+                  ),
+                ),
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    c.removeOverlay();
+                    profileController.status.value = ProfileLoadStatus.loaded;
+                  },
+                ),
+              ],
             ),
             const SizedBox(height: 18),
             BaseTextField(

@@ -20,7 +20,7 @@ enum DonorHistorySelectedStatus {
 }
 
 class DonorHistoryController extends GetxController {
-  final LoginGetX token = Get.find();
+  final LoginGetX loginData = Get.find();
   late List<Rx<DonorHistoryModel>> donorHistoryList = [];
   late List<Rx<DonorHistoryModel>> donorSchedule = [];
 
@@ -34,7 +34,7 @@ class DonorHistoryController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getDonorHistory(token.token.value);
+    getDonorHistory(loginData.token.value);
   }
 
   void setSelected(DonorHistoryModel data) async {
@@ -45,7 +45,7 @@ class DonorHistoryController extends GetxController {
     try {
       selectedCertificate.value =
           await DonorCertificateServices.getCertificateDetail(
-        token: token.token.value,
+        token: loginData.token.value,
         id: data.idDonorNotes!,
       );
       selectedStatus.value = DonorHistorySelectedStatus.loaded;
@@ -87,7 +87,7 @@ class DonorHistoryController extends GetxController {
     update();
     try {
       selected?.value = await DonorHistoryServices.canceledDonor(
-        token: token.token.value,
+        token: loginData.token.value,
         id: selected?.value.idDonorNotes ?? '',
       );
       int idx = donorHistoryList.indexWhere((element) =>
@@ -107,7 +107,7 @@ class DonorHistoryController extends GetxController {
     update();
     try {
       selected?.value = await DonorHistoryServices.updateScheduleDonor(
-        token: token.token.value,
+        token: loginData.token.value,
         data: selected!.value,
         proposedDate: DateFormat('yyyy-MM-dd', 'id').format(proposedDate),
       );

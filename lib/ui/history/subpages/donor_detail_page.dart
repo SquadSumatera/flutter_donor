@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../../../get_x/controller/donor_detail_overlay_controller.dart';
 import '../../../get_x/controller/donor_history_controller.dart';
@@ -42,23 +43,33 @@ class DonorDetailPage extends StatelessWidget {
         backgroundColor: AppColor.cRed,
         elevation: 0,
       ),
-      body: Stack(
+      body: ListView(
+        clipBehavior: Clip.none,
         children: [
-          ListView(
-            clipBehavior: Clip.none,
-            children: [
-              DetailHeader(),
-              const SizedBox(height: 33),
-              ScheduleDetailSection(),
-              const SizedBox(height: 30),
-              DonorLocation(),
-              const SizedBox(height: 23),
-              if (donorController.selected?.value.statusDonorNotes ==
-                  DonorHistoryStatus.finished)
-                const CertificateSection(),
-              const SizedBox(height: 50),
-            ],
+          Obx(
+            () => DetailHeader(
+              title: 'Detail Pendonoran',
+              status: donorController.selected?.value.showStatus ?? "-",
+            ),
           ),
+          const SizedBox(height: 24),
+          ScheduleDetailSection(),
+          const SizedBox(height: 30),
+          Obx(
+            () => DonorLocation(
+                isLoading: donorController.selectedStatus.value ==
+                    DonorHistorySelectedStatus.loading,
+                latLong: donorController.selected?.value.locationLatLong ??
+                    LatLng(0, 0),
+                locationAddress:
+                    donorController.selected?.value.locationAddress ?? "",
+                title: 'Lokasi'),
+          ),
+          const SizedBox(height: 23),
+          if (donorController.selected?.value.statusDonorNotes ==
+              DonorHistoryStatus.finished)
+            const CertificateSection(),
+          const SizedBox(height: 50),
         ],
       ),
     );

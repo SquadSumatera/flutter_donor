@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/donor_history_controller.dart';
 import 'package:flutter_donor/get_x/controller/history_controller.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
+import 'package:flutter_donor/get_x/controller/submission_history_controller.dart';
 import 'package:get/get.dart';
 
 import '../../shared/theme.dart';
 import 'widgets/history_as_button.dart';
-import 'widgets/history_list_container.dart';
+import 'subsection/history_list_container.dart';
 
 class HistorySection extends StatefulWidget {
   const HistorySection({Key? key}) : super(key: key);
@@ -20,6 +21,9 @@ class _HistorySectionState extends State<HistorySection> {
   HistoryController historyController = Get.put(HistoryController());
   DonorHistoryController donorHistoryController = Get.put(
     DonorHistoryController(),
+  );
+  SubmissionHistoryController submissionHistoryController = Get.put(
+    SubmissionHistoryController(),
   );
 
   @override
@@ -59,6 +63,7 @@ class _HistorySectionState extends State<HistorySection> {
                               HistoryViewAs.requester,
                           callback: () {
                             historyController.change(HistoryViewAs.requester);
+                            submissionHistoryController.onInit();
                           },
                         ),
                         const SizedBox(height: 25),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/shared/theme.dart';
 
-Widget atricle() {
+Widget article() {
   return Container(
     height: 90.0,
     margin: const EdgeInsets.only(

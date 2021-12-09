@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/submission_history_controller.dart';
+import 'package:flutter_donor/models/submission_history_model.dart';
 import 'package:get/get.dart';
 
 import '../../../../shared/theme.dart';
@@ -6,7 +8,7 @@ import '../../../get_x/controller/donor_history_controller.dart';
 import '../../../get_x/controller/history_controller.dart';
 import '../../../models/donor_history_model.dart';
 import '../../../routes/app_pages.dart';
-import 'history_tile_item.dart';
+import '../widgets/history_tile_item.dart';
 
 class HistoryListContainer extends StatelessWidget {
   HistoryListContainer({
@@ -15,10 +17,12 @@ class HistoryListContainer extends StatelessWidget {
 
   final HistoryController historyController = Get.find();
   final DonorHistoryController donorHistoryController = Get.find();
+  final SubmissionHistoryController submissionHistoryController = Get.find();
 
-  List<Widget> _donorHistoryTile() {
+  List<Widget> _submissionHistoryTiles() {
     List<Widget> _result = [];
-    if (donorHistoryController.status.value == DonorHistoryLoadStatus.loading) {
+    if (submissionHistoryController.status.value !=
+        SubmissionHistoryLoadStatus.loaded) {
       _result.add(
         const Center(
           child: CircularProgressIndicator(
@@ -28,7 +32,43 @@ class HistoryListContainer extends StatelessWidget {
         ),
       );
     } else {
-      for (Rx<DonorHistoryModel> data in donorHistoryController.donorHistoryList) {
+      for (Rx<SubmissionHistoryModel> data
+          in submissionHistoryController.submissiontHistoryList) {
+        _result.add(
+          Obx(
+            () => HistoryTileItem(
+              title:
+                  "Memohon Golongan Darah Bertipe ${data.value.showBloodType}",
+              statusText: data.value.showStatus,
+              dateText: data.value.showCreatedDate,
+              color: data.value.designatedColor,
+              callback: () {
+                Get.toNamed(Routes.submissionDetail);
+                submissionHistoryController.setSelected(data.value);
+              },
+            ),
+          ),
+        );
+      }
+    }
+
+    return _result;
+  }
+
+  List<Widget> _donorHistoryTiles() {
+    List<Widget> _result = [];
+    if (donorHistoryController.status.value != DonorHistoryLoadStatus.loaded) {
+      _result.add(
+        const Center(
+          child: CircularProgressIndicator(
+            color: AppColor.cBlack,
+            strokeWidth: 5,
+          ),
+        ),
+      );
+    } else {
+      for (Rx<DonorHistoryModel> data
+          in donorHistoryController.donorHistoryList) {
         _result.add(
           Obx(
             () => HistoryTileItem(
@@ -62,8 +102,8 @@ class HistoryListContainer extends StatelessWidget {
         () => ListView(
           children:
               (historyController.currentView.value == HistoryViewAs.donator)
-                  ? _donorHistoryTile()
-                  : [const SizedBox()],
+                  ? _donorHistoryTiles()
+                  : _submissionHistoryTiles(),
         ),
       ),
     );

@@ -4,6 +4,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
 import 'package:flutter_donor/shared/theme.dart';
+import 'package:flutter_donor/ui/profile/overlay/profile_overlay_section.dart';
+import 'package:flutter_donor/ui/profile/profile_main/sections/change_name_section.dart';
 import 'package:get/get.dart';
 
 class ProfileHeader extends StatelessWidget {
@@ -23,7 +25,7 @@ class ProfileHeader extends StatelessWidget {
 class ProfilePhotoHeader extends StatelessWidget {
   ProfilePhotoHeader({Key? key}) : super(key: key);
   final ProfileController profileController = Get.find();
-  
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -106,11 +108,35 @@ class ProfileNameHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(
-            profileController.profile?.nameDonators ?? '',
-            style: AppText.textMedium.copyWith(
-              fontWeight: AppText.bold,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                profileController.profile?.nameDonators ?? '',
+                style: AppText.textMedium.copyWith(
+                  fontWeight: AppText.bold,
+                ),
+              ),
+              const SizedBox(width: 4),
+              IconButton(
+                color: AppColor.cBlack,
+                padding: EdgeInsets.zero,
+                splashRadius: 10,
+                constraints: const BoxConstraints(),
+                onPressed: () {
+                  Overlay.of(context)!.insert(
+                    profileOverlaySection(
+                      child: const ChangeNameSection(),
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.edit,
+                  color: AppColor.imperialRed,
+                  size: 16,
+                ),
+              ),
+            ],
           ),
           Text(
             'Bergabung sejak ${profileController.profile?.showJoined}',
