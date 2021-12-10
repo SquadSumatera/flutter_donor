@@ -65,7 +65,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.event + "/:id?",
-      page: () => const EventDetailPage(),
+      page: () => EventDetailPage(),
     ),
     GetPage(
       name: Routes.register,

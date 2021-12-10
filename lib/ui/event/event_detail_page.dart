@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/profile_controller.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:get/get.dart';
 import '../../shared/theme.dart';
 import 'event_detail_widget.dart';
+import 'package:get/get.dart';
 
 class EventDetailPage extends StatelessWidget {
-  const EventDetailPage({Key? key}) : super(key: key);
+  EventDetailPage({Key? key}) : super(key: key);
+
+  final ProfileController profileController = Get.find<ProfileController>();
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +73,27 @@ class EventDetailPage extends StatelessWidget {
             margin: const EdgeInsets.only(
                 left: 37.0, right: 37.0, top: 20.0, bottom: 18.0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                if (profileController
+                        .profile.value.bloodTypeDonators.isBlank! ||
+                    profileController.profile.value.bloodTypeDonators == null ||
+                    profileController
+                        .profile.value.bloodRhesusDonators.isBlank! ||
+                    profileController.profile.value.bloodRhesusDonators ==
+                        null) {
+                  Get.back();
+                  Get.snackbar(
+                    "Lengkapi Data",
+                    "Lengkapi data di menu profile",
+                    duration: const Duration(seconds: 3),
+                  );
+                } else {
+                  Get.offNamed(Routes.donor, arguments: [
+                    "${Get.parameters['idInstitution']}",
+                    "${Get.parameters['published']}"
+                  ]);
+                }
+              },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
