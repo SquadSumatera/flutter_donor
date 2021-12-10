@@ -103,6 +103,7 @@ class _CertificateSectionState extends State<CertificateSection> {
                             ImageGallerySaver.saveImage(
                               image!,
                               quality: 100,
+                              name: 'Sertifikat_Dorplas'
                             );
                             Get.snackbar(
                                 "Sertifikat berhasil disimpan!",
