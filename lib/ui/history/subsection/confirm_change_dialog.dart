@@ -33,53 +33,59 @@ class ConfirmChangeDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Container(
-        color: AppColor.white,
-        constraints: BoxConstraints(
-          maxHeight: Get.height * 0.20,
-        ),
-        padding: const EdgeInsets.all(28),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              dialogTitle(),
-              style: AppText.textMedium.copyWith(
-                fontWeight: AppText.semiBold,
+    return WillPopScope(
+      onWillPop: () async {
+        overlay.removeOverlay();
+        return true;
+      },
+      child: Obx(
+        () => Container(
+          color: AppColor.white,
+          constraints: BoxConstraints(
+            maxHeight: Get.height * 0.20,
+          ),
+          padding: const EdgeInsets.all(28),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                dialogTitle(),
+                style: AppText.textMedium.copyWith(
+                  fontWeight: AppText.semiBold,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-            if (donorController.selectedStatus.value !=
-                    DonorHistorySelectedStatus.loading &&
-                donorController.selectedStatus.value !=
-                    DonorHistorySelectedStatus.updated)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  DetailDialogButton(
-                    label: "Tidak",
-                    active: false,
-                    onPressed: () {
-                      donorController.selectedStatus.value =
-                          DonorHistorySelectedStatus.loaded;
-                      overlay.removeOverlay();
-                    },
-                  ),
-                  DetailDialogButton(
-                    label: (donorController.selectedStatus.value ==
-                            DonorHistorySelectedStatus.failed)
-                        ? "Coba Lagi"
-                        : "Ya",
-                    active: true,
-                    onPressed: () {
-                      donorController.updateSchedule(proposedDate);
-                    },
-                  ),
-                ],
-              ),
-          ],
+              const SizedBox(height: 20),
+              if (donorController.selectedStatus.value !=
+                      DonorHistorySelectedStatus.loading &&
+                  donorController.selectedStatus.value !=
+                      DonorHistorySelectedStatus.updated)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    DetailDialogButton(
+                      label: "Tidak",
+                      active: false,
+                      onPressed: () {
+                        donorController.selectedStatus.value =
+                            DonorHistorySelectedStatus.loaded;
+                        overlay.removeOverlay();
+                      },
+                    ),
+                    DetailDialogButton(
+                      label: (donorController.selectedStatus.value ==
+                              DonorHistorySelectedStatus.failed)
+                          ? "Coba Lagi"
+                          : "Ya",
+                      active: true,
+                      onPressed: () {
+                        donorController.updateSchedule(proposedDate);
+                      },
+                    ),
+                  ],
+                ),
+            ],
+          ),
         ),
       ),
     );

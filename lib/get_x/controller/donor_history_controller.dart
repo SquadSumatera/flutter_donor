@@ -43,11 +43,13 @@ class DonorHistoryController extends GetxController {
     update();
 
     try {
-      selectedCertificate.value =
-          await DonorCertificateServices.getCertificateDetail(
-        token: loginData.token.value,
-        id: data.idDonorNotes!,
-      );
+      if (selected!.value.statusDonorNotes == DonorHistoryStatus.finished) {
+        selectedCertificate.value =
+            await DonorCertificateServices.getCertificateDetail(
+          token: loginData.token.value,
+          id: data.idDonorNotes!,
+        );
+      }
       selectedStatus.value = DonorHistorySelectedStatus.loaded;
     } catch (e) {
       selectedStatus.value = DonorHistorySelectedStatus.failed;
@@ -74,13 +76,6 @@ class DonorHistoryController extends GetxController {
     }
     update();
   }
-
-  // void getScheduledDonor() async {
-  //   donorHistoryList
-  //       .where((element) =>
-  //           element.value.statusDonorNotes == DonorHistoryStatus.registered)
-  //       .toList();
-  // }
 
   void cancelingSchedule() async {
     selectedStatus.value = DonorHistorySelectedStatus.loading;
