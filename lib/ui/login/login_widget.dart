@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/shared/theme.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import '../../get_x/state/login_getx.dart';
@@ -57,8 +58,17 @@ class LoginWidget extends StatelessWidget {
         keyboardType: inputType,
         inputFormatters: _inputFormatters,
         decoration: InputDecoration(
+          focusColor: AppColor.cRed,
+          hoverColor: AppColor.cRed,
+          fillColor: AppColor.cRed,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            borderSide: BorderSide(color: AppColor.cRed),
+          ),
           hintText: hintText,
           labelText: labelText,
+          labelStyle: AppText.textMedium.copyWith(),
+          floatingLabelStyle: AppText.textMedium.copyWith(color: AppColor.cRed),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
@@ -68,9 +78,12 @@ class LoginWidget extends StatelessWidget {
                     lControll.changeObscure();
                   },
                   child: Obx(
-                    () => Icon(lControll.obscure.value
-                        ? Icons.visibility
-                        : Icons.visibility_off),
+                    () => Icon(
+                      lControll.obscure.value
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: AppColor.cRed,
+                    ),
                   ),
                 )
               : null,
