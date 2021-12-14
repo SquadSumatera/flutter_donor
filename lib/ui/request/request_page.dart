@@ -11,7 +11,6 @@ class RequestPage extends StatefulWidget {
 }
 
 class _RequestPageState extends State<RequestPage> {
-
   TextEditingController nameController = TextEditingController();
   TextEditingController nikController = TextEditingController();
   TextEditingController bloodTypeController = TextEditingController();
@@ -40,10 +39,11 @@ class _RequestPageState extends State<RequestPage> {
         backgroundColor: AppColor.cRed,
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30.0),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(36, 30, 0, 60),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -168,7 +168,7 @@ class _RequestPageState extends State<RequestPage> {
                   ),
                   width: 300,
                   child: TextField(
-                    controller: nameController,
+                    controller: rhesusTypeController,
                     decoration: InputDecoration(
                       hintText: "Pilih tipe rhesus penerima",
                       border: const UnderlineInputBorder(),
@@ -243,33 +243,27 @@ class _RequestPageState extends State<RequestPage> {
                     ),
                   ),
                 ),
-              ],
-            ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: SizedBox(
+                Container(
+                  margin: const EdgeInsets.only(top: 50, left: 15),
                   width: 300,
+                  height: 40,
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: AppColor.cRed,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
+                    style: ElevatedButton.styleFrom(
+                      primary: AppColor.cRed,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
-                      child: Text(
-                        "Daftar",
-                        style: AppText.textMedium.copyWith(
-                            color: AppColor.white,
-                            fontWeight: AppText.semiBold),
-                      ),
-                      onPressed: () async {
-                      },
                     ),
+                    child: Text(
+                      "Ajukan",
+                      style: AppText.textMedium.copyWith(
+                          color: AppColor.white, fontWeight: AppText.semiBold),
+                    ),
+                    onPressed: () async {},
                   ),
                 ),
-              ),
-
+              ],
+            ),
           ],
         ),
       ),
