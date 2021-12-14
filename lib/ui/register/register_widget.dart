@@ -61,8 +61,17 @@ class RegisterWidget extends StatelessWidget {
         keyboardType: inputType,
         inputFormatters: _inputFormatters,
         decoration: InputDecoration(
+          focusColor: AppColor.cRed,
+          hoverColor: AppColor.cRed,
+          fillColor: AppColor.cRed,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            borderSide: BorderSide(color: AppColor.cRed),
+          ),
           hintText: hintText,
           labelText: labelText,
+          labelStyle: AppText.textMedium.copyWith(),
+          floatingLabelStyle: AppText.textMedium.copyWith(color: AppColor.cRed),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
@@ -72,9 +81,12 @@ class RegisterWidget extends StatelessWidget {
                     rControll.changeObscure();
                   },
                   child: Obx(
-                    () => Icon(rControll.obscure.value
-                        ? Icons.visibility
-                        : Icons.visibility_off),
+                    () => Icon(
+                      rControll.obscure.value
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: AppColor.cRed,
+                    ),
                   ),
                 )
               : null,

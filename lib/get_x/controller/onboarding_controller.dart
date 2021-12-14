@@ -22,21 +22,21 @@ class OnBoardingController extends GetxController {
   List<OnBoardingModel> onBoardingModelList = <OnBoardingModel>[
     OnBoardingModel(
       image: "assets/bitmap/onboard1.png",
-      title: "Lorem ipsum dolor sit amet",
+      title: "Donor Plasma",
       desc:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat facilisis sollicitudin adipiscing commodo. Imperdiet leo, nisl, id nulla ultrices viverra euismod arcu lectus.",
+          "Kamu dengan mudah melakukan Donor Plasma untuk yang membutuhkan. Kemudahannya antara lain donor plasma sesuai lokasi yang kamu inginkan, donor dengan mengikuti event yang diselenggarakan dan tentu juga Schedule yang terjadwal langsung di HP kamu.",
     ),
     OnBoardingModel(
       image: "assets/bitmap/onboard2.png",
-      title: "Lorem ipsum dolor sit amet",
+      title: "Request Plasma",
       desc:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat facilisis sollicitudin adipiscing commodo. Imperdiet leo, nisl, id nulla ultrices viverra euismod arcu lectus.",
+          "Sekarang cari Plasma jadi mudah. Kamu tinggal pencet request plasma, otomatis pesanan mu akan diproses. Tentunya akan mempertimbangkan beberapa aspek yang akan diseleksi oleh pihak berkempentingan langsung loh. Dan juga Notifikasi untuk Request kamu secara real time.",
     ),
     OnBoardingModel(
       image: "assets/bitmap/onboard3.png",
-      title: "Lorem ipsum dolor sit amet",
+      title: "Penghargaan",
       desc:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat facilisis sollicitudin adipiscing commodo. Imperdiet leo, nisl, id nulla ultrices viverra euismod arcu lectus.",
+          "Dengan membantu sesama kamu telah menyelamatkan satu nyawa setiap donornya. Kami juga memberika apresiasi kepada kamu lewat sertifikat dan juga point donor. Dimana point donor ini bisa kamu tukarkan dengan berbagai barang menarik.",
     ),
   ];
 }
