@@ -1,4 +1,6 @@
+import 'package:flutter_donor/ui/request/request_page.dart';
 import 'package:get/get.dart';
+
 import '../ui/donor/donor_page.dart';
 import '../ui/event/event_detail_page.dart';
 import '../ui/event/event_page.dart';
@@ -10,13 +12,13 @@ import '../ui/home/section/webview_article_page.dart';
 import '../ui/location/location_maps_page.dart';
 import '../ui/location/location_page.dart';
 import '../ui/login/login_page.dart';
+import '../ui/main/main_feature.dart';
 import '../ui/main/main_page.dart';
 import '../ui/onboarding/onboarding_page.dart';
 import '../ui/profile/profile_edit_identity/profile_edit_identity_page.dart';
 import '../ui/profile/profile_main/profile_page.dart';
 import '../ui/register/register_3_page.dart';
 import '../ui/register/register_page.dart';
-import '../ui/request/request_page.dart';
 import '../ui/splashscreen/splash_screen_page.dart';
 
 part 'app_routes.dart';
@@ -80,12 +82,16 @@ class AppPages {
       page: () => RegisterPage3(),
     ),
     GetPage(
-      name: Routes.request,
-      page: () => RequestPage(),
+      name: Routes.mainFeature,
+      page: () => MainFeaturePage(),
     ),
     GetPage(
       name: Routes.donor,
       page: () => DonorPage(),
+    ),
+    GetPage(
+      name: Routes.request,
+      page: () => RequestPage(),
     ),
     GetPage(
       name: Routes.onBoarding,

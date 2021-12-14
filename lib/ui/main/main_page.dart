@@ -96,7 +96,7 @@ class MainPage extends StatelessWidget {
                     duration: const Duration(seconds: 2),
                   );
                 } else {
-                  Get.toNamed(Routes.request);
+                  Get.toNamed(Routes.mainFeature);
                 }
               }
             },
