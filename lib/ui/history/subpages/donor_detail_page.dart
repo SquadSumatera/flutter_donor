@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../../../get_x/controller/donor_detail_overlay_controller.dart';
+import '../../../get_x/controller/history_detail_overlay_controller.dart';
 import '../../../get_x/controller/donor_history_controller.dart';
 import '../../../models/donor_history_model.dart';
 import '../../../shared/theme.dart';
@@ -14,8 +14,8 @@ import '../subsection/schedule_detail_section.dart';
 
 class DonorDetailPage extends StatelessWidget {
   DonorDetailPage({Key? key}) : super(key: key);
-  final DonorDetailOverlayController overlay =
-      Get.put(DonorDetailOverlayController());
+  final HistoryDetailOverlayController overlay =
+      Get.put(HistoryDetailOverlayController());
   final DonorHistoryController donorController = Get.find();
   @override
   Widget build(BuildContext context) {

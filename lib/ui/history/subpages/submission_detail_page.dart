@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/ui/history/subsection/submission_requirement_section.dart';
+import 'package:flutter_donor/get_x/controller/history_detail_overlay_controller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../get_x/controller/submission_history_controller.dart';
 import '../../../shared/theme.dart';
+import '../subsection/submission_requirement_section.dart';
 import '../subsection/detail_header.dart';
 import '../subsection/donor_location.dart';
 
 class SubmissionDetailPage extends StatelessWidget {
   SubmissionDetailPage({Key? key}) : super(key: key);
 
+  final HistoryDetailOverlayController overlay =
+      Get.put(HistoryDetailOverlayController());
   final SubmissionHistoryController controller = Get.find();
 
   @override

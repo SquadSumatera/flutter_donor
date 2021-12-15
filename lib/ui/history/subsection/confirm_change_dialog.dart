@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../shared/theme.dart';
-import '../../../get_x/controller/donor_detail_overlay_controller.dart';
+import '../../../get_x/controller/history_detail_overlay_controller.dart';
 import '../../../get_x/controller/donor_history_controller.dart';
 import '../widgets/detail_dialog_button.dart';
 
@@ -14,7 +14,7 @@ class ConfirmChangeDialog extends StatelessWidget {
   }) : super(key: key);
 
   final DateTime proposedDate;
-  final DonorDetailOverlayController overlay = Get.find();
+  final HistoryDetailOverlayController overlay = Get.find();
   final DonorHistoryController donorController = Get.find();
 
   String dialogTitle() {

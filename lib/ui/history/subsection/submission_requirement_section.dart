@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/submission_history_controller.dart';
+import 'package:flutter_donor/models/submission_history_model.dart';
 import 'package:flutter_donor/shared/theme.dart';
+import 'package:flutter_donor/ui/history/overlay/submission_detail_overlay.dart';
+import 'package:flutter_donor/ui/history/subsection/confirm_cancel_submission_dialog.dart';
+import 'package:get/get.dart';
 
 class SubmissionRequirementSection extends StatelessWidget {
-  const SubmissionRequirementSection({
+  SubmissionRequirementSection({
     Key? key,
     required this.title,
     required this.bloodType,
@@ -16,6 +21,7 @@ class SubmissionRequirementSection extends StatelessWidget {
   final String rhesusType;
   final int quantity;
   final String? dateScheduled;
+  final SubmissionHistoryController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -58,13 +64,49 @@ class SubmissionRequirementSection extends StatelessWidget {
                             color: AppColor.eerieBlack,
                           ),
                         ),
-                        const SizedBox(height: 5),
+                        const SizedBox(height: 4),
                         Text(
                           'Rhesus $rhesusType',
                           style: AppText.textExtraSmall.copyWith(
                             color: AppColor.eerieBlack,
                           ),
                         ),
+                        const SizedBox(height: 4),
+                        if (controller.selected?.value.statusDonorSubmissions ==
+                                SubmissionHistoryStatus.waitingConfirmation ||
+                            controller.selected?.value.statusDonorSubmissions ==
+                                SubmissionHistoryStatus.conditionsRejected)
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              primary: AppColor.cGrey,
+                            ),
+                            onPressed: () {
+                              Overlay.of(context)!.insert(
+                                submissionDetailOverlaySection(
+                                  child: ConfirmCancelSubmissionDialog(),
+                                ),
+                              );
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                const Icon(
+                                    Icons.delete_forever,
+                                    size: 18,
+                                    color: AppColor.imperialRed,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    "Batalkan Permohonan",
+                                    style: AppText.textSmall.copyWith(
+                                      fontWeight: AppText.bold,
+                                      decoration: TextDecoration.underline,
+                                      color: AppColor.imperialRed,
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
                       ],
                     ),
                     Text(

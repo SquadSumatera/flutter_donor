@@ -77,7 +77,7 @@ class DonorHistoryController extends GetxController {
     update();
   }
 
-  void cancelingSchedule() async {
+  void cancelSchedule() async {
     selectedStatus.value = DonorHistorySelectedStatus.loading;
     update();
     try {

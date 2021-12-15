@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../shared/theme.dart';
-import '../../../get_x/controller/donor_detail_overlay_controller.dart';
-import '../../../get_x/controller/donor_history_controller.dart';
+import '../../../get_x/controller/submission_history_controller.dart';
+import '../../../get_x/controller/history_detail_overlay_controller.dart';
 import '../widgets/detail_dialog_button.dart';
 
-class ConfirmCancelDialog extends StatelessWidget {
-  ConfirmCancelDialog({
+class ConfirmCancelSubmissionDialog extends StatelessWidget {
+  ConfirmCancelSubmissionDialog({
     Key? key,
   }) : super(key: key);
 
-  final DonorDetailOverlayController overlay = Get.find();
-  final DonorHistoryController donorController = Get.find();
+  final HistoryDetailOverlayController overlay = Get.find();
+  final SubmissionHistoryController submissionController = Get.find();
 
   String dialogTitle() {
-    switch (donorController.selectedStatus.value) {
-      case DonorHistorySelectedStatus.loaded:
-        return "Apakah anda yakin ingin membatalkan jadwal pendonoran?";
-      case DonorHistorySelectedStatus.loading:
+    switch (submissionController.selectedStatus.value) {
+      case SubmissionHistorySelectedStatus.loaded:
+        return "Apakah anda yakin ingin membatalkan permohonan?";
+      case SubmissionHistorySelectedStatus.loading:
         return "Sedang memproses, harap tunggu...";
-      case DonorHistorySelectedStatus.updated:
-        return "Jadwal donor berhasil dibatalkan!";
+      case SubmissionHistorySelectedStatus.updated:
+        return "Permohonan berhasil dibatalkan!";
       default:
         return "Terjadi Kesalahan, harap coba kembali.";
     }
@@ -47,10 +47,10 @@ class ConfirmCancelDialog extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
-            if (donorController.selectedStatus.value !=
-                    DonorHistorySelectedStatus.loading &&
-                donorController.selectedStatus.value !=
-                    DonorHistorySelectedStatus.updated)
+            if (submissionController.selectedStatus.value !=
+                    SubmissionHistorySelectedStatus.loading &&
+                submissionController.selectedStatus.value !=
+                    SubmissionHistorySelectedStatus.updated)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -58,19 +58,19 @@ class ConfirmCancelDialog extends StatelessWidget {
                     label: "Tidak",
                     active: false,
                     onPressed: () {
-                      donorController.selectedStatus.value =
-                          DonorHistorySelectedStatus.loaded;
+                      submissionController.selectedStatus.value =
+                          SubmissionHistorySelectedStatus.loaded;
                       overlay.removeOverlay();
                     },
                   ),
                   DetailDialogButton(
-                    label: (donorController.selectedStatus.value ==
-                            DonorHistorySelectedStatus.failed)
+                    label: (submissionController.selectedStatus.value ==
+                            SubmissionHistorySelectedStatus.failed)
                         ? "Coba Lagi"
                         : "Ya",
                     active: true,
                     onPressed: () {
-                      donorController.cancelingSchedule();
+                      submissionController.cancelSubmission();
                     },
                   ),
                 ],
