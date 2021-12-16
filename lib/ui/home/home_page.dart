@@ -69,7 +69,11 @@ class HomePage extends StatelessWidget {
                               ? failed(() {
                                   donorStatisticController.onInit();
                                 })
-                              : trend(donorStatisticController.dataList),
+                              : trend(
+                                  donorStatisticController
+                                      .donorModel.value.dataStatistics!,
+                                  donorStatisticController
+                                      .donorModel.value.pointer!),
                       homeDivider(),
                       title("Jadwal Donor"),
                       Obx(

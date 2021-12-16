@@ -16,7 +16,7 @@ enum StatusSubmissionDonor {
 }
 
 class DonorStatisticController extends GetxController {
-  late List<Rx<ListData>> dataList = [];
+  Rx<DonorStatisticModel> donorModel = DonorStatisticModel().obs;
   Rx<DataSubmission> dataSubmission = DataSubmission().obs;
 
   Rx<StatusStatisticDonor> statusStatistic = StatusStatisticDonor.loading.obs;
@@ -33,9 +33,7 @@ class DonorStatisticController extends GetxController {
   void getDataStatistic() async {
     statusStatistic.value = StatusStatisticDonor.loading;
     try {
-      dataList = await DonorStatisticServices.donorStatistic().then(
-        (value) => value.map((e) => e.obs).toList(),
-      );
+      donorModel.value = await DonorStatisticServices.donorStatistic();
       statusStatistic.value = StatusStatisticDonor.loaded;
     } catch (e) {
       print(e);
