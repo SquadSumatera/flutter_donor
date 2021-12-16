@@ -1,3 +1,4 @@
+import 'package:flutter_donor/ui/event/event_search_page.dart';
 import 'package:get/get.dart';
 import '../ui/donor/donor_page.dart';
 import '../ui/event/event_detail_page.dart';
@@ -107,5 +108,11 @@ class AppPages {
       name: Routes.webviewArticle,
       page: () => WebviewArticlePage(),
     ),
+    GetPage(
+      name: Routes.eventSearch,
+      page: () => EventSearchPage(),
+      transition: Transition.cupertino,
+      transitionDuration: Duration(microseconds: 200),
+    )
   ];
 }

@@ -51,8 +51,16 @@ class EventPage extends StatelessWidget {
                   )
                 : ListView(
                     children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(
+                            Routes.eventSearch,
+                          );
+                        },
+                        child: search(),
+                      ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 24.0, top: 24.0),
+                        padding: const EdgeInsets.only(left: 24.0, top: 14.0),
                         child: Text(
                           "Terbaru",
                           style: AppText.textSemiLarge.copyWith(

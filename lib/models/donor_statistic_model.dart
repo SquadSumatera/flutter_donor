@@ -10,12 +10,14 @@ class DonorStatisticModel {
   DonorStatisticModel({
     this.status,
     this.message,
-    this.data,
+    this.pointer,
+    this.dataStatistics,
   });
 
   int? status;
   String? message;
-  List<ListData>? data;
+  List<int>? pointer;
+  List<DataStatistics>? dataStatistics;
 
   factory DonorStatisticModel.fromJson(String str) =>
       DonorStatisticModel.fromMap(json.decode(str));
@@ -26,7 +28,14 @@ class DonorStatisticModel {
       DonorStatisticModel(
         status: json["status"],
         message: json["message"],
-        data: List<ListData>.from(json["data"].map((x) => ListData.fromMap(x))),
+        pointer: List<int>.from(
+          json["data"]["pointers"].map((x) => x),
+        ),
+        dataStatistics: List<DataStatistics>.from(
+          json["data"]["statistics"].map(
+            (x) => DataStatistics.fromMap(x),
+          ),
+        ),
       );
 
   // Map<String, dynamic> toMap() => {
@@ -36,8 +45,8 @@ class DonorStatisticModel {
   // };
 }
 
-class ListData {
-  ListData({
+class DataStatistics {
+  DataStatistics({
     this.periods,
     this.counts,
   });
@@ -53,11 +62,12 @@ class ListData {
     }
   }
 
-  factory ListData.fromJson(String str) => ListData.fromMap(json.decode(str));
+  factory DataStatistics.fromJson(String str) =>
+      DataStatistics.fromMap(json.decode(str));
 
   // String toJson() => json.encode(toMap());
 
-  factory ListData.fromMap(Map<String, dynamic> json) => ListData(
+  factory DataStatistics.fromMap(Map<String, dynamic> json) => DataStatistics(
         periods: DateTime.parse(json["periods"]),
         counts: json["counts"],
       );

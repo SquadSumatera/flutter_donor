@@ -21,4 +21,5 @@ abstract class Routes {
   static const String donorDetail = '/donor-detail';
   static const String submissionDetail = '/request-detail';
   static const String webviewArticle = '/webview-article';
+  static const String eventSearch = '/event-search';
 }
