@@ -46,7 +46,6 @@ class DonorServices {
     var request = MultipartRequest('POST', uri);
     Map<String, String> headers = {
       "Authorization": "Bearer $token",
-      "Content-type": "multipart/form-data"
     };
     Map<String, String> body = ({
       "id_institutions": id_institutions,
@@ -55,15 +54,15 @@ class DonorServices {
       "blood_type_donor_submissions": blood_type,
       "blood_rhesus_donor_submissions": blood_rhesus,
       "quantity_donor_submissions": quantity,
-      "file_document_donor_submissions": document_type,
-      "file_document_donor_submissions": letter,
+      "type_document_donor_submissions": document_type,
+      "type_document_donor_submissions": letter,
     });
     request.files.add(
       MultipartFile(
         'file_document_donor_submissions',
         document_uri.readAsBytes().asStream(),
         document_uri.lengthSync(),
-        filename: document_uri.path,
+          filename: document_uri.path.split("/").last
       ),
     );
     request.files.add(
@@ -71,14 +70,16 @@ class DonorServices {
         'file_document_donor_submissions',
         letter_uri.readAsBytes().asStream(),
         letter_uri.lengthSync(),
-        filename: letter_uri.path,
+          filename: letter_uri.path.split("/").last
       ),
     );
     request.fields
         .addAll(body);
     request.headers.addAll(headers);
 
-    print("request: " + request.toString());
+    print("request header: " + request.headers.toString());
+    print("request files: " + request.files.map((e) => e.filename).toString());
+    print("request field: " + request.fields.toString());
     var res = await request.send();
     print("This is response:" + res.toString());
     return res.statusCode;

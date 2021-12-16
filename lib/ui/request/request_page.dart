@@ -3,7 +3,11 @@ import 'dart:io';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/request_controller.dart';
+import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/models/institution_model.dart';
+import 'package:flutter_donor/services/donor_services.dart';
+import 'package:flutter_donor/services/institution_services.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -18,14 +22,15 @@ class RequestPage extends StatefulWidget {
 class _RequestPageState extends State<RequestPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController applicantController = TextEditingController();
-  TextEditingController bloodTypeController = TextEditingController();
-  TextEditingController rhesusTypeController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
   TextEditingController ktpController = TextEditingController();
   TextEditingController letterController = TextEditingController();
 
   late File selectedKtp;
   late File selectedLetter;
+
+  final LoginGetX loginGetX = Get.find<LoginGetX>();
+  final RequestController requestGetX = Get.put(RequestController());
 
   @override
   Widget build(BuildContext context) {
@@ -157,6 +162,10 @@ class _RequestPageState extends State<RequestPage> {
                     mode: Mode.DIALOG,
                     showSelectedItems: false,
                     items: ['A', 'B', 'AB', 'O'],
+                    onChanged: (data) {
+                      requestGetX.changeDataBlood(data);
+                      print(data);
+                    },
                     dropdownSearchBaseStyle:
                         const TextStyle(color: AppColor.rubyRed),
                     dropdownSearchDecoration: InputDecoration(
@@ -191,6 +200,15 @@ class _RequestPageState extends State<RequestPage> {
                     mode: Mode.DIALOG,
                     showSelectedItems: false,
                     items: ['+', '-'],
+                    onChanged: (data) {
+                      if (data == '+') {
+                        requestGetX.changeDataRhesus("positive");
+                      } else if (data == '-') {
+                        requestGetX.changeDataRhesus("negative");
+                      }
+
+                      print(data);
+                    },
                     dropdownSearchBaseStyle:
                         const TextStyle(color: AppColor.rubyRed),
                     dropdownSearchDecoration: InputDecoration(
@@ -253,10 +271,15 @@ class _RequestPageState extends State<RequestPage> {
                         showSearchBox: true,
                         mode: Mode.BOTTOM_SHEET,
                         showSelectedItems: false,
-                        // onFind: (String? filter) async {
-                        //   return await InstitutionServices.listInstitution(
-                        //       token: loginGetX.token.value);
-                        // },
+                        onFind: (String? filter) async {
+                          return await InstitutionServices.listInstitution(
+                              token: loginGetX.token.value);
+                        },
+                        onChanged: (data) {
+                          requestGetX
+                              .changeDataInstituion(data!.idInstitutions);
+                          print(data.idInstitutions);
+                        },
                         itemAsString: (data) => data!.nameInstitutions!,
                         showAsSuffixIcons: true,
                         dropdownSearchBaseStyle:
@@ -269,7 +292,6 @@ class _RequestPageState extends State<RequestPage> {
                         ),
                       )),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.only(top: 18, left: 18.0),
                   child: Text(
@@ -300,22 +322,25 @@ class _RequestPageState extends State<RequestPage> {
                       ),
                       hintStyle: AppText.textMedium.copyWith(
                           color: AppColor.cGrey, fontWeight: AppText.normal),
-                    ), onTap: () async {
-                    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom,
-                      allowedExtensions: ['jpeg', 'jpg', 'png', 'pdf'],);
+                    ),
+                    onTap: () async {
+                      FilePickerResult? result =
+                          await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['jpeg', 'jpg', 'png', 'pdf'],
+                      );
 
-                    if (result != null) {
-                      File file = File(result.files.single.path!);
-                      setState(() {
-                        selectedKtp = file;
-                        ktpController.text = result.files.first.name;
-                      });
-                    } else {
-                      // User canceled the picker
-                    }
-                  },
+                      if (result != null) {
+                        File file = File(result.files.single.path!);
+                        setState(() {
+                          selectedKtp = file;
+                          ktpController.text = result.files.first.name;
+                        });
+                      } else {
+                        // User canceled the picker
+                      }
+                    },
                   ),
-
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 18, left: 18.0),
@@ -346,23 +371,25 @@ class _RequestPageState extends State<RequestPage> {
                       ),
                       hintStyle: AppText.textMedium.copyWith(
                           color: AppColor.cGrey, fontWeight: AppText.normal),
-                    ), onTap: () async {
+                    ),
+                    onTap: () async {
+                      FilePickerResult? result =
+                          await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['jpeg', 'jpg', 'png', 'pdf'],
+                      );
 
-                    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom,
-                      allowedExtensions: ['jpeg', 'jpg', 'png', 'pdf'],);
-
-                    if (result != null) {
-                      File file = File(result.files.single.path!);
-                      setState(() {
-                        selectedLetter = file;
-                        letterController.text = result.files.first.name;
-                      });
-                    } else {
-                      // User canceled the picker
-                    }
-                  },
+                      if (result != null) {
+                        File file = File(result.files.single.path!);
+                        setState(() {
+                          selectedLetter = file;
+                          letterController.text = result.files.first.name;
+                        });
+                      } else {
+                        // User canceled the picker
+                      }
+                    },
                   ),
-
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 50, left: 15),
@@ -380,7 +407,41 @@ class _RequestPageState extends State<RequestPage> {
                       style: AppText.textMedium.copyWith(
                           color: AppColor.white, fontWeight: AppText.semiBold),
                     ),
-                    onPressed: () async {},
+                    onPressed: () async {
+                      if (nameController.text.isEmpty ||
+                          applicantController.text.isEmpty ||
+                          requestGetX.blood.value.isEmpty ||
+                          requestGetX.rhesus.value.isEmpty ||
+                          quantityController.text.isEmpty ||
+                          requestGetX.instituion.value.isEmpty ||
+                          ktpController.text.isEmpty ||
+                          letterController.text.isEmpty) {
+                        Get.snackbar(
+                          "Data belum diisi",
+                          "Harap mengisi data yang tersedia",
+                          duration: const Duration(seconds: 2),
+                        );
+                      } else {
+                        var response = await DonorServices.createDonorRequest(
+                            token: loginGetX.token.value,
+                            id_institutions: requestGetX.instituion.value,
+                            recipient: nameController.text,
+                            applicant: applicantController.text,
+                            blood_type: requestGetX.blood.value,
+                            blood_rhesus: requestGetX.rhesus.value,
+                            quantity: quantityController.text,
+                            document_type: "KTP",
+                            document_uri: selectedKtp,
+                            letter: "Surat",
+                            letter_uri: selectedLetter);
+
+                        Get.snackbar(
+                          "$response",
+                          "",
+                          duration: const Duration(seconds: 2),
+                        );
+                      }
+                    },
                   ),
                 ),
               ],
