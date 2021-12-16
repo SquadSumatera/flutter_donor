@@ -1,4 +1,9 @@
+import 'dart:io';
+
+import 'package:dropdown_search/dropdown_search.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/models/institution_model.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -12,11 +17,15 @@ class RequestPage extends StatefulWidget {
 
 class _RequestPageState extends State<RequestPage> {
   TextEditingController nameController = TextEditingController();
-  TextEditingController nikController = TextEditingController();
+  TextEditingController applicantController = TextEditingController();
   TextEditingController bloodTypeController = TextEditingController();
   TextEditingController rhesusTypeController = TextEditingController();
-  TextEditingController kumorbidController = TextEditingController();
-  TextEditingController notesController = TextEditingController();
+  TextEditingController quantityController = TextEditingController();
+  TextEditingController ktpController = TextEditingController();
+  TextEditingController letterController = TextEditingController();
+
+  late File selectedKtp;
+  late File selectedLetter;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +105,7 @@ class _RequestPageState extends State<RequestPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0, left: 18.0),
                   child: Text(
-                    'NIK Penerima',
+                    'Nama Lengap Pemohon',
                     style: AppText.textMedium.copyWith(
                         color: AppColor.cDarkBlue,
                         fontWeight: AppText.semiBold),
@@ -108,9 +117,9 @@ class _RequestPageState extends State<RequestPage> {
                   ),
                   width: 300,
                   child: TextField(
-                    controller: nikController,
+                    controller: applicantController,
                     decoration: InputDecoration(
-                      hintText: "Masukkan NIK Penerima donor",
+                      hintText: "Masukkan Nama Lengkap Pemohon",
                       border: const UnderlineInputBorder(),
                       focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.blue),
@@ -137,17 +146,21 @@ class _RequestPageState extends State<RequestPage> {
                     left: 18.0,
                   ),
                   width: 300,
-                  child: TextField(
-                    controller: bloodTypeController,
-                    decoration: InputDecoration(
+                  child: DropdownSearch<String>(
+                    dropDownButton: const Icon(
+                      Icons.keyboard_arrow_down,
+                      size: 24,
+                      color: AppColor.cRed,
+                    ),
+                    showAsSuffixIcons: true,
+                    showSearchBox: false,
+                    mode: Mode.DIALOG,
+                    showSelectedItems: false,
+                    items: ['A', 'B', 'AB', 'O'],
+                    dropdownSearchBaseStyle:
+                        const TextStyle(color: AppColor.rubyRed),
+                    dropdownSearchDecoration: InputDecoration(
                       hintText: "Pilih tipe darah penerima",
-                      border: const UnderlineInputBorder(),
-                      focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue),
-                      ),
-                      enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
                       hintStyle: AppText.textMedium.copyWith(
                           color: AppColor.cGrey, fontWeight: AppText.normal),
                     ),
@@ -167,17 +180,21 @@ class _RequestPageState extends State<RequestPage> {
                     left: 18.0,
                   ),
                   width: 300,
-                  child: TextField(
-                    controller: rhesusTypeController,
-                    decoration: InputDecoration(
+                  child: DropdownSearch<String>(
+                    dropDownButton: const Icon(
+                      Icons.keyboard_arrow_down,
+                      size: 24,
+                      color: AppColor.cRed,
+                    ),
+                    showAsSuffixIcons: true,
+                    showSearchBox: false,
+                    mode: Mode.DIALOG,
+                    showSelectedItems: false,
+                    items: ['+', '-'],
+                    dropdownSearchBaseStyle:
+                        const TextStyle(color: AppColor.rubyRed),
+                    dropdownSearchDecoration: InputDecoration(
                       hintText: "Pilih tipe rhesus penerima",
-                      border: const UnderlineInputBorder(),
-                      focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue),
-                      ),
-                      enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
                       hintStyle: AppText.textMedium.copyWith(
                           color: AppColor.cGrey, fontWeight: AppText.normal),
                     ),
@@ -186,7 +203,7 @@ class _RequestPageState extends State<RequestPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0, left: 18.0),
                   child: Text(
-                    'Kumorbid',
+                    'Jumlah',
                     style: AppText.textMedium.copyWith(
                         color: AppColor.cDarkBlue,
                         fontWeight: AppText.semiBold),
@@ -198,7 +215,8 @@ class _RequestPageState extends State<RequestPage> {
                   ),
                   width: 300,
                   child: TextField(
-                    controller: kumorbidController,
+                    controller: quantityController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       hintText: "Masukkan kumorbid penerima, jika ada",
                       border: const UnderlineInputBorder(),
@@ -214,9 +232,48 @@ class _RequestPageState extends State<RequestPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 18.0, left: 18.0),
+                  padding: const EdgeInsets.only(top: 18, left: 18.0),
                   child: Text(
-                    'Catatan',
+                    'Lokasi Pendonor',
+                    style: AppText.textMedium.copyWith(
+                        color: AppColor.cDarkBlue,
+                        fontWeight: AppText.semiBold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 18.0),
+                  child: SizedBox(
+                      width: 300,
+                      child: DropdownSearch<Datum?>(
+                        dropDownButton: const Icon(
+                          Icons.keyboard_arrow_down,
+                          size: 24,
+                          color: AppColor.cRed,
+                        ),
+                        showSearchBox: true,
+                        mode: Mode.BOTTOM_SHEET,
+                        showSelectedItems: false,
+                        // onFind: (String? filter) async {
+                        //   return await InstitutionServices.listInstitution(
+                        //       token: loginGetX.token.value);
+                        // },
+                        itemAsString: (data) => data!.nameInstitutions!,
+                        showAsSuffixIcons: true,
+                        dropdownSearchBaseStyle:
+                            TextStyle(color: AppColor.rubyRed),
+                        dropdownSearchDecoration: InputDecoration(
+                          hintText: "Pilih Lokasi PMI Terdekat",
+                          hintStyle: AppText.textMedium.copyWith(
+                              color: AppColor.cGrey,
+                              fontWeight: AppText.normal),
+                        ),
+                      )),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(top: 18, left: 18.0),
+                  child: Text(
+                    'KTP',
                     style: AppText.textMedium.copyWith(
                         color: AppColor.cDarkBlue,
                         fontWeight: AppText.semiBold),
@@ -228,9 +285,12 @@ class _RequestPageState extends State<RequestPage> {
                   ),
                   width: 300,
                   child: TextField(
-                    controller: notesController,
+                    controller: ktpController,
+                    showCursor: false,
+                    readOnly: true,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      hintText: "Masukkan catatan, jika ada",
+                      hintText: "Lampirkan KTP",
                       border: const UnderlineInputBorder(),
                       focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.blue),
@@ -240,8 +300,69 @@ class _RequestPageState extends State<RequestPage> {
                       ),
                       hintStyle: AppText.textMedium.copyWith(
                           color: AppColor.cGrey, fontWeight: AppText.normal),
-                    ),
+                    ), onTap: () async {
+                    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom,
+                      allowedExtensions: ['jpeg', 'jpg', 'png', 'pdf'],);
+
+                    if (result != null) {
+                      File file = File(result.files.single.path!);
+                      setState(() {
+                        selectedKtp = file;
+                        ktpController.text = result.files.first.name;
+                      });
+                    } else {
+                      // User canceled the picker
+                    }
+                  },
                   ),
+
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 18, left: 18.0),
+                  child: Text(
+                    'Surat Rujukan',
+                    style: AppText.textMedium.copyWith(
+                        color: AppColor.cDarkBlue,
+                        fontWeight: AppText.semiBold),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 18.0,
+                  ),
+                  width: 300,
+                  child: TextField(
+                    controller: letterController,
+                    showCursor: false,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      hintText: "Lampirkan Surat Rujukan",
+                      border: const UnderlineInputBorder(),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      hintStyle: AppText.textMedium.copyWith(
+                          color: AppColor.cGrey, fontWeight: AppText.normal),
+                    ), onTap: () async {
+
+                    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom,
+                      allowedExtensions: ['jpeg', 'jpg', 'png', 'pdf'],);
+
+                    if (result != null) {
+                      File file = File(result.files.single.path!);
+                      setState(() {
+                        selectedLetter = file;
+                        letterController.text = result.files.first.name;
+                      });
+                    } else {
+                      // User canceled the picker
+                    }
+                  },
+                  ),
+
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 50, left: 15),
