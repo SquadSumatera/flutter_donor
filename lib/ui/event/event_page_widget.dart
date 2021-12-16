@@ -9,14 +9,8 @@ Widget eventCardMedium(EventDetailModel eventDetail) {
     margin: const EdgeInsets.symmetric(horizontal: 32, vertical: 6.0),
     height: 69.0,
     decoration: BoxDecoration(
-      boxShadow: [
-        BoxShadow(
-          color: AppColor.cBlack.withOpacity(0.2),
-          blurRadius: 4.0,
-          offset: const Offset(0, 2),
-        )
-      ],
-      color: AppColor.cLightGrey,
+      boxShadow: AppShadow.small,
+      color: AppColor.white.withOpacity(0.8),
       borderRadius: BorderRadius.circular(8.0),
     ),
     child: Row(
@@ -100,14 +94,8 @@ Widget eventCardLarge(Uint8List image, String title, String institutions,
       margin: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
       height: 205.0,
       decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.cBlack.withOpacity(0.18),
-            blurRadius: 8.0,
-            offset: const Offset(0, 4),
-          )
-        ],
-        color: AppColor.cLightGrey,
+        boxShadow: AppShadow.small,
+        color: AppColor.white.withOpacity(0.8),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Column(
@@ -188,6 +176,44 @@ Widget eventCardLarge(Uint8List image, String title, String institutions,
           ),
         ],
       ),
+    ),
+  );
+}
+
+Widget search() {
+  return Container(
+    margin: const EdgeInsets.only(
+      top: 14.0,
+      left: 24.0,
+      right: 24.0,
+    ),
+    padding: const EdgeInsets.symmetric(
+      vertical: 14.0,
+      horizontal: 16.0,
+    ),
+    height: 45.0,
+    decoration: BoxDecoration(
+      color: AppColor.solitudeBlue,
+      borderRadius: BorderRadius.circular(14.0),
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Icon(
+          Icons.search_rounded,
+          color: AppColor.rockBlue,
+          size: 15.0,
+        ),
+        const SizedBox(
+          width: 14.0,
+        ),
+        Text(
+          "Cari event lainnya ...",
+          style: AppText.textNormal
+              .copyWith(fontWeight: AppText.normal, color: AppColor.rockBlue),
+        )
+      ],
     ),
   );
 }
