@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/event_list_controller.dart';
+import 'package:flutter_donor/get_x/controller/event_search_controller.dart';
 import '../../models/dummy_event_model.dart';
 import '../../routes/app_pages.dart';
 import 'event_page_widget.dart';
@@ -8,7 +9,6 @@ import 'package:get/get.dart';
 
 class EventPage extends StatelessWidget {
   EventPage({Key? key}) : super(key: key);
-
   final EventListController listEvent = Get.find<EventListController>();
 
   @override
