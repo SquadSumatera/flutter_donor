@@ -8,9 +8,13 @@ import 'event_detail_widget.dart';
 import 'package:get/get.dart';
 
 class EventDetailPage extends StatelessWidget {
-  EventDetailPage({Key? key}) : super(key: key);
+  EventDetailPage({
+    Key? key,
+  }) : super(key: key);
 
   final ProfileController profileController = Get.find<ProfileController>();
+
+  List<bool> search = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,7 @@ class EventDetailPage extends StatelessWidget {
       body: ListView(
         children: [
           headerEventDetail(context, Get.parameters['image']!,
-              "${Get.parameters["idDonor"]}"),
+              "${Get.parameters["idDonor"]}", search[0]),
           Container(
             margin: const EdgeInsets.only(right: 18, left: 18, top: 16),
             child: headingTextDetail(

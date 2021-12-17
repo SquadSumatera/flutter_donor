@@ -28,13 +28,16 @@ class EventListController extends GetxController {
     try {
       listData = await EventListServices.eventListServices(token: tokenGet)
           .then((value) => value.map((e) => e.obs).toList());
-      for (var i = 0; i < listData.length; i++) {
-        var linkFor = listData[i].value.pictureDonorEvents;
-        var j = await EventImageServices.eventImageServices(
-                token: tokenGet, link: linkFor!)
-            .then((value) => value.file);
-        image.add(j);
+      if (listData != List.empty()) {
+        for (var i = 0; i < listData.length; i++) {
+          var linkFor = listData[i].value.pictureDonorEvents;
+          var j = await EventImageServices.eventImageServices(
+                  token: tokenGet, link: linkFor!)
+              .then((value) => value.file);
+          image.add(j);
+        }
       }
+
       status.value = ListEventStatus.loaded;
     } catch (e) {
       print(e);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/event_search_controller.dart';
+import 'package:get/get.dart';
 
 final InputBorder _inputBorder = OutlineInputBorder(
   borderRadius: BorderRadius.circular(20.0),
@@ -9,10 +10,11 @@ final InputBorder _inputBorder = OutlineInputBorder(
   ),
 );
 
-Widget searchField(EventSearchController searchController) {
+Widget searchField() {
+  final EventSearchController searchController =
+      Get.find<EventSearchController>();
   return TextFormField(
     controller: searchController.searchController,
-    initialValue: "Cari",
     decoration: InputDecoration(
       filled: true,
       fillColor: Colors.white,
@@ -25,13 +27,15 @@ Widget searchField(EventSearchController searchController) {
       contentPadding: const EdgeInsets.all(18.0),
       suffixIcon: IconButton(
         onPressed: () {
-          // valueSetter(controller.text);
+          searchController.getSearchData(
+            searchController.searchController.text,
+          );
         },
         icon: const Icon(Icons.search),
       ),
     ),
     onFieldSubmitted: (val) {
-      // valueSetter(val);
+      searchController.getSearchData(val);
     },
   );
 }

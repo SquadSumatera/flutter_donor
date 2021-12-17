@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 class EventSearchModel {
   EventSearchModel({
     this.status,
@@ -80,6 +82,30 @@ class Datum {
   factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
+
+  String get created {
+    if (createdAt == null) {
+      return "--/--/----";
+    } else {
+      return DateFormat("dd MMMM yyyy", "id").format(createdAt!);
+    }
+  }
+
+  String get start {
+    if (startDonorEvents == null) {
+      return "--/--/----";
+    } else {
+      return DateFormat("dd MMMM yyyy", "id").format(startDonorEvents!);
+    }
+  }
+
+  String get end {
+    if (endDonorEvents == null) {
+      return "--/--/----";
+    } else {
+      return DateFormat("dd MMMM yyyy", "id").format(endDonorEvents!);
+    }
+  }
 
   factory Datum.fromMap(Map<String, dynamic> json) => Datum(
         idDonorEvents: json["id_donor_events"],
