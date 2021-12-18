@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/models/donor_history_model.dart';
-import 'package:flutter_donor/ui/history/overlay/detail_overlay_section.dart';
-import 'package:flutter_donor/ui/history/subsection/confirm_cancel_dialog.dart';
+import 'package:flutter_donor/ui/history/overlay/donor_detail_overlay_section.dart';
+import 'package:flutter_donor/ui/history/subsection/confirm_cancel_donor_dialog.dart';
 import 'package:flutter_donor/ui/history/subsection/confirm_change_dialog.dart';
 import '../../../get_x/controller/donor_history_controller.dart';
 import '../../../shared/theme.dart';
@@ -21,7 +21,7 @@ class ScheduleDetailSection extends StatelessWidget {
     );
     if (newDate != null) {
       Overlay.of(context)!.insert(
-        detailOverlaySection(
+        donorDetailOverlaySection(
           child: ConfirmChangeDialog(
             proposedDate: newDate,
           ),
@@ -126,8 +126,8 @@ class ScheduleDetailSection extends StatelessWidget {
                               ),
                               onPressed: () {
                                 Overlay.of(context)!.insert(
-                                  detailOverlaySection(
-                                    child: ConfirmCancelDialog(),
+                                  donorDetailOverlaySection(
+                                    child: ConfirmCancelDonorDialog(),
                                   ),
                                 );
                               },

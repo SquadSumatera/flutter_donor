@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DonorDetailOverlayController extends GetxController {
+class HistoryDetailOverlayController extends GetxController {
   OverlayEntry? entry;
 
   void addOverlay(OverlayEntry entry) {

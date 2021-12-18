@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/event_list_controller.dart';
+import 'package:flutter_donor/get_x/controller/event_search_controller.dart';
 import '../../models/dummy_event_model.dart';
 import '../../routes/app_pages.dart';
 import 'event_page_widget.dart';
@@ -8,7 +9,6 @@ import 'package:get/get.dart';
 
 class EventPage extends StatelessWidget {
   EventPage({Key? key}) : super(key: key);
-
   final EventListController listEvent = Get.find<EventListController>();
 
   @override
@@ -51,8 +51,16 @@ class EventPage extends StatelessWidget {
                   )
                 : ListView(
                     children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(
+                            Routes.eventSearch,
+                          );
+                        },
+                        child: search(),
+                      ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 24.0, top: 24.0),
+                        padding: const EdgeInsets.only(left: 24.0, top: 14.0),
                         child: Text(
                           "Terbaru",
                           style: AppText.textSemiLarge.copyWith(
@@ -63,8 +71,10 @@ class EventPage extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(Routes.event +
-                              "/0?nameHeading=${listEvent.listData[0].value.titleDonorEvents}&published=${listEvent.listData[0].value.nameInstitutions}&time=${listEvent.listData[0].value.created}&start=${listEvent.listData[0].value.start}&end=${listEvent.listData[0].value.end}&desc=${listEvent.listData[0].value.descDonorEvents}&address=${listEvent.listData[0].value.addressDonorEvents}&image=${0.toString()}&contact=${listEvent.listData[0].value.contactConstitutions}&email=${listEvent.listData[0].value.emailConstitutions}&idDonor=${listEvent.listData[0].value.idDonorEvents}&idInstitution=${listEvent.listData[0].value.idInstitutions}");
+                          Get.toNamed(
+                              Routes.event +
+                                  "/0?nameHeading=${listEvent.listData[0].value.titleDonorEvents}&published=${listEvent.listData[0].value.nameInstitutions}&time=${listEvent.listData[0].value.created}&start=${listEvent.listData[0].value.start}&end=${listEvent.listData[0].value.end}&desc=${listEvent.listData[0].value.descDonorEvents}&address=${listEvent.listData[0].value.addressDonorEvents}&image=${0.toString()}&contact=${listEvent.listData[0].value.contactConstitutions}&email=${listEvent.listData[0].value.emailConstitutions}&idDonor=${listEvent.listData[0].value.idDonorEvents}&idInstitution=${listEvent.listData[0].value.idInstitutions}",
+                              arguments: [false]);
                         },
                         child: eventCardLarge(
                           listEvent.image[0],
@@ -90,8 +100,10 @@ class EventPage extends StatelessWidget {
                         primary: false,
                         itemCount: listEvent.listData.length - 1,
                         itemBuilder: (context, i) => GestureDetector(
-                          onTap: () => Get.toNamed(Routes.event +
-                              "/${i + 1}?nameHeading=${listEvent.listData[i + 1].value.titleDonorEvents}&published=${listEvent.listData[i + 1].value.nameInstitutions}&time=${listEvent.listData[i + 1].value.created}&start=${listEvent.listData[i + 1].value.start}&end=${listEvent.listData[i + 1].value.end}&desc=${listEvent.listData[i + 1].value.descDonorEvents}&address=${listEvent.listData[i + 1].value.addressDonorEvents}&image=${(i + 1).toString()}&contact=${listEvent.listData[i + 1].value.contactConstitutions}&email=${listEvent.listData[i + 1].value.emailConstitutions}&idDonor=${listEvent.listData[i + 1].value.idDonorEvents}&idInstitution=${listEvent.listData[i + 1].value.idInstitutions}"),
+                          onTap: () => Get.toNamed(
+                              Routes.event +
+                                  "/${i + 1}?nameHeading=${listEvent.listData[i + 1].value.titleDonorEvents}&published=${listEvent.listData[i + 1].value.nameInstitutions}&time=${listEvent.listData[i + 1].value.created}&start=${listEvent.listData[i + 1].value.start}&end=${listEvent.listData[i + 1].value.end}&desc=${listEvent.listData[i + 1].value.descDonorEvents}&address=${listEvent.listData[i + 1].value.addressDonorEvents}&image=${(i + 1).toString()}&contact=${listEvent.listData[i + 1].value.contactConstitutions}&email=${listEvent.listData[i + 1].value.emailConstitutions}&idDonor=${listEvent.listData[i + 1].value.idDonorEvents}&idInstitution=${listEvent.listData[i + 1].value.idInstitutions}",
+                              arguments: [false]),
                           child: eventCardMedium(
                             EventDetailModel(
                               idDonor: listEvent

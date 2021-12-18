@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import '../../../get_x/controller/donor_detail_overlay_controller.dart';
-import '../../../get_x/controller/donor_history_controller.dart';
+import '../../../get_x/controller/submission_history_controller.dart';
+import '../../../get_x/controller/history_detail_overlay_controller.dart';
 import 'package:get/get.dart';
 
-OverlayEntry detailOverlaySection({
+OverlayEntry submissionDetailOverlaySection({
   Widget? child,
 }) {
-  DonorDetailOverlayController c = Get.find();
-  DonorHistoryController h = Get.find();
+  HistoryDetailOverlayController c = Get.find();
+  SubmissionHistoryController h = Get.find();
 
   OverlayEntry? entry;
   entry = OverlayEntry(
@@ -19,12 +18,13 @@ OverlayEntry detailOverlaySection({
           Positioned.fill(
             child: GestureDetector(
               onTap: () {
-                if (h.status.value != DonorHistoryLoadStatus.loading &&
+                if (h.status.value != SubmissionHistoryLoadStatus.loading &&
                     h.selectedStatus.value !=
-                        DonorHistorySelectedStatus.loading) {
+                        SubmissionHistorySelectedStatus.loading) {
                   c.entry!.remove();
-                  h.status.value = DonorHistoryLoadStatus.loaded;
-                  h.selectedStatus.value = DonorHistorySelectedStatus.loaded;
+                  h.status.value = SubmissionHistoryLoadStatus.loaded;
+                  h.selectedStatus.value =
+                      SubmissionHistorySelectedStatus.loaded;
                 }
               },
               child: Container(

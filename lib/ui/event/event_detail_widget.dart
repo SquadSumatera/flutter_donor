@@ -2,11 +2,14 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/event_list_controller.dart';
+import 'package:flutter_donor/get_x/controller/event_search_controller.dart';
 import '../../shared/theme.dart';
 import 'package:get/get.dart';
 
-Widget headerEventDetail(BuildContext context, String image, String idDonor) {
+Widget headerEventDetail(
+    BuildContext context, String image, String idDonor, bool search) {
   final EventListController getImage = Get.find<EventListController>();
+  final EventSearchController getSearch = Get.put(EventSearchController());
   return Hero(
     tag: idDonor,
     child: Container(
@@ -15,7 +18,11 @@ Widget headerEventDetail(BuildContext context, String image, String idDonor) {
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: Image.memory(getImage.image[int.parse(image)]).image,
+          image: Image.memory(
+            search
+                ? getSearch.image[int.parse(image)]
+                : getImage.image[int.parse(image)],
+          ).image,
         ),
       ),
     ),

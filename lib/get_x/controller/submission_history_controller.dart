@@ -66,4 +66,23 @@ class SubmissionHistoryController extends GetxController {
       selectedStatus.value = SubmissionHistorySelectedStatus.failed;
     }
   }
+
+  void cancelSubmission() async {
+    selectedStatus.value = SubmissionHistorySelectedStatus.loading;
+    update();
+    try {
+      selected?.value = await SubmissionHistoryServices.cancelSubmission(
+        token: loginData.token.value,
+        id: selected?.value.idDonorSubmissions ?? '',
+      );
+      int idx = submissiontHistoryList.indexWhere((element) =>
+          element.value.idDonorSubmissions ==
+          selected?.value.idDonorSubmissions);
+      submissiontHistoryList[idx].value = selected!.value;
+      selectedStatus.value = SubmissionHistorySelectedStatus.updated;
+    } catch (e) {
+      selectedStatus.value = SubmissionHistorySelectedStatus.failed;
+    }
+    notifyChildrens();
+  }
 }

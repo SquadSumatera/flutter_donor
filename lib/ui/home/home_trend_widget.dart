@@ -5,7 +5,8 @@ import 'package:flutter_donor/shared/theme.dart';
 import 'package:get/get.dart';
 
 Widget trend(
-  List<Rx<ListData>> data,
+  List<DataStatistics> data,
+  List<int> pointer,
 ) {
   return Container(
     margin: const EdgeInsets.only(
@@ -30,7 +31,7 @@ Widget trend(
         AspectRatio(
           aspectRatio: 1.60,
           child: LineChart(
-            mainData(data),
+            mainData(data, pointer),
           ),
         ),
       ],
@@ -43,13 +44,7 @@ List<Color> gradientColors = [
   AppColor.cRed.withOpacity(0.8),
 ];
 
-LineChartData mainData(List<Rx<ListData>> data) {
-  int total = 0;
-  for (var i = 0; i < data.length; i++) {
-    if (total < data[i].value.counts!) {
-      total = data[i].value.counts!;
-    }
-  }
+LineChartData mainData(List<DataStatistics> data, List<int> pointer) {
   return LineChartData(
     backgroundColor: AppColor.white.withOpacity(0.3),
     lineTouchData: LineTouchData(
@@ -88,29 +83,29 @@ LineChartData mainData(List<Rx<ListData>> data) {
         getTitles: (value) {
           switch (value.toInt()) {
             case 0:
-              return data[11].value.months;
+              return data[11].months;
             case 1:
-              return data[10].value.months;
+              return data[10].months;
             case 2:
-              return data[9].value.months;
+              return data[9].months;
             case 3:
-              return data[8].value.months;
+              return data[8].months;
             case 4:
-              return data[7].value.months;
+              return data[7].months;
             case 5:
-              return data[6].value.months;
+              return data[6].months;
             case 6:
-              return data[5].value.months;
+              return data[5].months;
             case 7:
-              return data[4].value.months;
+              return data[4].months;
             case 8:
-              return data[3].value.months;
+              return data[3].months;
             case 9:
-              return data[2].value.months;
+              return data[2].months;
             case 10:
-              return data[1].value.months;
+              return data[1].months;
             case 11:
-              return data[0].value.months;
+              return data[0].months;
           }
           return '';
         },
@@ -124,19 +119,19 @@ LineChartData mainData(List<Rx<ListData>> data) {
           fontWeight: AppText.bold,
         ),
         getTitles: (value) {
-          switch (value.toInt()) {
-            case 20:
-              return '20%';
-            case 40:
-              return '40%';
-            case 60:
-              return '60%';
-            case 80:
-              return '80%';
-            case 100:
-              return '100%';
+          if (value.toInt() == pointer[0]) {
+            return pointer[0].toString();
+          } else if (value.toInt() == pointer[1]) {
+            return pointer[1].toString();
+          } else if (value.toInt() == pointer[2]) {
+            return pointer[2].toString();
+          } else if (value.toInt() == pointer[3]) {
+            return pointer[3].toString();
+          } else if (value.toInt() == pointer[4]) {
+            return pointer[4].toString();
+          } else {
+            return '';
           }
-          return '';
         },
         reservedSize: 32,
         margin: 1,
@@ -149,24 +144,24 @@ LineChartData mainData(List<Rx<ListData>> data) {
     minX: 0,
     maxX: 11,
     minY: 0,
-    maxY: total.toDouble(),
+    maxY: pointer[4].toDouble(),
     lineBarsData: [
       LineChartBarData(
         spots: [
-          FlSpot(0, data[11].value.counts!.toDouble()),
-          FlSpot(1, data[10].value.counts!.toDouble()),
-          FlSpot(2, data[9].value.counts!.toDouble()),
-          FlSpot(3, data[8].value.counts!.toDouble()),
-          FlSpot(4, data[7].value.counts!.toDouble()),
-          FlSpot(5, data[6].value.counts!.toDouble()),
-          FlSpot(6, data[5].value.counts!.toDouble()),
-          FlSpot(7, data[4].value.counts!.toDouble()),
-          FlSpot(8, data[3].value.counts!.toDouble()),
-          FlSpot(9, data[2].value.counts!.toDouble()),
-          FlSpot(10, data[1].value.counts!.toDouble()),
-          FlSpot(11, data[0].value.counts!.toDouble()),
+          FlSpot(0, data[11].counts!.toDouble()),
+          FlSpot(1, data[10].counts!.toDouble()),
+          FlSpot(2, data[9].counts!.toDouble()),
+          FlSpot(3, data[8].counts!.toDouble()),
+          FlSpot(4, data[7].counts!.toDouble()),
+          FlSpot(5, data[6].counts!.toDouble()),
+          FlSpot(6, data[5].counts!.toDouble()),
+          FlSpot(7, data[4].counts!.toDouble()),
+          FlSpot(8, data[3].counts!.toDouble()),
+          FlSpot(9, data[2].counts!.toDouble()),
+          FlSpot(10, data[1].counts!.toDouble()),
+          FlSpot(11, data[0].counts!.toDouble()),
         ],
-        curveSmoothness: 0.4,
+        curveSmoothness: 0.3,
         isCurved: true,
         colors: gradientColors,
         barWidth: 3.5,
