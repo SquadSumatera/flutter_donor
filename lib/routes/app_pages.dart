@@ -1,5 +1,7 @@
+import 'package:flutter_donor/ui/event/event_search_page.dart';
 import 'package:flutter_donor/ui/main/main_feature.dart';
 import 'package:get/get.dart';
+
 import '../ui/donor/donor_page.dart';
 import '../ui/event/event_detail_page.dart';
 import '../ui/event/event_page.dart';
@@ -11,8 +13,8 @@ import '../ui/home/section/webview_article_page.dart';
 import '../ui/location/location_maps_page.dart';
 import '../ui/location/location_page.dart';
 import '../ui/login/login_page.dart';
-import '../ui/main/main_page.dart';
 import '../ui/main/main_feature.dart';
+import '../ui/main/main_page.dart';
 import '../ui/onboarding/onboarding_page.dart';
 import '../ui/profile/profile_edit_identity/profile_edit_identity_page.dart';
 import '../ui/profile/profile_main/profile_page.dart';

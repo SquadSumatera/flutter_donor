@@ -1,3 +1,5 @@
+
+
 // To parse this JSON data, do
 //
 //     final donorSubmissionModel = donorSubmissionModelFromMap(jsonString);
@@ -29,11 +31,11 @@ class DonorSubmissionModel {
         data: DataSubmission.fromMap(json["data"]),
       );
 
-  // Map<String, dynamic> toMap() => {
-  //     "status": status,
-  //     "message": message,
-  //     "data": data == null ? null : data!.toMap(),
-  // };
+// Map<String, dynamic> toMap() => {
+//     "status": status,
+//     "message": message,
+//     "data": data == null ? null : data!.toMap(),
+// };
 }
 
 class DataSubmission {
@@ -63,16 +65,16 @@ class DataSubmission {
   // String toJson() => json.encode(toMap());
 
   factory DataSubmission.fromMap(Map<String, dynamic> json) => DataSubmission(
-        startPeriods: DateTime.parse(json["start_periods"]),
-        endPeriods: DateTime.parse(json["end_periods"]),
-        donorSubmissions: json["donor_submissions"],
-        bloodsCounts: json["bloods_counts"],
-      );
+    startPeriods: DateTime.parse(json["start_periods"]),
+    endPeriods: DateTime.parse(json["end_periods"]),
+    donorSubmissions: json["donor_submissions"],
+    bloodsCounts: json["bloods_counts"],
+  );
 
-  // Map<String, dynamic> toMap() => {
-  //     "start_periods": "${startPeriods.year.toString().padLeft(4, '0')}-${startPeriods.month.toString().padLeft(2, '0')}-${startPeriods.day.toString().padLeft(2, '0')}",
-  //     "end_periods": "${endPeriods.year.toString().padLeft(4, '0')}-${endPeriods.month.toString().padLeft(2, '0')}-${endPeriods.day.toString().padLeft(2, '0')}",
-  //     "donor_submissions": donorSubmissions,
-  //     "bloods_counts": bloodsCounts,
-  // };
+// Map<String, dynamic> toMap() => {
+//     "start_periods": "${startPeriods.year.toString().padLeft(4, '0')}-${startPeriods.month.toString().padLeft(2, '0')}-${startPeriods.day.toString().padLeft(2, '0')}",
+//     "end_periods": "${endPeriods.year.toString().padLeft(4, '0')}-${endPeriods.month.toString().padLeft(2, '0')}-${endPeriods.day.toString().padLeft(2, '0')}",
+//     "donor_submissions": donorSubmissions,
+//     "bloods_counts": bloodsCounts,
+// };
 }
