@@ -66,8 +66,8 @@ class Data {
   dynamic forInstitution;
   DateTime? createdAt;
   DateTime? updatedAt;
-  String? deletedAt;
-  List<DocumentDonorSubmission?>? documentDonorSubmissions;
+  dynamic deletedAt;
+  List<DocumentDonorSubmission>? documentDonorSubmissions;
 
   factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
 
@@ -108,7 +108,7 @@ class Data {
     "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
     "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
     "deleted_at": deletedAt,
-    "document_donor_submissions": documentDonorSubmissions == null ? null : List<dynamic>.from(documentDonorSubmissions!.map((x) => x!.toMap())),
+    "document_donor_submissions": documentDonorSubmissions == null ? null : List<dynamic>.from(documentDonorSubmissions!.map((x) => x.toMap())),
   };
 }
 
@@ -131,7 +131,7 @@ class DocumentDonorSubmission {
   dynamic forSubmissions;
   DateTime? createdAt;
   DateTime? updatedAt;
-  String? deletedAt;
+  dynamic deletedAt;
 
   factory DocumentDonorSubmission.fromJson(String str) => DocumentDonorSubmission.fromMap(json.decode(str));
 

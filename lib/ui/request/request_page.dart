@@ -5,7 +5,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/request_controller.dart';
 import 'package:flutter_donor/get_x/state/login_getx.dart';
+import 'package:flutter_donor/models/donor_request_model.dart';
 import 'package:flutter_donor/models/institution_model.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/services/donor_services.dart';
 import 'package:flutter_donor/services/institution_services.dart';
 import 'package:flutter_donor/shared/theme.dart';
@@ -110,7 +112,7 @@ class _RequestPageState extends State<RequestPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0, left: 18.0),
                   child: Text(
-                    'Nama Lengap Pemohon',
+                    'Nama Lengkap Pemohon',
                     style: AppText.textMedium.copyWith(
                         color: AppColor.cDarkBlue,
                         fontWeight: AppText.semiBold),
@@ -422,7 +424,7 @@ class _RequestPageState extends State<RequestPage> {
                           duration: const Duration(seconds: 2),
                         );
                       } else {
-                        var response = await DonorServices.createDonorRequest(
+                        DonorRequestModel response = await DonorServices.createDonorRequest(
                             token: loginGetX.token.value,
                             id_institutions: requestGetX.instituion.value,
                             recipient: nameController.text,
@@ -432,12 +434,16 @@ class _RequestPageState extends State<RequestPage> {
                             quantity: quantityController.text,
                             document_type: "KTP",
                             document_uri: selectedKtp,
-                            letter: "Surat",
+                            letter_type: "Surat",
                             letter_uri: selectedLetter);
 
+                        if (response.status == 200) {
+                          Get.offAllNamed(Routes.main);
+                        }
+
                         Get.snackbar(
-                          "$response",
-                          "",
+                          "${response.message}",
+                          "${response.status}",
                           duration: const Duration(seconds: 2),
                         );
                       }
