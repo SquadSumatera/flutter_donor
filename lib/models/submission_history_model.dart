@@ -41,6 +41,7 @@ class SubmissionHistoryModel {
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
+    this.documentDonorSubmissions,
   });
 
   String? idDonorSubmissions;
@@ -58,6 +59,7 @@ class SubmissionHistoryModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
+  List<DocumentDonorSubmission?>? documentDonorSubmissions;
 
   Color get designatedColor {
     switch (statusDonorSubmissions) {
@@ -150,6 +152,7 @@ class SubmissionHistoryModel {
     DateTime? createdAt,
     DateTime? updatedAt,
     dynamic deletedAt,
+    List<DocumentDonorSubmission?>? documentDonorSubmissions,
   }) =>
       SubmissionHistoryModel(
         idDonorSubmissions: idDonorSubmissions ?? this.idDonorSubmissions,
@@ -174,6 +177,7 @@ class SubmissionHistoryModel {
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
         deletedAt: deletedAt ?? this.deletedAt,
+        documentDonorSubmissions: documentDonorSubmissions ?? this.documentDonorSubmissions,
       );
 
   factory SubmissionHistoryModel.fromRawJson(String str) =>
@@ -199,6 +203,7 @@ class SubmissionHistoryModel {
         createdAt: DateTime?.tryParse(json["created_at"]),
         updatedAt: DateTime?.tryParse(json["updated_at"]),
         deletedAt: json["deleted_at"],
+        documentDonorSubmissions: List<DocumentDonorSubmission>.from(json["document_donor_submissions"].map((x) => DocumentDonorSubmission.fromJson(x))),
       );
 
   Map<String?, dynamic> toJson() => {
@@ -218,5 +223,75 @@ class SubmissionHistoryModel {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "deleted_at": deletedAt,
+        "document_donor_submissions": List<dynamic>.from(documentDonorSubmissions?.map((x) => x?.toJson()) ?? []),
       };
+}
+
+class DocumentDonorSubmission {
+    DocumentDonorSubmission({
+        this.idDocumentDonorSubmissions,
+        this.idDonorSubmissions,
+        this.fileDocumentDonorSubmissions,
+        this.typeDocumentDonorSubmissions,
+        this.forSubmissions,
+        this.createdAt,
+        this.updatedAt,
+        this.deletedAt,
+    });
+
+    String? idDocumentDonorSubmissions;
+    String? idDonorSubmissions;
+    String? fileDocumentDonorSubmissions;
+    String? typeDocumentDonorSubmissions;
+    dynamic forSubmissions;
+    DateTime? createdAt;
+    DateTime? updatedAt;
+    dynamic deletedAt;
+
+    DocumentDonorSubmission copyWith({
+        String? idDocumentDonorSubmissions,
+        String? idDonorSubmissions,
+        String? fileDocumentDonorSubmissions,
+        String? typeDocumentDonorSubmissions,
+        dynamic forSubmissions,
+        DateTime? createdAt,
+        DateTime? updatedAt,
+        dynamic deletedAt,
+    }) => 
+        DocumentDonorSubmission(
+            idDocumentDonorSubmissions: idDocumentDonorSubmissions ?? this.idDocumentDonorSubmissions,
+            idDonorSubmissions: idDonorSubmissions ?? this.idDonorSubmissions,
+            fileDocumentDonorSubmissions: fileDocumentDonorSubmissions ?? this.fileDocumentDonorSubmissions,
+            typeDocumentDonorSubmissions: typeDocumentDonorSubmissions ?? this.typeDocumentDonorSubmissions,
+            forSubmissions: forSubmissions ?? this.forSubmissions,
+            createdAt: createdAt ?? this.createdAt,
+            updatedAt: updatedAt ?? this.updatedAt,
+            deletedAt: deletedAt ?? this.deletedAt,
+        );
+
+    factory DocumentDonorSubmission.fromRawJson(String str) => DocumentDonorSubmission.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
+
+    factory DocumentDonorSubmission.fromJson(Map<String, dynamic> json) => DocumentDonorSubmission(
+        idDocumentDonorSubmissions: json["id_document_donor_submissions"],
+        idDonorSubmissions: json["id_donor_submissions"],
+        fileDocumentDonorSubmissions: json["file_document_donor_submissions"],
+        typeDocumentDonorSubmissions: json["type_document_donor_submissions"],
+        forSubmissions: json["ForSubmissions"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        deletedAt: json["deleted_at"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id_document_donor_submissions": idDocumentDonorSubmissions,
+        "id_donor_submissions": idDonorSubmissions,
+        "file_document_donor_submissions": fileDocumentDonorSubmissions,
+        "type_document_donor_submissions": typeDocumentDonorSubmissions,
+        "ForSubmissions": forSubmissions,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "deleted_at": deletedAt,
+    };
 }
