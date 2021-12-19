@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter_donor/models/submission_history_model.dart';
 import 'package:flutter_donor/shared/constant.dart';
@@ -66,27 +67,20 @@ class SubmissionDocumentServices {
     }
   }
 
-  static Future<void> getDocument({
+  static Future<Uint8List> getDocument({
     required String token,
     required String submissionId,
     required String documentId,
   }) async {
-    var request = MultipartRequest(
-      "GET",
-      Uri.parse(AppUrl.baseUrl +
-          "/d/donor_submissions/$submissionId/doc/$documentId"),
-    );
-    request.headers.addAll({
-      "Authorization": "Bearer $token",
-    });
-
     try {
-      var _response = await request.send();
-      // print(_response.stream.);
-      // Map<String, dynamic> data =
-      //     jsonDecode(await _response.stream.bytesToString())['data']
-      //         ['document_donor_submissions'];
-      // return DocumentDonorSubmission.fromJson(data);
+      Response _response = await get(
+        Uri.parse(AppUrl.baseUrl +
+            "/d/donor_submissions/$submissionId/doc/$documentId"),
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+      return _response.bodyBytes;
     } catch (e) {
       throw Exception(e.toString());
     }

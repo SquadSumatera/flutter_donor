@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/models/institution_model.dart';
 import 'package:flutter_donor/models/submission_history_model.dart';
@@ -5,6 +8,8 @@ import 'package:flutter_donor/services/institution_services.dart';
 import 'package:flutter_donor/services/submission_document_services.dart';
 import 'package:flutter_donor/services/submission_history_services.dart';
 import 'package:get/get.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 
 enum SubmissionHistoryLoadStatus {
   loading,
@@ -35,6 +40,7 @@ class SubmissionHistoryController extends GetxController {
       SubmissionHistorySelectedStatus.loaded.obs;
   Rx<SubmissionDocumentLoadStatus> documentStatus =
       SubmissionDocumentLoadStatus.loading.obs;
+  Rx<String> currentProcessDocumentID = ''.obs;
   Rx<Datum>? selectedInstitution;
 
   @override
@@ -95,15 +101,26 @@ class SubmissionHistoryController extends GetxController {
     notifyChildrens();
   }
 
-  void getSubmissionDocument(DocumentDonorSubmission docs,) async {
+  void getSubmissionDocument(
+    DocumentDonorSubmission docs,
+  ) async {
     documentStatus.value = SubmissionDocumentLoadStatus.loading;
+    currentProcessDocumentID.value = docs.idDocumentDonorSubmissions ?? '';
     update();
+    
     try {
-      await SubmissionDocumentServices.getDocument(
+      Directory appDocumentsDirectory =
+          await getApplicationDocumentsDirectory();
+      String appDocumentsPath = appDocumentsDirectory.path;
+      String filePath =
+          "$appDocumentsPath/${docs.fileNameDocumentDonorSubmissions}";
+      Uint8List result = await SubmissionDocumentServices.getDocument(
         token: loginData.token.value,
         submissionId: docs.idDonorSubmissions ?? '-',
         documentId: docs.idDocumentDonorSubmissions ?? '-',
       );
+      File(filePath).writeAsBytes(result);
+      OpenFile.open(filePath);
       documentStatus.value = SubmissionDocumentLoadStatus.loaded;
     } catch (e) {
       documentStatus.value = SubmissionDocumentLoadStatus.failed;
