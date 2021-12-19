@@ -79,13 +79,27 @@ class SubmissionDocumentTile extends StatelessWidget {
               onTap: () {
                 controller.getSubmissionDocument(document);
               },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('Lihat Dokumen',
-                    style: AppText.textSmall.copyWith(
-                      fontWeight: AppText.bold,
-                      color: AppColor.cBlue,
-                    )),
+              child: Obx(
+                () => Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ((controller.currentProcessDocumentID.value ==
+                              document.idDocumentDonorSubmissions) &&
+                          (controller.documentStatus.value ==
+                              SubmissionDocumentLoadStatus.loading))
+                      ? const SizedBox(
+                          height: 24,
+                          width: 24,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 3,
+                            color: AppColor.eerieBlack,
+                          ),
+                        )
+                      : Text('Lihat Dokumen',
+                          style: AppText.textSmall.copyWith(
+                            fontWeight: AppText.bold,
+                            color: AppColor.cBlue,
+                          )),
+                ),
               ),
             ),
           ),
