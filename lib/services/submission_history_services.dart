@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter_donor/models/donor_submission_model.dart';
 import 'package:http/http.dart';
 import '../models/submission_history_model.dart';
 import '../shared/constant.dart';

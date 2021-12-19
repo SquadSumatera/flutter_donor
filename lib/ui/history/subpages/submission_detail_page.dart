@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/history_detail_overlay_controller.dart';
+import 'package:flutter_donor/ui/history/subsection/submission_document_section.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
@@ -81,6 +82,9 @@ class SubmissionDetailPage extends StatelessWidget {
                   controller.selectedInstitution?.value.nameInstitutions ?? '-',
               title: 'Penyedia',
             ),
+            const SizedBox(height: 24),
+            SubmissionDocumentSection(),
+            const SizedBox(height: 48),
           ],
         ),
       ),

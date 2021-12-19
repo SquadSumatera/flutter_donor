@@ -232,6 +232,7 @@ class DocumentDonorSubmission {
         this.idDocumentDonorSubmissions,
         this.idDonorSubmissions,
         this.fileDocumentDonorSubmissions,
+        this.fileNameDocumentDonorSubmissions,
         this.typeDocumentDonorSubmissions,
         this.forSubmissions,
         this.createdAt,
@@ -242,6 +243,7 @@ class DocumentDonorSubmission {
     String? idDocumentDonorSubmissions;
     String? idDonorSubmissions;
     String? fileDocumentDonorSubmissions;
+    String? fileNameDocumentDonorSubmissions;
     String? typeDocumentDonorSubmissions;
     dynamic forSubmissions;
     DateTime? createdAt;
@@ -252,6 +254,7 @@ class DocumentDonorSubmission {
         String? idDocumentDonorSubmissions,
         String? idDonorSubmissions,
         String? fileDocumentDonorSubmissions,
+        String? fileNameDocumentDonorSubmissions,
         String? typeDocumentDonorSubmissions,
         dynamic forSubmissions,
         DateTime? createdAt,
@@ -262,6 +265,7 @@ class DocumentDonorSubmission {
             idDocumentDonorSubmissions: idDocumentDonorSubmissions ?? this.idDocumentDonorSubmissions,
             idDonorSubmissions: idDonorSubmissions ?? this.idDonorSubmissions,
             fileDocumentDonorSubmissions: fileDocumentDonorSubmissions ?? this.fileDocumentDonorSubmissions,
+            fileNameDocumentDonorSubmissions: fileNameDocumentDonorSubmissions ?? this.fileNameDocumentDonorSubmissions,
             typeDocumentDonorSubmissions: typeDocumentDonorSubmissions ?? this.typeDocumentDonorSubmissions,
             forSubmissions: forSubmissions ?? this.forSubmissions,
             createdAt: createdAt ?? this.createdAt,
@@ -277,6 +281,7 @@ class DocumentDonorSubmission {
         idDocumentDonorSubmissions: json["id_document_donor_submissions"],
         idDonorSubmissions: json["id_donor_submissions"],
         fileDocumentDonorSubmissions: json["file_document_donor_submissions"],
+        fileNameDocumentDonorSubmissions: json["file_name_document_donor_submissions"],
         typeDocumentDonorSubmissions: json["type_document_donor_submissions"],
         forSubmissions: json["ForSubmissions"],
         createdAt: DateTime.parse(json["created_at"]),
@@ -288,6 +293,7 @@ class DocumentDonorSubmission {
         "id_document_donor_submissions": idDocumentDonorSubmissions,
         "id_donor_submissions": idDonorSubmissions,
         "file_document_donor_submissions": fileDocumentDonorSubmissions,
+        "file_name_document_donor_submissions": fileNameDocumentDonorSubmissions,
         "type_document_donor_submissions": typeDocumentDonorSubmissions,
         "ForSubmissions": forSubmissions,
         "created_at": createdAt?.toIso8601String(),
