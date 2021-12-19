@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/submission_history_controller.dart';
+import 'package:get/get.dart';
 import '../../../models/submission_history_model.dart';
 import 'package:flutter_donor/shared/theme.dart';
 
 class SubmissionDocumentTile extends StatelessWidget {
-  const SubmissionDocumentTile({
+  SubmissionDocumentTile({
     Key? key,
     required this.document,
     required this.readOnly,
   }) : super(key: key);
 
+  final SubmissionHistoryController controller = Get.find();
   final DocumentDonorSubmission document;
   final bool readOnly;
 
@@ -73,7 +76,9 @@ class SubmissionDocumentTile extends StatelessWidget {
             color: AppColor.white,
             child: InkWell(
               splashColor: AppColor.cBlue.withOpacity(0.2),
-              onTap: () {},
+              onTap: () {
+                controller.getSubmissionDocument(document);
+              },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text('Lihat Dokumen',
@@ -87,14 +92,14 @@ class SubmissionDocumentTile extends StatelessWidget {
           const SizedBox(height: 2),
           if (!readOnly)
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                _buildTextButtonWithIcon(
-                  text: "Ganti Dokumen",
-                  icon: Icons.edit,
-                  onTap: () {},
-                  color: AppColor.cGreen,
-                ),
+                // _buildTextButtonWithIcon(
+                //   text: "Ganti Dokumen",
+                //   icon: Icons.edit,
+                //   onTap: () {},
+                //   color: AppColor.cGreen,
+                // ),
                 _buildTextButtonWithIcon(
                   text: "Hapus Dokumen",
                   icon: Icons.delete_forever,

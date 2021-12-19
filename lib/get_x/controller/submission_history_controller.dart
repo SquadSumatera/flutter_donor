@@ -2,6 +2,7 @@ import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/models/institution_model.dart';
 import 'package:flutter_donor/models/submission_history_model.dart';
 import 'package:flutter_donor/services/institution_services.dart';
+import 'package:flutter_donor/services/submission_document_services.dart';
 import 'package:flutter_donor/services/submission_history_services.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +19,12 @@ enum SubmissionHistorySelectedStatus {
   failed,
 }
 
+enum SubmissionDocumentLoadStatus {
+  loading,
+  loaded,
+  failed,
+}
+
 class SubmissionHistoryController extends GetxController {
   final LoginGetX loginData = Get.find();
   late List<Rx<SubmissionHistoryModel>> submissiontHistoryList = [];
@@ -26,6 +33,8 @@ class SubmissionHistoryController extends GetxController {
       SubmissionHistoryLoadStatus.loading.obs;
   Rx<SubmissionHistorySelectedStatus> selectedStatus =
       SubmissionHistorySelectedStatus.loaded.obs;
+  Rx<SubmissionDocumentLoadStatus> documentStatus =
+      SubmissionDocumentLoadStatus.loading.obs;
   Rx<Datum>? selectedInstitution;
 
   @override
@@ -84,5 +93,20 @@ class SubmissionHistoryController extends GetxController {
       selectedStatus.value = SubmissionHistorySelectedStatus.failed;
     }
     notifyChildrens();
+  }
+
+  void getSubmissionDocument(DocumentDonorSubmission docs,) async {
+    documentStatus.value = SubmissionDocumentLoadStatus.loading;
+    update();
+    try {
+      await SubmissionDocumentServices.getDocument(
+        token: loginData.token.value,
+        submissionId: docs.idDonorSubmissions ?? '-',
+        documentId: docs.idDocumentDonorSubmissions ?? '-',
+      );
+      documentStatus.value = SubmissionDocumentLoadStatus.loaded;
+    } catch (e) {
+      documentStatus.value = SubmissionDocumentLoadStatus.failed;
+    }
   }
 }
