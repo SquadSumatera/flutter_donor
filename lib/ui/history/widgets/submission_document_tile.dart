@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/submission_history_controller.dart';
+import 'package:flutter_donor/ui/history/overlay/submission_detail_overlay.dart';
+import 'package:flutter_donor/ui/history/subsection/confirm_delete_doc_dialog.dart';
 import 'package:get/get.dart';
 import '../../../models/submission_history_model.dart';
 import 'package:flutter_donor/shared/theme.dart';
@@ -133,7 +135,13 @@ class SubmissionDocumentTile extends StatelessWidget {
                                 if (controller.documentStatus.value !=
                                     SubmissionDocumentLoadStatus
                                         .deleteLoading) {
-                                  controller.deleteSubmissionDocument(document);
+                                  Overlay.of(context)!.insert(
+                                    submissionDetailOverlaySection(
+                                      child: ConfirmDeleteDocDialog(
+                                        document: document,
+                                      ),
+                                    ),
+                                  );
                                 }
                               },
                               color: AppColor.cRed,
