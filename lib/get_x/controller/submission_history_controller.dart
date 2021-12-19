@@ -76,6 +76,7 @@ class SubmissionHistoryController extends GetxController {
       ).then((value) => (selectedInstitution = value?.obs));
 
       selectedStatus.value = SubmissionHistorySelectedStatus.loaded;
+      documentStatus.value = SubmissionDocumentLoadStatus.loaded;
       update();
     } catch (e) {
       selectedStatus.value = SubmissionHistorySelectedStatus.failed;
@@ -107,7 +108,7 @@ class SubmissionHistoryController extends GetxController {
     documentStatus.value = SubmissionDocumentLoadStatus.loading;
     currentProcessDocumentID.value = docs.idDocumentDonorSubmissions ?? '';
     update();
-    
+
     try {
       Directory appDocumentsDirectory =
           await getApplicationDocumentsDirectory();
@@ -125,5 +126,30 @@ class SubmissionHistoryController extends GetxController {
     } catch (e) {
       documentStatus.value = SubmissionDocumentLoadStatus.failed;
     }
+    currentProcessDocumentID.value = '';
+    notifyChildrens();
+  }
+
+  void deleteSubmissionDocument(
+    DocumentDonorSubmission docs,
+  ) async {
+    documentStatus.value = SubmissionDocumentLoadStatus.loading;
+    currentProcessDocumentID.value = docs.idDocumentDonorSubmissions ?? '';
+    update();
+
+    try {
+      SubmissionHistoryModel result =
+          await SubmissionDocumentServices.deleteDocument(
+        token: loginData.token.value,
+        submissionId: docs.idDonorSubmissions ?? '-',
+        documentId: docs.idDocumentDonorSubmissions ?? '-',
+      );
+      selected?.value = result;
+      documentStatus.value = SubmissionDocumentLoadStatus.loaded;
+    } catch (e) {
+      documentStatus.value = SubmissionDocumentLoadStatus.failed;
+    }
+    currentProcessDocumentID.value = '';
+    notifyChildrens();
   }
 }

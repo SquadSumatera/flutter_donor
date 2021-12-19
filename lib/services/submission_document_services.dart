@@ -42,26 +42,21 @@ class SubmissionDocumentServices {
     }
   }
 
-  static Future<DocumentDonorSubmission> deleteDocument({
+  static Future<SubmissionHistoryModel> deleteDocument({
     required String token,
     required String submissionId,
     required String documentId,
   }) async {
-    var request = MultipartRequest(
-      "DELETE",
-      Uri.parse(AppUrl.baseUrl +
-          "/d/donor_submissions/$submissionId/doc/$documentId"),
-    );
-    request.headers.addAll({
-      "Authorization": "Bearer $token",
-    });
-
     try {
-      var _response = await request.send();
-      Map<String, dynamic> data =
-          jsonDecode(await _response.stream.bytesToString())['data']
-              ['document_donor_submissions'];
-      return DocumentDonorSubmission.fromJson(data);
+      Response _response = await delete(
+        Uri.parse(AppUrl.baseUrl +
+            "/d/donor_submissions/$submissionId/doc/$documentId"),
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+      Map<String, dynamic> data = jsonDecode(_response.body)['data'];
+      return SubmissionHistoryModel.fromJson(data);
     } catch (e) {
       throw Exception(e.toString());
     }
