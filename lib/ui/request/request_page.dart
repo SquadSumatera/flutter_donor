@@ -11,6 +11,7 @@ import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/services/donor_services.dart';
 import 'package:flutter_donor/services/institution_services.dart';
 import 'package:flutter_donor/shared/theme.dart';
+import 'package:flutter_donor/ui/request/request_letter_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -347,51 +348,58 @@ class _RequestPageState extends State<RequestPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 18, left: 18.0),
                   child: Text(
-                    'Surat Rujukan',
+                    'Surat Pendamping',
                     style: AppText.textMedium.copyWith(
                         color: AppColor.cDarkBlue,
                         fontWeight: AppText.semiBold),
                   ),
                 ),
                 Container(
+                  width: 150,
                   margin: const EdgeInsets.only(
                     left: 18.0,
                   ),
-                  width: 300,
-                  child: TextField(
-                    controller: letterController,
-                    showCursor: false,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                      hintText: "Lampirkan Surat Rujukan",
-                      border: const UnderlineInputBorder(),
-                      focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue),
-                      ),
-                      enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      hintStyle: AppText.textMedium.copyWith(
-                          color: AppColor.cGrey, fontWeight: AppText.normal),
+                  child: Obx(
+                    () => ListView.builder(
+                      primary: requestGetX.dontChange.value,
+                      shrinkWrap: true,
+                      itemCount: requestGetX.listDocs.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return RequestLetterWidget(index: index, fileName: requestGetX.listDocs[index].fileName,);
+                      },
                     ),
-                    onTap: () async {
-                      FilePickerResult? result =
-                          await FilePicker.platform.pickFiles(
-                        type: FileType.custom,
-                        allowedExtensions: ['jpeg', 'jpg', 'png', 'pdf'],
-                      );
-
-                      if (result != null) {
-                        File file = File(result.files.single.path!);
-                        setState(() {
-                          selectedLetter = file;
-                          letterController.text = result.files.first.name;
-                        });
-                      } else {
-                        // User canceled the picker
-                      }
-                    },
                   ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 18.0, top: 20),
+                  width: 60,
+                  height: 30,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: AppColor.cGreen,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                      ),
+                      onPressed: () async {
+                        FilePickerResult? result =
+                            await FilePicker.platform.pickFiles(
+                          type: FileType.custom,
+                          allowedExtensions: ['jpeg', 'jpg', 'png', 'pdf'],
+                        );
+
+                        if (result != null) {
+                          File file = File(result.files.single.path!);
+                          requestGetX.addListDocs("type", result.files.first.name, file);
+                        } else {
+                          // User canceled the picker
+                        }
+                      },
+                      child: const Icon(
+                        Icons.add,
+                        color: AppColor.white,
+                      )),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 50, left: 15),
@@ -424,18 +432,19 @@ class _RequestPageState extends State<RequestPage> {
                           duration: const Duration(seconds: 2),
                         );
                       } else {
-                        DonorRequestModel response = await DonorServices.createDonorRequest(
-                            token: loginGetX.token.value,
-                            id_institutions: requestGetX.instituion.value,
-                            recipient: nameController.text,
-                            applicant: applicantController.text,
-                            blood_type: requestGetX.blood.value,
-                            blood_rhesus: requestGetX.rhesus.value,
-                            quantity: quantityController.text,
-                            document_type: "KTP",
-                            document_uri: selectedKtp,
-                            letter_type: "Surat",
-                            letter_uri: selectedLetter);
+                        DonorRequestModel response =
+                            await DonorServices.createDonorRequest(
+                                token: loginGetX.token.value,
+                                id_institutions: requestGetX.instituion.value,
+                                recipient: nameController.text,
+                                applicant: applicantController.text,
+                                blood_type: requestGetX.blood.value,
+                                blood_rhesus: requestGetX.rhesus.value,
+                                quantity: quantityController.text,
+                                document_type: "KTP",
+                                document_uri: selectedKtp,
+                                letter_type: "Surat",
+                                letter_uri: selectedLetter);
 
                         if (response.status == 200) {
                           Get.offAllNamed(Routes.main);
