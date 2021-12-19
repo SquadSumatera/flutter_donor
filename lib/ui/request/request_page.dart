@@ -7,11 +7,11 @@ import 'package:flutter_donor/get_x/controller/request_controller.dart';
 import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/models/donor_request_model.dart';
 import 'package:flutter_donor/models/institution_model.dart';
-import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/services/donor_services.dart';
 import 'package:flutter_donor/services/institution_services.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_donor/ui/request/request_letter_widget.dart';
+import 'package:flutter_donor/ui/request/request_popup_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -30,7 +30,6 @@ class _RequestPageState extends State<RequestPage> {
   TextEditingController letterController = TextEditingController();
 
   late File selectedKtp;
-  late File selectedLetter;
 
   final LoginGetX loginGetX = Get.find<LoginGetX>();
   final RequestController requestGetX = Get.put(RequestController());
@@ -313,7 +312,6 @@ class _RequestPageState extends State<RequestPage> {
                     controller: ktpController,
                     showCursor: false,
                     readOnly: true,
-                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       hintText: "Lampirkan KTP",
                       border: const UnderlineInputBorder(),
@@ -365,7 +363,11 @@ class _RequestPageState extends State<RequestPage> {
                       shrinkWrap: true,
                       itemCount: requestGetX.listDocs.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return RequestLetterWidget(index: index, fileName: requestGetX.listDocs[index].fileName,);
+                        return RequestLetterWidget(
+                          index: index,
+                          type: requestGetX.listDocs[index].type,
+                          fileName: requestGetX.listDocs[index].fileName,
+                        );
                       },
                     ),
                   ),
@@ -378,23 +380,25 @@ class _RequestPageState extends State<RequestPage> {
                       style: ElevatedButton.styleFrom(
                         primary: AppColor.cGreen,
                         shape: const RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(8.0)),
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
                         ),
                       ),
                       onPressed: () async {
-                        FilePickerResult? result =
-                            await FilePicker.platform.pickFiles(
-                          type: FileType.custom,
-                          allowedExtensions: ['jpeg', 'jpg', 'png', 'pdf'],
-                        );
-
-                        if (result != null) {
-                          File file = File(result.files.single.path!);
-                          requestGetX.addListDocs("type", result.files.first.name, file);
-                        } else {
-                          // User canceled the picker
-                        }
+                        // FilePickerResult? result =
+                        //     await FilePicker.platform.pickFiles(
+                        //   type: FileType.custom,
+                        //   allowedExtensions: ['jpeg', 'jpg', 'png', 'pdf'],
+                        // );
+                        //
+                        // if (result != null) {
+                        //   File file = File(result.files.single.path!);
+                        //   requestGetX.addListDocs("type", result.files.first.name, file);
+                        // } else {
+                        //   // User canceled the picker
+                        // }
+                        showDialog(
+                            context: context,
+                            builder: (context) => RequestPopupWidget());
                       },
                       child: const Icon(
                         Icons.add,
@@ -424,8 +428,7 @@ class _RequestPageState extends State<RequestPage> {
                           requestGetX.rhesus.value.isEmpty ||
                           quantityController.text.isEmpty ||
                           requestGetX.instituion.value.isEmpty ||
-                          ktpController.text.isEmpty ||
-                          letterController.text.isEmpty) {
+                          ktpController.text.isEmpty) {
                         Get.snackbar(
                           "Data belum diisi",
                           "Harap mengisi data yang tersedia",
@@ -441,14 +444,12 @@ class _RequestPageState extends State<RequestPage> {
                                 blood_type: requestGetX.blood.value,
                                 blood_rhesus: requestGetX.rhesus.value,
                                 quantity: quantityController.text,
-                                document_type: "KTP",
-                                document_uri: selectedKtp,
-                                letter_type: "Surat",
-                                letter_uri: selectedLetter);
+                                ktp: selectedKtp,
+                                docs: requestGetX.listDocs);
 
-                        if (response.status == 200) {
-                          Get.offAllNamed(Routes.main);
-                        }
+                        // if (response.status == 200) {
+                        //   Get.offAllNamed(Routes.main);
+                        // }
 
                         Get.snackbar(
                           "${response.message}",
