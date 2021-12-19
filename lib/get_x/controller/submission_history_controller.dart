@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:async/async.dart';
 
 import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/models/institution_model.dart';
@@ -26,6 +27,8 @@ enum SubmissionHistorySelectedStatus {
 
 enum SubmissionDocumentLoadStatus {
   loading,
+  viewLoading,
+  deleteLoading,
   loaded,
   failed,
 }
@@ -42,6 +45,8 @@ class SubmissionHistoryController extends GetxController {
       SubmissionDocumentLoadStatus.loading.obs;
   Rx<String> currentProcessDocumentID = ''.obs;
   Rx<Datum>? selectedInstitution;
+
+  CancelableCompleter completer = CancelableCompleter();
 
   @override
   void onInit() {
@@ -105,7 +110,7 @@ class SubmissionHistoryController extends GetxController {
   void getSubmissionDocument(
     DocumentDonorSubmission docs,
   ) async {
-    documentStatus.value = SubmissionDocumentLoadStatus.loading;
+    documentStatus.value = SubmissionDocumentLoadStatus.viewLoading;
     currentProcessDocumentID.value = docs.idDocumentDonorSubmissions ?? '';
     update();
 
@@ -117,7 +122,7 @@ class SubmissionHistoryController extends GetxController {
           "$appDocumentsPath/${docs.fileNameDocumentDonorSubmissions}";
       Uint8List result = await SubmissionDocumentServices.getDocument(
         token: loginData.token.value,
-        submissionId: docs.idDonorSubmissions ?? '-',
+        submissionId: selected?.value.idDonorSubmissions ?? '-',
         documentId: docs.idDocumentDonorSubmissions ?? '-',
       );
       File(filePath).writeAsBytes(result);
@@ -133,7 +138,7 @@ class SubmissionHistoryController extends GetxController {
   void deleteSubmissionDocument(
     DocumentDonorSubmission docs,
   ) async {
-    documentStatus.value = SubmissionDocumentLoadStatus.loading;
+    documentStatus.value = SubmissionDocumentLoadStatus.deleteLoading;
     currentProcessDocumentID.value = docs.idDocumentDonorSubmissions ?? '';
     update();
 
@@ -141,15 +146,45 @@ class SubmissionHistoryController extends GetxController {
       SubmissionHistoryModel result =
           await SubmissionDocumentServices.deleteDocument(
         token: loginData.token.value,
-        submissionId: docs.idDonorSubmissions ?? '-',
+        submissionId: selected?.value.idDonorSubmissions ?? '-',
         documentId: docs.idDocumentDonorSubmissions ?? '-',
       );
       selected?.value = result;
+      int idx = submissiontHistoryList.indexWhere((element) =>
+          element.value.idDonorSubmissions ==
+          selected?.value.idDonorSubmissions);
+      submissiontHistoryList[idx].value = result;
       documentStatus.value = SubmissionDocumentLoadStatus.loaded;
     } catch (e) {
       documentStatus.value = SubmissionDocumentLoadStatus.failed;
     }
     currentProcessDocumentID.value = '';
+    notifyChildrens();
+  }
+
+  void createSubmissionDocument(
+    String type,
+    File documentFile,
+  ) async {
+    documentStatus.value = SubmissionDocumentLoadStatus.loading;
+    update();
+    try {
+      SubmissionHistoryModel result =
+          await SubmissionDocumentServices.createDocument(
+        token: loginData.token.value,
+        submissionId: selected?.value.idDonorSubmissions ?? '-',
+        documentType: type,
+        documentFile: documentFile,
+      );
+      selected?.value = result;
+      int idx = submissiontHistoryList.indexWhere((element) =>
+          element.value.idDonorSubmissions ==
+          selected?.value.idDonorSubmissions);
+      submissiontHistoryList[idx].value = result;
+      documentStatus.value = SubmissionDocumentLoadStatus.loaded;
+    } catch (e) {
+      documentStatus.value = SubmissionDocumentLoadStatus.failed;
+    }
     notifyChildrens();
   }
 }

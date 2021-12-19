@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/ui/history/widgets/add_submission_document_tile.dart';
 import 'package:get/get.dart';
 import '../../../get_x/controller/submission_history_controller.dart';
 import '../../../models/submission_history_model.dart';
 import '../../../shared/theme.dart';
+import '../widgets/add_submission_document_tile.dart';
 import '../widgets/submission_document_tile.dart';
 
 class SubmissionDocumentSection extends StatelessWidget {
@@ -60,8 +60,8 @@ class SubmissionDocumentSection extends StatelessWidget {
                         element?.typeDocumentDonorSubmissions == 'KTP') ??
                     false) &&
                 !readOnly)
-              const Padding(
-                padding: EdgeInsets.only(bottom: 18.0),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 18.0),
                 child: AddSubmissionDocumentTile(
                   type: 'KTP',
                 ),
@@ -70,8 +70,8 @@ class SubmissionDocumentSection extends StatelessWidget {
                         element?.typeDocumentDonorSubmissions == 'surat') ??
                     false) &&
                 !readOnly)
-              const Padding(
-                padding: EdgeInsets.only(bottom: 18.0),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 18.0),
                 child: AddSubmissionDocumentTile(
                   type: 'surat',
                 ),

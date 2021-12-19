@@ -7,7 +7,7 @@ import 'package:flutter_donor/shared/constant.dart';
 import 'package:http/http.dart';
 
 class SubmissionDocumentServices {
-  static Future<DocumentDonorSubmission> createDocument({
+  static Future<SubmissionHistoryModel> createDocument({
     required String token,
     required String submissionId,
     required File documentFile,
@@ -34,9 +34,8 @@ class SubmissionDocumentServices {
     try {
       var _response = await request.send();
       Map<String, dynamic> data =
-          jsonDecode(await _response.stream.bytesToString())['data']
-              ['document_donor_submissions'];
-      return DocumentDonorSubmission.fromJson(data);
+          jsonDecode(await _response.stream.bytesToString())['data'];
+      return SubmissionHistoryModel.fromJson(data);
     } catch (e) {
       throw Exception(e.toString());
     }

@@ -73,8 +73,10 @@ class SubmissionDocumentTile extends StatelessWidget {
           ),
           const SizedBox(height: 2),
           Obx(
-            () => ((controller.documentStatus.value ==
-                        SubmissionDocumentLoadStatus.loading) &&
+            () => (((controller.documentStatus.value ==
+                            SubmissionDocumentLoadStatus.viewLoading) ||
+                        (controller.documentStatus.value ==
+                            SubmissionDocumentLoadStatus.deleteLoading)) &&
                     (controller.currentProcessDocumentID.value ==
                         document.idDocumentDonorSubmissions))
                 ? const Center(
@@ -99,7 +101,7 @@ class SubmissionDocumentTile extends StatelessWidget {
                           splashColor: AppColor.cBlue.withOpacity(0.2),
                           onTap: () {
                             if ((controller.documentStatus.value !=
-                                SubmissionDocumentLoadStatus.loading)) {
+                                SubmissionDocumentLoadStatus.viewLoading)) {
                               controller.getSubmissionDocument(document);
                             }
                           },
@@ -129,7 +131,8 @@ class SubmissionDocumentTile extends StatelessWidget {
                               icon: Icons.delete_forever,
                               onTap: () {
                                 if (controller.documentStatus.value !=
-                                    SubmissionDocumentLoadStatus.loading) {
+                                    SubmissionDocumentLoadStatus
+                                        .deleteLoading) {
                                   controller.deleteSubmissionDocument(document);
                                 }
                               },
