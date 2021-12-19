@@ -77,6 +77,8 @@ class SubmissionDetailPage extends StatelessWidget {
               locationAddress:
                   controller.selectedInstitution?.value.addressInstitutions ??
                       '-',
+              locationName:
+                  controller.selectedInstitution?.value.nameInstitutions ?? '-',
               title: 'Penyedia',
             ),
           ],

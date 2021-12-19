@@ -9,6 +9,7 @@ class DonorLocation extends StatelessWidget {
     Key? key,
     this.isLoading = false,
     required this.latLong,
+    required this.locationName,
     required this.locationAddress,
     required this.title,
   }) : super(key: key);
@@ -16,6 +17,7 @@ class DonorLocation extends StatelessWidget {
   final bool isLoading;
   final String title;
   final LatLng latLong;
+  final String locationName;
   final String locationAddress;
 
   @override
@@ -88,10 +90,17 @@ class DonorLocation extends StatelessWidget {
                 ),
                 const SizedBox(height: 15),
                 Text(
-                  locationAddress,
+                  locationName,
                   style: AppText.textMedium.copyWith(
                     color: AppColor.imperialRed,
                     fontWeight: AppText.bold,
+                  ),
+                ),
+                Text(
+                  locationAddress,
+                  style: AppText.textNormal.copyWith(
+                    color: AppColor.eerieBlack,
+                    fontWeight: AppText.normal,
                   ),
                 ),
               ],
