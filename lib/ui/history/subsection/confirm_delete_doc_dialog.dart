@@ -69,11 +69,14 @@ class ConfirmDeleteDocDialog extends StatelessWidget {
                         : "Ya",
                     active: true,
                     onPressed: () {
-                      submissionController.deleteSubmissionDocument(document);
-                      if (submissionController.documentStatus.value ==
-                          SubmissionDocumentLoadStatus.loaded) {
-                        overlay.removeOverlay();
-                      }
+                      submissionController
+                          .deleteSubmissionDocument(document)
+                          .then((value) {
+                        if (submissionController.documentStatus.value ==
+                            SubmissionDocumentLoadStatus.loaded) {
+                          overlay.removeOverlay();
+                        }
+                      });
                     },
                   ),
                 ],

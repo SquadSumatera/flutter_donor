@@ -45,17 +45,6 @@ class SubmissionDocumentSection extends StatelessWidget {
                       color: AppColor.imperialRed,
                     )),
               ),
-            if (documentDonorSubmissions?.isNotEmpty ?? false)
-              ...documentDonorSubmissions?.map((e) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: SubmissionDocumentTile(
-                        document: e ?? DocumentDonorSubmission(),
-                        readOnly: readOnly,
-                      ),
-                    );
-                  }).toList() ??
-                  [],
             if (!(documentDonorSubmissions?.any((element) =>
                         element?.typeDocumentDonorSubmissions == 'KTP') ??
                     false) &&
@@ -76,6 +65,16 @@ class SubmissionDocumentSection extends StatelessWidget {
                   type: 'surat',
                 ),
               ),
+            ...documentDonorSubmissions?.map((e) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: SubmissionDocumentTile(
+                      document: e ?? DocumentDonorSubmission(),
+                      readOnly: readOnly,
+                    ),
+                  );
+                }).toList() ??
+                [],
             if (controller.selected?.value.statusDonorSubmissions ==
                 SubmissionHistoryStatus.conditionsRejected)
               Column(
@@ -97,7 +96,14 @@ class SubmissionDocumentSection extends StatelessWidget {
                         borderRadius: BorderRadius.circular(50),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      if (controller.documentStatus.value !=
+                          SubmissionDocumentLoadStatus.loading) {
+                        controller.uploadTemporaryDocument().then((value) {
+                          Navigator.pop(context);
+                        });
+                      }
+                    },
                     child: Center(
                       child: Text('Revisi Dokumen',
                           style: AppText.textMedium.copyWith(

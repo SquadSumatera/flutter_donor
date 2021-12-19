@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/models/submission_history_model.dart';
 import 'package:get/get.dart';
 import '../../../get_x/controller/submission_history_controller.dart';
 import '../../../shared/theme.dart';
@@ -29,7 +30,12 @@ class AddSubmissionDocumentTile extends StatelessWidget {
             );
             if (result != null) {
               File file = File(result.files.single.path!);
-              controller.createSubmissionDocument(type, file);
+              if (controller.selected?.value.statusDonorSubmissions ==
+                  SubmissionHistoryStatus.conditionsRejected) {
+                controller.addTemporaryDocument(type, file);
+              } else {
+                controller.createSubmissionDocument(type, file);
+              }
             }
           }
         },
@@ -42,40 +48,63 @@ class AddSubmissionDocumentTile extends StatelessWidget {
           padding: const EdgeInsets.all(12),
           child: Row(
             children: <Widget>[
-              (controller.documentStatus.value !=
+              (controller.documentStatus.value ==
                       SubmissionDocumentLoadStatus.loading)
-                  ? const Icon(
-                      Icons.add_circle,
-                      color: AppColor.cBlue,
-                      size: 12,
-                    )
-                  : const SizedBox(
+                  ? const SizedBox(
                       width: 12,
                       height: 12,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
                         color: AppColor.eerieBlack,
                       ),
-                    ),
+                    )
+                  : (controller.temporaryDocument[type] != null)
+                      ? GestureDetector(
+                          onTap: () {
+                            controller.removeTemporaryDocument(type);
+                          },
+                          child: const Icon(
+                            Icons.cancel,
+                            size: 24,
+                            color: AppColor.cRed,
+                          ))
+                      : const Icon(
+                          Icons.add_circle,
+                          color: AppColor.cBlue,
+                          size: 24,
+                        ),
               const SizedBox(width: 10),
-              (controller.documentStatus.value !=
-                      SubmissionDocumentLoadStatus.loading)
-                  ? Text(
-                      (type == 'KTP')
-                          ? 'Lampirkan KTP'
-                          : 'Lampirkan Surat Pendukung',
-                      style: AppText.textSmall.copyWith(
-                        fontWeight: AppText.semiBold,
-                        color: AppColor.cBlue,
+              (controller.temporaryDocument[type] != null)
+                  ? Expanded(
+                      child: Text(
+                        controller.temporaryDocument[type]!.path
+                            .split('/')
+                            .last,
+                        style: AppText.textSmall.copyWith(
+                          fontWeight: AppText.semiBold,
+                          color: AppColor.cBlue,
+                        ),
+                        softWrap: true,
                       ),
                     )
-                  : Text(
-                      "Sedang mengunggah dokumen...",
-                      style: AppText.textSmall.copyWith(
-                        fontWeight: AppText.semiBold,
-                        color: AppColor.cBlue,
-                      ),
-                    )
+                  : (controller.documentStatus.value !=
+                          SubmissionDocumentLoadStatus.loading)
+                      ? Text(
+                          (type == 'KTP')
+                              ? 'Lampirkan KTP'
+                              : 'Lampirkan Surat Pendukung',
+                          style: AppText.textSmall.copyWith(
+                            fontWeight: AppText.semiBold,
+                            color: AppColor.cBlue,
+                          ),
+                        )
+                      : Text(
+                          "Sedang mengunggah dokumen...",
+                          style: AppText.textSmall.copyWith(
+                            fontWeight: AppText.semiBold,
+                            color: AppColor.cBlue,
+                          ),
+                        )
             ],
           ),
         ),

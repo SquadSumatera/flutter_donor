@@ -79,4 +79,38 @@ class SubmissionDocumentServices {
       throw Exception(e.toString());
     }
   }
+
+  static Future<SubmissionHistoryModel> conditionsRejectedHandler({
+    required String token,
+    required SubmissionHistoryModel submissionHistoryModel,
+  }) async {
+    try {
+      final url = Uri.parse(AppUrl.baseUrl +
+          "/d/donor_submissions/${submissionHistoryModel.idDonorSubmissions}");
+      Map<String, String> requestBody = <String, String>{
+        "recipient_donor_submissions":
+            submissionHistoryModel.recipientDonorSubmissions!,
+        "applicant_donor_submissions":
+            submissionHistoryModel.applicantDonorSubmissions!,
+        "blood_type_donor_submissions":
+            submissionHistoryModel.bloodTypeDonorSubmissions!,
+        "blood_rhesus_donor_submissions":
+            submissionHistoryModel.bloodRhesusDonorSubmissions!,
+        "quantity_donor_submissions":
+            submissionHistoryModel.quantityDonorSubmissions.toString(),
+      };
+
+      var request = MultipartRequest("PUT", url);
+      request.headers.addAll({
+        "Authorization": "Bearer $token",
+      });
+      request.fields.addAll(requestBody);
+
+      StreamedResponse _response = await request.send();
+      final respStr = await _response.stream.bytesToString();
+      return SubmissionHistoryModel.fromJson(json.decode(respStr)["data"]);
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }

@@ -1,16 +1,15 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:async/async.dart';
-
-import 'package:flutter_donor/get_x/state/login_getx.dart';
-import 'package:flutter_donor/models/institution_model.dart';
-import 'package:flutter_donor/models/submission_history_model.dart';
-import 'package:flutter_donor/services/institution_services.dart';
-import 'package:flutter_donor/services/submission_document_services.dart';
-import 'package:flutter_donor/services/submission_history_services.dart';
 import 'package:get/get.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
+
+import '../../models/institution_model.dart';
+import '../../models/submission_history_model.dart';
+import '../../services/institution_services.dart';
+import '../../services/submission_document_services.dart';
+import '../../services/submission_history_services.dart';
+import '../state/login_getx.dart';
 
 enum SubmissionHistoryLoadStatus {
   loading,
@@ -46,7 +45,10 @@ class SubmissionHistoryController extends GetxController {
   Rx<String> currentProcessDocumentID = ''.obs;
   Rx<Datum>? selectedInstitution;
 
-  CancelableCompleter completer = CancelableCompleter();
+  RxMap<String, File?> temporaryDocument = RxMap({
+    'KTP': null,
+    'surat': null,
+  });
 
   @override
   void onInit() {
@@ -79,9 +81,12 @@ class SubmissionHistoryController extends GetxController {
         token: loginData.token.value,
         id: data.idInstitutions!,
       ).then((value) => (selectedInstitution = value?.obs));
-
       selectedStatus.value = SubmissionHistorySelectedStatus.loaded;
       documentStatus.value = SubmissionDocumentLoadStatus.loaded;
+      temporaryDocument = RxMap({
+        'KTP': null,
+        'surat': null,
+      });
       update();
     } catch (e) {
       selectedStatus.value = SubmissionHistorySelectedStatus.failed;
@@ -129,13 +134,17 @@ class SubmissionHistoryController extends GetxController {
       OpenFile.open(filePath);
       documentStatus.value = SubmissionDocumentLoadStatus.loaded;
     } catch (e) {
+      Get.snackbar(
+        "Terjadi Kesalahan!",
+        "Terjadi kesalahan saat mengunduh dokumen, silahkan coba lagi.",
+      );
       documentStatus.value = SubmissionDocumentLoadStatus.failed;
     }
     currentProcessDocumentID.value = '';
     notifyChildrens();
   }
 
-  void deleteSubmissionDocument(
+  Future<void> deleteSubmissionDocument(
     DocumentDonorSubmission docs,
   ) async {
     documentStatus.value = SubmissionDocumentLoadStatus.deleteLoading;
@@ -162,10 +171,8 @@ class SubmissionHistoryController extends GetxController {
     notifyChildrens();
   }
 
-  void createSubmissionDocument(
-    String type,
-    File documentFile,
-  ) async {
+  void createSubmissionDocument(String type, File documentFile,
+      {bool passThroughMethod = false}) async {
     documentStatus.value = SubmissionDocumentLoadStatus.loading;
     update();
     try {
@@ -181,6 +188,57 @@ class SubmissionHistoryController extends GetxController {
           element.value.idDonorSubmissions ==
           selected?.value.idDonorSubmissions);
       submissiontHistoryList[idx].value = result;
+      if (!passThroughMethod) {
+        documentStatus.value = SubmissionDocumentLoadStatus.loaded;
+      }
+    } catch (e) {
+      Get.snackbar(
+        "Terjadi Kesalahan!",
+        "Terjadi kesalahan saat mengunggah dokumen, silahkan coba lagi.",
+      );
+      documentStatus.value = SubmissionDocumentLoadStatus.failed;
+    }
+    notifyChildrens();
+  }
+
+  void addTemporaryDocument(String type, File documentFile) {
+    temporaryDocument[type] = documentFile;
+  }
+
+  void removeTemporaryDocument(String type) {
+    temporaryDocument[type] = null;
+  }
+
+  Future<void> uploadTemporaryDocument() async {
+    documentStatus.value = SubmissionDocumentLoadStatus.loading;
+    update();
+    try {
+      if (temporaryDocument['KTP'] == null ||
+          temporaryDocument['surat'] == null) {
+        Get.snackbar(
+          "Terjadi Kesalahan!",
+          "Pastikan semua formulir terisi lengkap!",
+        );
+        throw Exception();
+      }
+      createSubmissionDocument('KTP', temporaryDocument['KTP']!,
+          passThroughMethod: true);
+      createSubmissionDocument('surat', temporaryDocument['surat']!,
+          passThroughMethod: true);
+      SubmissionHistoryModel result =
+          await SubmissionDocumentServices.conditionsRejectedHandler(
+        token: loginData.token.value,
+        submissionHistoryModel: selected!.value,
+      );
+      selected?.value = result;
+      int idx = submissiontHistoryList.indexWhere((element) =>
+          element.value.idDonorSubmissions ==
+          selected?.value.idDonorSubmissions);
+      submissiontHistoryList[idx].value = result;
+      temporaryDocument = RxMap({
+        'KTP': null,
+        'surat': null,
+      });
       documentStatus.value = SubmissionDocumentLoadStatus.loaded;
     } catch (e) {
       documentStatus.value = SubmissionDocumentLoadStatus.failed;
