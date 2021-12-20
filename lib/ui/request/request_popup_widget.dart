@@ -51,8 +51,30 @@ class _RequestPopupWidgetState extends State<RequestPopupWidget> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Tambahkan dokument"),
-              SizedBox(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Tambahkan dokument",
+                    style: AppText.textMedium.copyWith(
+                        color: AppColor.cDarkBlue,
+                        fontWeight: AppText.semiBold),
+                  ),
+                  InkWell(
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.black,
+                      size: 24.0,
+                      semanticLabel: 'Close',
+                    ),
+                    onTap: () {
+                      Get.back();
+                    },
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 20),
                 width: 250,
                 child: TextField(
                   controller: typeControlller,
@@ -77,7 +99,7 @@ class _RequestPopupWidgetState extends State<RequestPopupWidget> {
                   showCursor: false,
                   readOnly: true,
                   decoration: InputDecoration(
-                    hintText: "Lampirkan KTP",
+                    hintText: "Tambahkan dokument",
                     border: const UnderlineInputBorder(),
                     focusedBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue),
@@ -107,7 +129,15 @@ class _RequestPopupWidgetState extends State<RequestPopupWidget> {
                   },
                 ),
               ),
-              ElevatedButton(
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: AppColor.cOrange,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
                   onPressed: () {
                     if (typeControlller.text.isEmpty ||
                         docCOntroller.text.isEmpty) {
@@ -117,13 +147,18 @@ class _RequestPopupWidgetState extends State<RequestPopupWidget> {
                         duration: const Duration(seconds: 2),
                       );
                     } else {
-                      requestGetX.addListDocs(
-                          typeControlller.text, docCOntroller.text, selectedDoc);
+                      requestGetX.addListDocs(typeControlller.text,
+                          docCOntroller.text, selectedDoc);
                       Get.back();
                     }
-
                   },
-                  child: Text('Submit'))
+                  child: Text(
+                    "Tambahkan",
+                    style: AppText.textMedium.copyWith(
+                        color: AppColor.white, fontWeight: AppText.semiBold),
+                  ),
+                ),
+              )
             ],
           ),
         ),

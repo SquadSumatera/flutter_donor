@@ -7,6 +7,7 @@ import 'package:flutter_donor/get_x/controller/request_controller.dart';
 import 'package:flutter_donor/get_x/state/login_getx.dart';
 import 'package:flutter_donor/models/donor_request_model.dart';
 import 'package:flutter_donor/models/institution_model.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/services/donor_services.dart';
 import 'package:flutter_donor/services/institution_services.dart';
 import 'package:flutter_donor/shared/theme.dart';
@@ -201,11 +202,15 @@ class _RequestPageState extends State<RequestPage> {
                     showSearchBox: false,
                     mode: Mode.DIALOG,
                     showSelectedItems: false,
-                    items: ['+', '-'],
+                    items: ['positive (+)', 'negative (-)'],
                     onChanged: (data) {
-                      if (data == '+') {
+                      if (data == '+' ||
+                          data == 'positive' ||
+                          data == 'positive (+)') {
                         requestGetX.changeDataRhesus("positive");
-                      } else if (data == '-') {
+                      } else if (data == '-' ||
+                          data == 'negative' ||
+                          data == 'negative (-)') {
                         requestGetX.changeDataRhesus("negative");
                       }
 
@@ -346,16 +351,17 @@ class _RequestPageState extends State<RequestPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 18, left: 18.0),
                   child: Text(
-                    'Surat Pendamping',
+                    'Lampiran Dokumen',
                     style: AppText.textMedium.copyWith(
                         color: AppColor.cDarkBlue,
                         fontWeight: AppText.semiBold),
                   ),
                 ),
                 Container(
-                  width: 150,
+                  width: 180,
                   margin: const EdgeInsets.only(
                     left: 18.0,
+                    top: 10,
                   ),
                   child: Obx(
                     () => ListView.builder(
@@ -384,18 +390,6 @@ class _RequestPageState extends State<RequestPage> {
                         ),
                       ),
                       onPressed: () async {
-                        // FilePickerResult? result =
-                        //     await FilePicker.platform.pickFiles(
-                        //   type: FileType.custom,
-                        //   allowedExtensions: ['jpeg', 'jpg', 'png', 'pdf'],
-                        // );
-                        //
-                        // if (result != null) {
-                        //   File file = File(result.files.single.path!);
-                        //   requestGetX.addListDocs("type", result.files.first.name, file);
-                        // } else {
-                        //   // User canceled the picker
-                        // }
                         showDialog(
                             context: context,
                             builder: (context) => RequestPopupWidget());
@@ -447,9 +441,9 @@ class _RequestPageState extends State<RequestPage> {
                                 ktp: selectedKtp,
                                 docs: requestGetX.listDocs);
 
-                        // if (response.status == 200) {
-                        //   Get.offAllNamed(Routes.main);
-                        // }
+                        if (response.status == 200) {
+                          Get.offAllNamed(Routes.main);
+                        }
 
                         Get.snackbar(
                           "${response.message}",

@@ -25,10 +25,14 @@ class RequestLetterWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(type),
+          Text(
+            type,
+            style: AppText.textMedium.copyWith(
+                color: AppColor.cDarkBlue, fontWeight: AppText.semiBold),
+          ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 2, horizontal: 6),
-            width: 150,
+            width: 180,
             height: 30,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -39,13 +43,16 @@ class RequestLetterWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                    width: 80,
+                    width: 100,
                     child: Text(
                       fileName,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
+                      style: AppText.textMedium.copyWith(
+                          color: AppColor.cDarkBlue,
+                          fontWeight: AppText.semiBold),
                     )),
-                Container(
+                SizedBox(
                   width: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -55,7 +62,10 @@ class RequestLetterWidget extends StatelessWidget {
                     onPressed: () {
                       requestGetX.removeListDocs(index);
                     },
-                    child: Icon(Icons.close),
+                    child: const Icon(
+                      Icons.close,
+                      color: AppColor.cRed,
+                    ),
                   ),
                 ),
               ],
