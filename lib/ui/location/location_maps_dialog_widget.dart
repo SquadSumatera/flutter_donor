@@ -152,8 +152,8 @@ class LocationMapsDialogWidget extends StatelessWidget {
                       );
                     } else {
                       Get.offNamed(Routes.donor, arguments: [
-                        "40e4f760-7098-4c3c-8750-b6b95e0396b7",
-                        "PMI Pusat"
+                        "${data.idInstitutions}",
+                        "${data.nameInstitutions}"
                       ]);
                     }
                   },
@@ -171,7 +171,7 @@ class LocationMapsDialogWidget extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20.0),
       child: Container(
-        width: MediaQuery.of(context).size.width / 3.5,
+        width: MediaQuery.of(context).size.width / 3.7,
         height: 80,
         color: AppColor.cPurple,
         child: Row(
