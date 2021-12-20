@@ -62,6 +62,7 @@ class _ChangeContactSectionState extends State<ChangeContactSection> {
             const SizedBox(height: 18),
             BaseTextField(
               label: "Email",
+              isEnabled: false,
               initialValue: tempProfile.emailDonators,
               placeholderText: "Masukkan email...",
               callback: (val) {

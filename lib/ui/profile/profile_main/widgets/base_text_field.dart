@@ -52,6 +52,12 @@ class BaseTextField extends StatelessWidget {
           ),
           decoration: InputDecoration(
             alignLabelWithHint: true,
+            border: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: AppColor.eerieBlack,
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
             enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(
                 color: AppColor.eerieBlack,
@@ -80,12 +86,13 @@ class BaseTextField extends StatelessWidget {
           onSaved: (val) {
             callback(val);
           },
-          validator: customValidator ?? (value) {
-            if (value == null || value.isEmpty) {
-              return 'Kolom ini wajib diisi!';
-            }
-            return null;
-          },
+          validator: customValidator ??
+              (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Kolom ini wajib diisi!';
+                }
+                return null;
+              },
         ),
       ],
     );
