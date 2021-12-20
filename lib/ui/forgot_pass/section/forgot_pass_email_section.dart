@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_donor/ui/forgot_pass/widgets/forgot_pass_field.dart';
+import 'package:get/get.dart';
+import '../../../get_x/controller/forgot_pass_controller.dart';
+import '../widgets/forgot_pass_field.dart';
 
 class ForgotPassEmailSection extends StatelessWidget {
-  const ForgotPassEmailSection({Key? key}) : super(key: key);
+  ForgotPassEmailSection({Key? key}) : super(key: key);
+
+  final ForgotPassController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +17,9 @@ class ForgotPassEmailSection extends StatelessWidget {
           hintText: 'Masukkan email yang pernah didaftarkan.',
           labelText: 'Masukkan Email Terdaftar',
           isObscure: false,
-          onSaved: (val) {},
+          onSaved: (val) {
+            controller.email = val ?? '';
+          },
         ),
       ],
     );

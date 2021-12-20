@@ -26,6 +26,7 @@ class ForgotPassField extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         TextFormField(
+          obscureText: isObscure,
           decoration: InputDecoration(
             focusColor: AppColor.cRed,
             hoverColor: AppColor.cRed,
