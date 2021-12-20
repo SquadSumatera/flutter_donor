@@ -161,6 +161,19 @@ class LoginPage extends StatelessWidget {
                         )
                       ],
                     ),
+                    const SizedBox(height: 18),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.forgotPassword);
+                      },
+                      child: Text(
+                        "Lupa Password ?",
+                        style: AppText.textMedium.copyWith(
+                          color: AppColor.cRed,
+                          fontWeight: AppText.semiBold,
+                        ),
+                      ),
+                    )
                   ],
                 ),
               )
