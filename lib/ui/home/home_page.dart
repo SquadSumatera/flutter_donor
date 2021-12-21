@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/donor_history_controller.dart';
 import 'package:flutter_donor/get_x/controller/donor_statistic_controller.dart';
@@ -46,83 +47,159 @@ class HomePage extends StatelessWidget {
                       checkConnectionGetX.onInit();
                     },
                   )
-                : ListView(
+                : Stack(
                     children: [
-                      banner(checkConnectionGetX, index),
-                      donorStatisticController.statusSubmission.value ==
-                              StatusSubmissionDonor.loading
-                          ? onLoad()
-                          : donorStatisticController.statusSubmission.value ==
-                                  StatusSubmissionDonor.failed
-                              ? failed(() {
-                                  donorStatisticController.onInit();
-                                })
-                              : stokPlasma(
-                                  donorStatisticController.dataSubmission.value,
-                                ),
-                      homeDivider(),
-                      donorStatisticController.statusStatistic.value ==
-                              StatusStatisticDonor.loading
-                          ? onLoad()
-                          : donorStatisticController.statusStatistic.value ==
-                                  StatusStatisticDonor.failed
-                              ? failed(() {
-                                  donorStatisticController.onInit();
-                                })
-                              : trend(
-                                  donorStatisticController
-                                      .donorModel.value.dataStatistics!,
-                                  donorStatisticController
-                                      .donorModel.value.pointer!),
-                      homeDivider(),
-                      title("Jadwal Donor"),
-                      Obx(
-                        () => donorHistoryController.status.value ==
-                                DonorHistoryLoadStatus.loading
-                            ? onLoad()
-                            : donorHistoryController.status.value ==
-                                    DonorHistoryLoadStatus.failed
-                                ? failed(
-                                    () {
-                                      donorHistoryController.onInit();
-                                    },
-                                  )
-                                : ListView.builder(
-                                    primary: false,
-                                    shrinkWrap: true,
-                                    itemCount: donorHistoryController
-                                        .donorSchedule.length,
-                                    itemBuilder: (context, i) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          Get.toNamed(Routes.donorDetail);
-                                          donorHistoryController.setSelected(
-                                              donorHistoryController
-                                                  .donorSchedule[i].value);
+                      ListView(
+                        children: [
+                          banner(checkConnectionGetX, index),
+                          donorStatisticController.statusSubmission.value ==
+                                  StatusSubmissionDonor.loading
+                              ? onLoad()
+                              : donorStatisticController
+                                          .statusSubmission.value ==
+                                      StatusSubmissionDonor.failed
+                                  ? failed(() {
+                                      donorStatisticController.onInit();
+                                    })
+                                  : stokPlasma(
+                                      donorStatisticController
+                                          .dataSubmission.value,
+                                    ),
+                          homeDivider(),
+                          donorStatisticController.statusStatistic.value ==
+                                  StatusStatisticDonor.loading
+                              ? onLoad()
+                              : donorStatisticController
+                                          .statusStatistic.value ==
+                                      StatusStatisticDonor.failed
+                                  ? failed(() {
+                                      donorStatisticController.onInit();
+                                    })
+                                  : trend(
+                                      donorStatisticController
+                                          .donorModel.value.dataStatistics!,
+                                      donorStatisticController
+                                          .donorModel.value.pointer!),
+                          homeDivider(),
+                          title("Jadwal Donor"),
+                          Obx(
+                            () => donorHistoryController.status.value ==
+                                    DonorHistoryLoadStatus.loading
+                                ? onLoad()
+                                : donorHistoryController.status.value ==
+                                        DonorHistoryLoadStatus.failed
+                                    ? failed(
+                                        () {
+                                          donorHistoryController.onInit();
                                         },
-                                        child: cardSchedule(
-                                          donorHistoryController
-                                              .donorSchedule[i]
-                                              .value
-                                              .scheduleDonorNotesDate,
-                                          donorHistoryController
-                                              .donorSchedule[i]
-                                              .value
-                                              .scheduleDonorNotesCard,
-                                          donorHistoryController
-                                              .donorSchedule[i]
-                                              .value
-                                              .nameInstitutions!,
+                                      )
+                                    : ListView.builder(
+                                        primary: false,
+                                        shrinkWrap: true,
+                                        itemCount: donorHistoryController
+                                            .donorSchedule.length,
+                                        itemBuilder: (context, i) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Get.toNamed(Routes.donorDetail);
+                                              donorHistoryController
+                                                  .setSelected(
+                                                      donorHistoryController
+                                                          .donorSchedule[i]
+                                                          .value);
+                                            },
+                                            child: cardSchedule(
+                                              donorHistoryController
+                                                  .donorSchedule[i]
+                                                  .value
+                                                  .scheduleDonorNotesDate,
+                                              donorHistoryController
+                                                  .donorSchedule[i]
+                                                  .value
+                                                  .scheduleDonorNotesCard,
+                                              donorHistoryController
+                                                  .donorSchedule[i]
+                                                  .value
+                                                  .nameInstitutions!,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                          ),
+                          const SizedBox(
+                            height: 35.0,
+                          ),
+                          homeDivider(),
+                          HomeArticleSection(),
+                        ],
+                      ),
+                      if (!checkConnectionGetX.verify.value)
+                        Container(
+                          height: MediaQuery.of(context).size.height,
+                          decoration: BoxDecoration(
+                            color: AppColor.richBlack.withOpacity(0.5),
+                          ),
+                        ),
+                      if (!checkConnectionGetX.verify.value)
+                        AlertDialog(
+                          title: const Text(
+                            "Verify Email",
+                            textAlign: TextAlign.center,
+                          ),
+                          titleTextStyle: AppText.textMedium.copyWith(
+                            fontWeight: AppText.semiBold,
+                            color: AppColor.richBlack,
+                          ),
+                          content: Text(
+                            "Tekan tombol Verifikasi dibawah, lalu buka email anda untuk melakukan verifkasi email.",
+                            style: AppText.textSmall.copyWith(
+                              fontWeight: AppText.normal,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          contentPadding: const EdgeInsets.all(12.0),
+                          actionsAlignment: MainAxisAlignment.center,
+                          actions: [
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: AppColor.cRed,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                              ),
+                              onPressed: () {
+                                checkConnectionGetX.getVerify();
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4.0),
+                                child: checkConnectionGetX.statusVerify.value ==
+                                        StatusVerify.loading
+                                    ? const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: 6.0,
+                                          horizontal: 2.0,
                                         ),
-                                      );
-                                    },
-                                  ),
-                      ),
-                      const SizedBox(
-                        height: 35.0,
-                      ),
-                      homeDivider(),
-                      HomeArticleSection(),
+                                        child: CircularProgressIndicator(
+                                          color: AppColor.white,
+                                          strokeWidth: 3.0,
+                                          semanticsLabel: "Loading...",
+                                        ),
+                                      )
+                                    : Text(
+                                        "Verifikasi",
+                                        style: AppText.textNormal.copyWith(
+                                          color: AppColor.white,
+                                          fontWeight: AppText.bold,
+                                        ),
+                                      ),
+                              ),
+                            )
+                          ],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                        ),
                     ],
                   ),
       ),
