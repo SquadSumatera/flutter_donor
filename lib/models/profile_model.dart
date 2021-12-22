@@ -46,7 +46,7 @@ class ProfileModel {
   String? contactDonators;
   String? addressDonators;
   String? profileImageDonators;
-  DateTime? verifyDonators;
+  dynamic verifyDonators;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
@@ -94,7 +94,7 @@ class ProfileModel {
     String? contactDonators,
     String? addressDonators,
     String? profileImageDonators,
-    DateTime? verifyDonators,
+    dynamic verifyDonators,
     DateTime? createdAt,
     DateTime? updatedAt,
     dynamic deletedAt,
@@ -132,7 +132,7 @@ class ProfileModel {
         contactDonators: json["contact_donators"],
         addressDonators: json["address_donators"],
         profileImageDonators: json["profile_image_donators"],
-        verifyDonators: DateTime.parse(json["verify_donators"]),
+        verifyDonators: json["verify_donators"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         deletedAt: json["deleted_at"],
@@ -149,7 +149,7 @@ class ProfileModel {
         "contact_donators": contactDonators,
         "address_donators": addressDonators,
         "profile_image_donators": profileImageDonators,
-        "verify_donators": verifyDonators?.toIso8601String(),
+        "verify_donators": verifyDonators,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "deleted_at": deletedAt,
