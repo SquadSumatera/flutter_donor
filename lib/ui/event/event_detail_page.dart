@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/event_register_controller.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
 import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,9 @@ class EventDetailPage extends StatelessWidget {
   }) : super(key: key);
 
   final ProfileController profileController = Get.find<ProfileController>();
+  final EventRegisterController eventRegisterController = Get.put(
+    EventRegisterController(),
+  );
 
   List<bool> search = Get.arguments;
 
@@ -92,10 +96,165 @@ class EventDetailPage extends StatelessWidget {
                     duration: const Duration(seconds: 3),
                   );
                 } else {
-                  Get.offNamed(Routes.donor, arguments: [
-                    "${Get.parameters['idInstitution']}",
-                    "${Get.parameters['published']}"
-                  ]);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text(
+                          "Daftar",
+                          textAlign: TextAlign.center,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        titleTextStyle: AppText.textMedium.copyWith(
+                          fontWeight: AppText.semiBold,
+                          color: AppColor.richBlack,
+                        ),
+                        content: Text(
+                          "Apakah anda yakin ingin mendaftar event ini? \n Event dilaksanakan pada ${Get.parameters['start']}.",
+                          style: AppText.textSmall.copyWith(
+                            fontWeight: AppText.normal,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        contentPadding: const EdgeInsets.all(12.0),
+                        actionsAlignment: MainAxisAlignment.center,
+                        actions: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: AppColor.cRed,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                            ),
+                            onPressed: () async {
+                              await eventRegisterController
+                                  .registerEvent(
+                                "${Get.parameters["idDonorEvents"]}",
+                                profileController
+                                    .profile.value.bloodTypeDonators!,
+                                profileController
+                                    .profile.value.bloodRhesusDonators!,
+                                "${Get.parameters["schedule"]}",
+                              )
+                                  .then(
+                                (status) {
+                                  if (status) {
+                                    Get.back();
+                                    Get.back();
+
+                                    Get.defaultDialog(
+                                      title: "SUKSES",
+                                      titleStyle: AppText.textMedium.copyWith(
+                                        color: AppColor.cBlack,
+                                        fontWeight: AppText.bold,
+                                      ),
+                                      titlePadding:
+                                          const EdgeInsets.only(top: 12.0),
+                                      barrierDismissible: false,
+                                      middleText:
+                                          "Silahkan lihat jadwal anda di \n Beranda - Jadwal Donor",
+                                      middleTextStyle:
+                                          AppText.textSmall.copyWith(
+                                        color: AppColor.cBlack,
+                                        fontWeight: AppText.light,
+                                      ),
+                                      confirmTextColor: AppColor.white,
+                                      confirm: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: AppColor.cRed,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Get.back();
+                                        },
+                                        child: Text(
+                                          "OKE",
+                                          style: AppText.textNormal.copyWith(
+                                            color: AppColor.white,
+                                            fontWeight: AppText.bold,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      radius: 14.0,
+                                    );
+                                  } else {
+                                    Get.back();
+                                    Get.snackbar(
+                                      "Failed",
+                                      "Terjadi kesalahan",
+                                      duration: const Duration(seconds: 5),
+                                    );
+                                  }
+                                },
+                              );
+                            },
+                            child: Obx(
+                              () => Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4.0),
+                                child: eventRegisterController.status.value ==
+                                        RegisterEventStatus.loading
+                                    ? const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: 6.0,
+                                          horizontal: 2.0,
+                                        ),
+                                        child: CircularProgressIndicator(
+                                          color: AppColor.white,
+                                          strokeWidth: 3.0,
+                                          semanticsLabel: "Loading...",
+                                        ),
+                                      )
+                                    : Text(
+                                        "Iya",
+                                        style: AppText.textNormal.copyWith(
+                                          color: AppColor.white,
+                                          fontWeight: AppText.bold,
+                                        ),
+                                      ),
+                              ),
+                            ),
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: AppColor.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4.0),
+                              child: Text(
+                                "Tidak",
+                                style: AppText.textNormal.copyWith(
+                                  color: AppColor.cBlack,
+                                  fontWeight: AppText.bold,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      );
+                    },
+                  );
+
+                  // Get.offNamed(
+                  //   Routes.donor,
+                  //   arguments: [
+                  //     "${Get.parameters['idInstitution']}",
+                  //     "${Get.parameters['published']}"
+                  //   ],
+                  // );
                 }
               },
               style: ElevatedButton.styleFrom(

@@ -9,7 +9,7 @@ class EventSearchServices {
     required String key,
   }) async {
     Response _response = await get(
-        Uri.parse(AppUrl.baseUrl + "/d/donor_events?key=" + key),
+        Uri.parse(AppUrl.baseUrl + "/d/donor_events/b64?key=" + key),
         headers: {
           'Authorization': 'Bearer $token',
         });

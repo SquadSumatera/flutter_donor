@@ -1,10 +1,17 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import '../../models/dummy_event_model.dart';
 import '../../shared/theme.dart';
 
-Widget eventCardMedium(EventDetailModel eventDetail) {
+Widget eventCardMedium(
+  ImageProvider image,
+  String title,
+  String institutions,
+  String time,
+  String idDonor,
+) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 32, vertical: 6.0),
     height: 69.0,
@@ -25,7 +32,7 @@ Widget eventCardMedium(EventDetailModel eventDetail) {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  eventDetail.title,
+                  title,
                   overflow: TextOverflow.clip,
                   style: AppText.textNormal.copyWith(
                     fontWeight: AppText.medium,
@@ -37,7 +44,7 @@ Widget eventCardMedium(EventDetailModel eventDetail) {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      eventDetail.institutions,
+                      institutions,
                       style: AppText.textSmall.copyWith(
                         fontWeight: AppText.normal,
                         color: AppColor.cBlue,
@@ -52,7 +59,7 @@ Widget eventCardMedium(EventDetailModel eventDetail) {
                       ),
                     ),
                     Text(
-                      eventDetail.time,
+                      time,
                       style: AppText.textSmall.copyWith(
                         color: AppColor.cBlack,
                         fontWeight: AppText.normal,
@@ -65,21 +72,31 @@ Widget eventCardMedium(EventDetailModel eventDetail) {
           ),
         ),
         Hero(
-          tag: eventDetail.idDonor,
+          tag: idDonor,
           child: Container(
             height: 69.0,
             width: 84.0,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(8.0),
                 topRight: Radius.circular(8.0),
               ),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: Image.memory(eventDetail.image).image,
-              ),
             ),
-            child: null,
+            child: Container(
+              height: 69.0,
+              width: 84.0,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(8.0),
+                  topRight: Radius.circular(8.0),
+                ),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: image,
+                ),
+              ),
+              child: null,
+            ),
           ),
         ),
       ],
@@ -87,8 +104,13 @@ Widget eventCardMedium(EventDetailModel eventDetail) {
   );
 }
 
-Widget eventCardLarge(Uint8List image, String title, String institutions,
-    String time, String idDonor) {
+Widget eventCardLarge(
+  ImageProvider image,
+  String title,
+  String institutions,
+  String time,
+  String idDonor,
+) {
   return LayoutBuilder(
     builder: (context, constrain) => Container(
       margin: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
@@ -113,7 +135,7 @@ Widget eventCardLarge(Uint8List image, String title, String institutions,
                 ),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: Image.memory(image).image,
+                  image: image,
                 ),
               ),
               child: null,

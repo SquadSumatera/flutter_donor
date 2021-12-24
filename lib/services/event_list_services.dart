@@ -7,7 +7,7 @@ class EventListServices {
     required String token,
   }) async {
     Response _response = await get(
-      Uri.parse(AppUrl.baseUrl + "/d/donor_events"),
+      Uri.parse(AppUrl.baseUrl + "/d/donor_events/b64"),
       headers: {
         'Authorization': 'Bearer $token',
       },

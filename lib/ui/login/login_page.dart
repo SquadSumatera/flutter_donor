@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/models/google_signin_model.dart';
+import 'package:flutter_donor/services/login_google_service.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../get_x/state/login_getx.dart';
 import '../../models/login_model.dart';
 import '../../routes/app_pages.dart';
@@ -13,9 +16,16 @@ class LoginPage extends StatelessWidget {
   final GlobalKey<FormState> formKeyLogin = GlobalKey<FormState>();
 
   final LoginGetX loginGetXPage = Get.put(LoginGetX());
-
+// https://www.googleapis.com/auth/contacts.readonly
   @override
   Widget build(BuildContext context) {
+    final GoogleSignIn _googleSignIn2 = GoogleSignIn(
+      scopes: [
+        'email',
+        "https://www.googleapis.com/auth/userinfo.profile",
+      ],
+    );
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -74,8 +84,27 @@ class LoginPage extends StatelessWidget {
                         },
                       ),
                     ),
+                    const SizedBox(height: 2.0),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.forgotPassword);
+                      },
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 6.0),
+                          child: Text(
+                            "Lupa Password ?",
+                            style: AppText.textMedium.copyWith(
+                              color: AppColor.cRed,
+                              fontWeight: AppText.semiBold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     const SizedBox(
-                      height: 50.0,
+                      height: 24.0,
                     ),
                     Obx(
                       () => ElevatedButton(
@@ -88,11 +117,6 @@ class LoginPage extends StatelessWidget {
                           shadowColor: AppColor.cGrey,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          textStyle: AppText.textMedium.copyWith(
-                            fontSize: 14.0,
-                            color: AppColor.white,
-                            fontWeight: AppText.semiBold,
                           ),
                         ),
                         onPressed: () async {
@@ -124,8 +148,13 @@ class LoginPage extends StatelessWidget {
                         child: loginGetXPage.dontChange.value
                             ? null
                             : loginGetXPage.isDone.value
-                                ? const Text(
+                                ? Text(
                                     "Masuk",
+                                    style: AppText.textMedium.copyWith(
+                                      fontSize: 15.0,
+                                      color: AppColor.white,
+                                      fontWeight: AppText.semiBold,
+                                    ),
                                     textAlign: TextAlign.center,
                                   )
                                 : const CircularProgressIndicator(
@@ -135,11 +164,100 @@ class LoginPage extends StatelessWidget {
                                   ),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 24.0),
+                      child: Text(
+                        "or connect with",
+                        style: AppText.textNormal.copyWith(
+                          fontWeight: AppText.light,
+                          color: AppColor.richBlack,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(
+                          MediaQuery.of(context).size.width - 50,
+                          38.0,
+                        ),
+                        primary: AppColor.white,
+                        shadowColor: AppColor.cGrey,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
+                      onPressed: () async {
+                        try {
+                          var coba = await _googleSignIn2.signOut();
+                          coba;
+                          var result = await _googleSignIn2.signIn();
+                          if (result != null) {
+                            var auth = await result.authentication;
+                            if (auth.idToken != null) {
+                              print("Ini ID Token" + auth.idToken!);
+                              try {
+                                GoogleSignInModel googleSignInModel =
+                                    await LoginGoogleServices
+                                        .loginGoogleServices(
+                                            token: auth.idToken!);
+
+                                if (googleSignInModel.status == 201) {
+                                  loginGetXPage
+                                      .changeToken(googleSignInModel.token!);
+                                  loginGetXPage
+                                      .setDataToken(googleSignInModel.token!);
+                                  Get.offAllNamed(Routes.main);
+                                } else {
+                                  print(googleSignInModel.message);
+                                  print(googleSignInModel.status);
+                                  Get.snackbar(
+                                    "Akun anda tidak terdaftar",
+                                    "Silahkan melakukan registrasi terlebih dahulu",
+                                    duration: const Duration(seconds: 4),
+                                  );
+                                }
+                              } catch (e) {
+                                print("error");
+                                print(e);
+                              }
+                            }
+                          }
+                        } catch (e) {
+                          print(e);
+                        }
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/bitmap/google.png",
+                            height: 15.0,
+                            width: 15.0,
+                            fit: BoxFit.cover,
+                          ),
+                          const SizedBox(
+                            width: 8.0,
+                          ),
+                          Text(
+                            "Masuk dengan Google",
+                            style: AppText.textMedium.copyWith(
+                              fontSize: 15.0,
+                              color: AppColor.cBlack,
+                              fontWeight: AppText.semiBold,
+                            ),
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      ),
+                    ),
                     const SizedBox(
-                      height: 14.0,
+                      height: 12.0,
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           "Belum Punya Akun ? ",
@@ -161,19 +279,6 @@ class LoginPage extends StatelessWidget {
                         )
                       ],
                     ),
-                    const SizedBox(height: 18),
-                    GestureDetector(
-                      onTap: () {
-                        Get.toNamed(Routes.forgotPassword);
-                      },
-                      child: Text(
-                        "Lupa Password ?",
-                        style: AppText.textMedium.copyWith(
-                          color: AppColor.cRed,
-                          fontWeight: AppText.semiBold,
-                        ),
-                      ),
-                    )
                   ],
                 ),
               )

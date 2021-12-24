@@ -18,16 +18,21 @@ Widget headerEventDetail(
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: Image.memory(
-            search
-                ? getSearch.image[int.parse(image)]
-                : getImage.image[int.parse(image)],
-          ).image,
+          image: search
+              ? getSearch
+                  .eventSearchModel.value.data![int.parse(image)].imageDecode!
+              : getImage.listData[int.parse(image)].value.imageDecode!,
         ),
       ),
     ),
   );
 }
+
+// Image.memory(
+//             search
+//                 ? getSearch.image[int.parse(image)]
+//                 : getImage.image[int.parse(image)],
+//           ).image,
 
 Widget headingTextDetail(String heading, String institution, String time) {
   return Column(

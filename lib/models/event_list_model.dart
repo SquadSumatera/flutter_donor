@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -76,6 +77,14 @@ class DataEvent {
   DateTime? updatedAt;
   String? deletedAt;
 
+  ImageProvider? get imageDecode {
+    if (pictureDonorEvents != "") {
+      return MemoryImage(base64Decode(pictureDonorEvents!));
+    } else {
+      return null;
+    }
+  }
+
   String get created {
     if (createdAt == null) {
       return "--/--/----";
@@ -89,6 +98,14 @@ class DataEvent {
       return "--/--/----";
     } else {
       return DateFormat("dd MMMM yyyy", "id").format(startDonorEvents!);
+    }
+  }
+
+  String get schedule {
+    if (startDonorEvents == null) {
+      return "--/--/----";
+    } else {
+      return DateFormat("yyyy-M-d", "id").format(startDonorEvents!);
     }
   }
 

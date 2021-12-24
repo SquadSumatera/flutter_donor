@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class EventSearchModel {
@@ -82,6 +83,22 @@ class Datum {
   factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
+
+  ImageProvider? get imageDecode {
+    if (pictureDonorEvents != "") {
+      return MemoryImage(base64Decode(pictureDonorEvents!));
+    } else {
+      return null;
+    }
+  }
+
+  String get schedule {
+    if (startDonorEvents == null) {
+      return "--/--/----";
+    } else {
+      return DateFormat("yyyy-M-d", "id").format(startDonorEvents!);
+    }
+  }
 
   String get created {
     if (createdAt == null) {
