@@ -73,11 +73,11 @@ class EventPage extends StatelessWidget {
                         onTap: () {
                           Get.toNamed(
                               Routes.event +
-                                  "/0?nameHeading=${listEvent.listData[0].value.titleDonorEvents}&published=${listEvent.listData[0].value.nameInstitutions}&time=${listEvent.listData[0].value.created}&start=${listEvent.listData[0].value.start}&end=${listEvent.listData[0].value.end}&desc=${listEvent.listData[0].value.descDonorEvents}&address=${listEvent.listData[0].value.addressDonorEvents}&image=${0.toString()}&contact=${listEvent.listData[0].value.contactConstitutions}&email=${listEvent.listData[0].value.emailConstitutions}&idDonor=${listEvent.listData[0].value.idDonorEvents}&idInstitution=${listEvent.listData[0].value.idInstitutions}",
+                                  "/0?nameHeading=${listEvent.listData[0].value.titleDonorEvents}&published=${listEvent.listData[0].value.nameInstitutions}&time=${listEvent.listData[0].value.created}&start=${listEvent.listData[0].value.start}&end=${listEvent.listData[0].value.end}&desc=${listEvent.listData[0].value.descDonorEvents}&address=${listEvent.listData[0].value.addressDonorEvents}&image=${0.toString()}&contact=${listEvent.listData[0].value.contactConstitutions}&email=${listEvent.listData[0].value.emailConstitutions}&idDonor=${listEvent.listData[0].value.idDonorEvents}&idInstitution=${listEvent.listData[0].value.idInstitutions}&idDonorEvents=${listEvent.listData[0].value.idDonorEvents}&schedule=${listEvent.listData[0].value.schedule}",
                               arguments: [false]);
                         },
                         child: eventCardLarge(
-                          listEvent.image[0],
+                          listEvent.listData[0].value.imageDecode!,
                           listEvent.listData[0].value.titleDonorEvents!,
                           listEvent.listData[0].value.nameInstitutions!,
                           listEvent.listData[0].value.created,
@@ -102,19 +102,14 @@ class EventPage extends StatelessWidget {
                         itemBuilder: (context, i) => GestureDetector(
                           onTap: () => Get.toNamed(
                               Routes.event +
-                                  "/${i + 1}?nameHeading=${listEvent.listData[i + 1].value.titleDonorEvents}&published=${listEvent.listData[i + 1].value.nameInstitutions}&time=${listEvent.listData[i + 1].value.created}&start=${listEvent.listData[i + 1].value.start}&end=${listEvent.listData[i + 1].value.end}&desc=${listEvent.listData[i + 1].value.descDonorEvents}&address=${listEvent.listData[i + 1].value.addressDonorEvents}&image=${(i + 1).toString()}&contact=${listEvent.listData[i + 1].value.contactConstitutions}&email=${listEvent.listData[i + 1].value.emailConstitutions}&idDonor=${listEvent.listData[i + 1].value.idDonorEvents}&idInstitution=${listEvent.listData[i + 1].value.idInstitutions}",
+                                  "/${i + 1}?nameHeading=${listEvent.listData[i + 1].value.titleDonorEvents}&published=${listEvent.listData[i + 1].value.nameInstitutions}&time=${listEvent.listData[i + 1].value.created}&start=${listEvent.listData[i + 1].value.start}&end=${listEvent.listData[i + 1].value.end}&desc=${listEvent.listData[i + 1].value.descDonorEvents}&address=${listEvent.listData[i + 1].value.addressDonorEvents}&image=${(i + 1).toString()}&contact=${listEvent.listData[i + 1].value.contactConstitutions}&email=${listEvent.listData[i + 1].value.emailConstitutions}&idDonor=${listEvent.listData[i + 1].value.idDonorEvents}&idInstitution=${listEvent.listData[i + 1].value.idInstitutions}&idDonorEvents=${listEvent.listData[i + 1].value.idDonorEvents}&schedule=${listEvent.listData[i + 1].value.schedule}",
                               arguments: [false]),
                           child: eventCardMedium(
-                            EventDetailModel(
-                              idDonor: listEvent
-                                  .listData[i + 1].value.idDonorEvents!,
-                              title: listEvent
-                                  .listData[i + 1].value.titleDonorEvents!,
-                              institutions: listEvent
-                                  .listData[i + 1].value.nameInstitutions!,
-                              time: listEvent.listData[i + 1].value.created,
-                              image: listEvent.image[i + 1],
-                            ),
+                            listEvent.listData[i + 1].value.imageDecode!,
+                            listEvent.listData[i + 1].value.titleDonorEvents!,
+                            listEvent.listData[i + 1].value.nameInstitutions!,
+                            listEvent.listData[i + 1].value.created,
+                            listEvent.listData[i + 1].value.idDonorEvents!,
                           ),
                         ),
                       )

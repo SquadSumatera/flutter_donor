@@ -15,7 +15,7 @@ class EventListController extends GetxController {
   Rx<ListEventStatus> status = ListEventStatus.loading.obs;
 
   late List<Rx<DataEvent>> listData = [];
-  var image = [].obs;
+  // var image = [].obs;
 
   @override
   void onInit() {
@@ -28,15 +28,17 @@ class EventListController extends GetxController {
     try {
       listData = await EventListServices.eventListServices(token: tokenGet)
           .then((value) => value.map((e) => e.obs).toList());
-      if (listData != List.empty()) {
-        for (var i = 0; i < listData.length; i++) {
-          var linkFor = listData[i].value.pictureDonorEvents;
-          var j = await EventImageServices.eventImageServices(
-                  token: tokenGet, link: linkFor!)
-              .then((value) => value.file);
-          image.add(j);
-        }
-      }
+      // if (listData != List.empty()) {
+      //   for (var i = 0; i < listData.length; i++) {
+      //     var linkFor = listData[i].value.pictureDonorEvents;
+      //     var j = await EventImageServices.eventImageServices(
+      //             token: tokenGet, link: linkFor!)
+      //         .then((value) => value.file);
+      //     image.add(j);
+      //     print(i);
+      //     print(image[i]);
+      //   }
+      // }
 
       status.value = ListEventStatus.loaded;
     } catch (e) {

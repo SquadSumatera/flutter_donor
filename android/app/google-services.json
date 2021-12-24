@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "935694195626",
+    "project_id": "dorplas",
+    "storage_bucket": "dorplas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935694195626:android:eed7a59b9aab204878e9d3",
+        "android_client_info": {
+          "package_name": "com.example.flutter_donor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "935694195626-0nq9kj04bdj4j75b83t76gbidirvukbe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_donor",
+            "certificate_hash": "533c0a41192ebc7664c28ee4a1bb8b5a35e70821"
+          }
+        },
+        {
+          "client_id": "935694195626-g7e2uc6fnplu9ud4ai2ap8l56qs782ve.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUBzzAwDnExi0cXpfnWgdlUjqyFBpiSOs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "935694195626-g7e2uc6fnplu9ud4ai2ap8l56qs782ve.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -79,24 +79,21 @@ class EventSearchPage extends StatelessWidget {
                                   .eventSearchModel.value.data!.length,
                               itemBuilder: (context, i) => GestureDetector(
                                 onTap: () => Get.toNamed(
-                                    Routes.event +
-                                        "/${i + 1}?nameHeading=${searchController.eventSearchModel.value.data![i].titleDonorEvents}&published=${searchController.eventSearchModel.value.data![i].nameInstitutions}&time=${searchController.eventSearchModel.value.data![i].created}&start=${searchController.eventSearchModel.value.data![i].start}&end=${searchController.eventSearchModel.value.data![i].end}&desc=${searchController.eventSearchModel.value.data![i].descDonorEvents}&address=${searchController.eventSearchModel.value.data![i].addressDonorEvents}&image=${(i).toString()}&contact=${searchController.eventSearchModel.value.data![i].contactInstitutions}&email=${searchController.eventSearchModel.value.data![i].emailInstitutions}&idDonor=${searchController.eventSearchModel.value.data![i].idDonorEvents}&idInstitution=${searchController.eventSearchModel.value.data![i].idInstitutions}",
-                                    arguments: [true]),
+                                  Routes.event +
+                                      "/${i + 1}?nameHeading=${searchController.eventSearchModel.value.data![i].titleDonorEvents}&published=${searchController.eventSearchModel.value.data![i].nameInstitutions}&time=${searchController.eventSearchModel.value.data![i].created}&start=${searchController.eventSearchModel.value.data![i].start}&end=${searchController.eventSearchModel.value.data![i].end}&desc=${searchController.eventSearchModel.value.data![i].descDonorEvents}&address=${searchController.eventSearchModel.value.data![i].addressDonorEvents}&image=${(i).toString()}&contact=${searchController.eventSearchModel.value.data![i].contactInstitutions}&email=${searchController.eventSearchModel.value.data![i].emailInstitutions}&idDonor=${searchController.eventSearchModel.value.data![i].idDonorEvents}&idInstitution=${searchController.eventSearchModel.value.data![i].idInstitutions}&idDonorEvents=${searchController.eventSearchModel.value.data![i].idDonorEvents}&schedule=${searchController.eventSearchModel.value.data![i].schedule}",
+                                  arguments: [true],
+                                ),
                                 child: eventCardMedium(
-                                  EventDetailModel(
-                                    idDonor: searchController.eventSearchModel
-                                        .value.data![i].idDonorEvents!,
-                                    title: searchController.eventSearchModel
-                                        .value.data![i].titleDonorEvents!,
-                                    institutions: searchController
-                                        .eventSearchModel
-                                        .value
-                                        .data![i]
-                                        .nameInstitutions!,
-                                    time: searchController.eventSearchModel
-                                        .value.data![i].created,
-                                    image: searchController.image[i],
-                                  ),
+                                  searchController.eventSearchModel.value
+                                      .data![i].imageDecode!,
+                                  searchController.eventSearchModel.value
+                                      .data![i].titleDonorEvents!,
+                                  searchController.eventSearchModel.value
+                                      .data![i].nameInstitutions!,
+                                  searchController
+                                      .eventSearchModel.value.data![i].created,
+                                  searchController.eventSearchModel.value
+                                      .data![i].idDonorEvents!,
                                 ),
                               ),
                             )

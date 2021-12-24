@@ -17,7 +17,7 @@ class EventSearchController extends GetxController {
   Rx<EventSearchModel> eventSearchModel = EventSearchModel().obs;
   Rx<StatusSearch> statusSearchEvent = StatusSearch.failed.obs;
   Rx<String> key = "".obs;
-  var image = [].obs;
+  // var image = [].obs;
 
   @override
   void onInit() {
@@ -33,15 +33,15 @@ class EventSearchController extends GetxController {
     try {
       eventSearchModel.value = await EventSearchServices.eventSearchService(
           token: token.token.value, key: cKey);
-      if (eventSearchModel.value.data != null) {
-        for (var i = 0; i < eventSearchModel.value.data!.length; i++) {
-          var linkFor = eventSearchModel.value.data![i].pictureDonorEvents;
-          var j = await EventImageServices.eventImageServices(
-                  token: token.token.value, link: linkFor!)
-              .then((value) => value.file);
-          image.add(j);
-        }
-      }
+      // if (eventSearchModel.value.data != null) {
+      //   for (var i = 0; i < eventSearchModel.value.data!.length; i++) {
+      //     var linkFor = eventSearchModel.value.data![i].pictureDonorEvents;
+      //     var j = await EventImageServices.eventImageServices(
+      //             token: token.token.value, link: linkFor!)
+      //         .then((value) => value.file);
+      //     image.add(j);
+      //   }
+      // }
       statusSearchEvent.value = StatusSearch.loaded;
     } catch (e) {
       print(e);
