@@ -22,6 +22,7 @@ class ProfileController extends GetxController {
   Rx<ProfileModel> profile = ProfileModel().obs;
   Rx<ProfileLoadStatus> status = ProfileLoadStatus.loading.obs;
   Rx<int> userPoint = 0.obs;
+  Rx<bool> dontChange = true.obs;
 
   @override
   void onInit() {

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_donor/get_x/controller/profile_controller.dart';
 import 'package:flutter_donor/get_x/state/check_connection_getx.dart';
 import 'package:flutter_donor/get_x/state/home_getx.dart';
 import 'package:flutter_donor/shared/theme.dart';
+import 'package:get/get.dart';
 
-Widget banner(CheckConnectionGetX model, HomeGetX index) {
+Widget banner(ProfileController model, HomeGetX index) {
   return SizedBox(
     height: 222.0,
     child: Stack(
@@ -105,20 +107,33 @@ Widget banner(CheckConnectionGetX model, HomeGetX index) {
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Container(
-                  width: 50.0,
-                  height: 50.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: model.profile?.showProfilePhoto ??
-                          const AssetImage("assets/bitmap/header_bg.png"),
-                    ),
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: AppColor.lightGrey,
-                      width: 0.5,
-                    ),
+                Obx(
+                  () => Container(
+                    width: 50.0,
+                    height: 50.0,
+                    decoration: model.dontChange.value
+                        ? BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: model.status.value ==
+                                      ProfileLoadStatus.loading
+                                  ? const AssetImage(
+                                      "assets/bitmap/header_bg.png")
+                                  : model.status.value ==
+                                          ProfileLoadStatus.failed
+                                      ? const AssetImage(
+                                          "assets/bitmap/header_bg.png")
+                                      : model.profile.value.showProfilePhoto ??
+                                          const AssetImage(
+                                              "assets/bitmap/header_bg.png"),
+                            ),
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: AppColor.lightGrey,
+                              width: 0.5,
+                            ),
+                          )
+                        : null,
                   ),
                 ),
                 const SizedBox(
@@ -129,11 +144,17 @@ Widget banner(CheckConnectionGetX model, HomeGetX index) {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      model.profile!.nameDonators!,
-                      style: AppText.textMedium.copyWith(
-                        color: AppColor.cRed,
-                        fontWeight: AppText.semiBold,
+                    Obx(
+                      () => Text(
+                        model.status.value == ProfileLoadStatus.loading
+                            ? "Loading ..."
+                            : model.status.value == ProfileLoadStatus.failed
+                                ? "Failed Load Name"
+                                : model.profile.value.nameDonators ?? "",
+                        style: AppText.textMedium.copyWith(
+                          color: AppColor.cRed,
+                          fontWeight: AppText.semiBold,
+                        ),
                       ),
                     ),
                     const SizedBox(
