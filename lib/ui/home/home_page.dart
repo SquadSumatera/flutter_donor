@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/donor_history_controller.dart';
 import 'package:flutter_donor/get_x/controller/donor_statistic_controller.dart';
+import 'package:flutter_donor/get_x/controller/profile_controller.dart';
 import 'package:flutter_donor/get_x/state/check_connection_getx.dart';
 import 'package:flutter_donor/get_x/state/home_getx.dart';
 import 'package:flutter_donor/get_x/state/login_getx.dart';
@@ -29,6 +30,7 @@ class HomePage extends StatelessWidget {
   final DonorHistoryController donorHistoryController = Get.find();
   final DonorStatisticController donorStatisticController =
       Get.find<DonorStatisticController>();
+  ProfileController profileController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class HomePage extends StatelessWidget {
                     children: [
                       ListView(
                         children: [
-                          banner(checkConnectionGetX, index),
+                          banner(profileController, index),
                           donorStatisticController.statusSubmission.value ==
                                   StatusSubmissionDonor.loading
                               ? onLoad()
