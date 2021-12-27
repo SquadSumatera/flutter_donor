@@ -18,6 +18,25 @@ class InstitutionServices {
     return InstitutionsModel.fromJson(_response.body).data!;
   }
 
+  static Future<List<Datum?>> listInstitutionFilter({
+    required String token,
+    required String blood,
+    required String rhesus,
+    required String stock,
+  }) async {
+    Response _response = await get(
+      Uri.parse(
+        AppUrl.baseUrl +
+            "/d/institutions?blood_type=$blood&blood_rhesus=$rhesus&stock=$stock",
+      ),
+      headers: {
+        "Authorization": "Bearer $token",
+      },
+    );
+
+    return InstitutionsModel.fromJson(_response.body).data!;
+  }
+
   static Future<Datum?> getInstitutionDetail({
     required String token,
     required String id,

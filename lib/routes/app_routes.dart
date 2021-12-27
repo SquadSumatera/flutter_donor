@@ -24,4 +24,5 @@ abstract class Routes {
   static const String webviewArticle = '/webview-article';
   static const String eventSearch = '/event-search';
   static const String forgotPassword = '/forgot-password';
+  static const String filterInstitutions = '/filter-institutions';
 }

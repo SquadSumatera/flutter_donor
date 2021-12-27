@@ -1,4 +1,3 @@
-
 import 'package:flutter_donor/models/institution_model.dart';
 import 'package:flutter_donor/services/institution_services.dart';
 import 'package:get/get.dart';
@@ -15,6 +14,9 @@ class InstitutionsController extends GetxController {
   List<Datum?> filterInstitutions = <Datum?>[].obs;
   RxBool dontChange = false.obs;
   RxString query = "".obs;
+  Rx<String> ddBlood = "A".obs;
+  Rx<String> ddRhesus = "positive".obs;
+  Rx<String> ddStock = "1".obs;
 
   Rx<InstitutionsStatus> status = InstitutionsStatus.loading.obs;
 
@@ -26,11 +28,24 @@ class InstitutionsController extends GetxController {
     getInstitution(_token);
   }
 
+  void cDdBlood(String? value) {
+    ddBlood.value = value ?? "A";
+  }
+
+  void cDdRhesus(String? value) {
+    ddRhesus.value = value ?? "positive";
+  }
+
+  void cDdStock(String? value) {
+    ddStock.value = value ?? "1";
+  }
+
   void getInstitution(String token) async {
     status.value = InstitutionsStatus.loading;
     update();
     try {
-      institutionsModel = await InstitutionServices.listInstitution(token: token);
+      institutionsModel =
+          await InstitutionServices.listInstitution(token: token);
       status.value = InstitutionsStatus.loaded;
     } catch (e) {
       status.value = InstitutionsStatus.failed;
@@ -38,8 +53,8 @@ class InstitutionsController extends GetxController {
     update();
   }
 
-  void getInitInstitution(){
-    if(status.value == InstitutionsStatus.loaded){
+  void getInitInstitution() {
+    if (status.value == InstitutionsStatus.loaded) {
       filterInstitutions = institutionsModel;
     } else {
       getInstitution(_token);
@@ -50,7 +65,11 @@ class InstitutionsController extends GetxController {
     status.value = InstitutionsStatus.loading;
     update();
     try {
-      filterInstitutions = institutionsModel.where((datum) => datum!.nameInstitutions!.toLowerCase().contains(query.toLowerCase())).toList();
+      filterInstitutions = institutionsModel
+          .where((datum) => datum!.nameInstitutions!
+              .toLowerCase()
+              .contains(query.toLowerCase()))
+          .toList();
       print(filterInstitutions);
       status.value = InstitutionsStatus.loaded;
     } catch (e) {
@@ -58,5 +77,4 @@ class InstitutionsController extends GetxController {
     }
     update();
   }
-
 }
