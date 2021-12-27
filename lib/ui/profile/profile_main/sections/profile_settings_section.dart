@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../get_x/controller/donor_history_controller.dart';
 import '../../../../get_x/controller/faq_controller.dart';
-import '../../../../get_x/controller/profile_controller.dart';
-import '../../../../get_x/controller/submission_history_controller.dart';
 import '../../../../get_x/state/login_getx.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/theme.dart';
 import '../../overlay/profile_overlay_section.dart';
 import '../widgets/settings_item_tile.dart';
+import 'logout_confirm_section.dart';
 import 'change_contact_section.dart';
 import 'change_password_section.dart';
 
@@ -63,12 +61,11 @@ class ProfileSettingsSection extends StatelessWidget {
             label: 'Log Out',
             icon: Icons.logout,
             callback: () {
-              token.changeToken("");
-              token.setDataToken("");
-              Get.delete<DonorHistoryController>();
-              Get.delete<SubmissionHistoryController>();
-              Get.delete<ProfileController>();
-              Get.offAllNamed(Routes.login);
+              Overlay.of(context)!.insert(
+                profileOverlaySection(
+                  child: const LogoutConfirmDialog(),
+                ),
+              );
             },
             textColor: AppColor.white,
             backgroundColor: AppColor.cRed,
