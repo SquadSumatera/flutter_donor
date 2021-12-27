@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/institutions_controller.dart';
+import 'package:flutter_donor/routes/app_pages.dart';
 import 'package:flutter_donor/shared/theme.dart';
 import 'package:flutter_donor/ui/location/location_maps_marker_widget.dart';
 import 'package:get/get.dart';
@@ -36,7 +37,9 @@ class _LocationMapsPageState extends State<LocationMapsPage> {
       ),
       body: Stack(
         children: [
-          LocationMapsMarkerWidget(data: institutionsController.filterInstitutions,),
+          LocationMapsMarkerWidget(
+            data: institutionsController.filterInstitutions,
+          ),
           DraggableScrollableSheet(
             initialChildSize: 0.25,
             builder: (_, scrollController) {
@@ -120,7 +123,201 @@ class _LocationMapsPageState extends State<LocationMapsPage> {
                 ),
               );
             },
-          )
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                alignment: Alignment.topCenter,
+                primary: AppColor.white,
+                shadowColor: AppColor.cGrey,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text(
+                      "Filter",
+                      textAlign: TextAlign.center,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    titleTextStyle: AppText.textMedium.copyWith(
+                      fontWeight: AppText.bold,
+                      color: AppColor.richBlack,
+                    ),
+                    content: Obx(
+                      () => SizedBox(
+                        width: institutionsController.dontChange.value
+                            ? null
+                            : MediaQuery.of(context).size.width,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  "Tipe Darah",
+                                  style: AppText.textNormal.copyWith(
+                                    color: AppColor.richBlack,
+                                    fontWeight: AppText.normal,
+                                  ),
+                                ),
+                                DropdownButton(
+                                  value: institutionsController.ddBlood.value,
+                                  icon: const Icon(
+                                      Icons.arrow_drop_down_outlined),
+                                  elevation: 16,
+                                  style: AppText.textNormal.copyWith(
+                                    color: AppColor.cRed,
+                                    fontWeight: AppText.semiBold,
+                                  ),
+                                  underline: Container(
+                                    height: 2,
+                                    color: AppColor.cRed,
+                                  ),
+                                  items: <String>['A', 'B', 'AB', 'O']
+                                      .map<DropdownMenuItem<String>>(
+                                    (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    },
+                                  ).toList(),
+                                  onChanged: (String? value) {
+                                    institutionsController.cDdBlood(value);
+                                  },
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 4.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  "Tipe Resus",
+                                  style: AppText.textNormal.copyWith(
+                                    color: AppColor.richBlack,
+                                    fontWeight: AppText.normal,
+                                  ),
+                                ),
+                                DropdownButton(
+                                  value: institutionsController.ddRhesus.value,
+                                  icon: const Icon(
+                                      Icons.arrow_drop_down_outlined),
+                                  elevation: 16,
+                                  style: AppText.textNormal.copyWith(
+                                    color: AppColor.cRed,
+                                    fontWeight: AppText.semiBold,
+                                  ),
+                                  underline: Container(
+                                    height: 2,
+                                    color: AppColor.cRed,
+                                  ),
+                                  items: <String>['positive', 'negative']
+                                      .map<DropdownMenuItem<String>>(
+                                    (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    },
+                                  ).toList(),
+                                  onChanged: (String? value) {
+                                    institutionsController.cDdRhesus(value);
+                                  },
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 4.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  "Stok Darah",
+                                  style: AppText.textNormal.copyWith(
+                                    color: AppColor.richBlack,
+                                    fontWeight: AppText.normal,
+                                  ),
+                                ),
+                                DropdownButton(
+                                  value: institutionsController.ddStock.value,
+                                  icon: const Icon(
+                                      Icons.arrow_drop_down_outlined),
+                                  elevation: 16,
+                                  style: AppText.textNormal.copyWith(
+                                    color: AppColor.cRed,
+                                    fontWeight: AppText.semiBold,
+                                  ),
+                                  underline: Container(
+                                    height: 2,
+                                    color: AppColor.cRed,
+                                  ),
+                                  items: <String>["1", "2", "3", "4", "5"]
+                                      .map<DropdownMenuItem<String>>(
+                                    (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    },
+                                  ).toList(),
+                                  onChanged: (String? value) {
+                                    institutionsController.cDdStock(value);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.all(6.0),
+                    actionsAlignment: MainAxisAlignment.center,
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Get.back();
+                          Get.toNamed(Routes.filterInstitutions);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: AppColor.cRed,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                        ),
+                        child: Text(
+                          "Cari",
+                          style: AppText.textNormal.copyWith(
+                            color: AppColor.white,
+                            fontWeight: AppText.bold,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              },
+              child: Text(
+                "Filter",
+                style: AppText.textMedium.copyWith(
+                  color: AppColor.cBlack,
+                  fontWeight: AppText.semiBold,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

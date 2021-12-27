@@ -1,5 +1,6 @@
 import 'package:flutter_donor/ui/event/event_search_page.dart';
 import 'package:flutter_donor/ui/forgot_pass/forgot_pass_page.dart';
+import 'package:flutter_donor/ui/location/location_filter_page.dart';
 import 'package:flutter_donor/ui/main/main_feature.dart';
 import 'package:get/get.dart';
 
@@ -129,6 +130,10 @@ class AppPages {
     GetPage(
       name: Routes.forgotPassword,
       page: () => const ForgotPassPage(),
+    ),
+    GetPage(
+      name: Routes.filterInstitutions,
+      page: () => LocationFilterPage(),
     ),
   ];
 }
