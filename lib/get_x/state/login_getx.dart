@@ -4,6 +4,11 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+enum StatusOauth {
+  loaded,
+  loading,
+}
+
 class LoginGetX extends GetxController {
   RxString email = "".obs;
   RxString pass = "".obs;
@@ -13,42 +18,15 @@ class LoginGetX extends GetxController {
   RxString token = "".obs;
   RxBool isDone = true.obs;
   RxBool onBoard = true.obs;
-  GoogleSignInModel? googleSignInModel;
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: [
-      'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
-    ],
-  );
+  Rx<StatusOauth> statusOuth = StatusOauth.loaded.obs;
 
-  Future googleSignIn() async {
-    try {
-      var result = await _googleSignIn.signIn();
-      if (result != null) {
-        var auth = await result.authentication;
-        if (auth.idToken != null) {
-          print("Ini ID Token" + auth.idToken!);
-          try {
-            googleSignInModel = await LoginGoogleServices.loginGoogleServices(
-                token: auth.idToken!);
-          } catch (e) {
-            print(e);
-          }
-        }
-      }
-    } catch (e) {
-      print(e);
-    }
+  void cLoading() {
+    statusOuth.value = StatusOauth.loading;
   }
 
-  void googleSignInBackEnd(String token) async {
-    try {
-      googleSignInModel =
-          await LoginGoogleServices.loginGoogleServices(token: token);
-    } catch (e) {
-      print(e);
-    }
+  void cLoaded() {
+    statusOuth.value = StatusOauth.loaded;
   }
 
   void changeEmail(String cEmail) {
