@@ -218,6 +218,11 @@ class LoginPage extends StatelessWidget {
                                   );
                                 }
                               } catch (e) {
+                                Get.snackbar(
+                                  "Kesalahan",
+                                  "Silahkan Cek koneksi anda",
+                                  duration: const Duration(seconds: 4),
+                                );
                                 print("error");
                                 print(e);
                               }
