@@ -34,7 +34,7 @@ class _LogoutConfirmDialogState extends State<LogoutConfirmDialog> {
       child: Container(
         color: AppColor.white,
         constraints: BoxConstraints(
-          maxHeight: Get.height * 0.20,
+          maxHeight: Get.height * 0.25,
         ),
         padding: const EdgeInsets.all(28),
         child: Column(

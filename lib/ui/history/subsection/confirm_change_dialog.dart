@@ -42,7 +42,7 @@ class ConfirmChangeDialog extends StatelessWidget {
         () => Container(
           color: AppColor.white,
           constraints: BoxConstraints(
-            maxHeight: Get.height * 0.20,
+            maxHeight: Get.height * 0.30,
           ),
           padding: const EdgeInsets.all(28),
           child: Column(
