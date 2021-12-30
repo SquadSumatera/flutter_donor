@@ -41,8 +41,8 @@ class ConfirmChangeDialog extends StatelessWidget {
       child: Obx(
         () => Container(
           color: AppColor.white,
-          constraints: BoxConstraints(
-            maxHeight: Get.height * 0.30,
+          constraints: const BoxConstraints(
+            maxHeight: 170,
           ),
           padding: const EdgeInsets.all(28),
           child: Column(

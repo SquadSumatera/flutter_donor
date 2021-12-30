@@ -21,8 +21,8 @@ class HistoryListContainer extends StatelessWidget {
 
   List<Widget> _submissionHistoryTiles() {
     List<Widget> _result = [];
-    if (submissionHistoryController.status.value !=
-        SubmissionHistoryLoadStatus.loaded) {
+    if (submissionHistoryController.status.value ==
+        SubmissionHistoryLoadStatus.loading) {
       _result.add(
         const Center(
           child: CircularProgressIndicator(
@@ -51,13 +51,23 @@ class HistoryListContainer extends StatelessWidget {
         );
       }
     }
-
+    if (_result.isEmpty) {
+      _result.add(
+        const Center(
+          child: Text(
+            "Tidak ada permohonan yang ditemukan.",
+            style: AppText.textNormal,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
     return _result;
   }
 
   List<Widget> _donorHistoryTiles() {
     List<Widget> _result = [];
-    if (donorHistoryController.status.value != DonorHistoryLoadStatus.loaded) {
+    if (donorHistoryController.status.value == DonorHistoryLoadStatus.loading) {
       _result.add(
         const Center(
           child: CircularProgressIndicator(
@@ -84,6 +94,17 @@ class HistoryListContainer extends StatelessWidget {
           ),
         );
       }
+    }
+    if (_result.isEmpty) {
+      _result.add(
+        const Center(
+          child: Text(
+            "Tidak ada pengajuan yang ditemukan.",
+            style: AppText.textNormal,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
     }
     return _result;
   }

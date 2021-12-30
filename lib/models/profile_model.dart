@@ -59,12 +59,16 @@ class ProfileModel {
     return _genderList[genderDonators];
   }
 
+  String? get showBloodType {
+    return ((bloodTypeDonators?.length ?? 0) <= 1) ? '-' : bloodTypeDonators;
+  }
+
   String? get showRhesus {
     Map<String, String> _rhesusList = {
       ProfileRhesusType.positive: "+",
       ProfileRhesusType.negative: "-",
     };
-    return _rhesusList[bloodRhesusDonators];
+    return _rhesusList[bloodRhesusDonators] ?? '-';
   }
 
   String get showJoined {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_donor/get_x/controller/profile_controller.dart';
-import 'package:flutter_donor/get_x/state/login_getx.dart';
 import '../../../../models/profile_model.dart';
 import '../../../../shared/theme.dart';
 import 'package:get/get.dart';
@@ -20,7 +19,9 @@ class ConfirmChangeIdentity extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColor.white,
-      height: 170,
+      constraints: const BoxConstraints(
+        maxHeight: 170,
+      ),
       padding: const EdgeInsets.all(28),
       child: Column(
         children: <Widget>[

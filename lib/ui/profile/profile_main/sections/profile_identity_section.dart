@@ -41,8 +41,7 @@ class ProfileIdentitySection extends StatelessWidget {
                 ),
                 ProfileIdentityItem(
                   title: "Golongan Darah",
-                  value:
-                      profileController.profile.value.bloodTypeDonators ?? "-",
+                  value: profileController.profile.value.showBloodType ?? "-",
                 ),
                 ProfileIdentityItem(
                   title: "Rhesus",
