@@ -210,7 +210,7 @@ class _DonorPageState extends State<DonorPage> {
                           .then((date) {
                         setState(() {
                           dateController.text =
-                              "${date!.year}-${date.weekday}-${date.day}";
+                              "${date!.year}-${date.month}-${date.day}";
                         });
                       });
                     },
