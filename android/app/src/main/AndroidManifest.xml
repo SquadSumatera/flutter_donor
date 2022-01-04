@@ -8,7 +8,7 @@
 
    <application
         android:requestLegacyExternalStorage="true"
-        android:label="flutter_donor"
+        android:label="Dorplas"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

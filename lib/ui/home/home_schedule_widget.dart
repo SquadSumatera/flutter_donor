@@ -99,7 +99,7 @@ Widget cardSchedule(String date, String title, String address) {
               ),
             ),
             Text(
-              "00.00.00 WIB",
+              "09.00 - 15.00 WIB",
               style: AppText.textSmall.copyWith(
                 fontWeight: AppText.normal,
                 color: AppColor.white,
