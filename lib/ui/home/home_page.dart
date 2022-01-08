@@ -16,6 +16,7 @@ import 'package:flutter_donor/ui/home/home_handle_widget.dart';
 import 'package:flutter_donor/ui/home/home_trend_widget.dart';
 import 'package:flutter_donor/ui/home/section/home_article_section.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import 'home_schedule_widget.dart';
 import 'home_stok_widget.dart';
@@ -95,38 +96,53 @@ class HomePage extends StatelessWidget {
                                           donorHistoryController.onInit();
                                         },
                                       )
-                                    : ListView.builder(
-                                        primary: false,
-                                        shrinkWrap: true,
-                                        itemCount: donorHistoryController
-                                            .donorSchedule.length,
-                                        itemBuilder: (context, i) {
-                                          return GestureDetector(
-                                            onTap: () {
-                                              Get.toNamed(Routes.donorDetail);
-                                              donorHistoryController
-                                                  .setSelected(
-                                                      donorHistoryController
-                                                          .donorSchedule[i]
-                                                          .value);
-                                            },
-                                            child: cardSchedule(
-                                              donorHistoryController
-                                                  .donorSchedule[i]
-                                                  .value
-                                                  .scheduleDonorNotesDate,
-                                              donorHistoryController
-                                                  .donorSchedule[i]
-                                                  .value
-                                                  .scheduleDonorNotesCard,
-                                              donorHistoryController
-                                                  .donorSchedule[i]
-                                                  .value
-                                                  .nameInstitutions!,
+                                    : donorHistoryController
+                                            .donorSchedule.isEmpty
+                                        ? Center(
+                                            child: SizedBox(
+                                              height: 180.0,
+                                              child: Lottie.asset(
+                                                'assets/json/not_found.json',
+                                                width: 180.0,
+                                                height: 180.0,
+                                                fit: BoxFit.cover,
+                                                alignment: Alignment.center,
+                                              ),
                                             ),
-                                          );
-                                        },
-                                      ),
+                                          )
+                                        : ListView.builder(
+                                            primary: false,
+                                            shrinkWrap: true,
+                                            itemCount: donorHistoryController
+                                                .donorSchedule.length,
+                                            itemBuilder: (context, i) {
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  Get.toNamed(
+                                                      Routes.donorDetail);
+                                                  donorHistoryController
+                                                      .setSelected(
+                                                          donorHistoryController
+                                                              .donorSchedule[i]
+                                                              .value);
+                                                },
+                                                child: cardSchedule(
+                                                  donorHistoryController
+                                                      .donorSchedule[i]
+                                                      .value
+                                                      .scheduleDonorNotesDate,
+                                                  donorHistoryController
+                                                      .donorSchedule[i]
+                                                      .value
+                                                      .scheduleDonorNotesCard,
+                                                  donorHistoryController
+                                                      .donorSchedule[i]
+                                                      .value
+                                                      .nameInstitutions!,
+                                                ),
+                                              );
+                                            },
+                                          ),
                           ),
                           const SizedBox(
                             height: 35.0,
