@@ -60,7 +60,7 @@ class ProfileModel {
   }
 
   String? get showBloodType {
-    return ((bloodTypeDonators?.length ?? 0) <= 1) ? '-' : bloodTypeDonators;
+    return ((bloodTypeDonators?.length ?? 0) < 1) ? '-' : bloodTypeDonators;
   }
 
   String? get showRhesus {
