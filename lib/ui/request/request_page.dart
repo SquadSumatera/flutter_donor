@@ -243,7 +243,7 @@ class _RequestPageState extends State<RequestPage> {
                     controller: quantityController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      hintText: "Masukkan kumorbid penerima, jika ada",
+                      hintText: "Masukkan jumlah kantong yang diperlukan",
                       border: const UnderlineInputBorder(),
                       focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.blue),
