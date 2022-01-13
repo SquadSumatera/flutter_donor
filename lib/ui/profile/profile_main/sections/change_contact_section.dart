@@ -62,13 +62,30 @@ class _ChangeContactSectionState extends State<ChangeContactSection> {
             const SizedBox(height: 18),
             BaseTextField(
               label: "Email",
-              isEnabled: false,
               initialValue: tempProfile.emailDonators,
               placeholderText: "Masukkan email...",
               callback: (val) {
                 tempProfile.emailDonators = val;
               },
             ),
+            Obx(() {
+              if (profileController.status.value ==
+                  ProfileLoadStatus.updateFailed) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Email telah terdaftar, silahkan coba email lainnya',
+                      style: AppText.textSmall.copyWith(
+                        color: AppColor.cRed,
+                      ),
+                    ),
+                  ],
+                );
+              }
+
+              return Container();
+            }),
             const SizedBox(height: 12),
             BaseTextField(
               label: "No Handphone",
